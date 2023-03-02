@@ -1,4 +1,4 @@
-import { CheckIn } from './check-in';
+import { CheckIn } from './check-in.aggregate';
 
 describe('CheckIn', () => {
   it('should be defined', () => {

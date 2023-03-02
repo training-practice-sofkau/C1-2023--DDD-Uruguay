@@ -1,4 +1,4 @@
-import { Reserve } from './reserve';
+import { Reserve } from './reserve.aggregate';
 
 describe('Reserve', () => {
   it('should be defined', () => {

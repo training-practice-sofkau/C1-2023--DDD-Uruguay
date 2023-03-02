@@ -1,4 +1,4 @@
-import { CheckOut } from './check-out';
+import { CheckOut } from './check-out.aggregate';
 
 describe('CheckOut', () => {
   it('should be defined', () => {
