@@ -1,4 +1,4 @@
-import { EmpleadoRegistradoEventPublisher } from './empleado-registrado.event-publisher';
+import { EmpleadoRegistradoEventPublisher } from "./empleado-registrado.event-publisher";
 
 describe('EmpleadoRegistradoEventPublisher', () => {
   it('should be defined', () => {
