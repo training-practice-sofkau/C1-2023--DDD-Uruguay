@@ -1,7 +1,7 @@
 import {  ValueObjectBase } from 'src/libs';
 import { uuid4 } from 'uuid';
 
-export class TerminosACumplir extends ValueObjectBase<string> {
+export class TerminosACumplirValueObject extends ValueObjectBase<string> {
    
    constructor(value?:string){
     super(value ? value : uuid4() )
