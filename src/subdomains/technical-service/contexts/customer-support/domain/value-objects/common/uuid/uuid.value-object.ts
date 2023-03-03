@@ -12,7 +12,6 @@ export class UUIDValueObject extends ValueObjectBase<string>{
 
         this.validateContent();
         this.validateStructure();
-
     }
 
     /**
@@ -34,8 +33,6 @@ export class UUIDValueObject extends ValueObjectBase<string>{
         }
     }
 
-
-
     /**
      * Validates the structure of the value object given
      * It must be a valid UUID v4
@@ -49,7 +46,7 @@ export class UUIDValueObject extends ValueObjectBase<string>{
 
             const error = {
                 field: 'UUID',
-                message: 'The UUID given is not valid!'
+                message: `${this.value} is not a valid v4 UUID!`
             };
 
             this.setError(error);
