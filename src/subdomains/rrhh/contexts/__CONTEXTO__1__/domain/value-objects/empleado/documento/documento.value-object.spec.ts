@@ -1,7 +1,7 @@
-import { DocumentoValueObject } from './documento.value-object';
+import { Documento } from './documento.value-object';
 
-describe('DocumentoValueObject', () => {
+describe('Documento', () => {
   it('should be defined', () => {
-    expect(new DocumentoValueObject()).toBeDefined();
+    expect(new Documento()).toBeDefined();
   });
 });

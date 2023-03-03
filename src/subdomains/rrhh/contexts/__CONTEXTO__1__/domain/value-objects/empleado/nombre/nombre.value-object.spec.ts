@@ -1,7 +1,7 @@
-import { NombreValueObject } from './nombre.value-object';
+import { Nombre } from './nombre.value-object';
 
-describe('NombreValueObject', () => {
+describe('Nombre', () => {
   it('should be defined', () => {
-    expect(new NombreValueObject()).toBeDefined();
+    expect(new Nombre()).toBeDefined();
   });
 });

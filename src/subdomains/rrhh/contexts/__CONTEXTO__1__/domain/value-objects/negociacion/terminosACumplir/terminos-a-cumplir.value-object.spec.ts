@@ -1,7 +1,7 @@
-import { TerminosACumplirValueObject } from './terminos-a-cumplir.value-object';
+import { TerminosACumplir } from './terminos-a-cumplir.value-object';
 
-describe('TerminosACumplirValueObject', () => {
+describe('TerminosACumplir', () => {
   it('should be defined', () => {
-    expect(new TerminosACumplirValueObject()).toBeDefined();
+    expect(new TerminosACumplir()).toBeDefined();
   });
 });

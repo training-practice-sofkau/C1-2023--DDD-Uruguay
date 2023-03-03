@@ -1,25 +1,17 @@
-import { IErrorValueObject, ValueObjectBase } from 'src/libs';
-export class TerminosACumplir implements ValueObjectBase<string> {
-    
-    get value(): string {
-        throw new Error('Method not implemented.');
-    }
-    set value(value: string) {
-        throw new Error('Method not implemented.');
-    }
+import {  ValueObjectBase } from 'src/libs';
+import { uuid4 } from 'uuid';
+
+export class TerminosACumplir extends ValueObjectBase<string> {
+   
+   constructor(value?:string){
+    super(value ? value : uuid4() )
+   }
+
     validateData(): void {
         throw new Error('Method not implemented.');
     }
-    hasErrors(): boolean {
-        throw new Error('Method not implemented.');
-    }
-    getErrors(): IErrorValueObject[] {
-        throw new Error('Method not implemented.');
-    }
-    protected setError(error: IErrorValueObject): void {
-        throw new Error('Method not implemented.');
-    }
-    valueOf(): string {
-        throw new Error('Method not implemented.');
-    }
+     
+  
 }
+
+

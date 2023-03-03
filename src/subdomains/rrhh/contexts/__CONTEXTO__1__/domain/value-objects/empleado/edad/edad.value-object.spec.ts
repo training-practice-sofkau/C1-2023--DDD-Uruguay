@@ -1,7 +1,7 @@
-import { EdadValueObject } from './edad.value-object';
+import { Edad } from './edad.value-object';
 
-describe('EdadValueObject', () => {
+describe('Edad', () => {
   it('should be defined', () => {
-    expect(new EdadValueObject()).toBeDefined();
+    expect(new Edad()).toBeDefined();
   });
 });

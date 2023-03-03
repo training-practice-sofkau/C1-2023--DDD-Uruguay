@@ -1,26 +1,9 @@
-import { IErrorValueObject, ValueObjectBase } from "src/libs";
+import { ValueObjectBase } from "src/libs";
 
-export class Nacionalidad implements ValueObjectBase<string>{
-    
-    get value(): string {
-        throw new Error("Method not implemented.");
-    }
-    set value(value: string) {
-        throw new Error("Method not implemented.");
-    }
+export class Nacionalidad extends ValueObjectBase<string>{
+
     validateData(): void {
         throw new Error("Method not implemented.");
     }
-    hasErrors(): boolean {
-        throw new Error("Method not implemented.");
-    }
-    getErrors(): IErrorValueObject[] {
-        throw new Error("Method not implemented.");
-    }
-    protected setError(error: IErrorValueObject): void {
-        throw new Error("Method not implemented.");
-    }
-    valueOf(): string {
-        throw new Error("Method not implemented.");
-    }
+   
 }

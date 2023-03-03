@@ -1,7 +1,7 @@
-import { NacionalidadValueObject } from './nacionalidad.value-object';
+import { Nacionalidad } from './nacionalidad.value-object';
 
-describe('NacionalidadValueObject', () => {
+describe('Nacionalidad', () => {
   it('should be defined', () => {
-    expect(new NacionalidadValueObject()).toBeDefined();
+    expect(new Nacionalidad()).toBeDefined();
   });
 });

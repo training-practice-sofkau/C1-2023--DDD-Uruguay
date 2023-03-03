@@ -1,7 +1,7 @@
-import { TipoEmpleadoValueObject } from './tipo-empleado.value-object';
+import { TipoEmpleado } from './tipo-empleado.value-object';
 
-describe('TipoEmpleadoValueObject', () => {
+describe('TipoEmpleado', () => {
   it('should be defined', () => {
-    expect(new TipoEmpleadoValueObject()).toBeDefined();
+    expect(new TipoEmpleado()).toBeDefined();
   });
 });
