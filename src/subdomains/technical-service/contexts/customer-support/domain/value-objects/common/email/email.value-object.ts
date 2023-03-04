@@ -1,5 +1,5 @@
 import { ValueObjectBase } from "src/libs/sofka/bases/object-value.base";
-import { IsEmail } from "src/libs/sofka/validations/email.validation";
+import { IsEmail } from "src/libs/validations/email.validation";
 
 export class EmailValueObject extends ValueObjectBase<string>{
 

@@ -1,4 +1,4 @@
-import { IsValidFullname } from 'src/libs/sofka/validations/fullname.validation';
+import { IsValidFullname } from 'src/libs/validations/fullname.validation';
 import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
 export class FullnameValueObject extends ValueObjectBase<string> {
     

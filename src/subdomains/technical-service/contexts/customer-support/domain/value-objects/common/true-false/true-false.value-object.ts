@@ -1,4 +1,4 @@
-import { IsBoolean } from 'src/libs/sofka/validations/true-false.validation';
+import { IsBoolean } from 'src/libs/validations/true-false.validation';
 import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
 
 export class TrueFalseValueObject extends ValueObjectBase<boolean> {

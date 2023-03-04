@@ -1,4 +1,4 @@
-import { IsDate } from 'src/libs/sofka/validations/date.validation';
+import { IsDate } from 'src/libs/validations/date.validation';
 import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
 
 export class DateValueObject extends ValueObjectBase<Date> {
