@@ -8,6 +8,12 @@ export class TrueFalseValueObject extends ValueObjectBase<boolean> {
     }
 
 
+
+    /**
+     *  checks that the VO data is valid
+     *
+     * @memberof TrueFalseValueObject
+     */
     validateData(): void {
 
         this.validateContent();

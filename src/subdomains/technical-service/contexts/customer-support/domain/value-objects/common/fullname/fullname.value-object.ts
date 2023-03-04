@@ -7,12 +7,25 @@ export class FullnameValueObject extends ValueObjectBase<string> {
         super(value ? value : '');
     }
     
+
+    /**
+     * checks that the VO data is valid
+     *
+     * @memberof FullnameValueObject
+     */
     validateData(): void {
         this.validateContent();
         this.validateStructure();
     }
    
 
+    /**
+     * Validates that the value object given is not empty, null or exceeds
+     * minimu and maximum length
+     *
+     * @private
+     * @memberof FullnameValueObject
+     */
     private validateContent() {
 
         if (this.value === '') {
@@ -46,6 +59,13 @@ export class FullnameValueObject extends ValueObjectBase<string> {
         }
     }
 
+
+    /**
+     *  Validates the structure of the value object given
+     *
+     * @private
+     * @memberof FullnameValueObject
+     */
     private validateStructure() {
 
         if (this.value && IsValidFullname(this.value)) {

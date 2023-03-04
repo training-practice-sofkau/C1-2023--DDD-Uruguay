@@ -8,6 +8,12 @@ export class UUIDValueObject extends ValueObjectBase<string>{
         super(value ? value : uuid());
     }
 
+
+    /**
+     *  checks that the VO data is valid
+     *
+     * @memberof UUIDValueObject
+     */
     validateData(): void {
 
         this.validateContent();
@@ -22,11 +28,21 @@ export class UUIDValueObject extends ValueObjectBase<string>{
      */
     private validateContent(): void {
 
-        if ( !this.value ) {
+        if (this.value === '') {
 
             const error = {
                 field: 'UUID',
                 message: 'Not UUID was given!'
+            };
+
+            this.setError(error);
+        }
+
+        // checks that the UUID given is not more than 36 char long (standard UUID lenght)
+        if (this.value.length > 36) {
+            const error = {
+                field: 'UUID',
+                message: 'The UUID value given is too long!'
             };
 
             this.setError(error);

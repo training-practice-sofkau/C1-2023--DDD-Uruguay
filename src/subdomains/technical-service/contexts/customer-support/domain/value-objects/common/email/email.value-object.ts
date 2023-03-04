@@ -7,6 +7,12 @@ export class EmailValueObject extends ValueObjectBase<string>{
         super(value ? value : '');
     }
 
+
+    /**
+     *  checks that the VO data is valid
+     *
+     * @memberof EmailValueObject
+     */
     validateData(): void {
 
         this.validateContent();
@@ -15,8 +21,9 @@ export class EmailValueObject extends ValueObjectBase<string>{
     }
 
     /**
-     * Validates that the value object given is not empty or null
-     *
+     * Validates that the value object given is not empty, null or exceeds
+     * maximum length
+     * 
      * @private
      * @memberof EmailValueObject
      */
