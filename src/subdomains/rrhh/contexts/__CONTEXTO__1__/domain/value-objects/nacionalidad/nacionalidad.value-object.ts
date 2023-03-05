@@ -2,8 +2,18 @@ import { ValueObjectBase } from "src/libs";
 
 export class NacionalidadValueObject extends ValueObjectBase<string>{
 
+
+    constructor(value? : string ){
+        super(value? value: "");
+    }
+
     validateData(): void {
-        throw new Error("Method not implemented.");
+        
+    }
+
+    private formatoNacionalidad():void{
+
+        if(this.value && )
     }
    
 }
