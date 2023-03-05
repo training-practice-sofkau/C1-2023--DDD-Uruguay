@@ -6,5 +6,6 @@ export * from './email.validation';
 export * from './full-name.validation';
 export * from './location.validation';
 export * from './payment-method.validation';
+export * from './phone.validation';
 export * from './type.validation';
 export * from './uuid.validation';
