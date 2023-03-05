@@ -1,6 +1,7 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
-import { v4 as uuid } from "uuid";
 import { IsUUID } from 'src/libs/validations/';
+import { v4 as uuid } from "uuid";
+
 
 export class IdValueObject extends ValueObjectBase<string>{
 
