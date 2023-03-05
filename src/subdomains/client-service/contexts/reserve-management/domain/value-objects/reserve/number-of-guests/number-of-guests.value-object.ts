@@ -1,4 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
+import { IsValidNumber } from 'src/libs/validations';
 
 export class NumberOfGuestsValueObject extends ValueObjectBase<number>{
 
@@ -8,6 +9,7 @@ export class NumberOfGuestsValueObject extends ValueObjectBase<number>{
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsNumber();
         this.validateMaxCapacity();
     }
 
@@ -38,6 +40,22 @@ export class NumberOfGuestsValueObject extends ValueObjectBase<number>{
             const error = {
                 field: 'NumberOfGuests',
                 message: 'El hotel no cuenta con tantas habitaciones disponibles'
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo number
+     *
+     * @private
+     * @memberof NumberOfGuestsValueObject
+     */
+    private validateIsNumber(): void {
+        if (this.value && IsValidNumber(this.value) === false) {
+            const error = {
+                field: 'NumberOfGuests',
+                message: `${this.value} , no es un dato tipo number`
             };
             this.setError(error);
         }

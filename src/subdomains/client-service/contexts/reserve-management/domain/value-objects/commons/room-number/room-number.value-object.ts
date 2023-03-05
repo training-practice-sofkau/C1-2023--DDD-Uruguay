@@ -1,4 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
+import { IsValidNumber } from 'src/libs/validations';
 
 export class RoomNumberValueObject extends ValueObjectBase<number>{
 
@@ -8,6 +9,7 @@ export class RoomNumberValueObject extends ValueObjectBase<number>{
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsNumber();
         this.validateExist();
     }
 
@@ -46,6 +48,22 @@ export class RoomNumberValueObject extends ValueObjectBase<number>{
             const error = {
                 field: 'RoomNumber',
                 message: 'Se proporciono un numero muy alto'
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo number
+     *
+     * @private
+     * @memberof RoomNumberValueObject
+     */
+    private validateIsNumber(): void {
+        if (this.value && IsValidNumber(this.value) === false) {
+            const error = {
+                field: 'RoomNumber',
+                message: `${this.value} , no es un dato tipo number`
             };
             this.setError(error);
         }

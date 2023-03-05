@@ -1,5 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
-import { IsValidDocument } from 'src/libs/validations/';
+import { IsValidDocument, IsValidNumber } from 'src/libs/validations/';
 
 export class DocumentValueObject extends ValueObjectBase<number> {
 
@@ -9,6 +9,7 @@ export class DocumentValueObject extends ValueObjectBase<number> {
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsNumber();
         this.validateStructure();
     }
 
@@ -40,6 +41,22 @@ export class DocumentValueObject extends ValueObjectBase<number> {
             const error = {
                 field: 'Document',
                 message: `${this.value} , no es un documento valido`
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo number
+     *
+     * @private
+     * @memberof DocumentValueObject
+     */
+    private validateIsNumber(): void {
+        if(this.value && IsValidNumber(this.value) === false) {
+            const error = {
+                field: 'Document',
+                message: `${this.value} , no es un dato tipo number`
             };
             this.setError(error);
         }

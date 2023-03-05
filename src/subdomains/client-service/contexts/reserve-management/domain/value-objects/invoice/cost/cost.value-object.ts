@@ -1,4 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
+import { IsValidNumber } from 'src/libs/validations';
 
 export class CostValueObject extends ValueObjectBase<number>{
 
@@ -8,6 +9,7 @@ export class CostValueObject extends ValueObjectBase<number>{
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsNumber();
         this.validatePositive();
     }
 
@@ -38,6 +40,22 @@ export class CostValueObject extends ValueObjectBase<number>{
             const error = {
                 field: 'Cost',
                 message: 'No se puede ingresar un costo negativo'
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo number
+     *
+     * @private
+     * @memberof CostValueObject
+     */
+    private validateIsNumber(): void {
+        if (this.value && IsValidNumber(this.value) === false) {
+            const error = {
+                field: 'Cost',
+                message: `${this.value} , no es un dato tipo number`
             };
             this.setError(error);
         }

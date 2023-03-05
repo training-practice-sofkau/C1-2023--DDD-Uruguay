@@ -1,13 +1,15 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
+import { IsValidNumber } from 'src/libs/validations';
 
 export class LaundryValueObject extends ValueObjectBase<number>{
-    
+
     constructor(value: number) {
         super(value);
     }
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsNumber();
         this.validatePositive();
     }
 
@@ -38,6 +40,22 @@ export class LaundryValueObject extends ValueObjectBase<number>{
             const error = {
                 field: 'Laundry',
                 message: 'No se puede ingresar un costo negativo'
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo number
+     *
+     * @private
+     * @memberof LaundryValueObject
+     */
+    private validateIsNumber(): void {
+        if (this.value && IsValidNumber(this.value) === false) {
+            const error = {
+                field: 'Laundry',
+                message: `${this.value} , no es un dato tipo number`
             };
             this.setError(error);
         }
