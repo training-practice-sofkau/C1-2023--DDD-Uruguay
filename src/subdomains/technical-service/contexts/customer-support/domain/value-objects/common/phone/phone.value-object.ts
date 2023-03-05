@@ -1,4 +1,4 @@
-import { IsPhoneNumber } from 'src/libs/validations/phone.validation';
+import { IsPhoneNumber } from '../../../../../../../../libs/validations/phone.validation';
 import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
 
 export class PhoneValueObject extends ValueObjectBase<string> {

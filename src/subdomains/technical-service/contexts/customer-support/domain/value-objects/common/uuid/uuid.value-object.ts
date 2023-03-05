@@ -1,6 +1,6 @@
 import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
 import { v4 as uuid } from "uuid";
-import { IsUUID } from 'src/libs/validations/is-uuid.validation';
+import { IsUUID } from '../../../../../../../../libs/validations/is-uuid.validation';
 
 export class UUIDValueObject extends ValueObjectBase<string>{
 
@@ -8,6 +8,7 @@ export class UUIDValueObject extends ValueObjectBase<string>{
         super(value ? value : uuid());
     }
 
+    //TODO: metodo para crear nuevo UUID
 
     /**
      *  checks that the VO data is valid

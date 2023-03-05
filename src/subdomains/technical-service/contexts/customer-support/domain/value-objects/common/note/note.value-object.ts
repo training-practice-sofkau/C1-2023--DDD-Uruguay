@@ -1,4 +1,4 @@
-import { ValueObjectBase } from "src/libs/sofka/bases/object-value.base";
+import { ValueObjectBase } from "../../../../../../../../libs/sofka/bases/object-value.base";
 
 export class NoteValueObject extends ValueObjectBase<string> {
     

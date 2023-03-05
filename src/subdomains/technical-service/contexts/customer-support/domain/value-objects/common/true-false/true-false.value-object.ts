@@ -1,4 +1,4 @@
-import { IsBoolean } from 'src/libs/validations/true-false.validation';
+import { IsBoolean } from '../../../../../../../../libs/validations/true-false.validation';
 import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
 
 export class TrueFalseValueObject extends ValueObjectBase<boolean> {
@@ -6,8 +6,6 @@ export class TrueFalseValueObject extends ValueObjectBase<boolean> {
     constructor(value?: boolean) {
         super(value ? value : null);
     }
-
-
 
     /**
      *  checks that the VO data is valid
