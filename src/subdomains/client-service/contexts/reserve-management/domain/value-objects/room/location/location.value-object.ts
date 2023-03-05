@@ -1,5 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
-import { IsValidLocation } from 'src/libs/validations';
+import { IsValidLocation, IsValidString } from 'src/libs/validations';
 
 export class LocationValueObject extends ValueObjectBase<string>{
 
@@ -9,6 +9,7 @@ export class LocationValueObject extends ValueObjectBase<string>{
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsString();
         this.validateStructure();
     }
 
@@ -36,10 +37,26 @@ export class LocationValueObject extends ValueObjectBase<string>{
      * @memberof LocationValueObject
      */
     private validateStructure(): void {
-        if(this.value && IsValidLocation(this.value) === false) {
+        if (this.value && IsValidLocation(this.value) === false) {
             const error = {
                 field: 'Location',
                 message: `${this.value} , no es la localizacion de un piso valido`
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo string
+     *
+     * @private
+     * @memberof LocationValueObject
+     */
+    private validateIsString(): void {
+        if (this.value && IsValidString(this.value) === false) {
+            const error = {
+                field: 'Location',
+                message: `${this.value} , no es un dato tipo string`
             };
             this.setError(error);
         }

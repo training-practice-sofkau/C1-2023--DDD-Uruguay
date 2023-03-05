@@ -1,5 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
-import { IsValidAccommodation } from 'src/libs/validations/';
+import { IsValidAccommodation, IsValidString } from 'src/libs/validations/';
 
 export class AccommodationValueObject extends ValueObjectBase<string>{
 
@@ -9,6 +9,7 @@ export class AccommodationValueObject extends ValueObjectBase<string>{
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsString();
         this.validateStructure();
     }
 
@@ -36,10 +37,26 @@ export class AccommodationValueObject extends ValueObjectBase<string>{
      * @memberof AccommodationValueObject
      */
     private validateStructure(): void {
-        if(this.value && IsValidAccommodation(this.value) === false) {
+        if (this.value && IsValidAccommodation(this.value) === false) {
             const error = {
                 field: 'Accommodation',
                 message: `${this.value} , no es una acomodacion valida`
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo string
+     *
+     * @private
+     * @memberof AccommodationValueObject
+     */
+    private validateIsString(): void {
+        if (this.value && IsValidString(this.value) === false) {
+            const error = {
+                field: 'Accommodation',
+                message: `${this.value} , no es un dato tipo string`
             };
             this.setError(error);
         }

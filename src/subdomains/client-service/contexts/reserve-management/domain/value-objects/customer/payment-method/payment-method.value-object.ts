@@ -1,14 +1,15 @@
-import { IsValidPaymentMethod } from 'src/libs';
+import { IsValidPaymentMethod, IsValidString } from 'src/libs';
 import { ValueObjectBase } from 'src/libs/sofka/';
 
 export class PaymentMethodValueObject extends ValueObjectBase<string> {
 
-    constructor (value?: string) {
+    constructor(value?: string) {
         super(value);
     }
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsString();
         this.validateStructure();
     }
 
@@ -36,10 +37,26 @@ export class PaymentMethodValueObject extends ValueObjectBase<string> {
      * @memberof PaymentMethodValueObject
      */
     private validateStructure(): void {
-        if(this.value && IsValidPaymentMethod(this.value) === false) {
+        if (this.value && IsValidPaymentMethod(this.value) === false) {
             const error = {
                 field: 'PaymentMethod',
                 message: `${this.value} , no es un metodo de pago valido`
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo string
+     *
+     * @private
+     * @memberof PaymentMethodValueObject
+     */
+    private validateIsString(): void {
+        if (this.value && IsValidString(this.value) === false) {
+            const error = {
+                field: 'PaymentMethod',
+                message: `${this.value} , no es un dato tipo string`
             };
             this.setError(error);
         }

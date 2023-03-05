@@ -1,5 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
-import { IsValidPhone } from 'src/libs/validations/';
+import { IsValidPhone, IsValidString } from 'src/libs/validations/';
 
 export class PhoneValueObject extends ValueObjectBase<string>{
 
@@ -9,6 +9,7 @@ export class PhoneValueObject extends ValueObjectBase<string>{
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsString();
         this.validateStructure();
     }
 
@@ -37,10 +38,26 @@ export class PhoneValueObject extends ValueObjectBase<string>{
      * @memberof PhoneValueObject
      */
     private validateStructure(): void {
-        if(this.value && IsValidPhone(this.value) === false) {
+        if (this.value && IsValidPhone(this.value) === false) {
             const error = {
                 field: 'Phone',
                 message: `${this.value} , no es un telefono valido`
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo string
+     *
+     * @private
+     * @memberof PhoneValueObject
+     */
+    private validateIsString(): void {
+        if (this.value && IsValidString(this.value) === false) {
+            const error = {
+                field: 'Phone',
+                message: `${this.value} , no es un dato tipo string`
             };
             this.setError(error);
         }

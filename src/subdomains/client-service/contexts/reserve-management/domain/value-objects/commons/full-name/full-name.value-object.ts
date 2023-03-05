@@ -1,5 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
-import { IsValidFullName } from 'src/libs/validations/';
+import { IsValidFullName, IsValidString } from 'src/libs/validations/';
 export class FullNameValueObject extends ValueObjectBase<string>{
 
     constructor(value?: string) {
@@ -8,6 +8,7 @@ export class FullNameValueObject extends ValueObjectBase<string>{
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsString();
         this.validateLength();
         this.validateStructure()
     }
@@ -62,10 +63,26 @@ export class FullNameValueObject extends ValueObjectBase<string>{
      * @memberof FullNameValueObject
      */
     private validateStructure(): void {
-        if(this.value && IsValidFullName(this.value) === false) {
+        if (this.value && IsValidFullName(this.value) === false) {
             const error = {
                 field: 'FullName',
                 message: `El nombre: ${this.value} , no es valido`
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo string
+     *
+     * @private
+     * @memberof FullNameValueObject
+     */
+    private validateIsString(): void {
+        if (this.value && IsValidString(this.value) === false) {
+            const error = {
+                field: 'FullName',
+                message: `${this.value} , no es un dato tipo string`
             };
             this.setError(error);
         }

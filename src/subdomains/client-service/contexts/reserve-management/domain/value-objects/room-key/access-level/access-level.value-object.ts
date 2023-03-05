@@ -1,5 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
-import { IsValidAccessLevel } from 'src/libs/validations';
+import { IsValidAccessLevel, IsValidString } from 'src/libs/validations';
 
 export class AccessLevelValueObject extends ValueObjectBase<string>{
 
@@ -9,6 +9,7 @@ export class AccessLevelValueObject extends ValueObjectBase<string>{
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsString();
         this.validateStructure();
     }
 
@@ -36,10 +37,26 @@ export class AccessLevelValueObject extends ValueObjectBase<string>{
      * @memberof AccessLevelValueObject
      */
     private validateStructure(): void {
-        if(this.value && IsValidAccessLevel(this.value) === false) {
+        if (this.value && IsValidAccessLevel(this.value) === false) {
             const error = {
                 field: 'AccessLevel',
                 message: `${this.value} , no es un nivel de acceso valido`
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo string
+     *
+     * @private
+     * @memberof AccessLevelValueObject
+     */
+    private validateIsString(): void {
+        if (this.value && IsValidString(this.value) === false) {
+            const error = {
+                field: 'AccessLevel',
+                message: `${this.value} , no es un dato tipo string`
             };
             this.setError(error);
         }

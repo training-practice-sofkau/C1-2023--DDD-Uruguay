@@ -1,5 +1,5 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
-import { IsValidEmail } from 'src/libs/validations/';
+import { IsValidEmail, IsValidString } from 'src/libs/validations/';
 
 export class EmailValueObject extends ValueObjectBase<string>{
 
@@ -9,6 +9,7 @@ export class EmailValueObject extends ValueObjectBase<string>{
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsString();
         this.validateLength();
         this.validateStructure();
     }
@@ -52,10 +53,26 @@ export class EmailValueObject extends ValueObjectBase<string>{
      * @memberof EmailValueObject
      */
     private validateStructure(): void {
-        if(this.value && IsValidEmail(this.value) === false) {
+        if (this.value && IsValidEmail(this.value) === false) {
             const error = {
                 field: 'Email',
                 message: `El Email: ${this.value} , no es valido`
+            };
+            this.setError(error);
+        }
+    }
+
+    /**
+     *Validamos si es un dato tipo string
+     *
+     * @private
+     * @memberof EmailValueObject
+     */
+    private validateIsString(): void {
+        if (this.value && IsValidString(this.value) === false) {
+            const error = {
+                field: 'Email',
+                message: `${this.value} , no es un dato tipo string`
             };
             this.setError(error);
         }

@@ -1,16 +1,17 @@
 import { ValueObjectBase } from 'src/libs/sofka/';
-import { IsUUID } from 'src/libs/validations/';
+import { IsUUID, IsValidString } from 'src/libs/validations/';
 import { v4 as uuid } from "uuid";
 
 
 export class IdValueObject extends ValueObjectBase<string>{
 
-    constructor(value?: string){
+    constructor(value?: string) {
         super(value ? value : uuid());
     }
 
     validateData(): void {
         this.validateEmpty();
+        this.validateIsString();
         this.validateLength();
         this.validateStructure();
     }
@@ -21,8 +22,8 @@ export class IdValueObject extends ValueObjectBase<string>{
      * @private
      * @memberof IdValueObject
      */
-    private validateStructure(): void{
-        if(this.value && IsUUID(this.value) === false) {
+    private validateStructure(): void {
+        if (this.value && IsUUID(this.value) === false) {
             const error = {
                 field: 'ID',
                 message: `El ID: ${this.value} , no es una estructura UUID v4 valida`
@@ -38,7 +39,7 @@ export class IdValueObject extends ValueObjectBase<string>{
      * @memberof IdValueObject
      */
     private validateEmpty(): void {
-        if(this.value === null || this.value === undefined) {
+        if (this.value === null || this.value === undefined) {
             const error = {
                 field: 'ID',
                 message: 'No se proporciono un ID'
@@ -54,7 +55,7 @@ export class IdValueObject extends ValueObjectBase<string>{
      * @memberof IdValueObject
      */
     private validateLength(): void {
-        if(this.value.length > 36) {
+        if (this.value.length > 36) {
             const error = {
                 field: 'ID',
                 message: 'Se proporciono un ID muy largo'
@@ -62,5 +63,21 @@ export class IdValueObject extends ValueObjectBase<string>{
             this.setError(error);
         }
     }
-    
+
+    /**
+     *Validamos si es un dato tipo string
+     *
+     * @private
+     * @memberof IdValueObject
+     */
+    private validateIsString(): void {
+        if (this.value && IsValidString(this.value) === false) {
+            const error = {
+                field: 'ID',
+                message: `${this.value} , no es un dato tipo string`
+            };
+            this.setError(error);
+        }
+    }
+
 }
