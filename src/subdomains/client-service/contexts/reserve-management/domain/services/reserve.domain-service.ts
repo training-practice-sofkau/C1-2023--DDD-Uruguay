@@ -1,4 +1,4 @@
-import { CustomerDomainEntity, ReserveDomainEntity, RoomDomainEntity } from "../entities";
+import { CustomerDomainEntity, RoomDomainEntity } from "../entities";
 
 export interface IReserveDomainService<ReserveDomainEntity> {
     
