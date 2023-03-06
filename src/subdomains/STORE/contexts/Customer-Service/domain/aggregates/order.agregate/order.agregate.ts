@@ -4,6 +4,7 @@ import { MangaDomainService } from '../../services/Manga-domain-service';
 import { OrderDomainEntityBase } from '../../entities/Order-domain/Order-domain-entity';
 import { OrderAddEventPublisher } from '../../events/publishers';
 import { AggregateRootException } from '../../../../../../../libs/sofka/exceptions/aggregate-root.exception';
+import { MangaDomainBase } from '../../entities/Order-domain/manga-domain-entity';
 
 export class OrderAgregate
   implements IorderDomainService, ClientDomainService, MangaDomainService
@@ -21,6 +22,32 @@ export class OrderAgregate
     this.orderService = orderService;
     this.RegisterOrderEventPublisher = RegisterOrderEventPublisher;
   }
+
+
+  UpdateName(name: string): Promise<MangaDomainBase> {
+ console.log(name);
+ throw new Error('Method not implemented.');
+}
+  UpdateState(state: number): Promise<MangaDomainBase> {
+    throw new Error('Method not implemented.');
+  }
+  UpdatePrice(Price: number): Promise<MangaDomainBase> {
+    throw new Error('Method not implemented.');
+  }
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
 
   async RegisterOrder(order: OrderDomainEntityBase): Promise<OrderDomainEntityBase> {
 

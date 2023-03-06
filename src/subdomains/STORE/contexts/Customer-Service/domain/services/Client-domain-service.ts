@@ -1,2 +1,2 @@
-export class ClientDomainService {
+export interface ClientDomainService {
 }
