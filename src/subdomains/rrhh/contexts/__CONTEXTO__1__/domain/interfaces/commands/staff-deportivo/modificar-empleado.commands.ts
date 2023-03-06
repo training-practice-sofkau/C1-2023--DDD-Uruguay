@@ -1,1 +1,3 @@
-export class ModificarEmpleadoCommands {}
+export interface ModificarEmpleadoCommands {
+    
+}

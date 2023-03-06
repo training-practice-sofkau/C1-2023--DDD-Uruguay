@@ -1,1 +1,1 @@
-export class RetribucionDomainService {}
+export interface RetribucionDomainService {}

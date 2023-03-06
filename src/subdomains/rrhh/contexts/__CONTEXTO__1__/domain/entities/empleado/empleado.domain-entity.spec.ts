@@ -1,4 +1,4 @@
-import { EmpleadoDomainEntity } from './empleado.domain-entity';
+import { EmpleadoDomainEntity } from "./EmpleadoDomainEntity";
 
 describe('EmpleadoDomainEntity', () => {
   it('should be defined', () => {

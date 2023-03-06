@@ -1,1 +1,1 @@
-export class NegociacionDomainService {}
+export interface NegociacionDomainService {}

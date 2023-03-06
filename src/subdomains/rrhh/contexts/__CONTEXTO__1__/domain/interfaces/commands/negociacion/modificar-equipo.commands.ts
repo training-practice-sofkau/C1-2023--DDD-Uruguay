@@ -1,1 +1,1 @@
-export class ModificarEquipoCommands {}
+export interface ModificarEquipoCommands {}

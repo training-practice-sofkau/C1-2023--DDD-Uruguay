@@ -1,1 +1,1 @@
-export class ModificarFechaCommands {}
+export interface ModificarFechaCommands {}

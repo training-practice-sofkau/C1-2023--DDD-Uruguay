@@ -1,1 +1,1 @@
-export class TramiteDomainService {}
+export interface TramiteDomainService {}
