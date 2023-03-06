@@ -1,1 +1,4 @@
-export class Delete {}
+
+export class Delete {
+    OrderID: string
+}
