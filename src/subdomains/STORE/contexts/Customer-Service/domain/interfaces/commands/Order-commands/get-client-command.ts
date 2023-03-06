@@ -1,1 +1,4 @@
-export class GetClient {}
+export class GetClient {
+    ClientID: string
+
+}
