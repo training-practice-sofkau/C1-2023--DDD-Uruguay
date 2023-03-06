@@ -1,11 +1,9 @@
-import { IsUUID } from "../../../../../../../../libs/validations/is-uuid.validation";
 import { v4 as uuid } from "uuid";
 
 import { UUIDValueObject, FullnameValueObject, EmailValueObject, PhoneValueObject } from "../../../value-objects/common";
-import { ICustomerDomainEntity } from '../../interfaces/invoice/customer.domain-entity.interface';
-import { IsValidFullname } from '../../../../../../../../libs/validations/fullname.validation';
-import { IsEmail } from '../../../../../../../../libs/validations/email.validation';
-import { IsPhoneNumber } from '../../../../../../../../libs/validations/phone.validation';
+import { ICustomerDomainEntity } from '../../interfaces/invoice/';
+import { IsValidFullname, IsUUID, IsEmail, IsPhoneNumber  } from '../../../../../../../../libs/validations';
+
 
 
 export class CustomerDomainEntityBase implements ICustomerDomainEntity {    
@@ -31,17 +29,6 @@ export class CustomerDomainEntityBase implements ICustomerDomainEntity {
 
         this.createdAt = Date.now();
     }
-
-
-
-   /*  public Customer( customerName: FullnameValueObject, customerMail: EmailValueObject, customerPhone: PhoneValueObject ){
-        
-        this.customerID = new UUIDValueObject();
-        this.customerName = customerName;
-        this.customerEmail = customerMail;       
-        this.customerPhone = customerPhone;       
-        this.createdAt = Date.now();
-    } */
 
 
     /**

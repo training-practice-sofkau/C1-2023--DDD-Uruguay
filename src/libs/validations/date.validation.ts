@@ -17,10 +17,6 @@ export const IsValidDate = (value: number | Date | DateValueObject): boolean => 
     
     if(valDate(dateToEvaluate)) return true;
 
-
-    //TODO: hacer validacion para una fecha sea que se reciba un numero, una Date o un DateVO
-    // evaluar si el regex anterior esta bien y que valida
-
     return false;
 }
 

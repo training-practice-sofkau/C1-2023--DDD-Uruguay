@@ -5,14 +5,15 @@ import { ItemValueObject } from "../../../value-objects/warranty/item.value-obje
 import { WarrantyStatusValueObject } from "../../../value-objects/warranty/warranty-status.value-object";
 import { IWarrantyDomainEntity } from '../../interfaces/invoice/warranty.domain-entity.interface';
 import { IsUUID } from '../../../../../../../../libs/validations/is-uuid.validation';
+import { DateValueObject } from '../../../value-objects/common/date/date.value-object';
 
 
 export class WarrantyDomainEntityBase implements IWarrantyDomainEntity {
    
 
     warrantyID: string | UUIDValueObject;
-    startDate?: number | Date;
-    endDate?: number | Date;
+    startDate?: number | Date | DateValueObject;
+    endDate?: number | Date | DateValueObject;
     itemsCovered?: ItemValueObject[];
     warrantyStatus: WarrantyStatusValueObject;
     createdAt?: number | Date;
@@ -34,19 +35,6 @@ export class WarrantyDomainEntityBase implements IWarrantyDomainEntity {
 
         this.createdAt = Date.now();
     }
-
-
-
-
-    /* public Warranty(startDate: Date, endDate: Date, itemsCovered: ItemValueObject[], status: WarrantyStatusValueObject){
-
-        this.warrantyID = new UUIDValueObject();
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.itemsCovered = itemsCovered;
-        this.warrantyStatus = status;
-    } */
-
 
     /**
      * Adds an item to the warranty items list

@@ -1,9 +1,12 @@
 import { EventPublisherBase } from "src/libs";
 import { WarrantyDomainEntityBase } from "../../../entities/invoice/warranty.domain-entity/warranty.domain-entity";
 
-export abstract class ItemCoveredAddedEventPublisherBase extends EventPublisherBase<WarrantyDomainEntityBase>{
+export abstract class ItemCoveredAddedEventPublisherBase < Response = WarrantyDomainEntityBase > extends EventPublisherBase<Response>{
 
-    publish(): void {
-        console.log('ItemCoveredAddedEventPublisherBase: Method not implemented');
+    publish<Result = any>(): Promise<Result> {
+        return this.emit(
+            'ItemCoveredAddedEventPublisherBase:',
+            JSON.stringify({ data: this.response })
+        )
     }
 }
