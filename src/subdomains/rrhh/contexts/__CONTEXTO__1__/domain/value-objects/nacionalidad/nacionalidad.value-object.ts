@@ -8,12 +8,21 @@ export class NacionalidadValueObject extends ValueObjectBase<string>{
     }
 
     validateData(): void {
-        
+        this.formatoNacionalidad();
     }
 
     private formatoNacionalidad():void{
 
-        if(this.value && )
+        if(this.value && !IsNacionalidad(this.value)){
+            
+                const error = {
+                    field:"Nacionalidad",
+                    message: "La Nacionalidad invalida ,debe estar dentro de las posibles"
+                }
+    
+                this.setError( error );
+        
+        }
     }
    
 }

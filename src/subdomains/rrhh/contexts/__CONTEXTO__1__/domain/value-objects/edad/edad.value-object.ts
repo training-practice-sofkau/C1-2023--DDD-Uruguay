@@ -1,4 +1,5 @@
 import { ValueObjectBase } from 'src/libs';
+
 export class EdadValueObject extends ValueObjectBase<number> {
    
     constructor(edad? : number ){

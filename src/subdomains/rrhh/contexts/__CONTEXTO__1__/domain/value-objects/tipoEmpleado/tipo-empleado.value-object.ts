@@ -4,11 +4,15 @@ import { uuid } from 'uuidv4';
 export class TipoEmpleadoValueObject extends ValueObjectBase<string> {
     
     constructor(value? :string){
-        super(value? value: uuid())
+        super(value? value: "");
     }
 
-    validateData(): void {
-        throw new Error('Method not implemented.');
+    validateData() : void {
+
+    }
+
+    contenidoEmpleado() : void {
+        
     }
     
    
