@@ -1,7 +1,9 @@
 import { EventPublisherBase } from "src/libs/sofka";
+import { RoomDomainEntity } from "../../../../entities";
 
-export abstract class StateUpdatedEventPublisher<Response>
-    extends EventPublisherBase<Response> {
+export abstract class StateUpdatedEventPublisher<
+    Response = boolean
+> extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
             'management_system.state-updated',

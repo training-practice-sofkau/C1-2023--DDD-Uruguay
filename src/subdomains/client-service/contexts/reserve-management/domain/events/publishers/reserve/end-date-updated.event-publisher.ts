@@ -1,7 +1,8 @@
 import { EventPublisherBase } from "src/libs/sofka";
 
-export abstract class EndDateUpdatedEventPublisher<Response>
-    extends EventPublisherBase<Response> {
+export abstract class EndDateUpdatedEventPublisher<
+    Response = Date
+> extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
             'management_system.end-date-updated',
