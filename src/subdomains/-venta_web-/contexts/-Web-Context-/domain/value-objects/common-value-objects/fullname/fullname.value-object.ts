@@ -1,7 +1,7 @@
 import { ValueObjectBase } from "src/libs";
-import { isFullNameOK } from "src/libs/sofka/validations/fullname-validation";
-import { largoMaximo } from "src/libs/sofka/validations/largo-maximo-validation";
-import { largoMinimo } from "src/libs/sofka/validations/largo-minimo-validation";
+import { isFullNameOK } from "src/libs/validations/fullname-validation";
+import { largoMaximo } from "src/libs/validations/largo-maximo-validation";
+import { largoMinimo } from "src/libs/validations/largo-minimo-validation";
 
 export class FullnameValueObject extends ValueObjectBase<string> {
 
@@ -50,7 +50,7 @@ export class FullnameValueObject extends ValueObjectBase<string> {
         
         //Valido si la estructura proporcionada es correcta
         if (this.value && isFullNameOK(this.value)) {
-            const error = {field: 'Fullname', message: 'El nombre no se proporcionó!'};
+            const error = {field: 'Fullname', message: 'No es un nombre valido!'};
 
             this.setError(error);
         }
