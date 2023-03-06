@@ -1,8 +1,15 @@
 
-import { EventPublisherBase } from "src/libs/sofka/bases/event-publisher.base";
+import { EventPublisherBase } from "src/libs";
 import { OrderDomainEntityBase } from "../../entities";
 
-// este metodo va a cambiar
-export abstract class RegisteredOrderEventPublisherBase extends EventPublisherBase<OrderDomainEntityBase> {
-  
+
+export abstract class RegisteredOrderEventPublisherBase<
+    Response = OrderDomainEntityBase
+> extends EventPublisherBase<Response> {
+    publish<Result = any>(): Promise<Result> {
+        return this.emit(
+            'management_system.registered-order',
+            JSON.stringify({ data: this.response })
+        )
+    }
 }

@@ -2,6 +2,7 @@ import { OrderDomainEntityBase } from '../entities';
 import { RegisteredOrderEventPublisherBase } from '../events';
 import { IOrderDomainService } from '../services';
 import { AggregateRootException } from '../../../../../../libs/sofka/';
+import { CreateOrder } from './helpers';
 export class OrderAggregate
     implements
     IOrderDomainService {
@@ -22,16 +23,14 @@ export class OrderAggregate
             this.registeredOrderEventPublisherBase = registeredOrderEventPublisherBase
     }
 
+    // se hizo un refactoring para poder hacer mas facil las pruebas a este metodo
     async createOrder(order: OrderDomainEntityBase): Promise<OrderDomainEntityBase> {
-        if (this.orderService && this.registeredOrderEventPublisherBase) {
-            const result = await this.orderService.createOrder(order);
-            this.registeredOrderEventPublisherBase.response = result;
-            this.registeredOrderEventPublisherBase.publish();
-            return this.registeredOrderEventPublisherBase.response;
-        }
-        throw new AggregateRootException(
-            'OrderAggregate "OrderService" y/o "registeredOrderEventPublisherBase" no están definidos'
-        )
+        if (!this.orderService)
+            throw new AggregateRootException('OrderService no esta definido')
+        if (!this.registeredOrderEventPublisherBase)
+            throw new AggregateRootException('registeredOrderEventPublisherBase no esta definido')
+
+        return CreateOrder(order, this.orderService, this.registeredOrderEventPublisherBase)
     }
 
     getOrder(orderId: string): Promise<OrderDomainEntityBase> {
