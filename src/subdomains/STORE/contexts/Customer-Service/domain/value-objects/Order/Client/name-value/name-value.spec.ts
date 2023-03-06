@@ -1,12 +1,12 @@
 
-import { NameValue } from "../name-value";
+import { ClientNameValue } from "../name-value";
 
   describe("Name Client", () => {
     it("test name" , () => {
 
       const value = "Franco Torres";
 
-      const NameClient = new NameValue(value);
+      const NameClient = new ClientNameValue(value);
 
       NameClient.validateData();
 
@@ -18,7 +18,7 @@ import { NameValue } from "../name-value";
 
         const value = "Fr4nc0 Torres";
   
-        const NameClient = new NameValue(value);
+        const NameClient = new ClientNameValue(value);
   
         NameClient.validateData();
   
@@ -30,7 +30,7 @@ import { NameValue } from "../name-value";
 
         const value = "F R A N C O ";
   
-        const NameClient = new NameValue(value);
+        const NameClient = new ClientNameValue(value);
   
         NameClient.validateData();
   

@@ -1,1 +1,1 @@
-export * from './Seller-name-modified-event-publisher';
+export * from './modified-Seller-name-event-publisher';

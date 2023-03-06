@@ -5,7 +5,13 @@
  */
 export const isState= (value:string): boolean => {
 
-    const StateRegExp = /^(Finalizado|En emision|cancelado|en espera)$/
+    enum state{
+        Finalizado = 1,
+        "En emision" = 2,
+        cancelado = 3,
+        'En espera' = 4
+      }
+    const StateRegExp = new RegExp(`^(${Object.values(state).join('|')})$`);
     const matches = value.match(StateRegExp)
     return matches !== null? true : false
     
