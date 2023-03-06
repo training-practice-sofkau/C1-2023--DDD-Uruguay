@@ -10,7 +10,7 @@ import {
 } from "../../value-objects";
 
 
-export class Room implements IRoomDomainEntity{
+export class RoomDomainEntity implements IRoomDomainEntity{
 
     roomId: string | IdValueObject;
     location: string | LocationValueObject;
