@@ -1,6 +1,6 @@
-import { UUIDValueObject } from '../../../value-objects/common/uuid/uuid.value-object';
-import { ItemValueObject } from '../../../value-objects/warranty/item.value-object';
-import { WarrantyStatusValueObject } from '../../../value-objects/warranty/warranty-status.value-object';
+import { UUIDValueObject } from "../../../value-objects/common";
+import { ItemValueObject } from "../../../value-objects/warranty/item.value-object";
+import { WarrantyStatusValueObject } from "../../../value-objects/warranty/warranty-status.value-object";
 
 export class Warranty {
 
@@ -8,15 +8,15 @@ export class Warranty {
     private startDate: Date;
     private endDate: Date;
     private itemsCovered: ItemValueObject[];
-    private isValid: boolean;
+    private warrantyStatus: WarrantyStatusValueObject;
 
-    public Warranty(startDate: Date, endDate: Date, itemsCovered: ItemValueObject[]){
+    public Warranty(startDate: Date, endDate: Date, itemsCovered: ItemValueObject[], status: WarrantyStatusValueObject){
 
         this.warrantyID = new UUIDValueObject();
         this.startDate = startDate;
         this.endDate = endDate;
         this.itemsCovered = itemsCovered;
-        this.isValid = true;
+        this.warrantyStatus = status;
     }
 
 
@@ -28,6 +28,8 @@ export class Warranty {
      * @memberof Warranty
      */
     public addItemCovered(item: ItemValueObject){
+
+        //TODO: add validaciones si hacen falta ( ? )
 
         this.itemsCovered.push(item);
 
@@ -42,13 +44,18 @@ export class Warranty {
     }
 
 
+
+    /**
+     * Allows to change the status of the warranty     
+     *
+     * @param {WarrantyStatusValueObject} newStatus can be finished, canceled or valid
+     * @memberof Warranty
+     */
     public changeWarrantyStatus(newStatus: WarrantyStatusValueObject){
 
         //TODO: implementar un nuevo tipo de VO, warrantyStatus, 
         //tiene 2 valores (status: boolean, reason: string)
         //reason: enum con valor => valid, canceled, finalizada
 
-
     }
-
 }

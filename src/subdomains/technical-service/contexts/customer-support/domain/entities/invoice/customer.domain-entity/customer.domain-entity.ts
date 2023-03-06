@@ -1,12 +1,16 @@
 import { UUIDValueObject, FullnameValueObject, EmailValueObject, PhoneValueObject } from "../../../value-objects/common";
+import { ICustomerDomainEntity } from '../../interfaces/invoice/customer.domain-entity.interface';
 
 
-export class Customer {
+export class CustomerDomainEntityBase implements ICustomerDomainEntity {    
     
-    private customerID: UUIDValueObject;
-    private customerName: FullnameValueObject;
-    private customerEmail: EmailValueObject;
-    private customerPhone: PhoneValueObject;    
+    customerID: UUIDValueObject;
+    customerName: FullnameValueObject;
+    customerEmail: EmailValueObject;
+    customerPhone: PhoneValueObject;    
+    createdAt?: number | Date;
+    updatedAt?: number | Date;
+    deletedAt?: number | Date;
 
     public Customer( customerName: FullnameValueObject, customerMail: EmailValueObject, customerPhone: PhoneValueObject ){
         
@@ -14,6 +18,7 @@ export class Customer {
         this.customerName = customerName;
         this.customerEmail = customerMail;       
         this.customerPhone = customerPhone;       
+        this.createdAt = Date.now();
     }
 
 
