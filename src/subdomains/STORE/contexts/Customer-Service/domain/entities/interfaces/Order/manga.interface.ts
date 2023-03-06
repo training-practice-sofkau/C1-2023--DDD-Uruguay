@@ -1,1 +1,1 @@
-export interface Manga {}
+export interface IMangaEntity {}
