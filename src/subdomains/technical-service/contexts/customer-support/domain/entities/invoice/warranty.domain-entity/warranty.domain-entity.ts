@@ -1,23 +1,51 @@
+import { v4 as uuid } from "uuid";
+
 import { UUIDValueObject } from "../../../value-objects/common";
 import { ItemValueObject } from "../../../value-objects/warranty/item.value-object";
 import { WarrantyStatusValueObject } from "../../../value-objects/warranty/warranty-status.value-object";
+import { IWarrantyDomainEntity } from '../../interfaces/invoice/warranty.domain-entity.interface';
+import { IsUUID } from '../../../../../../../../libs/validations/is-uuid.validation';
 
-export class Warranty {
 
-    private warrantyID: UUIDValueObject;
-    private startDate: Date;
-    private endDate: Date;
-    private itemsCovered: ItemValueObject[];
-    private warrantyStatus: WarrantyStatusValueObject;
+export class WarrantyDomainEntityBase implements IWarrantyDomainEntity {
+   
 
-    public Warranty(startDate: Date, endDate: Date, itemsCovered: ItemValueObject[], status: WarrantyStatusValueObject){
+    warrantyID: string | UUIDValueObject;
+    startDate?: number | Date;
+    endDate?: number | Date;
+    itemsCovered?: ItemValueObject[];
+    warrantyStatus: WarrantyStatusValueObject;
+    createdAt?: number | Date;
+    updatedAt?: number | Date;
+    deletedAt?: number | Date;
+
+    constructor( _data?: IWarrantyDomainEntity){
+        
+        if(_data?.warrantyID && IsUUID(_data?.warrantyID)) this.warrantyID = _data.warrantyID;
+        else this.warrantyID = uuid();
+
+        if(_data?.startDate) this.startDate = _data.startDate;
+        
+        if(_data?.endDate) this.endDate = _data.endDate;
+
+        if(_data?.itemsCovered) this.itemsCovered = _data.itemsCovered;
+
+        if(_data?.warrantyStatus) this.warrantyStatus = _data.warrantyStatus;
+
+        this.createdAt = Date.now();
+    }
+
+
+
+
+    /* public Warranty(startDate: Date, endDate: Date, itemsCovered: ItemValueObject[], status: WarrantyStatusValueObject){
 
         this.warrantyID = new UUIDValueObject();
         this.startDate = startDate;
         this.endDate = endDate;
         this.itemsCovered = itemsCovered;
         this.warrantyStatus = status;
-    }
+    } */
 
 
     /**

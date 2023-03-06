@@ -10,4 +10,5 @@ export interface ICustomerDomainEntity {
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;
+    
 }
