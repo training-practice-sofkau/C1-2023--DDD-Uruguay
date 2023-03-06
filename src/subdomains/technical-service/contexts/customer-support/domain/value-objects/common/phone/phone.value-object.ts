@@ -1,10 +1,12 @@
 import { IsPhoneNumber } from '../../../../../../../../libs/validations/phone.validation';
 import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
+import { StringBiggerThanMaxLength } from '../../../../../../../../libs/validations/string-max-length.validation';
+import { IsEmptyOrNull } from 'src/libs/validations/checkIsEmptyOrNull.validation';
 
 export class PhoneValueObject extends ValueObjectBase<string> {
 
     constructor(value?: string) {
-        super(value ? value : '');
+        super(value ? value : null);
     }
 
 
@@ -28,8 +30,7 @@ export class PhoneValueObject extends ValueObjectBase<string> {
      */
     private validateContent(): void {
 
-        if (this.value === '') {
-
+        if (IsEmptyOrNull(this.value)) {
             const error = {
                 field: 'Phone',
                 message: 'Not Phone value was given!'
@@ -39,7 +40,7 @@ export class PhoneValueObject extends ValueObjectBase<string> {
         }
 
         // checks that the Phone given is not more than 12 char long
-        if (this.value.length > 12) {
+        if (StringBiggerThanMaxLength(this.value, 12)) {
             const error = {
                 field: 'Phone',
                 message: 'The Phone value given is too long!'

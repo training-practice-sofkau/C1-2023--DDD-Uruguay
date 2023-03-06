@@ -1,9 +1,14 @@
+
 import { ValueObjectBase } from '../../../../../../../libs/sofka/bases/object-value.base';
+import { StringBiggerThanMaxLength, IsEmptyOrNull } from '../../../../../../../libs/validations';
 
 export class DeviceTypeValueObject extends ValueObjectBase<string>{
 
+    //TODO: este VO puede usar un Enum para definir los tipos de dispositivos
+    // implementar si hay tiempo
+
     constructor(value?: string){
-        super(value ? value : '');
+        super(value ? value : null);
     }
 
     /**
@@ -24,8 +29,7 @@ export class DeviceTypeValueObject extends ValueObjectBase<string>{
      */
     private validateContent() {
 
-        if (this.value === '') {
-
+        if (IsEmptyOrNull(this.value)) {
             const error = {
                 field: 'DeviceType',
                 message: 'Not Device Type value was given!'
@@ -35,7 +39,7 @@ export class DeviceTypeValueObject extends ValueObjectBase<string>{
         }
 
         // checks that the string given is not more than 100 char long
-        if(this.value.length > 100){
+        if(StringBiggerThanMaxLength(this.value, 100)){
             const error = {
                 field: 'Note',
                 message: 'The Device Type given is too long!'

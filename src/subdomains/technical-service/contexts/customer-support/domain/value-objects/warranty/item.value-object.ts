@@ -1,9 +1,11 @@
+
 import { ValueObjectBase } from '../../../../../../../libs/sofka/bases/object-value.base';
+import { StringBiggerThanMaxLength, IsEmptyOrNull } from '../../../../../../../libs/validations';
 
 export class ItemValueObject extends ValueObjectBase<string>{
 
     constructor(value?: string){
-        super(value ? value : '');
+        super(value ? value : null);
     }
 
     /**
@@ -24,8 +26,7 @@ export class ItemValueObject extends ValueObjectBase<string>{
      */
     private validateContent() {
 
-        if (this.value === '') {
-
+        if (IsEmptyOrNull(this.value)) {
             const error = {
                 field: 'Item',
                 message: 'Not Item value was given!'
@@ -35,10 +36,10 @@ export class ItemValueObject extends ValueObjectBase<string>{
         }
 
         // checks that the string given is not more than 250 char long
-        if(this.value.length > 250){
+        if(StringBiggerThanMaxLength(this.value, 250)){
             const error = {
                 field: 'Item',
-                message: 'The Item given is too long!'
+                message: 'The Item value given is too long!'
             };
 
             this.setError(error);

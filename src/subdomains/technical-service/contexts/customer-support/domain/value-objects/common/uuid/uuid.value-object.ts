@@ -1,6 +1,7 @@
-import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
 import { v4 as uuid } from "uuid";
-import { IsUUID } from '../../../../../../../../libs/validations/is-uuid.validation';
+
+import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
+import { IsUUID, IsEmptyOrNull, StringBiggerThanMaxLength } from '../../../../../../../../libs/validations';
 
 export class UUIDValueObject extends ValueObjectBase<string>{
 
@@ -29,8 +30,7 @@ export class UUIDValueObject extends ValueObjectBase<string>{
      */
     private validateContent(): void {
 
-        if (this.value === '') {
-
+        if (IsEmptyOrNull(this.value)) {
             const error = {
                 field: 'UUID',
                 message: 'Not UUID was given!'
@@ -40,7 +40,7 @@ export class UUIDValueObject extends ValueObjectBase<string>{
         }
 
         // checks that the UUID given is not more than 36 char long (standard UUID lenght)
-        if (this.value.length > 36) {
+        if (StringBiggerThanMaxLength(this.value, 36)) {
             const error = {
                 field: 'UUID',
                 message: 'The UUID value given is too long!'

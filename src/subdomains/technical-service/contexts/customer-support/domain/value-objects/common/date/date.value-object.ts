@@ -1,4 +1,6 @@
 import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
+import { IsEmptyOrNull } from '../../../../../../../../libs/validations/checkIsEmptyOrNull.validation';
+import { IsValidDate } from '../../../../../../../../libs/validations/date.validation';
 
 export class DateValueObject extends ValueObjectBase<Date> {
 
@@ -12,7 +14,8 @@ export class DateValueObject extends ValueObjectBase<Date> {
      * @memberof DateValueObject
      */
     validateData(): void {
-        this.validateContent();        
+        this.validateContent();     
+        this.isValidDate();   
     }
 
     /**
@@ -24,7 +27,7 @@ export class DateValueObject extends ValueObjectBase<Date> {
      */
     private validateContent() {
 
-        if (this.value === null) {
+        if (IsEmptyOrNull(this.value)) {
 
             const error = {
                 field: 'Date',
@@ -34,5 +37,25 @@ export class DateValueObject extends ValueObjectBase<Date> {
             this.setError(error);
         }
     }   
+
+     /**
+     * Validates the structure of the value object given
+     * It must be a valid Email
+     * 
+     * @private
+     * @memberof EmailValueObject
+     */
+     private isValidDate(): void {
+
+        if (this.value && IsValidDate(this.value)) {
+
+            const error = {
+                field: 'Date',
+                message: `${this.value} is not a valid date`
+            };
+
+            this.setError(error);
+        }
+    }
 
 }

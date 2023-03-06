@@ -1,9 +1,11 @@
+
 import { ValueObjectBase } from '../../../../../../../libs/sofka/bases/object-value.base';
+import { StringBiggerThanMaxLength, IsEmptyOrNull } from '../../../../../../../libs/validations';
 
 export class FaultValueObject extends ValueObjectBase<string>{
 
-    constructor(value?: string){
-        super(value ? value : '');
+    constructor(value?: string) {
+        super(value ? value : null);
     }
 
     /**
@@ -12,7 +14,7 @@ export class FaultValueObject extends ValueObjectBase<string>{
      * @memberof FaultValueObject
      */
     validateData(): void {
-        this.validateContent();        
+        this.validateContent();
     }
 
     /**
@@ -24,8 +26,7 @@ export class FaultValueObject extends ValueObjectBase<string>{
      */
     private validateContent() {
 
-        if (this.value === '') {
-
+        if (IsEmptyOrNull(this.value)) {
             const error = {
                 field: 'Fault',
                 message: 'Not Fault value was given!'
@@ -35,13 +36,13 @@ export class FaultValueObject extends ValueObjectBase<string>{
         }
 
         // checks that the string given is not more than 250 char long
-        if(this.value.length > 250){
+        if (StringBiggerThanMaxLength(this.value, 250)) {
             const error = {
                 field: 'Fault',
                 message: 'The Fault given is too long!'
             };
 
             this.setError(error);
-        }        
+        }
     }
 }

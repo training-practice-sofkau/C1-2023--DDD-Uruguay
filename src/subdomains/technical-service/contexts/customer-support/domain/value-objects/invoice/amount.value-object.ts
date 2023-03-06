@@ -1,9 +1,11 @@
-import { ValueObjectBase } from "../../../../../../../libs/sofka/bases/object-value.base";
+
+import { IsEmptyOrNull, IsPositiveNumber  } from "../../../../../../../libs/validations";
+import { ValueObjectBase } from "../../../../../../../libs/sofka/bases";
 
 export class AmountValueObject extends ValueObjectBase<number> {
 
     constructor(value?: number) {
-        super(value ? value : Number.POSITIVE_INFINITY);
+        super(value ? value : null);
     }
 
     /**
@@ -24,8 +26,7 @@ export class AmountValueObject extends ValueObjectBase<number> {
      */
     private validateContent(): void {
 
-        if (this.value == Number.POSITIVE_INFINITY) {
-
+        if (IsEmptyOrNull(this.value)) {
             const error = {
                 field: 'Amount',
                 message: 'Not Amount was given!'
@@ -35,7 +36,7 @@ export class AmountValueObject extends ValueObjectBase<number> {
         }
 
         // checks that the Amount given is not a negative number ( not negatives allow )
-        if ( this.value < 0 ) {
+        if (IsPositiveNumber(this.value) === false ) {
             const error = {
                 field: 'Amount',
                 message: `The Amount can't be negative!`
