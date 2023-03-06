@@ -1,1 +1,4 @@
-export class UpdateState {}
+export class UpdateState {
+    MangaId: string
+    newState: number
+}
