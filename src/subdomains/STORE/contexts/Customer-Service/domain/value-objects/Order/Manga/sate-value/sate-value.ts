@@ -2,7 +2,7 @@ import { ValueObjectBase } from "src/libs/sofka/bases/object-value.base";
 import { isState } from "src/libs/validations/is-State-validations"
 
 
-export class SateValue extends ValueObjectBase<string>{
+export class MangaSateValue extends ValueObjectBase<string>{
 /**
  * The constructor function is a special function that is called when an object is created from a
  * class.

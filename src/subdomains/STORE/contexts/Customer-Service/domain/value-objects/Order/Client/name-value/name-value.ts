@@ -1,7 +1,7 @@
 import { ValueObjectBase, isString } from "../../../../../../../../../libs";
 
 
-export class NameValue extends ValueObjectBase<string>{
+export class ClientNameValue extends ValueObjectBase<string>{
 /**
  * The constructor function is a special function that is called when an object is created from a
  * class.
