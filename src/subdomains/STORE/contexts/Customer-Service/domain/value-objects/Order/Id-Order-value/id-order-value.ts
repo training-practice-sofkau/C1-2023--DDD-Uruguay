@@ -1,8 +1,9 @@
 import { v4 as uuid } from "uuid";
-import { ValueObjectBase } from "src/libs";
-import { IsUuid } from "src/libs/validations/is-uuid.validations";
 
-export class IdClientValueObject extends ValueObjectBase<string>{
+import { ValueObjectBase, IsUuid } from "../../../../../../../../libs";
+
+
+export class IdOrdertValueObject extends ValueObjectBase<string>{
   
  /**
   * The constructor function takes an optional string parameter and if it's not provided, it generates
@@ -24,7 +25,7 @@ this.validateStructure()
 /**
  * If the value is not null and the value is not a valid UUID, then set an error
  */
-  private validateStructure(): void {
+private validateStructure(): void {
   
     if(this.value && !IsUuid(this.value) === false)
 {
