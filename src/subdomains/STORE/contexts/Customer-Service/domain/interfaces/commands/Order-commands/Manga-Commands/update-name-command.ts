@@ -1,1 +1,4 @@
-export class UpdateName {}
+export class UpdateName {
+    MangaId: string
+    newName: string
+}
