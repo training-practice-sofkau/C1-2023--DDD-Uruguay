@@ -1,1 +1,1 @@
-export class MangaDomain {}
+export class MangaDomainBase {}

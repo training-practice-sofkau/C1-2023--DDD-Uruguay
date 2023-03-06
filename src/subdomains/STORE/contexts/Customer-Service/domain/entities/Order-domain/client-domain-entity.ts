@@ -1,1 +1,1 @@
-export class ClientDomain {}
+export class ClientDomainBase  {}
