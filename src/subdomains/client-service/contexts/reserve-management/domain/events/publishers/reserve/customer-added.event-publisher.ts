@@ -6,7 +6,7 @@ export abstract class CustomerAddedEventPublisher<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.customer-added',
+            'reserve-management.customer-added',
             JSON.stringify({ data: this.response })
         )
     }

@@ -1,1 +1,1 @@
-export * from './management-system-payment-method-updated.subscriber';
+export * from './reserve-management-payment-method-updated.subscriber';

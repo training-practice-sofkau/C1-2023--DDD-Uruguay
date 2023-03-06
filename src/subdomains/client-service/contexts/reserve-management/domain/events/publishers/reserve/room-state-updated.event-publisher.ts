@@ -5,7 +5,7 @@ export abstract class RoomStateUpdatedEventPublisher<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.room-state-updated',
+            'reserve-management.room-state-updated',
             JSON.stringify({ data: this.response })
         )
     }

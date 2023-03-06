@@ -6,7 +6,7 @@ export abstract class ReserveCreatedEventPublisher<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.reserve-created',
+            'reserve-management.reserve-created',
             JSON.stringify({ data: this.response })
         )
     }

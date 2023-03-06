@@ -1,1 +1,1 @@
-export * from './management-system-state-updated.subscriber';
+export * from './reserve-management-state-updated.subscriber';
