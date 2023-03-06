@@ -1,7 +1,4 @@
-import { UUIDValueObject, FullnameValueObject, EmailValueObject, TrueFalseValueObject } from "../../../value-objects/common";
-
-
-
+import { UUIDValueObject, FullnameValueObject, EmailValueObject } from "../../../value-objects/common";
 
 export class Clerk {
     
@@ -11,7 +8,6 @@ export class Clerk {
     private isActive: boolean; // TrueFalseValueObject;    
 
     public Clerk( clerkName: FullnameValueObject, clerkMail: EmailValueObject ){
-
         
         this.clerkID = new UUIDValueObject();
         this.clerkName = clerkName;
@@ -21,15 +17,31 @@ export class Clerk {
         //TODO: asignar isActive as boolean, TrueFalseVO genera error ( ??? )
     }
 
-    public changeEmployeeEmail(){
 
+    /**
+     * Changes the current Email address of the employee for the given new value 
+     *
+     * @param {EmailValueObject} newEmail new value
+     * @memberof Clerk
+     */
+    public changeEmployeeEmail(newEmail: EmailValueObject){
+
+        //TODO: check validations ( ? )
+
+        this.clerkEmail = newEmail;
+        return this.clerkEmail;
     }
 
+
+     /**
+     * Changes the employee status to the given boolean value
+     *
+     * @param {boolean} status new employee status state
+     * @return {*} new status
+     * @memberof Clerk
+     */
     public changeEmployeeStatus(status: boolean){
-        this.isActive = status;
+        this.isActive = status;       
         return this.isActive;
-    }
-
-
-    
+    }   
 }

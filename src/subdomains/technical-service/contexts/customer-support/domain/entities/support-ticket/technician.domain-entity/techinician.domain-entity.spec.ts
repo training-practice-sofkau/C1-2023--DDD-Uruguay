@@ -1,4 +1,4 @@
-import { Clerk } from './clerk.domain-entity';
+import { Technician } from './technician.domain-entity';
 
 
 describe('Change Employee Status', () => {
@@ -6,9 +6,9 @@ describe('Change Employee Status', () => {
 
     it('Changes the current employee status to the given value', () =>{
 
-        let clerk = new Clerk();
+        let technician = new Technician();
         const newStatus = false;
-        const result = clerk.changeEmployeeStatus(newStatus);
+        const result = technician.changeEmployeeStatus(newStatus);
         expect(result).toBe(newStatus);
     });
 });
