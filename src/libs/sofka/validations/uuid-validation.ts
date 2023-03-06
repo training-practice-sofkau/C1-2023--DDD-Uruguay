@@ -1,9 +1,9 @@
 export const IsUUID = (value : string): boolean =>{
 
-   const regex=  /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
+   const regex=  /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i;
 
-   const matches = value.match(regex)
+   const dataTest = value.match(regex)
 
-   return matches != null ? true : false;
+   return dataTest != null ? true : false;
 
 }

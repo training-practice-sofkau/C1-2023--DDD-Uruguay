@@ -17,17 +17,16 @@ export class UuidValueObject extends ValueObjectBase<string>{
 
     private validateUUID() : void {
         
-        if(this.value && IsUUID(this.value)=== false){
-
-            const error = {field : 'Id',
-            message : 'El Id no es valido!'
-            }
-
+        if(this.value && IsUUID(this.value) === false){
+            const error = {field : 'Id', message : 'El Id no es valido!'}
             this.setError(error) // seteo el error si existe
         }
+        
 
-        // Otro if si necesito hacer mas validaciones
-
+        if(!this.value){
+            const error = {field : 'Id', message : 'El Id no existe!'}
+            this.setError(error)
+        }
     }
 
 
