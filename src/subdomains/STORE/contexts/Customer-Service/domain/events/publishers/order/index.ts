@@ -4,7 +4,7 @@ export * from './modified-client-event-publisher';
 export * from './client-obtained-event-publisher';
 export * from './delete-order-event-publisher';
 export * from './manga';
-export * from './modified-manga-event-publisher';
+export * from './modified-manga-stock-event-publisher';
 export * from './manga-obtained-event-publisher';
 export * from './added-Order-event-publisher';
 export * from './modified-Order-event-publisher';

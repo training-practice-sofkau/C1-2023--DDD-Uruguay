@@ -3,6 +3,6 @@ import { ClientDomainBase } from '../../../entities/Order-domain/client-domain-e
 
 export class ClientAddEventPublisher  extends EventPublisherBase<ClientDomainBase>  {
     publish(): void {
-        throw new Error("Method not implemented.");
+        console.log('Ta todo funcionando o  a lo mejor no y este console log nunca se va  a ver ')
     }
 }
