@@ -3,6 +3,6 @@ import { ClientDomainBase } from "../../../entities/Order-domain/client-domain-e
 
 export class ClientObtainedEventPublisher  extends EventPublisherBase <ClientDomainBase> {
     publish(): void {
-console.log("Client obtained")  
+    console.log("Client obtained")  
   }
 }
