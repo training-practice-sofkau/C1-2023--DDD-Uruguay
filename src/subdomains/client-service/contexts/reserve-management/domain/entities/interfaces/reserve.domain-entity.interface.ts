@@ -1,7 +1,7 @@
 import { DateValueObject, IdValueObject, NumberOfGuestsValueObject } from "../../value-objects";
 import { ICustomerDomainEntity, IRoomDomainEntity } from "../interfaces";
 
-export interface ReserveDomainEntity {
+export interface IReserveDomainEntity {
     reserveId: string | IdValueObject;
     startDate: Date | DateValueObject;
     endDate?: Date | DateValueObject;
