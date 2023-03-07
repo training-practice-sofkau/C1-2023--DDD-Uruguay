@@ -220,6 +220,7 @@ export class SecretariaAggregate implements ISecretariaDomainService{
         this.cesionCostoModificadoEvent.publish();
         return result;
     }
+
     async ModificarFechaSalidaCesion(fecha: IModificarFechaCommands): Promise<CesionDomainEntity> {
         if(!this.cesionService)
         throw new AggregateRootException('Servicio Cesion indefinido')
@@ -285,19 +286,6 @@ export class SecretariaAggregate implements ISecretariaDomainService{
         return result;
     }
 
-    async ModificarStateContrato(state: IModificarStateCommands): Promise<ContratoDomainEntity> {
-        if(!this.traspasoService)
-        throw new AggregateRootException('Servicio Cesion indefinido')
-
-        if(!this.traspasoStateModificadoEvent)
-        throw new AggregateRootException('Evento creador de secretaria indefinido')
-
-        const result = await this.traspasoService.modificarState(state);
-        this.traspasoStateModificadoEvent.response = result;
-        this.traspasoStateModificadoEvent.publish();
-        return result;
-    }
-
     async ModificarCostoTraspaso(costo: IModificarCostoCommands): Promise<TraspasoDomainEntity> {
         if(!this.traspasoService)
         throw new AggregateRootException('Servicio Cesion indefinido')
@@ -323,6 +311,7 @@ export class SecretariaAggregate implements ISecretariaDomainService{
         this.traspasoFechaModificadoEvent.publish();
         return result;
     }
+
     async ModificarEquipoNuevoTraspaso(equipo: IModificarEquipoCommands): Promise<TraspasoDomainEntity> {
         if(!this.traspasoService)
         throw new AggregateRootException('Servicio Cesion indefinido')
@@ -353,12 +342,41 @@ export class SecretariaAggregate implements ISecretariaDomainService{
 
 
     async ModificarCostoContrato(Costo: IModificarCostoCommands): Promise<ContratoDomainEntity> {
-        throw new Error("Method not implemented.");
+        if(!this.contratoService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.contratoCostoModificadoEvent)
+        throw new AggregateRootException('Evento creador de secretaria indefinido')
+
+        const result = await this.contratoService.modificarCosto(Costo);
+        this.contratoCostoModificadoEvent.response = result;
+        this.contratoCostoModificadoEvent.publish();
+        return result;
+    }
+    async ModificarStateContrato(state: IModificarStateCommands): Promise<ContratoDomainEntity> {
+        if(!this.contratoService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.contratoStateModificadoEvent)
+        throw new AggregateRootException('Evento creador de secretaria indefinido')
+
+        const result = await this.contratoService.modificarState(state);
+        this.contratoStateModificadoEvent.response = result;
+        this.contratoStateModificadoEvent.publish();
+        return result;
     }
     async ModificarFechaSalidaContrato(fecha: IModificarFechaCommands): Promise<ContratoDomainEntity> {
-        throw new Error("Method not implemented.");
+        if(!this.contratoService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.contratoFechaModificadoEvent)
+        throw new AggregateRootException('Evento creador de secretaria indefinido')
+
+        const result = await this.contratoService.modificarFechaSalida(fecha);
+        this.contratoFechaModificadoEvent.response = result;
+        this.contratoFechaModificadoEvent.publish();
+        return result;
     }
-  
 
     
 

@@ -23,8 +23,8 @@ export interface ISecretariaDomainService{
 
     
     //contrato
-    ModificarStateContrato(state: IModificarStateCommands):Promise<ContratoDomainEntity>;
     ModificarCostoContrato(Costo: IModificarCostoCommands):Promise<ContratoDomainEntity>;
+    ModificarStateContrato(state: IModificarStateCommands):Promise<ContratoDomainEntity>;
     ModificarFechaSalidaContrato(fecha: IModificarFechaCommands):Promise<ContratoDomainEntity>;
     
     //cesion
