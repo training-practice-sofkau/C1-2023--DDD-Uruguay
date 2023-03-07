@@ -5,7 +5,7 @@ import { TraspasoDomainEntity } from '../../entities/traspaso/traspaso.domain-en
 import { INegociarCesionCommands, INegociarContratoCommands, INegociarTraspasoCommands } from '../../interfaces';
 import { ICrearSecretariaCommands } from '../../interfaces/commands/secretaria/crear-secretaria.commands.interface';
 
-export interface SecretariaDomainService<T extends SecretariaDomainEntity = SecretariaDomainEntity> {
+export interface ISecretariaDomainService<T extends SecretariaDomainEntity = SecretariaDomainEntity> {
 
 
     CrearSecretaria(secretaria: ICrearSecretariaCommands):Promise<T>;
