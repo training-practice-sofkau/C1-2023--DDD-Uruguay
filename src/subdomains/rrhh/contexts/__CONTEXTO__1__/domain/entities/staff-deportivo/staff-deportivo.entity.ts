@@ -6,10 +6,11 @@ import { EmpleadoDomainEntity } from '../empleado/EmpleadoDomainEntity';
 import { IStaffDeportivoDomainEntity } from '../interfaces';
 export class StaffDeportivoDomainEntity implements IStaffDeportivoDomainEntity {
     
-    staffDeportivoId: string | IdValueObject;
-    tamiteId: string | IdValueObject;
-    directivaId: string | IdValueObject;
-    empleado: EmpleadoDomainEntity;
+    
+    staffDeportivoId?: string | IdValueObject;
+    tamiteId?: string | IdValueObject;
+    directivaId?: string | IdValueObject;
+    empleado: EmpleadoDomainEntity[];
 
     constructor(_staffDeportivo?: IStaffDeportivoDomainEntity) {
 
