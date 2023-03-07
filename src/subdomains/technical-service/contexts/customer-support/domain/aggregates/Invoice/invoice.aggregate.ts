@@ -6,12 +6,12 @@ import {
     ItemAddedToWarrantyEventPublisherBase,
     ItemRemovedFromWarrantyEventPublisherBase,
     WarrantyStatusChangedEventPublisherBase
-} from '../../events/publishers/warranty';
+} from '../../events/publishers/invoice/warranty';
 
 import {
     CustomerEmailChangedEventPublisherBase,
     CustomerPhoneChangedEventPublisherBase
-} from '../../events/publishers/customer';
+} from '../../events/publishers/invoice/customer';
 
 import {
     IChangeCustomerPhoneCommand,

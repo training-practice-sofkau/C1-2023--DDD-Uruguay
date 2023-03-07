@@ -1,4 +1,4 @@
-import { EventPublisherBase } from "../../../../../../../../libs";
+import { EventPublisherBase } from "../../../../../../../../../libs";
 
 export abstract class CustomerEmailChangedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
 
