@@ -1,6 +1,6 @@
 import { EventPublisherBase } from 'src/libs';
 import { MangaDomainBase } from '../../../../entities/Order-domain/manga-domain-entity';
-export class NameModifiedEventPublisher  <
+export class NameMangaModifiedEventPublisher  <
 Response = MangaDomainBase
 >   extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {

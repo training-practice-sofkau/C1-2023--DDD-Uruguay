@@ -2,11 +2,12 @@ import { IorderDomainService } from '../../services/Order-domain-service';
 import { ClientDomainService } from '../../services/Client-domain-service';
 import { MangaDomainService } from '../../services/Manga-domain-service';
 import { OrderDomainEntityBase } from '../../entities/Order-domain/Order-domain-entity';
-import { ClientAddEventPublisher, ClientModifiedEventPublisher, ClientObtainedEventPublisher, MangaModifiedEventPublisher, MangaObtainedEventPublisher, OrderAddEventPublisher, OrderModifiedEventPublisher } from '../../events/publishers';
+import { ClientAddEventPublisher, ClientModifiedEventPublisher, ClientObtainedEventPublisher, MangaModifiedEventPublisher, MangaObtainedEventPublisher, NameMangaModifiedEventPublisher, NameModifiedEventPublisher, OrderAddEventPublisher, OrderModifiedEventPublisher, PhoneModifiedEventPublisher, StateModifiedEventPublisher } from '../../events/publishers';
 import { AggregateRootException } from '../../../../../../../libs/sofka/exceptions/aggregate-root.exception';
 import { MangaDomainBase } from '../../entities/Order-domain/manga-domain-entity';
 import { DeleteOrderEventPublisher } from '../../events/publishers/order/delete-order-event-publisher';
 import { ClientDomainBase } from '../../entities/Order-domain/client-domain-entity';
+import { PrinceModifiedEventPublisher } from '../../events/publishers/order/manga/modified-prince-event-publisher';
 
 
 export class OrderAgregate
@@ -36,10 +37,11 @@ Publisher events go in this place
   private readonly ModifiedClientEventPublisher: ClientModifiedEventPublisher;
   private readonly ModifiedMangaStockingEventPublisher: MangaModifiedEventPublisher;
   private readonly ModifiedOrderEventPublisher: OrderModifiedEventPublisher;
-
-
-
-
+  private readonly  NameMangaModifiedEventPublisher: NameMangaModifiedEventPublisher
+  private readonly PrinceModifiedEventPublisher: PrinceModifiedEventPublisher
+  private readonly StateModifiedEventPublisher: StateModifiedEventPublisher
+  private readonly NameModifiedEventPublisher: NameModifiedEventPublisher
+  private readonly  PhoneModifiedEventPublisher: PhoneModifiedEventPublisher
 
  /**
   * A constructor function that takes in an object as a parameter.
@@ -57,8 +59,18 @@ Publisher events go in this place
     ModifiedClientEventPublisher,
     ModifiedMangaStockingEventPublisher,
     ModifiedOrderEventPublisher,
+    NameMangaModifiedEventPublisher,
+    PrinceModifiedEventPublisher,
+    StateModifiedEventPublisher,
+    NameModifiedEventPublisher,
+    PhoneModifiedEventPublisher
 
   }: {
+    NameModifiedEventPublisher?: NameModifiedEventPublisher
+    PhoneModifiedEventPublisher?: PhoneModifiedEventPublisher
+    NameMangaModifiedEventPublisher?: NameMangaModifiedEventPublisher
+    PrinceModifiedEventPublisher?: PrinceModifiedEventPublisher
+    StateModifiedEventPublisher?: StateModifiedEventPublisher
     AddCustomerEventPublisher?: ClientAddEventPublisher;
     GetClientEventPublisher?: ClientObtainedEventPublisher; 
     DeleteOrderEventPublisher?: DeleteOrderEventPublisher;
@@ -72,7 +84,11 @@ Publisher events go in this place
     RegisterOrderEventPublisher: OrderAddEventPublisher;
   }) {
 
-
+    this.NameModifiedEventPublisher = NameModifiedEventPublisher
+    this.PhoneModifiedEventPublisher = PhoneModifiedEventPublisher
+    this.NameMangaModifiedEventPublisher = NameMangaModifiedEventPublisher
+    this.PrinceModifiedEventPublisher = PrinceModifiedEventPublisher
+    this.StateModifiedEventPublisher = StateModifiedEventPublisher
     this.AddCustomerEventPublisher = AddCustomerEventPublisher
     this.GetClientEventPublisher = GetClientEventPublisher; 
     this.GetMangaEventPublisher = GetMangaEventPublisher;
@@ -208,9 +224,21 @@ Publisher events go in this place
  * It adds a client to the database.
  * @param {string} MangaId - The id of the manga you want to add a client to.
  */
-  AddClient(MangaId: string): Promise<ClientDomainBase> {
-    throw new Error('Method not implemented.');
-  }
+  async AddClient(ClientId: string): Promise<ClientDomainBase> {
+    if(this.orderService && this.AddCustomerEventPublisher)
+    {
+      const result = await this.orderService.AddClient(ClientId)
+
+      this.AddCustomerEventPublisher.response = result
+
+      this.AddCustomerEventPublisher.publish()
+      
+      return this.AddCustomerEventPublisher.response
+
+    }
+    throw new AggregateRootException(
+      'OrderAgregate "OrderService" y/o "AddCustomerEventPublisher" no estan definidos'
+  )  }
 
 
 
@@ -218,8 +246,21 @@ Publisher events go in this place
   * It updates the stock of a manga.
   * @param {string} MangaId - The id of the manga you want to update.
   */
-  UpdateMangaStock(MangaId: string): Promise<OrderDomainEntityBase> {
-    throw new Error('Method not implemented.');
+  async UpdateMangaStock(MangaId: string): Promise<MangaDomainBase> {
+    if(this.orderService && this.ModifiedMangaStockingEventPublisher)
+    {
+      const result = await this.orderService.UpdateMangaStock(MangaId)
+
+      this.ModifiedMangaStockingEventPublisher.response = result
+
+      this.ModifiedMangaStockingEventPublisher.publish()
+      
+      return this.ModifiedMangaStockingEventPublisher.response
+
+    }
+    throw new AggregateRootException(
+      'OrderAgregate "OrderService" y/o "ModifiedMangaStockingEventPublisher" no estan definidos'
+  )
   }
 
 
@@ -227,11 +268,25 @@ Publisher events go in this place
   * It updates a client.
   * @param {string} ClientId - The unique identifier for the client.
   */
-  UpdateClient(ClientId: string): Promise<ClientDomainBase> {
-    throw new Error('Method not implemented.');
+ async UpdateClient(ClientId: string): Promise<ClientDomainBase> {
+    {
+      if(this.orderService && this.ModifiedClientEventPublisher)
+      {
+        const result = await this.orderService.UpdateClient(ClientId)
+  
+        this.ModifiedClientEventPublisher.response = result
+  
+        this.ModifiedClientEventPublisher.publish()
+        
+        return this.ModifiedClientEventPublisher.response
+  
+      }
+      throw new AggregateRootException(
+        'OrderAgregate "OrderService" y/o "ModifiedMangaStockingEventPublisher" no estan definidos'
+    )
+    }
+  
   }
-
-
 
  /* 
    * Methods for the manga entity
@@ -242,16 +297,41 @@ Publisher events go in this place
  * It updates the name of the manga.
  * @param {string} name - The name of the manga.
  */
- UpdateName(name: string): Promise<MangaDomainBase> {
-  console.log(name);
-  throw new Error('Method not implemented.');
- }
+ async UpdateName(name: string): Promise<MangaDomainBase> {
+     if(this.orderService && this.NameMangaModifiedEventPublisher)
+    {
+      const result = await this.MangaService.UpdateName(name)
+
+      this.NameMangaModifiedEventPublisher.response = result
+
+      this.NameMangaModifiedEventPublisher.publish()
+      
+      return this.NameMangaModifiedEventPublisher.response
+
+    }
+    throw new AggregateRootException(
+      'OrderAgregate "OrderService" y/o "NameMangaModifiedEventPublisher" no estan definidos'
+  )
+  }
 /**
  * It updates the state of the manga.
  * @param {number} state - The state of the manga.
  */
-   UpdateState(state: number): Promise<MangaDomainBase> {
-     throw new Error('Method not implemented.');
+   async UpdateState(state: number): Promise<MangaDomainBase> {
+     if(this.orderService && this.StateModifiedEventPublisher)
+     {
+       const result = await this.MangaService.UpdateState(state)
+ 
+       this.StateModifiedEventPublisher.response = result
+ 
+       this.StateModifiedEventPublisher.publish()
+       
+       return this.StateModifiedEventPublisher.response
+ 
+     }
+     throw new AggregateRootException(
+       'OrderAgregate "OrderService" y/o "StateModifiedEventPublisher" no estan definidos'
+   )
    }
 
 
@@ -259,17 +339,56 @@ Publisher events go in this place
  * It updates the price of the manga.
  * @param {number} Price - number - The price of the manga.
  */
-   UpdatePrice(Price: number): Promise<MangaDomainBase> {
-     throw new Error('Method not implemented.');
+   async  UpdatePrice(Price: number): Promise<MangaDomainBase> {
+     if(this.orderService && this.PrinceModifiedEventPublisher)
+     {
+       const result = await this.MangaService.UpdateState(Price)
+ 
+       this.PrinceModifiedEventPublisher.response = result
+ 
+       this.PrinceModifiedEventPublisher.publish()
+       
+       return this.PrinceModifiedEventPublisher.response
+ 
+     }
+     throw new AggregateRootException(
+       'OrderAgregate "OrderService" y/o "PrinceModifiedEventPublisher" no estan definidos'
+   )
+   }
+  
+
+  async UpdateClientName(name: string): Promise<ClientDomainBase> {
+    if(this.orderService && this.NameModifiedEventPublisher)
+     {
+       const result = await this.ClientService.UpdateClientName(name)
+ 
+       this.NameModifiedEventPublisher.response = result
+ 
+       this.NameModifiedEventPublisher.publish()
+       
+       return this.NameModifiedEventPublisher.response
+ 
+     }
+     throw new AggregateRootException(
+       'OrderAgregate "ClientService" y/o "NameModifiedEventPublisher" no estan definidos'
+   )
    }
 
-  
 
-  UpdateClientName(name: string): Promise<ClientDomainBase> {
-    throw new Error('Method not implemented.');
-  }
-  UpdateClientPhone(state: number): Promise<ClientDomainBase> {
-    throw new Error('Method not implemented.');
-  
-  
+ /* The above code is a sample of a domain event handler. */
+  async UpdateClientPhone(state: number): Promise<ClientDomainBase> {
+    if(this.orderService && this.PhoneModifiedEventPublisher)
+    {
+      const result = await this.ClientService.UpdateClientPhone(state)
+
+      this.PhoneModifiedEventPublisher.response = result
+
+      this.PhoneModifiedEventPublisher.publish()
+      
+      return this.PhoneModifiedEventPublisher.response
+
+    }
+    throw new AggregateRootException(
+      'OrderAgregate "ClientService" y/o "NameModifiedEventPublisher" no estan definidos'
+  )
   }}

@@ -10,7 +10,7 @@ export interface IorderDomainService
     UpdateOrder(OrderId: string ): Promise <T>
     Delete(OrderId: string ): Promise <T>
     GetManga(MangaId: string): Promise <MangaDomainBase>;
-    AddClient(MangaId: string): Promise <ClientDomainBase>;
-    UpdateMangaStock(MangaId: string): Promise <T>;
+    AddClient(ClientId: string): Promise <ClientDomainBase>;
+    UpdateMangaStock(MangaId: string): Promise <MangaDomainBase>;
     UpdateClient(ClientId: string): Promise <ClientDomainBase>;
  }
