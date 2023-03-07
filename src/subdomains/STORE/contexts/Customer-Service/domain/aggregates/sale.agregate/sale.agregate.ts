@@ -165,7 +165,7 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
     
         } 
         throw new AggregateRootException(
-            'SaleAgregate "saleservice" y/o "AddedSaleEventPublisher" no estan definidos'
+            'SaleAgregate "saleservice" y/o "ClientObtainedEventPublisher" no estan definidos'
         )    }
 
 
@@ -178,7 +178,7 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
     
         } 
         throw new AggregateRootException(
-            'SaleAgregate "saleservice" y/o "AddedSaleEventPublisher" no estan definidos'
+            'SaleAgregate "saleservice" y/o "SalesObtainedEventPublisher" no estan definidos'
         )    }
 
      
