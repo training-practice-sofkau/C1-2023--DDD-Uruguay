@@ -1,7 +1,7 @@
-import { Product } from './product.domain-entity';
+import { ProductDomainEntity } from './product.domain-entity';
 
-describe('Product', () => {
+describe('ProductDomainEntity', () => {
   it('should be defined', () => {
-    expect(new Product()).toBeDefined();
+    expect(new ProductDomainEntity()).toBeDefined();
   });
 });

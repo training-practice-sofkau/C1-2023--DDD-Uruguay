@@ -1,7 +1,7 @@
-import { Client } from './client.domain-entity';
+import { ClientDomainEntity } from './client.domain-entity';
 
-describe('Client', () => {
+describe('ClientDomainEntity', () => {
   it('should be defined', () => {
-    expect(new Client()).toBeDefined();
+    expect(new ClientDomainEntity()).toBeDefined();
   });
 });

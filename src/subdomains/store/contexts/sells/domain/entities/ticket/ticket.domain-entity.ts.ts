@@ -3,7 +3,7 @@ import { ISellerDomainEntity, IClientDomainEntity, IProductDomainEntity } from "
 import { ITicketDomainEntity } from "../interfaces/ticket.domain-entity.interface";
 import { v4 as uuid } from 'uuid';
 
-export class TicketDomainEntityTs implements ITicketDomainEntity {
+export class TicketDomainEntity implements ITicketDomainEntity {
     ticketId: string | IdValueObject;
     productId: string | IdValueObject;
     seller: ISellerDomainEntity;

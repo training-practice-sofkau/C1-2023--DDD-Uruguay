@@ -1,7 +1,7 @@
-import { TicketDomainEntityTs } from './ticket.domain-entity.ts';
+import { TicketDomainEntity } from './ticket.domain-entity.ts';
 
-describe('TicketDomainEntityTs', () => {
+describe('TicketDomainEntity', () => {
   it('should be defined', () => {
-    expect(new TicketDomainEntityTs()).toBeDefined();
+    expect(new TicketDomainEntity()).toBeDefined();
   });
 });

@@ -2,7 +2,7 @@ import { IdValueObject, PosterTypeValueObject, FlavourValueObject, PriceValueObj
 import { IPosterDomainEntity } from "../interfaces";
 import { v4 as uuid } from 'uuid';
 
-export class Poster implements IPosterDomainEntity {
+export class PosterDomainEntity implements IPosterDomainEntity {
     posterId: string | IdValueObject;
     type: string | PosterTypeValueObject;
     flavour: string | FlavourValueObject;

@@ -1,6 +1,6 @@
 import { CounterDomainEntity } from "../../../entities";
 
-export interface ICounterTurnedOffResponse {
+export interface ICounterCounterCreatedResponse {
     success: boolean;
     data: CounterDomainEntity | null;
 }

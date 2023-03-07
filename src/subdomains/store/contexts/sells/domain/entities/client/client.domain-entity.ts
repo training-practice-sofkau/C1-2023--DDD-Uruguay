@@ -2,7 +2,7 @@ import { PhoneValueObject, NameValueObject, IdValueObject } from "../../value-ob
 import { IClientDomainEntity } from "../interfaces"
 import { v4 as uuid } from 'uuid';
 
-export class Client implements IClientDomainEntity {
+export class ClientDomainEntity implements IClientDomainEntity {
     clientId: string | IdValueObject
     phone: number | PhoneValueObject
     name: string | NameValueObject

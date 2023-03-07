@@ -2,7 +2,7 @@ import { IdValueObject, ProductTypeValueObject, FlavourValueObject, PriceValueOb
 import { IProductDomainEntity } from "../interfaces";
 import { v4 as uuid } from 'uuid';
 
-export class Product implements IProductDomainEntity {
+export class ProductDomainEntity implements IProductDomainEntity {
     productId: string | IdValueObject;
     type: string | ProductTypeValueObject;
     flavour: string | FlavourValueObject;

@@ -2,7 +2,7 @@ import { IdValueObject, NameValueObject, SalaryValueObject } from "../../value-o
 import { ISellerDomainEntity } from "../interfaces";
 import { v4 as uuid } from 'uuid';
 
-export class Seller implements ISellerDomainEntity {
+export class SellerDomainEntity implements ISellerDomainEntity {
     sellerId: string | IdValueObject;
     name: string | NameValueObject;
     salary: number | SalaryValueObject;

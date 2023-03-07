@@ -1,8 +1,7 @@
+import { SellerDomainEntity } from './seller.domain-entity';
 
-import { Seller } from './seller.domain-entity';
-
-describe('Seller', () => {
+describe('SellerDomainEntity', () => {
   it('should be defined', () => {
-    expect(new Seller()).toBeDefined();
+    expect(new SellerDomainEntity()).toBeDefined();
   });
 });

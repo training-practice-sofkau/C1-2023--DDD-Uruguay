@@ -1,7 +1,7 @@
-import { Poster } from './poster.domain-entity';
+import { PosterDomainEntity } from './poster.domain-entity';
 
-describe('Poster', () => {
+describe('PosterDomainEntity', () => {
   it('should be defined', () => {
-    expect(new Poster()).toBeDefined();
+    expect(new PosterDomainEntity()).toBeDefined();
   });
 });
