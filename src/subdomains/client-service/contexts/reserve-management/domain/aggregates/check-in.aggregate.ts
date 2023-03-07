@@ -31,6 +31,17 @@ import {
     IGuestDomainService,
     IRoomKeyDomainService
 } from "../services";
+import { 
+    CreateCheckIn,
+    AddGuest,
+    UdateGuestEmail,
+    AddRoomKey,
+    UpdateAccessLevel,
+    UpdateEmail,
+    UpdateGuestPhone,
+    UpdatePhone,
+    UpdateRoomKeyAccessLevel,
+} from "./helpers";
 
 export class CheckInAggregate implements
     ICheckInDomainService,
