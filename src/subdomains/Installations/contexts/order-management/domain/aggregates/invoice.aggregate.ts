@@ -32,15 +32,15 @@ export class InvoiceAggregate implements IInvoiceDomainService {
         return CreateInvoice(invoice, this.invoiceService, this.registeredInvoiceEventPublisherBase)
     }
 
-    getInvoice(invoiceId: string): Promise<InvoiceDomainEntityBase> {
+    async getInvoice(invoiceId: string): Promise<InvoiceDomainEntityBase> {
         throw new Error('Method not implemented.');
     }
 
-    updateCompany(invoiceId: string, newCompany: CompanyDomainEntityBase): Promise<CompanyDomainEntityBase> {
+    async updateCompany(invoiceId: string, newCompany: CompanyDomainEntityBase): Promise<CompanyDomainEntityBase> {
         throw new Error('Method not implemented.');
     }
 
-    updateFee(invoiceId: string, newFee: FeeDomainEntityBase): Promise<FeeDomainEntityBase> {
+    async updateFee(invoiceId: string, newFee: FeeDomainEntityBase): Promise<FeeDomainEntityBase> {
         throw new Error('Method not implemented.');
     }
     

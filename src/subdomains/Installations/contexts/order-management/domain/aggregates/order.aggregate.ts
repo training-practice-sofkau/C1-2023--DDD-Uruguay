@@ -32,23 +32,23 @@ export class OrderAggregate implements IOrderDomainService {
         return CreateOrder(order, this.orderService, this.registeredOrderEventPublisherBase)
     }
 
-    getOrder(orderId: string): Promise<OrderDomainEntityBase> {
+    async getOrder(orderId: string): Promise<OrderDomainEntityBase> {
         throw new Error('Method not implemented.');
     }
 
-    updateBenefited(orderId: string, newBenefited: BenefitedDomainEntityBase): Promise<BenefitedDomainEntityBase> {
+    async updateBenefited(orderId: string, newBenefited: BenefitedDomainEntityBase): Promise<BenefitedDomainEntityBase> {
         throw new Error('Method not implemented.');
     }
 
-    updateKit(orderId: string, newKit: KitDomainEntityBase): Promise<KitDomainEntityBase> {
+    async updateKit(orderId: string, newKit: KitDomainEntityBase): Promise<KitDomainEntityBase> {
         throw new Error('Method not implemented.');
     }
 
-    updateEmployed(orderId: string, newEmployed: EmployedDomainEntityBase): Promise<EmployedDomainEntityBase> {
+    async updateEmployed(orderId: string, newEmployed: EmployedDomainEntityBase): Promise<EmployedDomainEntityBase> {
         throw new Error('Method not implemented.');
     }
 
-    changeStatus(orderId: string): Promise<OrderDomainEntityBase> {
+    async changeStatus(orderId: string): Promise<OrderDomainEntityBase> {
         throw new Error('Method not implemented.');
     }
 
