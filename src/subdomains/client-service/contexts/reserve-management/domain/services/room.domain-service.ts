@@ -1,3 +1,5 @@
+import { IUpdateState } from "../interfaces";
+
 export interface IRoomDomainService{
-    updateState(roomId: string, newState: boolean): Promise<boolean>
+    updateState(data: IUpdateState): Promise<boolean>
 }

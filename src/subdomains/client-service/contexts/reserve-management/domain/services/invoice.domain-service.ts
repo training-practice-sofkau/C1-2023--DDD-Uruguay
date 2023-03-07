@@ -1,3 +1,5 @@
+import { IUpdateCost } from "../interfaces";
+
 export interface IInvoiceDomainService {
-    updateCost(invoiceId: string, newCost: number): Promise<number>
+    updateCost(data: IUpdateCost): Promise<number>
 }

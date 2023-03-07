@@ -1,3 +1,5 @@
+import { IUpdateAccessLevel } from "../interfaces";
+
 export interface IRoomKeyDomainService {
-    updateAccessLevel(roomKeyId: string, newAccessLevel: string): Promise<string>
+    updateAccessLevel(data: IUpdateAccessLevel): Promise<string>
 }

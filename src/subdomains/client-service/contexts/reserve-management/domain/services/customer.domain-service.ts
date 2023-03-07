@@ -1,3 +1,5 @@
+import { IUpdatePaymentMethod } from "../interfaces";
+
 export interface ICustomerDomainService {
-    updatePaymentMethod(customerId: string, newPaymentMethod: string): Promise<string>;
+    updatePaymentMethod(data: IUpdatePaymentMethod): Promise<string>;
 }

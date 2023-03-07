@@ -1,16 +1,25 @@
 import { GuestDomainEntity, RoomDomainEntity } from "../entities"
+import {
+    IAddGuest,
+    IAddRoom,
+    ICreateCheckIn,
+    IUpdateGuestEmail,
+    IUpdateGuestPhone,
+    IUpdateRoomKeyAccessLevel
+} from "../interfaces";
+
 
 export interface ICheckInDomainService<CheckInDomainEntity> {
 
-    createCheckIn(checkIn: CheckInDomainEntity): Promise<CheckInDomainEntity>
+    createCheckIn(checkIn: ICreateCheckIn): Promise<CheckInDomainEntity>
 
-    addGuest(guest: GuestDomainEntity): Promise<GuestDomainEntity>
+    addGuest(guest: IAddGuest): Promise<GuestDomainEntity>
 
-    addRoom(room: RoomDomainEntity): Promise<RoomDomainEntity>
+    addRoom(room: IAddRoom): Promise<RoomDomainEntity>
 
-    udateGuestEmail(checkInId: string, guestId: string, newEmail: string): Promise<string>
+    udateGuestEmail(data: IUpdateGuestEmail): Promise<string>
 
-    updateGuestPhone(checkInId: string, guestId: string, newPhone: string): Promise<string>
-    
-    updateRoomKeyAccessLevel(checkInId: string, roomId: string, newRoomKeyAccessLevel: string): Promise<string>
+    updateGuestPhone(data: IUpdateGuestPhone): Promise<string>
+
+    updateRoomKeyAccessLevel(data: IUpdateRoomKeyAccessLevel): Promise<string>
 }

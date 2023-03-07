@@ -1,20 +1,30 @@
 import { CustomerDomainEntity, RoomDomainEntity } from "../entities";
+import {
+    IAddCustomer,
+    IAddRoom,
+    ICreateReserve,
+    IUpdateCustomerPaymentMethod,
+    IUpdateEndDate,
+    IUpdateNumberOfGuests,
+    IUpdateRoomState,
+    IUpdateStartDate
+} from "../interfaces";
 
 export interface IReserveDomainService<ReserveDomainEntity> {
-    
-    createReserve(reserve: ReserveDomainEntity): Promise<ReserveDomainEntity>;
 
-    addRoom(room: RoomDomainEntity): Promise<RoomDomainEntity>;
+    createReserve(reserve: ICreateReserve): Promise<ReserveDomainEntity>;
 
-    addCustomer(customer: CustomerDomainEntity): Promise<CustomerDomainEntity>;
+    addRoom(room: IAddRoom): Promise<RoomDomainEntity>;
 
-    updateStartDate(reserveId: string, newDate: Date): Promise<Date>;
+    addCustomer(customer: IAddCustomer): Promise<CustomerDomainEntity>;
 
-    updateEndDate(reserveId: string, newDate: Date): Promise<Date>;
+    updateStartDate(data: IUpdateStartDate): Promise<Date>;
 
-    updateNumberOfGuests(reserveId: string, newNumberOfGuests: number): Promise<number>;
+    updateEndDate(data: IUpdateEndDate): Promise<Date>;
 
-    updateCustomerPaymentMethod(reserveId: string, customerId: string, newPaymentMethod: string): Promise<string>;
-    
-    updateRoomState(reserveId: string, roomId: string, newState: boolean): Promise<boolean>
+    updateNumberOfGuests(data: IUpdateNumberOfGuests): Promise<number>;
+
+    updateCustomerPaymentMethod(data: IUpdateCustomerPaymentMethod): Promise<string>;
+
+    updateRoomState(data: IUpdateRoomState): Promise<boolean>
 }

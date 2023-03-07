@@ -7,5 +7,4 @@ export interface ICreateCheckIn {
     recepsionistName: string;
     roomKey: IRoomKeyDomainEntity;
     guest: IGuestDomainEntity;
-
 }

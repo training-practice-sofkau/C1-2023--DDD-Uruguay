@@ -1,16 +1,24 @@
 import { ConsumptionDomainEntity, InvoiceDomainEntity } from '../entities/';
+import {
+    IAddConsumption,
+    IAddInvoice,
+    ICreateCheckOut,
+    IUpdateConsumptionExtra,
+    IUpdateConsumptionMiniBar,
+    IUpdateInvoiceCost
+} from '../interfaces';
 
 export interface ICheckOutDomainService<CheckOutDomainEntity> {
 
-    createCheckOut(checkOut: CheckOutDomainEntity): Promise<CheckOutDomainEntity>
+    createCheckOut(checkOut: ICreateCheckOut): Promise<CheckOutDomainEntity>
 
-    addConsumption(consumption: ConsumptionDomainEntity): Promise<ConsumptionDomainEntity>
+    addConsumption(consumption: IAddConsumption): Promise<ConsumptionDomainEntity>
 
-    addInvoice(invoice: InvoiceDomainEntity): Promise<InvoiceDomainEntity>
+    addInvoice(invoice: IAddInvoice): Promise<InvoiceDomainEntity>
 
-    updateInvoiceCost(checkOutId: string, invoiceId: string, newCost: number): Promise<number>
+    updateInvoiceCost(data: IUpdateInvoiceCost): Promise<number>
 
-    updateConsumptionExtra(checkOutId: string, consumptionId: string, newExtra: number): Promise<number>
-    
-    updateConsumptionMiniBar(checkOutId: string, consumptionId: string, newMiniBar: number): Promise<number>
+    updateConsumptionExtra(data: IUpdateConsumptionExtra): Promise<number>
+
+    updateConsumptionMiniBar(data: IUpdateConsumptionMiniBar): Promise<number>
 }

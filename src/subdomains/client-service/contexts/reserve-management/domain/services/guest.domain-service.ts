@@ -1,4 +1,6 @@
+import { IUpdateEmail, IUpdatePhone } from "../interfaces";
+
 export interface IGuestDomainService {
-    updatePhone(guestId: string, newPhone: string): Promise<string>;
-    updateEmail(guestId: string, newEmail: string): Promise<string>;
+    updatePhone(data: IUpdatePhone): Promise<string>;
+    updateEmail(data: IUpdateEmail): Promise<string>;
 }
