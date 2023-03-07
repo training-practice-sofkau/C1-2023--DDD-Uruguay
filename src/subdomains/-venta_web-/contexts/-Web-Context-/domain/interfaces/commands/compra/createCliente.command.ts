@@ -2,12 +2,12 @@ import { ClienteDomainEntity } from "../../../entities/common-entities/cliente.d
 
 export interface ICreateClienteMethod {
 
-    // idCliente: string;
-    //nombreCliente: string 
-    //phoneCliente: string;
-    //emailCliente: string;
+    idCliente: string;
+    nombreCliente: string 
+    phoneCliente: string;
+    emailCliente: string;
 
-    newCliente : ClienteDomainEntity;
+    //newCliente : ClienteDomainEntity;
 
-                       
+                     
 }

@@ -2,6 +2,11 @@ import { CursoDomainEntity } from "../../../entities/compra/curso.domain-entity"
 
 export interface ICreateCursoMethod {
 
-    newCurso : CursoDomainEntity;
+    idCurso: string;
+    nombreCurso: string;
+    nombreTeacher: string;
+    costoCurso: number;
+
+    //newCurso : CursoDomainEntity;
                     
 }

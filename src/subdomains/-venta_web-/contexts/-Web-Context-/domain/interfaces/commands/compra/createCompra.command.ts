@@ -15,6 +15,4 @@ export interface ICreateCompraMethod {
 
     // newCompra : CompraDomainEntity;
 
-                       
-
 }
