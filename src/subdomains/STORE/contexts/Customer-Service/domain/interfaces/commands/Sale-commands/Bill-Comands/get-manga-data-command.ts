@@ -1,1 +1,6 @@
-export class GetMangaData {}
+export class GetMangaData {
+
+mangaID: string;
+
+}
+
