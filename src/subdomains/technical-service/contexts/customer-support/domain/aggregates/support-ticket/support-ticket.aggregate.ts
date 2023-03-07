@@ -1,10 +1,7 @@
 
 import { AggregateRootException } from 'src/libs/sofka/exceptions';
-
-import { NewTicketAddedEventPublisherBase } from '../../events/publishers/support-ticket';
-import { IssueAddedEventPublisherBase } from '../../events/publishers/support-ticket/device/issue-added.event-publisher';
-import { IssueRemovedEventPublisherBase } from '../../events/publishers/support-ticket/device/issue-removed.event-publisher';
-
+import { RepairsAddedEventPublisherBase } from '../../events/publishers/support-ticket/repairs/repairs-added.event-publisher';
+import { WorkStatusChangedEventPublisherBase } from '../../events/publishers/support-ticket/repairs/work-status-changed.event-publisher';
 
 import {
     IOpenNewTicketCommand,
@@ -13,6 +10,8 @@ import {
     IAddDeviceCommand,
     IAddIssueCommand,
     IRemoveIssueCommand,
+    IAddRepairsCommand,
+    IChangeWorkStatusCommand,
 
 } from '../../interfaces';
 
@@ -30,6 +29,8 @@ import {
     AddDevice,
     AddIssue,
     RemoveIssue,
+    AddRepair,
+    ChangeWorkStatus,
 
 } from './helpers';
 
@@ -37,12 +38,15 @@ import {
     TicketClosedEventPublisherBase,
     InvoiceGeneratedEventPublisherBase,
     DeviceAddedEventPublisherBase,
+    IssueAddedEventPublisherBase,
+    IssueRemovedEventPublisherBase,
+    NewTicketAddedEventPublisherBase
 
 } from '../../events/publishers/support-ticket';
 
 
 
-export class SupportTicketAggregate implements ISupportTicketDomainService, IDeviceDomainService {
+export class SupportTicketAggregate implements ISupportTicketDomainService, IDeviceDomainService, IRepairsDomainService {
 
     private readonly supportTicketService?: ISupportTicketDomainService;
     private readonly deviceService?: IDeviceDomainService;
@@ -53,6 +57,8 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
     private readonly deviceAddedEventPublisherBase?: DeviceAddedEventPublisherBase;
     private readonly issueAddedEventPublisherBase?: IssueAddedEventPublisherBase;
     private readonly issueRemovedEventPublisherBase?: IssueRemovedEventPublisherBase;
+    private readonly repairsAddedEventPublisherBase?: RepairsAddedEventPublisherBase;
+    private readonly workStatusChangedEventPublisherBase?: WorkStatusChangedEventPublisherBase;
 
     constructor(
         {
@@ -65,6 +71,8 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
             deviceAddedEventPublisherBase,
             issueAddedEventPublisherBase,
             issueRemovedEventPublisherBase,
+            repairsAddedEventPublisherBase,
+            workStatusChangedEventPublisherBase,
 
         }: {
 
@@ -77,6 +85,8 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
             deviceAddedEventPublisherBase?: DeviceAddedEventPublisherBase,
             issueAddedEventPublisherBase?: IssueAddedEventPublisherBase,
             issueRemovedEventPublisherBase?: IssueRemovedEventPublisherBase,
+            repairsAddedEventPublisherBase?: RepairsAddedEventPublisherBase,
+            workStatusChangedEventPublisherBase?: WorkStatusChangedEventPublisherBase,
 
         }) {
 
@@ -89,7 +99,10 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
         this.deviceAddedEventPublisherBase = deviceAddedEventPublisherBase;
         this.issueAddedEventPublisherBase = issueAddedEventPublisherBase;
         this.issueRemovedEventPublisherBase = issueRemovedEventPublisherBase;
+        this.repairsAddedEventPublisherBase = repairsAddedEventPublisherBase;
+        this.workStatusChangedEventPublisherBase = workStatusChangedEventPublisherBase;
     }
+
 
 
 
@@ -220,6 +233,45 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
 
         return await RemoveIssue(issue, this.deviceService, this.issueRemovedEventPublisherBase);
     }
+    // #endregion
+
+
+    // #region REPAIRS methods
+
+    async AddRepair(repairData: IAddRepairsCommand): Promise<boolean> {
+
+        if (!this.repairsService) {
+            throw new AggregateRootException('InvoiceAggregate: "RepairsService" is not defined!');
+        }
+        if (!this.repairsAddedEventPublisherBase) {
+            throw new AggregateRootException('InvoiceAggregate: "RepairsAddedEventPublisherBase" is not defined!');
+        }
+
+        return await AddRepair(repairData, this.repairsService, this.repairsAddedEventPublisherBase);
+    }
+
+
+
+    /**
+     * Allows to change the repair work status ( true = active / false = finished )
+     *
+     * @param {IChangeWorkStatusCommand} repairData
+     * @return {*}  {Promise<boolean>}
+     * @memberof SupportTicketAggregate
+     */
+    async ChangeWorkStatus(repairData: IChangeWorkStatusCommand): Promise<boolean> {
+
+        if (!this.repairsService) {
+            throw new AggregateRootException('InvoiceAggregate: "RepairsService" is not defined!');
+        }
+        if (!this.workStatusChangedEventPublisherBase) {
+            throw new AggregateRootException('InvoiceAggregate: "WorkStatusChangedEventPublisherBase" is not defined!');
+        }
+
+        return await ChangeWorkStatus(repairData, this.repairsService, this.workStatusChangedEventPublisherBase);
+    }
+
 
     // #endregion
+
 }
