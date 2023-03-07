@@ -1,10 +1,10 @@
 import { EventPublisherBase } from "src/libs";
 import { TrainingFieldDomainEntity } from "../../../entities";
 
-export abstract class AddedTrainingFieldEventPublisher extends EventPublisherBase<TrainingFieldDomainEntity> {
+export abstract class UpdatedTrainingFieldNameEventPublisher extends EventPublisherBase<TrainingFieldDomainEntity> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'first-team.added-training-field',
+            'first-team.updated-training-field-name',
             JSON.stringify({ data: this.response })
         )
     }

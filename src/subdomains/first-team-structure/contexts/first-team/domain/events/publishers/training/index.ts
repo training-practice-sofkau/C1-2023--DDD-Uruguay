@@ -1,11 +1,11 @@
-
-
-
-
-
-
-
-
-
-
-
+export * from './duration-updated.event-publisher';
+export * from './registered-training.event-publisher';
+export * from './trainer-added.event-publisher';
+export * from './trainer-specialty-updated.event-publisher';
+export * from './training-equipment-added.event-publisher';
+export * from './training-equipment-type-updated.event-publisher';
+export * from './training-field-added.event-publisher';
+export * from './updated-name.event-publisher';
+export * from './updated-training-field-name.event-publisher';
+export * from './workout-added.event-publisher';
+export * from './workout-goal-updated.event-publisher';

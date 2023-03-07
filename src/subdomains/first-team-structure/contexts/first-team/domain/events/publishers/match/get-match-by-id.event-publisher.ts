@@ -1,10 +1,10 @@
 import { EventPublisherBase } from "src/libs";
-import { RivalDomainEntity } from "../../../entities";
+import { MatchDomainEntity } from "../../../entities";
 
-export abstract class AddedRivalEventPublisher extends EventPublisherBase<RivalDomainEntity> {
+export abstract class GotTrainerIdEventPublisher extends EventPublisherBase<MatchDomainEntity> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'first-team.added-rival',
+            'first-team.got-trainer',
             JSON.stringify({ data: this.response })
         )
     }

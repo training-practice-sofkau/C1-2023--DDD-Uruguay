@@ -1,11 +1,10 @@
 import { EventPublisherBase } from "src/libs";
 import { StadiumDomainEntity } from "../../../entities";
-import { IAddedStadiumResponse } from "../../../interfaces/responses/match/stadium-added.response";
 
-export abstract class AddedStadiumEventPublisher extends EventPublisherBase<StadiumDomainEntity> {
+export abstract class GotStadiumIdEventPublisher extends EventPublisherBase<StadiumDomainEntity> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'first-team.added-stadium',
+            'first-team.got-stadium-id',
             JSON.stringify({ data: this.response })
         )
     }

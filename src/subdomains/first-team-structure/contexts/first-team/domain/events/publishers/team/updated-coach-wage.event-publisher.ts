@@ -1,11 +1,10 @@
 import { EventPublisherBase } from "src/libs";
 import { CoachDomainEntity } from "../../../entities";
-import { IAddedCoachResponse } from '../../../interfaces/responses/team/coach-added.response';
 
-export abstract class AddedCoachEventPublisher extends EventPublisherBase<CoachDomainEntity> {
+export abstract class UpdatedCoachWageEventPublisher extends EventPublisherBase<CoachDomainEntity> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'first-team.added-coach',
+            'first-team.updated-coach-wage',
             JSON.stringify({ data: this.response })
         )
     }
