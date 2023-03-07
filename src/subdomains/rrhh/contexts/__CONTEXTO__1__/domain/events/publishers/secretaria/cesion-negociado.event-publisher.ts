@@ -1,8 +1,8 @@
 import { EventPublisherBase } from "src/libs";
-import { SecretariaDomainEntity } from "../../../entities/secretaria/secretaria.domain-entity";
+import { CesionDomainEntity } from '../../../entities/cesion/cesion.domain-entity';
 
 export abstract class CesionNegociadoEventPublisher
-<Response = SecretariaDomainEntity>
+<Response = CesionDomainEntity>
 extends EventPublisherBase<Response>{
     
 publish<Result = any>(): Promise<Result> {
