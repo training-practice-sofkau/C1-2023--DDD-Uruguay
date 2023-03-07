@@ -21,8 +21,8 @@ export class SaleDomainEntity implements ISaleEntity{
 
         if (_data?.Seller) this.Seller = _data.Seller;
 
-        if (_data?.Bill) this.Bill = _data.Bill;    
-           
+        if (_data?.Bill) this.Bill = _data.Bill;   
+        
         if (_data?.IDOrder) this.IDOrder = _data.IDOrder;
 
         else this.IDOrder = uuidv4()      

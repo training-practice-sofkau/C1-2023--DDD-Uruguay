@@ -5,9 +5,8 @@ import { UpdatePriceManga } from '../interfaces/commands/Order-commands/Manga-Co
 export interface MangaDomainService 
  < T extends MangaDomainBase = MangaDomainBase >   {
 
-    UpdateName (data: UpdateNameManga):   Promise<T>;
+    UpdateName (data: UpdateNameManga): Promise<T>;
     UpdateState(data: UpdateStateManga): Promise<T>;
     UpdatePrice(data: UpdatePriceManga): Promise<T>;
-
 
 }
