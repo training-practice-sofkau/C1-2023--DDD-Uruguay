@@ -11,7 +11,15 @@ import { IUpdateNombrePlanMethod } from "../interfaces/commands/membership/updat
 
 export interface MembershipService <MembershipDomainEntity>{
 
-    /*
+    createCliente(cliente : ICreateClienteMethod) : Promise <ClienteDomainEntity>;
+    createMembership(membership : ICreateMembershipMethod  ) : Promise<MembershipDomainEntity>;
+    createPlan(plan : ICreatePlaneMethod) : Promise<PlanDomainEntity>;
+    updateClientePhone(data : IUpdateClientPhoneMethod) : Promise<number>;
+    updateCostoPlan(data : IUpdateCostoPlanMethod) : Promise<number>;
+    updateNombrePlan(data  : IUpdateNombrePlanMethod): Promise<string>;
+
+
+     /*
     createCliente(cliente : ClienteDomainEntity) : Promise <ClienteDomainEntity>;
     createMembership(membership : MembershipDomainEntity ) : Promise<MembershipDomainEntity>;
     createPlan(plan : PlanDomainEntity) : Promise<PlanDomainEntity>;
@@ -19,12 +27,5 @@ export interface MembershipService <MembershipDomainEntity>{
     updateCostoPlan(idMembership : string , idPlan : string , costo : number) : Promise<number>;
     updateNombrePlan(idMembership : string , idPlan : string , nombrePlan : string) : Promise<string>;
     */
-
-    createCliente(cliente : ICreateClienteMethod) : Promise <ClienteDomainEntity>;
-    createMembership(membership : ICreateMembershipMethod  ) : Promise<MembershipDomainEntity>;
-    createPlan(plan : ICreatePlaneMethod) : Promise<PlanDomainEntity>;
-    updateClientePhone(data : IUpdateClientPhoneMethod) : Promise<number>;
-    updateCostoPlan(data : IUpdateCostoPlanMethod) : Promise<number>;
-    updateNombrePlan(data  : IUpdateNombrePlanMethod): Promise<string>;
 
 }

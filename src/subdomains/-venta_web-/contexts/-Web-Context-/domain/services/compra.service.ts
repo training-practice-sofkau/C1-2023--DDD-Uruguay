@@ -1,4 +1,5 @@
 import { ClienteDomainEntity } from "../entities/common-entities/cliente.domain-entity";
+import { CompraDomainEntity } from "../entities/compra/compra.domain-entity";
 import { CursoDomainEntity } from "../entities/compra/curso.domain-entity";
 import { ICreateClienteMethod } from "../interfaces/commands/compra/createCliente.command";
 import { ICreateCompraMethod } from "../interfaces/commands/compra/createCompra.command";
@@ -8,13 +9,13 @@ import { IUpdateCostoCursoPhoneMethod } from "../interfaces/commands/compra/upda
 import { IUpdatePorcentajeCuponMethod } from "../interfaces/commands/compra/updatePorcentajeCupon.command";
 
 
-export interface CompraService <CompraDomainEntity> {
+export interface ICompraService {
 
     createCliente(cliente : ICreateClienteMethod) : Promise <ClienteDomainEntity>;
     createCompra(compra : ICreateCompraMethod ) : Promise<CompraDomainEntity>;
     createCurso(curso : ICreateCursoMethod) : Promise<CursoDomainEntity>;
-    updateClientePhone(data : IUpdateClientPhoneMethod ) : Promise<number>;
-    updateCursoCosto(data : IUpdateCostoCursoPhoneMethod) : Promise<CursoDomainEntity>;
-    updatePorcentajeCupon(data :  IUpdatePorcentajeCuponMethod) : Promise<number>;
+    //updateClientePhone(data : IUpdateClientPhoneMethod ) : Promise<number>;
+    //updateCursoCosto(data : IUpdateCostoCursoPhoneMethod) : Promise<CursoDomainEntity>;
+    //updatePorcentajeCupon(data :  IUpdatePorcentajeCuponMethod) : Promise<number>;
 
 }
