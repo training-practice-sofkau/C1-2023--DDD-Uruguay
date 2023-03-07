@@ -5,6 +5,7 @@ import { ICursoDomainEntityInterface } from "../interfaces/i-curso.domain-entity
 import { v4 as uuidv4 } from 'uuid';
 
 export class CursoDomainEntity implements ICursoDomainEntityInterface{
+    
     idCurso: string | UuidValueObject;
     nombreCurso: string | FullnameValueObject;
     nombreTeacher: string | FullnameValueObject;
