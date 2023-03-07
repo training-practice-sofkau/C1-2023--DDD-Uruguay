@@ -3,8 +3,8 @@ import { ICreateRoleCommand } from '../../interfaces/commands/employee';
 
 export interface IRoleDomainService{
 
-    createRole(roleData: ICreateRoleCommand) : Promise < boolean >;
+    CreateRole(roleData: ICreateRoleCommand) : Promise < boolean >;
 
-    changeRoleDescription(data: IChangeRoleDescriptionCommand) : Promise < boolean >;
+    ChangeRoleDescription(data: IChangeRoleDescriptionCommand) : Promise < boolean >;
 
 }
