@@ -1,5 +1,7 @@
+import { IUpdatePorcentajeMethod } from "../interfaces/commands/compra/cupon/updatePorcentaje.command";
 
-export interface  CuponService {
+export interface  ICuponService {
 
-    updatePorcentaje(idCupon : string, porcentaje : number) : Promise<number>
+    updatePorcentaje(data : IUpdatePorcentajeMethod) : Promise<number> //Utilizo la interface de Command
+
 }

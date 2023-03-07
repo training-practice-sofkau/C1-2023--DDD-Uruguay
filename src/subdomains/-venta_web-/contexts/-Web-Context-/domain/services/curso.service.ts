@@ -1,5 +1,6 @@
+import { IUpdateCostoMethod } from "../interfaces/commands/compra/curso/updateCosto.command";
 
-export interface CursoService {
+export interface ICursoService {
 
-    updateCosto(idCurso : string, costo : number) : Promise<number>
+    updateCosto(data : IUpdateCostoMethod) : Promise<number> //Utilizo la interface de Command
 }

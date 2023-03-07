@@ -1,5 +1,6 @@
+import { IUpdatePhoneMethod } from "../interfaces/commands/compra/cliente/updatePhone.command";
 
-export interface ClienteService {
+export interface IClienteService {
 
-    updatePhone(idCliente : string, phone : number) : Promise<number>
+    updatePhone(data: IUpdatePhoneMethod ) : Promise<number> //Utilizo la interface de Command
 }

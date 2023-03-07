@@ -25,7 +25,6 @@ export class ClienteDomainEntity implements IClienteDomainEntityInterface {
 
         if (_data?.emailCliente) this.emailCliente = _data.emailCliente;
 
-        // this.createdAt = new Date();
     }
 }
 
