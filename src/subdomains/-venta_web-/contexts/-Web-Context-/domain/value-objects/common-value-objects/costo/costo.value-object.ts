@@ -1,4 +1,5 @@
 import { ValueObjectBase } from "src/libs/sofka/bases";
+import { costoValorOk } from "src/libs/validations/costo-validation";
 
 export class CostoValueObject extends ValueObjectBase<number>{
     
@@ -9,6 +10,7 @@ export class CostoValueObject extends ValueObjectBase<number>{
     
     
     validateData(): void {
+        this.valorPositivo();
        
     }
 
@@ -22,13 +24,13 @@ export class CostoValueObject extends ValueObjectBase<number>{
             this.setError(error);
         }
 
+
         //Valido que el valor sea positivo
-        if (this.value < 0) {
+        if (costoValorOk(this.value)) {
             const error = { field: 'Costo', message: 'El costo no puede ser menor a cero!'};
 
             this.setError(error);
         }
-
 
     }
 }
