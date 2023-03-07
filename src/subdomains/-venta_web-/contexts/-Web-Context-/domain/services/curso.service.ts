@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
 
-@Injectable()
-export class CursoService {}
+export interface CursoService {
+
+    updateCosto(idCosto : string, costo : number) : Promise<number>
+}

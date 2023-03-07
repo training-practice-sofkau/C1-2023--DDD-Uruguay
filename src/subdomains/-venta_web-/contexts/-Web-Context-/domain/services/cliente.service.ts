@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
 
-@Injectable()
-export class ClienteService {}
+export interface ClienteService {
+
+    updatePhone(idCliente : string, phone : number) : Promise<number>
+}
