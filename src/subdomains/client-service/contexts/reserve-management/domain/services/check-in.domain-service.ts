@@ -1,7 +1,7 @@
-import { CheckInDomainEntity, GuestDomainEntity, RoomDomainEntity } from "../entities"
+import { CheckInDomainEntity, GuestDomainEntity, RoomKeyDomainEntity } from "../entities"
 import {
     IAddGuest,
-    IAddRoom,
+    IAddRoomKey,
     ICreateCheckIn,
     IUpdateGuestEmail,
     IUpdateGuestPhone,
@@ -15,7 +15,7 @@ export interface ICheckInDomainService {
 
     addGuest(guest: IAddGuest): Promise<GuestDomainEntity>
 
-    addRoom(room: IAddRoom): Promise<RoomDomainEntity>
+    addRoomKey(room: IAddRoomKey): Promise<RoomKeyDomainEntity>
 
     udateGuestEmail(data: IUpdateGuestEmail): Promise<string>
 

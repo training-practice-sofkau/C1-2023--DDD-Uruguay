@@ -1,9 +1,9 @@
-
-
-
+export * from './check-in.domain-service';
+export * from './check-out.domain-service';
+export * from './consumption.domain-service';
 export * from './customer.domain-service';
-
-
+export * from './guest.domain-service';
+export * from './invoice.domain-service';
 export * from './reserve.domain-service';
-
+export * from './room-key.domain-service';
 export * from './room.domain-service';
