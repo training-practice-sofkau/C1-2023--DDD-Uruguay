@@ -357,10 +357,10 @@ Publisher events go in this place
    }
   
 
-  async UpdateClientName(name: string): Promise<ClientDomainBase> {
+  async UpdateClientName(idclient: number,name: string): Promise<ClientDomainBase> {
     if(this.orderService && this.NameModifiedEventPublisher)
      {
-       const result = await this.ClientService.UpdateClientName(name)
+       const result = await this.ClientService.UpdateClientName(idclient,name)
  
        this.NameModifiedEventPublisher.response = result
  
@@ -376,10 +376,10 @@ Publisher events go in this place
 
 
  /* The above code is a sample of a domain event handler. */
-  async UpdateClientPhone(state: number): Promise<ClientDomainBase> {
+  async UpdateClientPhone(idclient: number, phone: number): Promise<ClientDomainBase> {
     if(this.orderService && this.PhoneModifiedEventPublisher)
     {
-      const result = await this.ClientService.UpdateClientPhone(state)
+      const result = await this.ClientService.UpdateClientPhone(idclient,phone)
 
       this.PhoneModifiedEventPublisher.response = result
 
