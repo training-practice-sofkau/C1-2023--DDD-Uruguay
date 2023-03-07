@@ -12,6 +12,8 @@ import {
     CustomerPaymentMethodUpdatedEventPublisher,
     CustomerAddedEventPublisher
 } from "../events";
+import { AggregateRootException } from "src/libs/sofka";
+import { IUpdateCustomerPaymentMethod, IUpdateEndDate, IUpdateNumberOfGuests, IUpdatePaymentMethod, IUpdateRoomState, IUpdateStartDate, IUpdateState } from "../interfaces";
 
 export class ReserveAggregate implements
     IReserveDomainService<ReserveDomainEntity>,
@@ -82,36 +84,94 @@ export class ReserveAggregate implements
         this.stateUpdatedEventPublisher = stateUpdatedEventPublisher
     }
 
-    createReserve(reserve: ReserveDomainEntity): Promise<ReserveDomainEntity> {
-        throw new Error("Method not implemented.");
+    async createReserve(reserve: ReserveDomainEntity): Promise<ReserveDomainEntity> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.reserveCreatedEventPublisher)
+            throw new AggregateRootException('reserveCreatedEventPublisher no esta definido')
+
+        return await CreateResere(reserve, this.reserveService, this.reserveCreatedEventPublisher)
     }
-    addRoom(room: RoomDomainEntity): Promise<RoomDomainEntity> {
-        throw new Error("Method not implemented.");
+
+    async addRoom(room: RoomDomainEntity): Promise<RoomDomainEntity> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.roomAddedEventPublisher)
+            throw new AggregateRootException('roomAddedEventPublisher no esta definido')
+
+        return await AddRoom(room, this.reserveService, this.roomAddedEventPublisher)
     }
-    addCustomer(customer: CustomerDomainEntity): Promise<CustomerDomainEntity> {
-        throw new Error("Method not implemented.");
+
+    async addCustomer(customer: CustomerDomainEntity): Promise<CustomerDomainEntity> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.customerAddedEventPublisher)
+            throw new AggregateRootException('customerAddedEventPublisher no esta definido')
+
+        return await AddCustomer(customer, this.reserveService, this.customerAddedEventPublisher)
     }
-    updateStartDate(reserveId: string, newDate: Date): Promise<Date> {
-        throw new Error("Method not implemented.");
+
+    async updateStartDate(data: IUpdateStartDate): Promise<Date> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.startDateUpdatedEventPublisher)
+            throw new AggregateRootException('startDateUpdatedEventPublisher no esta definido')
+
+        return await UpdateStartDate(data, this.reserveService, this.startDateUpdatedEventPublisher)
     }
-    updateEndDate(reserveId: string, newDate: Date): Promise<Date> {
-        throw new Error("Method not implemented.");
+
+    async updateEndDate(data: IUpdateEndDate): Promise<Date> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.endDateUpdatedEventPublisher)
+            throw new AggregateRootException('endDateUpdatedEventPublisher no esta definido')
+
+        return await UpdateEndDate(data, this.reserveService, this.endDateUpdatedEventPublisher)
     }
-    updateNumberOfGuests(reserveId: string, newNumberOfGuests: number): Promise<number> {
-        throw new Error("Method not implemented.");
+
+    async updateNumberOfGuests(data: IUpdateNumberOfGuests): Promise<number> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.numberOfGuestsUpdatedEventPublisher)
+            throw new AggregateRootException('numberOfGuestsUpdatedEventPublisher no esta definido')
+
+        return await UpdateNumberOfGuests(data, this.reserveService, this.numberOfGuestsUpdatedEventPublisher)
     }
-    updateCustomerPaymentMethod(reserveId: string, customerId: string, newPaymentMethod: string): Promise<string> {
-        throw new Error("Method not implemented.");
+
+    async updateCustomerPaymentMethod(data: IUpdateCustomerPaymentMethod): Promise<string> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.customerPaymentMethodUpdatedEventPublisher)
+            throw new AggregateRootException('customerPaymentMethodUpdatedEventPublisher no esta definido')
+
+        return await UpdateCustomerPaymentMethod(data, this.reserveService, this.customerPaymentMethodUpdatedEventPublisher)
     }
-    updateRoomState(reserveId: string, roomId: string, newState: boolean): Promise<boolean> {
-        throw new Error("Method not implemented.");
+
+    async updateRoomState(data: IUpdateRoomState): Promise<boolean> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.roomStateUpdatedEventPublisher)
+            throw new AggregateRootException('roomStateUpdatedEventPublisher no esta definido')
+
+        return await UpdateRoomState(data, this.reserveService, this.roomStateUpdatedEventPublisher)
     }
 
 
-    updatePaymentMethod(customerId: string, newPaymentMethod: string): Promise<string> {
-        throw new Error("Method not implemented.");
+    async updatePaymentMethod(data: IUpdatePaymentMethod): Promise<string> {
+        if (!this.customerService)
+            throw new AggregateRootException('customerService no esta definido')
+        if (!this.paymentMethodUpdatedEventPublisher)
+            throw new AggregateRootException('paymentMethodUpdatedEventPublisher no esta definido')
+
+        return await UpdatePaymentMethod(data, this.customerService, this.paymentMethodUpdatedEventPublisher)
     }
-    updateState(roomId: string, newState: boolean): Promise<boolean> {
-        throw new Error("Method not implemented.");
+
+    async updateState(data: IUpdateState): Promise<boolean> {
+        if (!this.roomService)
+            throw new AggregateRootException('roomService no esta definido')
+        if (!this.stateUpdatedEventPublisher)
+            throw new AggregateRootException('stateUpdatedEventPublisher no esta definido')
+
+        return await UpdateState(data, this.roomService, this.stateUpdatedEventPublisher)
     }
 }
