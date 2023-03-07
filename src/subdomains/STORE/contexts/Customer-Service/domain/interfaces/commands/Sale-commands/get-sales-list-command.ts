@@ -1,4 +1,4 @@
-export interface GetSalesList {
+export interface IGetSalesList {
 
     IdSale: string 
 

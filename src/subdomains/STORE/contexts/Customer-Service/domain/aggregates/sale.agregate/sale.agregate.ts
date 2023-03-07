@@ -17,6 +17,14 @@ import { MangaObtainedEventPublisher } from '../../events/publishers/Sale/Bill/m
 import { PaymentMethodEventPublisher } from '../../events/publishers/Sale/Bill/Payment-method-event-publisher';
 import { TotalModifiedEventPublisher } from '../../events/publishers/Sale/Bill/modified-total-event-publisher';
 import { AggregateRootException } from 'src/libs';
+import { IAddSaller } from '../../interfaces/commands/Sale-commands/add-saller-command';
+import { UpdatePaymentMethod } from '../../interfaces/commands/Sale-commands/Bill-Comands/update-payment-method-command';
+import { IUpdateTotal } from '../../interfaces/commands/Sale-commands/Bill-Comands/update-total-command';
+import { IGetClientSale } from '../../interfaces/commands/Sale-commands/get-client-command';
+import { IRegisterSale } from '../../interfaces/commands/Sale-commands/register-sale-command';
+import { IUpdateNameSeller } from '../../interfaces/commands/Sale-commands/Seller-Commands/update-name-command';
+import { IUpdateBill } from '../../interfaces/commands/Sale-commands/update-bill-command';
+import { IGetMangaData } from '../../interfaces/commands/Sale-commands/Bill-Comands/get-manga-data-command';
 export class SaleAgregate implements BillDomainService, SellerDomainService, SaleDomainService {
 
 
@@ -85,9 +93,9 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
 
       }
    
-  async   UpdateNameSeller(id: string, name: string): Promise<SellerDomain> {
+  async   UpdateNameSeller(data: IUpdateNameSeller): Promise<SellerDomain> {
         if(this.billservice && this.SellerNameModifiedEventPublisher){        
-            const result = await this.sellerService.UpdateNameSeller(id, name);
+            const result = await this.sellerService.UpdateNameSeller(data);
             this.SellerNameModifiedEventPublisher.response = result
             this.SellerNameModifiedEventPublisher.publish()
             return this.SellerNameModifiedEventPublisher.response
@@ -97,11 +105,11 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
             'SaleAgregate "sellerService" y/o "SellerNameModifiedEventPublisher" no estan definidos'
         )    }
 
-   async  UpdatePaymentMethod(idBill:string, PaymentMethod: string): Promise<BillDomain> {
+   async  UpdatePaymentMethod(data:UpdatePaymentMethod): Promise<BillDomain> {
 
 
         if(this.billservice && this.PaymentMethodEventPublisher){        
-        const result = await this.billservice.UpdatePaymentMethod(idBill, PaymentMethod);
+        const result = await this.billservice.UpdatePaymentMethod(data);
         this.PaymentMethodEventPublisher.response = result
         this.PaymentMethodEventPublisher.publish()
         return this.PaymentMethodEventPublisher.response
@@ -114,9 +122,9 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
     }
 
 
-   async UpdateTotal(idBill:string,total: number): Promise<BillDomain> {
+   async UpdateTotal(data: IUpdateTotal  ): Promise<BillDomain> {
         if(this.billservice && this.TotalModifiedEventPublisher){        
-            const result = await this.billservice.UpdateTotal(idBill, total);
+            const result = await this.billservice.UpdateTotal(data);
             this.TotalModifiedEventPublisher.response = result
             this.TotalModifiedEventPublisher.publish()
             return this.TotalModifiedEventPublisher.response
@@ -127,7 +135,7 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
         )    }
 
 
-    async getMangaData(idManga: string): Promise<MangaDomainBase> {
+    async getMangaData(idManga: IGetMangaData): Promise<MangaDomainBase> {
         if(this.billservice && this.MangaObtainedEventPublisher){        
             const result = await this.billservice.getMangaData(idManga);
             this.MangaObtainedEventPublisher.response = result
@@ -143,7 +151,7 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
   
 
 
-   async  RegisterSale(sale: SaleDomainEntity): Promise<SaleDomainEntity> {
+   async  RegisterSale(sale: IRegisterSale): Promise<SaleDomainEntity> {
         if(this.billservice && this.AddedSaleEventPublisher){        
             const result = await this.saleservice.RegisterSale(sale);
             this.AddedSaleEventPublisher.response = result
@@ -156,7 +164,7 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
         )    }
 
 
-    async GetClient(ClientId: string): Promise<ClientDomainBase> {
+    async GetClient(ClientId: IGetClientSale): Promise<ClientDomainBase> {
         if(this.billservice && this.ClientObtainedEventPublisher){        
             const result = await this.saleservice.GetClient(ClientId);
             this.ClientObtainedEventPublisher.response = result
@@ -184,7 +192,7 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
      
 
 
-   async  AddSeller(sellerID: SellerDomain): Promise<SellerDomain> {
+   async  AddSeller(sellerID: IAddSaller): Promise<SellerDomain> {
         if(this.billservice && this.AddedSellerEventPublisher){        
             const result = await this.saleservice.AddSeller(sellerID);
             this.AddedSellerEventPublisher.response = result
@@ -197,9 +205,9 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
         )    }
 
 
-    async UpdateSeller(sellerID: string, data: SellerDomain): Promise<SellerDomain> {
+    async UpdateSeller( data: IUpdateNameSeller): Promise<SellerDomain> {
         if(this.billservice && this.SellerModifiedEventPublisher){        
-            const result = await this.saleservice.UpdateSeller(sellerID, data);
+            const result = await this.saleservice.UpdateSeller( data);
             this.SellerModifiedEventPublisher.response = result
             this.SellerModifiedEventPublisher.publish()
             return this.SellerModifiedEventPublisher.response
@@ -210,9 +218,15 @@ export class SaleAgregate implements BillDomainService, SellerDomainService, Sal
         )    }
 
 
-    async UpdateBill(BillId: string, data: BillDomain): Promise<BillDomain> {
+    /**
+     * It updates a bill.
+     * @param {string} BillId - The id of the bill to be updated.
+     * @param {BillDomain} data - The data to be updated.
+     * @returns The BillDomain object
+     */
+    async UpdateBill( data: IUpdateBill): Promise<BillDomain> {
         if(this.billservice && this.BillModifiedEventPublisher){        
-            const result = await this.saleservice.UpdateBill(BillId, data);
+            const result = await this.saleservice.UpdateBill(data);
             this.BillModifiedEventPublisher.response = result
             this.BillModifiedEventPublisher.publish()
             return this.BillModifiedEventPublisher.response

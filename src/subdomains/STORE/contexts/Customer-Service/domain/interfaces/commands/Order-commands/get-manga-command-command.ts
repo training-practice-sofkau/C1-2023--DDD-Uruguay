@@ -1,4 +1,4 @@
-export interface GetManga {
+export interface IGetManga {
         MangaID: string
 
 }

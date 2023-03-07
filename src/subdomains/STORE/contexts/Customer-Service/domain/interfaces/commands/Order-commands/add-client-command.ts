@@ -1,5 +1,5 @@
 
-export interface AddClient {
+export interface IAddClient {
     ClientID: string;
     Name: string;
     Phone: string;

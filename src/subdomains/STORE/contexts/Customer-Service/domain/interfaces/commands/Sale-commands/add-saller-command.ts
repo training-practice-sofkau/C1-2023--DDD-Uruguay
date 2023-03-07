@@ -1,4 +1,4 @@
-export interface AddSaller {
+export interface IAddSaller {
 
    IdSeller: string;
    Name:  string;

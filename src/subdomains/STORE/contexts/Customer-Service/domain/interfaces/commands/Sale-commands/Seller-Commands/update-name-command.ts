@@ -1,4 +1,4 @@
-export interface UpdateName {
+export interface IUpdateNameSeller {
 
 
     idBill: string

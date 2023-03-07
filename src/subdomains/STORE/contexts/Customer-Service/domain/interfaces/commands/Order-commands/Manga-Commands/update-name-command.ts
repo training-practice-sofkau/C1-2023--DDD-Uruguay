@@ -1,4 +1,4 @@
-export interface UpdateName {
+export interface UpdateNameManga {
     MangaId: string
     newName: string
 }

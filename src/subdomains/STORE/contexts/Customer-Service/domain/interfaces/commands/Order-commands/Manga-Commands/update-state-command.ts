@@ -1,4 +1,4 @@
-export interface UpdateState {
+export interface UpdateStateManga {
     MangaId: string
     newState: number
 }

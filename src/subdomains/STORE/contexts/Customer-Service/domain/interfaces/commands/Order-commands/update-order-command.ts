@@ -3,7 +3,7 @@ import { MangaDomainBase } from "../../../entities/Order-domain/manga-domain-ent
 import { OrderDomainEntityBase } from "../../../entities/Order-domain/Order-domain-entity"
 import { IdOrdertValueObject } from "../../../value-objects";
 
-export interface UpdateOrder {
+export interface IUpdateOrder {
     OrderId: string
     OrderData:{ client: ClientDomainBase;
     Manga: MangaDomainBase;

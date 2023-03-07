@@ -1,5 +1,5 @@
 
-export interface UpdateClient {
+export interface IUpdateClient {
     
         ClientID: string;
         Name: string;

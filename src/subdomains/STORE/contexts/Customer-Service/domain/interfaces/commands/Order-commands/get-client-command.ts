@@ -1,4 +1,4 @@
-export interface GetClient {
+export interface IGetClient {
     ClientID: string
 
 }
