@@ -1,2 +1,2 @@
 export * from './device-added.event-publisher';
-export * from './issue-details-changed.event-publisher';
+export * from './issue-added.event-publisher';

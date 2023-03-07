@@ -1,4 +1,5 @@
 export * from './customer';
+export * from './customer-created.response';
 export * from './customer-notified.response';
 export * from './invoice-created.response';
 export * from './invoice-marked-as-paid.response';

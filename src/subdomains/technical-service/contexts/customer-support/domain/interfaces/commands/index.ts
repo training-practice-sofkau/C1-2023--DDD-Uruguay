@@ -1,3 +1,3 @@
 export * from './employee';
 export * from './invoice';
-export * from './service-ticket';
+export * from './support-ticket';
