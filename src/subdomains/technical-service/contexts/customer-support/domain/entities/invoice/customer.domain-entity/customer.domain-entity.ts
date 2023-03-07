@@ -28,44 +28,6 @@ export class CustomerDomainEntityBase implements ICustomerDomainEntity {
         if(_data?.customerPhone && IsPhoneNumber(_data?.customerPhone)) this.customerPhone = _data.customerPhone;
 
         this.createdAt = Date.now();
-    }
-
-
-    /**
-     * Changes the current Email address of the customer for the given new value 
-     *
-     * @param {EmailValueObject} newEmail new value
-     * @memberof Customer
-     */
-    public changeCustomerEmail(newEmail: EmailValueObject){
-
-        //TODO: check validations ( ? )
-
-        this.customerEmail = newEmail;
-
-        return this.customerEmail;
-    }
-
-    /**
-     * Changes the current Phone number of the customer for the given new value 
-     *
-     * @param {PhoneValueObject} newPhone new value
-     * @memberof Customer
-     */
-    public changeCustomerPhone(newPhone: PhoneValueObject){
-
-        //TODO: check validations ( ? )
-
-        this.customerPhone = newPhone;
-
-        return this.customerPhone;
-    }
-
-
-    public sendNotification(){
-
-        //TODO: implementar el codigo para "enviar notificacion al customer"
-    }
-
+    }  
      
 }

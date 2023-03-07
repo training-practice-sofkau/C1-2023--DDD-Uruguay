@@ -12,9 +12,7 @@ export class Technician {
         this.technicianID = new UUIDValueObject();
         this.technicianName = clerkName;
         this.technicianEmail = clerkMail;       
-        this.isActive = true;
-
-        //TODO: asignar isActive as boolean, TrueFalseVO genera error ( ??? )
+        this.isActive = true;       
     }
 
 
@@ -24,9 +22,7 @@ export class Technician {
      * @param {EmailValueObject} newEmail new value
      * @memberof Technician
      */
-      public changeEmployeeEmail(newEmail: EmailValueObject){
-
-        //TODO: check validations ( ? )
+      public changeEmployeeEmail(newEmail: EmailValueObject){  
 
         this.technicianEmail = newEmail;
         return this.technicianEmail;

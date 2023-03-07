@@ -67,11 +67,6 @@ import {
 
 
 
-
-
-//TODO: Completar el AR incluyendo los servicios de las entidades asociadas (customer y warranty)
-
-
 export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainService, IWarrantyDomainService {
 
     private readonly invoiceService?: IInvoiceDomainService;
@@ -140,7 +135,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
         this.itemRemovedFromWarrantyEventPublisherBase = itemRemovedFromWarrantyEventPublisherBase;
         this.warrantyStatusChangedEventPublisherBase = warrantyStatusChangedEventPublisherBase;
     }
-
+   
 
     //#region INVOICE methods
 

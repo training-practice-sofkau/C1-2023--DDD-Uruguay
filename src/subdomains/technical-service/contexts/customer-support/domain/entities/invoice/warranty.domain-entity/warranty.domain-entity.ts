@@ -1,11 +1,10 @@
 import { v4 as uuid } from "uuid";
 
-import { UUIDValueObject } from "../../../value-objects/common";
+import { UUIDValueObject, DateValueObject, } from "../../../value-objects/common";
 import { ItemValueObject } from "../../../value-objects/warranty/item.value-object";
 import { WarrantyStatusValueObject } from "../../../value-objects/warranty/warranty-status.value-object";
 import { IWarrantyDomainEntity } from '../../interfaces/invoice/warranty.domain-entity.interface';
 import { IsUUID } from '../../../../../../../../libs/validations/is-uuid.validation';
-import { DateValueObject } from '../../../value-objects/common/date/date.value-object';
 
 
 export class WarrantyDomainEntityBase implements IWarrantyDomainEntity {
@@ -34,44 +33,5 @@ export class WarrantyDomainEntityBase implements IWarrantyDomainEntity {
         if(_data?.warrantyStatus) this.warrantyStatus = _data.warrantyStatus;
 
         this.createdAt = Date.now();
-    }
-
-    /**
-     * Adds an item to the warranty items list
-     *
-     * @param {ItemValueObject} item value to add
-     * @return {*} item list
-     * @memberof Warranty
-     */
-    public addItemCovered(item: ItemValueObject){
-
-        //TODO: add validaciones si hacen falta ( ? )
-
-        this.itemsCovered.push(item);
-
-        return this.itemsCovered;        
-    }
-
-    public removeItemCovered(item: ItemValueObject){
-
-        //TODO: implementar la eliminacion de un item de la lista
-
-        return this.itemsCovered;        
-    }
-
-
-
-    /**
-     * Allows to change the status of the warranty     
-     *
-     * @param {WarrantyStatusValueObject} newStatus can be finished, canceled or valid
-     * @memberof Warranty
-     */
-    public changeWarrantyStatus(newStatus: WarrantyStatusValueObject){
-
-        //TODO: implementar un nuevo tipo de VO, warrantyStatus, 
-        //tiene 2 valores (status: boolean, reason: string)
-        //reason: enum con valor => valid, canceled, finalizada
-
-    }
+    }    
 }

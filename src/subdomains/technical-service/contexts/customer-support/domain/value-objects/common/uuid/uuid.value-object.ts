@@ -9,8 +9,6 @@ export class UUIDValueObject extends ValueObjectBase<string>{
         super(value ? value : uuid());
     }
 
-    //TODO: metodo para crear nuevo UUID
-
     /**
      *  checks that the VO data is valid
      *
