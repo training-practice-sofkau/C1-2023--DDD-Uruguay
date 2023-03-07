@@ -13,7 +13,7 @@ Response = OrderDomainEntityBase
 >   extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'event-publish',
+            'order-added-modified-successfull',
             JSON.stringify({ data: this.response })
         )
 }
