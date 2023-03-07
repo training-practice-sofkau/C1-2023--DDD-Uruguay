@@ -1,7 +1,10 @@
-
-
-
-
-
-
-
+export * from './add-rival.command';
+export * from './add-stadium.command';
+export * from './get-match-by-id.command';
+export * from './get-rival-by-id.command';
+export * from './get-stadium-by-id.command';
+export * from './register-match.command';
+export * from './update-date.command';
+export * from './update-rival-town.command';
+export * from './update-stadium-capacity.command';
+export * from './update-stadium-square-meters.command';

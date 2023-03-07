@@ -1,6 +1,9 @@
-
-
-
-
-
-
+export * from './add-coach.command';
+export * from './add-player.command';
+export * from './get-coach-id.command';
+export * from './get-player-id.command';
+export * from './get-team-id.command';
+export * from './register-team.command';
+export * from './update-coach-wage.command';
+export * from './update-player-position.command';
+export * from './update-player-wage.command';
