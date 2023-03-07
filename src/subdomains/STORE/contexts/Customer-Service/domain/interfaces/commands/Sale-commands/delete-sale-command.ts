@@ -1,1 +1,5 @@
-export interface DeleteSale {}
+export interface DeleteSale {
+
+    IDSale: string
+
+}

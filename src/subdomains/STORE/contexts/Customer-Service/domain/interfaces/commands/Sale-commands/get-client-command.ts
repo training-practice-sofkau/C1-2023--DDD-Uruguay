@@ -1,1 +1,4 @@
-export interface GetClient {}
+export interface GetClient {
+
+    IDclient: string;
+}

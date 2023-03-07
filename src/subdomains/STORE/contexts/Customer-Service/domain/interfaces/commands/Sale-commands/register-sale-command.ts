@@ -1,1 +1,4 @@
-export interface RegisterSale {}
+export interface RegisterSale {
+
+    
+}
