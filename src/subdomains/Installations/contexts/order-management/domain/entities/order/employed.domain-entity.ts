@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { EmployedIdValueObject, EmployedNameValueObject, EmployedPhoneValueObject } from '../../value-objects/order';
 import { IEmployedDomainEntity } from "../interfaces";
 
-export class KitDomainEntityBase implements IEmployedDomainEntity {
+export class EmployedDomainEntityBase implements IEmployedDomainEntity {
 
     employedId?: string | EmployedIdValueObject;
     name?: string | EmployedNameValueObject;
