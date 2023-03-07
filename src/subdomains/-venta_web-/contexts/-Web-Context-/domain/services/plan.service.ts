@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
 
-@Injectable()
-export class PlanService {}
+
+export interface PlanService {
+
+    updateNombre(idPlan : string, nombre : string) : Promise<string>
+    updateCosto(idPlan : string, costo : number) : Promise<number>
+
+}
