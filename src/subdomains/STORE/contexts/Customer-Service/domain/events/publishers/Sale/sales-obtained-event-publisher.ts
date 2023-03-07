@@ -6,7 +6,7 @@ Response = SaleDomainEntity
 >   extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'event-publish',
+            'sale-sales-get-successfull',
             JSON.stringify({ data: this.response })
         )
 }
