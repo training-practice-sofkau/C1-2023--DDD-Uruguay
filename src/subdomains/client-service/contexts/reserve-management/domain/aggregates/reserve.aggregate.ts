@@ -13,7 +13,18 @@ import {
     CustomerAddedEventPublisher
 } from "../events";
 import { AggregateRootException } from "src/libs/sofka";
-import { ICreateReserve, IUpdateCustomerPaymentMethod, IUpdateEndDate, IUpdateNumberOfGuests, IUpdatePaymentMethod, IUpdateRoomState, IUpdateStartDate, IUpdateState } from "../interfaces";
+import { 
+    IAddCustomer, 
+    IAddRoom, 
+    ICreateReserve, 
+    IUpdateCustomerPaymentMethod, 
+    IUpdateEndDate, 
+    IUpdateNumberOfGuests, 
+    IUpdatePaymentMethod, 
+    IUpdateRoomState, 
+    IUpdateStartDate, 
+    IUpdateState 
+} from "../interfaces";
 
 export class ReserveAggregate implements
     IReserveDomainService<ReserveDomainEntity>,
@@ -93,7 +104,7 @@ export class ReserveAggregate implements
         return await CreateResere(reserve, this.reserveService, this.reserveCreatedEventPublisher)
     }
 
-    async addRoom(room: RoomDomainEntity): Promise<RoomDomainEntity> {
+    async addRoom(room: IAddRoom): Promise<RoomDomainEntity> {
         if (!this.reserveService)
             throw new AggregateRootException('reserveService no esta definido')
         if (!this.roomAddedEventPublisher)
@@ -102,7 +113,7 @@ export class ReserveAggregate implements
         return await AddRoom(room, this.reserveService, this.roomAddedEventPublisher)
     }
 
-    async addCustomer(customer: CustomerDomainEntity): Promise<CustomerDomainEntity> {
+    async addCustomer(customer: IAddCustomer): Promise<CustomerDomainEntity> {
         if (!this.reserveService)
             throw new AggregateRootException('reserveService no esta definido')
         if (!this.customerAddedEventPublisher)
