@@ -1,4 +1,4 @@
 
-export class Delete {
+export interface Delete {
     OrderID: string
 }

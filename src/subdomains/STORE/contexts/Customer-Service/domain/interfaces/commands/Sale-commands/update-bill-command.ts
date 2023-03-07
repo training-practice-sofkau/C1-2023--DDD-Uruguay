@@ -1,1 +1,1 @@
-export class UpdateBill {}
+export interface UpdateBill {}

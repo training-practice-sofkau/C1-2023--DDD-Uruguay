@@ -1,1 +1,1 @@
-export class RegisterSale {}
+export interface RegisterSale {}

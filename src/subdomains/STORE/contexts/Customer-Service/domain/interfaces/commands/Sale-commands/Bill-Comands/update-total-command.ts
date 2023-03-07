@@ -1,1 +1,1 @@
-export class UpdateTotal {}
+export interface UpdateTotal {}

@@ -1,4 +1,4 @@
-export class GetClient {
+export interface GetClient {
     ClientID: string
 
 }

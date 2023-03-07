@@ -1,4 +1,4 @@
-export class UpdateName {
+export interface UpdateName {
     clientId: string;
     newName: string;    
 }

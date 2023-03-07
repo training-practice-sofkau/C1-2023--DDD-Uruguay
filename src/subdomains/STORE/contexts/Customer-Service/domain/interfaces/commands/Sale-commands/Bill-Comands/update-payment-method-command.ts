@@ -1,6 +1,6 @@
-export class UpdatePaymentMethod {
+export interface UpdatePaymentMethod {
 
 
-    
+
 
 }

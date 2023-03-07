@@ -1,6 +1,6 @@
 import { OrderDomainEntityBase } from "../../../entities/Order-domain/Order-domain-entity"
 
-export class UpdateOrder {
+export interface UpdateOrder {
     OrderId: string
     OrderData: Partial<OrderDomainEntityBase>
 }

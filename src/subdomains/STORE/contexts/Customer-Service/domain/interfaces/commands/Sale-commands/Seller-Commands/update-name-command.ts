@@ -1,1 +1,1 @@
-export class UpdateName {}
+export interface UpdateName {}

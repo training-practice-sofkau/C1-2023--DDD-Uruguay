@@ -1,6 +1,6 @@
 import { ClientDomainBase } from "../../../entities/Order-domain/client-domain-entity"
 
-export class UpdateClient {
+export interface UpdateClient {
     ClientID: string
     ClientData: Partial<ClientDomainBase>
 

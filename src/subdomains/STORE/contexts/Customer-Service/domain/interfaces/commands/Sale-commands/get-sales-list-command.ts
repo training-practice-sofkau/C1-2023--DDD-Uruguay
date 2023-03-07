@@ -1,1 +1,1 @@
-export class GetSalesList {}
+export interface GetSalesList {}

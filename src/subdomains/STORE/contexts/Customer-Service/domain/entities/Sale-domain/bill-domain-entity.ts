@@ -15,4 +15,25 @@ export class BillDomain implements IBillEntity{
     Total: TotalValue;
     IdClinet: IdclientValue;
     IdManga: IdmangaValue;
+
+
+
+
+
+    constructor (_data?: IBillEntity){
+
+        if(_data.IDBill) this.IDBill = _data.IDBill
+        
+        else this.IDBill = uuidv4()      
+
+        if (_data?.Date) this.Date = _data.Date;
+
+        if (_data?.PaymentMethod) this.PaymentMethod = _data.PaymentMethod;
+    
+        if (_data?.PaymentAmount) this.PaymentAmount = _data.PaymentAmount;
+
+        if (_data?.PaymentMethod) this.PaymentMethod = _data.PaymentMethod;
+
+
+    }
 }

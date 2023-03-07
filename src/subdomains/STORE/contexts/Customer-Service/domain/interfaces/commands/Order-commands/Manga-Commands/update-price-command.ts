@@ -1,4 +1,4 @@
-export class UpdatePrice {
+export interface UpdatePrice {
     MangaId: string
     newPrice: number
 }

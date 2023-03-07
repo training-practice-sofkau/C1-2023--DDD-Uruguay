@@ -1,1 +1,1 @@
-export class DeleteSale {}
+export interface DeleteSale {}

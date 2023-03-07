@@ -1,4 +1,4 @@
-export class UpdateState {
+export interface UpdateState {
     MangaId: string
     newState: number
 }

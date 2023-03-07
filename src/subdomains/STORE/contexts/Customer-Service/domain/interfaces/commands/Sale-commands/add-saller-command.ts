@@ -1,1 +1,1 @@
-export class AddSaller {}
+export interface AddSaller {}
