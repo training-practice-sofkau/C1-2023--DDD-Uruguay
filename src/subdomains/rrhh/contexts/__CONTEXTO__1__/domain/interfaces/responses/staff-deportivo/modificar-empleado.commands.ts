@@ -1,5 +1,6 @@
-import { StaffDeportivoDomainEntity } from '../../../entities/staff-deportivo/staff-deportivo.entity';
-export interface EmpleadoModificadoResponse {
+import { CostoValueObject } from '../../../value-objects/costo/costo.value-object';
+
+export interface SalarioEmpleadoModificadoResponse {
     success: boolean;
-    data: StaffDeportivoDomainEntity | null;
+    data: CostoValueObject | null;
 }

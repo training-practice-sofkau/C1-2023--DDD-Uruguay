@@ -1,20 +1,20 @@
 import { StaffDeportivoDomainEntity } from "../../entities/staff-deportivo/staff-deportivo.entity";
-import { IAgregarEmpleadoCommands, IModificarEmpleadoCommands, IModificarTramiteCommands, IRemoverEmpleadoCommands } from "../../interfaces";
+import { IAgregarEmpleadoCommands, IModificarFechaTramiteCommands, IModificarSalarioEmpleadoCommands } from "../../interfaces";
 import { ICrearStaffDeportivoCommands } from "../../interfaces/commands/staff-deportivo/crear-staff-deportivo.commands";
 import { ICrearTramiteCommands } from "../../interfaces/commands/staff-deportivo/crear-tramite.commands";
+import { EmpleadoDomainEntity } from '../../entities/empleado/EmpleadoDomainEntity';
+import { TramiteDomainEntity } from '../../entities/tramite/tramite.entity.interface';
 
-export interface IStaffDeportivoDomainService<T extends StaffDeportivoDomainEntity = StaffDeportivoDomainEntity> {
+export interface IStaffDeportivoDomainService { //<T extends StaffDeportivoDomainEntity >
 
-    CrearStaffDeportivo(staffDeportivo:ICrearStaffDeportivoCommands):Promise<T>;
+    CrearStaffDeportivo(staffDeportivo:ICrearStaffDeportivoCommands):Promise<StaffDeportivoDomainEntity>;
 
-    CrearTramite(tramite: ICrearTramiteCommands):Promise<T>;
+    CrearTramite(tramite: ICrearTramiteCommands):Promise<TramiteDomainEntity>;
 
-    AgregarEmpleado(empleado:IAgregarEmpleadoCommands):Promise<T>;
-
-    RemoverEmpleado(empleadoId: IRemoverEmpleadoCommands):Promise<T>;
+    AgregarEmpleado(empleado:IAgregarEmpleadoCommands):Promise<EmpleadoDomainEntity>;
         
-    ModificarEmpleado(empleado:IModificarEmpleadoCommands):Promise<T>;
+    ModificarSalarioEmpleado(empleado:IModificarSalarioEmpleadoCommands):Promise<EmpleadoDomainEntity>;
     
-    ModificarTramite(tramite: IModificarTramiteCommands):Promise<T>;
+    ModificarFechaTramite(tramite: IModificarFechaTramiteCommands):Promise<TramiteDomainEntity>;
     
 }

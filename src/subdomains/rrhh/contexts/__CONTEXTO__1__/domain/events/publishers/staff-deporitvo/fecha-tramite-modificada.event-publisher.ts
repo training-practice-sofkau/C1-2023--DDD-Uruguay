@@ -1,8 +1,8 @@
 import { EventPublisherBase } from "src/libs";
-import { StaffDeportivoDomainEntity } from "../../../entities/staff-deportivo/staff-deportivo.entity";
+import { TramiteDomainEntity } from '../../../entities/tramite/tramite.entity.interface';
 
-export abstract class TramiteModificadoEventPublisher
-    <Response = StaffDeportivoDomainEntity>
+export abstract class FechaTramiteModificadaEventPublisher
+    <Response = TramiteDomainEntity>
     extends EventPublisherBase<Response>{
         
     publish<Result = any>(): Promise<Result> {
