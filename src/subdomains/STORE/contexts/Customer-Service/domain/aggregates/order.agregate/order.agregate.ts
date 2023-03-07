@@ -88,6 +88,7 @@ Publisher events go in this place
 
 
 
+
 /**
  * A function that is called when the RegisterOrder command is received.
  * @param {OrderDomainEntityBase} order - OrderDomainEntityBase: The order to be registered.
@@ -262,4 +263,13 @@ Publisher events go in this place
      throw new Error('Method not implemented.');
    }
 
+  
+
+  UpdateClientName(name: string): Promise<ClientDomainBase> {
+    throw new Error('Method not implemented.');
   }
+  UpdateClientPhone(state: number): Promise<ClientDomainBase> {
+    throw new Error('Method not implemented.');
+  
+  
+  }}
