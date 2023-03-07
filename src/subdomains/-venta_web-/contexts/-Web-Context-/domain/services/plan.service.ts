@@ -2,7 +2,7 @@ import { IUpdateCostoMethod } from "../interfaces/commands/compra/curso/updateCo
 import { IUpdateNombreMethod } from "../interfaces/commands/membership/plan/updateNombre.command"
 
 
-export interface PlanService {
+export interface IPlanService {
 
     //updateNombre(idPlan : string, nombre : string) : Promise<string>
     //updateCosto(idPlan : string, costo : number) : Promise<number>
