@@ -1,6 +1,12 @@
 import { EventPublisherBase } from 'src/libs';
 import { ClientDomainBase } from '../../../../entities/Order-domain/client-domain-entity';
-export class NameModifiedEventPublisher extends EventPublisherBase<ClientDomainBase>{
-    publish(): void {
-console.log("nombre del cliente modificado")    }
+export class NameModifiedEventPublisher  <
+Response = ClientDomainBase
+>   extends EventPublisherBase<Response> {
+    publish<Result = any>(): Promise<Result> {
+        return this.emit(
+            'order-publish-event',
+            JSON.stringify({ data: this.response })
+        )
+}
 }
