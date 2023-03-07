@@ -1,6 +1,6 @@
 import { FechaValueObject } from "../../../value-objects/fecha";
 
-export interface ModificarFechaSalidaCommands {
+export interface IModificarFechaSalidaCommands {
 
     fechaSalida : string | FechaValueObject;
 }

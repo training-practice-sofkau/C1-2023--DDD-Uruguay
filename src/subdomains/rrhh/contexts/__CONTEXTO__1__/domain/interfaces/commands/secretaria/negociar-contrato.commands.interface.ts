@@ -1,5 +1,5 @@
 
-export interface NegociarContratoCommands {
+export interface INegociarContratoCommands {
 
     contratoId?: string ;
     empleadoId: string ;

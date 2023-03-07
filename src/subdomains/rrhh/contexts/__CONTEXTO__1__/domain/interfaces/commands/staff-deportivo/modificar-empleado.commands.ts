@@ -1,3 +1,3 @@
-export interface ModificarEmpleadoCommands {
+export interface IModificarEmpleadoCommands {
     empleadoId: string;
 }

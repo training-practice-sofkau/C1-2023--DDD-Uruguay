@@ -1,5 +1,5 @@
 import { DocumentoValueObject } from '../../../value-objects/documento/documento.value-object';
 
-export interface ModificarDocumentoCommands {
+export interface IModificarDocumentoCommands {
     documento : string | DocumentoValueObject;
 }

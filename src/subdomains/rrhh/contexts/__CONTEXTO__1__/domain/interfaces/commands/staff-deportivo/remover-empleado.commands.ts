@@ -1,4 +1,4 @@
 
-export interface RemoverEmpleadoCommands {
+export interface IRemoverEmpleadoCommands {
     empleadoId: string;
 }

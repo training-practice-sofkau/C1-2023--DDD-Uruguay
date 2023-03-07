@@ -1,5 +1,5 @@
 
-export interface NegociarTraspasoCommands {
+export interface INegociarTraspasoCommands {
    
     traspasoId?: string ;
     empleadoId: string ;

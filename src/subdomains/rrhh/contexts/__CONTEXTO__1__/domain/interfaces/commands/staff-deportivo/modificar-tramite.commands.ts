@@ -1,3 +1,3 @@
-export interface ModificarTramiteCommands {
+export interface IModificarTramiteCommands {
     tramiteId: string;
 }

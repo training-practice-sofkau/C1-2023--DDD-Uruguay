@@ -1,5 +1,5 @@
 
-export interface ModificarFechaSalidaCommands {
+export interface IModificarFechaSalidaCommands {
     fechaSalida : string ;
 
 }

@@ -1,5 +1,5 @@
 
-export interface ModificarEquipoNuevoCommands {
+export interface IModificarEquipoNuevoCommands {
     equipoNuevoId : string ;
    
 }

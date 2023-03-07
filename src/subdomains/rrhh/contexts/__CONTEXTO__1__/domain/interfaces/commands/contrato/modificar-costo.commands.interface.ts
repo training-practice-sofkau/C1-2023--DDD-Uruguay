@@ -1,4 +1,4 @@
 
-export interface ModificarCostoCommands {
+export interface IModificarCostoCommands {
     costo : number ;
 }

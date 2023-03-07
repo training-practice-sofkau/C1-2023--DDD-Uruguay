@@ -1,4 +1,4 @@
-export interface AgregarEmpleadoCommands {
+export interface IAgregarEmpleadoCommands {
     empleadoId: string ;
     nombre: string ;
     documento: string ;

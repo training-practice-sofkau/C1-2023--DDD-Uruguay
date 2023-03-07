@@ -1,5 +1,5 @@
 
-export interface NegociarCesionCommands {
+export interface INegociarCesionCommands {
 
     cesionId?: string ;
     empleadoId: string ;

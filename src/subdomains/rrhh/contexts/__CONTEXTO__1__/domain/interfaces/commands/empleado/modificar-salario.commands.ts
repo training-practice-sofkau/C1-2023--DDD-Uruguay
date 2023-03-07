@@ -1,5 +1,5 @@
 import { CostoValueObject } from "../../../value-objects/costo";
 
-export interface ModificarSalarioCommands {
+export interface IModificarSalarioCommands {
     salario : string | CostoValueObject
 }

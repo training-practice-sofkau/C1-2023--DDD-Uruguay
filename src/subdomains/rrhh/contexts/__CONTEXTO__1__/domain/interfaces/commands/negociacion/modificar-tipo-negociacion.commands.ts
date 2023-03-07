@@ -1,4 +1,4 @@
 
-export interface ModificarTipoNegociacionCommands {
+export interface IModificarTipoNegociacionCommands {
     tipoNegociacion: string ;
 }
