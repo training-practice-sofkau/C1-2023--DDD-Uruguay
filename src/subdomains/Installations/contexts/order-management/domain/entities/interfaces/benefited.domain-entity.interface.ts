@@ -1,4 +1,4 @@
-import { CompanyIdValueObject } from '../../value-objects';
+import { CompanyIdValueObject } from '../../value-objects/invoice';
 import { BenefitedAddressValueObject, BenefitedIdValueObject, BenefitedNameValueObject, BenefitedPhoneValueObject, BenefitedCompanyIdValueObject } from '../../value-objects/order';
 
 export interface IBenefitedDomainEntity {
