@@ -1,7 +1,7 @@
 import { EventPublisherBase } from "src/libs";
 import { ProductDomainEntity } from "../../../entities";
 
-export abstract class CounterCreatedPosterEventPublisherBase<
+export abstract class CounterCreatedProductEventPublisherBase<
     Response = ProductDomainEntity
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
