@@ -1,8 +1,8 @@
-import { UUIDValueObject } from '../../value-objects/common/uuid/uuid.value-object';
-import { DateValueObject } from '../../value-objects/common/date/date.value-object';
-import { AmountValueObject } from '../../value-objects/invoice/amount.value-object';
-import { WarrantyStatusValueObject } from '../../value-objects/warranty/warranty-status.value-object';
-import { TrueFalseValueObject } from '../../value-objects/common';
+import { UUIDValueObject } from '../../../value-objects/common/uuid/uuid.value-object';
+import { DateValueObject } from '../../../value-objects/common/date/date.value-object';
+import { AmountValueObject } from '../../../value-objects/invoice/amount.value-object';
+import { WarrantyStatusValueObject } from '../../../value-objects/warranty/warranty-status.value-object';
+import { TrueFalseValueObject } from '../../../value-objects/common';
 
 export interface IInvoiceDomainEntity {
 

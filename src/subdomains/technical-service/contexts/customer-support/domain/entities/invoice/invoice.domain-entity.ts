@@ -1,14 +1,14 @@
 import { v4 as uuid } from "uuid";
 
-import { UUIDValueObject } from '../value-objects/common';
-import { AmountValueObject } from '../value-objects/invoice/amount.value-object';
-import { WarrantyStatusValueObject } from '../value-objects/warranty/warranty-status.value-object';
-import { IInvoiceDomainEntity } from './interfaces/invoice.domain-entity.interface';
-import { TrueFalseValueObject } from '../value-objects/common/true-false/true-false.value-object';
-import { IsUUID } from '../../../../../../libs/validations/is-uuid.validation';
+import { UUIDValueObject } from '../../value-objects/common';
+import { AmountValueObject } from '../../value-objects/invoice/amount.value-object';
+import { WarrantyStatusValueObject } from '../../value-objects/warranty/warranty-status.value-object';
+import { IInvoiceDomainEntity } from '../interfaces/invoice/invoice.domain-entity.interface';
+import { TrueFalseValueObject } from '../../value-objects/common/true-false/true-false.value-object';
+import { IsUUID } from '../../../../../../../libs/validations/is-uuid.validation';
 import { IsValidDate } from "src/libs/validations/date.validation";
-import { DateValueObject } from '../value-objects/common/date/date.value-object';
-import { IsBoolean } from '../../../../../../libs/validations/true-false.validation';
+import { DateValueObject } from '../../value-objects/common/date/date.value-object';
+import { IsBoolean } from '../../../../../../../libs/validations/true-false.validation';
 
 export class InvoiceDomainEntityBase implements IInvoiceDomainEntity {
 

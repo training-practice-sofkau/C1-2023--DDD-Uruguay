@@ -1,4 +1,4 @@
-import { InvoiceDomainEntityBase } from '../../../entities/invoice.domain-entity';
+import { InvoiceDomainEntityBase } from '../../../entities/invoice/invoice.domain-entity';
 
 export interface IInvoiceCreatedResponse{
     success: boolean;
