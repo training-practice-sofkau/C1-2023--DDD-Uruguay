@@ -1,4 +1,4 @@
-import { CustomerDomainEntity, RoomDomainEntity } from "../entities";
+import { CustomerDomainEntity, ReserveDomainEntity, RoomDomainEntity } from "../entities";
 import {
     IAddCustomer,
     IAddRoom,
@@ -10,7 +10,7 @@ import {
     IUpdateStartDate
 } from "../interfaces";
 
-export interface IReserveDomainService<ReserveDomainEntity> {
+export interface IReserveDomainService {
 
     createReserve(reserve: ICreateReserve): Promise<ReserveDomainEntity>;
 

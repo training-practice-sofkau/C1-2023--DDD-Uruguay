@@ -25,13 +25,25 @@ import {
     IUpdateStartDate, 
     IUpdateState 
 } from "../interfaces";
+import { 
+    CreateReserve, 
+    AddRoom,
+    AddCustomer, 
+    UpdateStartDate,
+    UpdateEndDate,
+    UpdateNumberOfGuests,
+    UpdateCustomerPaymentMethod,
+    UpdateRoomState,
+    UpdatePaymentMethod,
+    UpdateState,
+} from "./helpers/";
 
 export class ReserveAggregate implements
-    IReserveDomainService<ReserveDomainEntity>,
+    IReserveDomainService,
     ICustomerDomainService,
     IRoomDomainService {
 
-    private readonly reserveService?: IReserveDomainService<ReserveDomainEntity>;
+    private readonly reserveService?: IReserveDomainService;
     private readonly customerService?: ICustomerDomainService;
     private readonly roomService?: IRoomDomainService;
 
@@ -63,7 +75,7 @@ export class ReserveAggregate implements
             paymentMethodUpdatedEventPublisher,
             stateUpdatedEventPublisher,
         }: {
-            reserveService?: IReserveDomainService<ReserveDomainEntity>,
+            reserveService?: IReserveDomainService,
             customerService?: ICustomerDomainService,
             roomService?: IRoomDomainService,
 
@@ -101,7 +113,7 @@ export class ReserveAggregate implements
         if (!this.reserveCreatedEventPublisher)
             throw new AggregateRootException('reserveCreatedEventPublisher no esta definido')
 
-        return await CreateResere(reserve, this.reserveService, this.reserveCreatedEventPublisher)
+        return await CreateReserve(reserve, this.reserveService, this.reserveCreatedEventPublisher)
     }
 
     async addRoom(room: IAddRoom): Promise<RoomDomainEntity> {

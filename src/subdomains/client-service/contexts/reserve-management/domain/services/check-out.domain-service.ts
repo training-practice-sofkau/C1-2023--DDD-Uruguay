@@ -1,4 +1,4 @@
-import { ConsumptionDomainEntity, InvoiceDomainEntity } from '../entities/';
+import { CheckOutDomainEntity, ConsumptionDomainEntity, InvoiceDomainEntity } from '../entities/';
 import {
     IAddConsumption,
     IAddInvoice,
@@ -8,7 +8,7 @@ import {
     IUpdateInvoiceCost
 } from '../interfaces';
 
-export interface ICheckOutDomainService<CheckOutDomainEntity> {
+export interface ICheckOutDomainService {
 
     createCheckOut(checkOut: ICreateCheckOut): Promise<CheckOutDomainEntity>
 

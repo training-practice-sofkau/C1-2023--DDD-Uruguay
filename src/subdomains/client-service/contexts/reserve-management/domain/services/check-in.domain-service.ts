@@ -1,4 +1,4 @@
-import { GuestDomainEntity, RoomDomainEntity } from "../entities"
+import { CheckInDomainEntity, GuestDomainEntity, RoomDomainEntity } from "../entities"
 import {
     IAddGuest,
     IAddRoom,
@@ -9,7 +9,7 @@ import {
 } from "../interfaces";
 
 
-export interface ICheckInDomainService<CheckInDomainEntity> {
+export interface ICheckInDomainService {
 
     createCheckIn(checkIn: ICreateCheckIn): Promise<CheckInDomainEntity>
 
