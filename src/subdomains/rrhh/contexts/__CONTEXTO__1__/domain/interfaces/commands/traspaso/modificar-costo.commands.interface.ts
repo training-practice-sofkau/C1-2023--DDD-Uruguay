@@ -1,1 +1,3 @@
-export interface ModificarCostoCommands {}
+export interface ModificarCostoCommands {
+    costo : number ;
+}

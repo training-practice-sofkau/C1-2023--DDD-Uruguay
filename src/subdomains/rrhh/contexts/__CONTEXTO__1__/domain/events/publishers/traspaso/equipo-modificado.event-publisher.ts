@@ -1,3 +1,4 @@
 import { EventPublisherBase } from "src/libs";
+import { TraspasoDomainEntity } from '../../../entities/traspaso/traspaso.domain-entity';
 
-export class EquipoModificadoEventPublisher extends EventPublisherBase<> {}
+export abstract class EquipoModificadoEventPublisher extends EventPublisherBase<TraspasoDomainEntity> {}
