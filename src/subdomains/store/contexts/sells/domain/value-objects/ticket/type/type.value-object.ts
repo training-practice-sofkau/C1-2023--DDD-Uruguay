@@ -5,7 +5,7 @@ enum TicketType {
     CreditNote = "Credit Note"
 }
 
-export class TypeValueObject extends ValueObjectBase<TicketType>{
+export class TicketTypeValueObject extends ValueObjectBase<TicketType>{
 
     constructor(value?: TicketType) {
         super(value ? value : TicketType.SELL)

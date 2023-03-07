@@ -6,7 +6,7 @@ enum DessertType {
     FrozzenPizza = "Frozzen Pizza"
 }
 
-export class TypeValueObject extends ValueObjectBase<DessertType>{
+export class ProductTypeValueObject extends ValueObjectBase<DessertType>{
 
     constructor(value?: DessertType) {
         super(value ? value : DessertType.Icecream)

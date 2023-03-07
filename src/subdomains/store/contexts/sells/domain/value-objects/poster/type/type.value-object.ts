@@ -5,7 +5,7 @@ enum ImgType{
     JPG = "JPG"
 }
 
-export class TypeValueObject extends ValueObjectBase<ImgType>{
+export class PosterTypeValueObject extends ValueObjectBase<ImgType>{
     constructor(value?: ImgType) {
         super(value ? value : ImgType.URL)
     }
