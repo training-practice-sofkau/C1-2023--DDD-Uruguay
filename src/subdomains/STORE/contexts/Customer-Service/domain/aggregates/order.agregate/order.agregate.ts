@@ -154,10 +154,10 @@ Publisher events go in this place
  * @param {string} OrderId - The order id to be updated.
  * @returns The OrderDomainEntityBase
  */
-  async UpdateOrder(OrderId: string): Promise<OrderDomainEntityBase> 
+  async UpdateOrder(OrderId: string, order:OrderDomainEntityBase): Promise<OrderDomainEntityBase> 
   {
     if(this.orderService && this.ModifiedClientEventPublisher){
-      const result = await this.orderService.UpdateOrder(OrderId)
+      const result = await this.orderService.UpdateOrder(OrderId, order)
       this.ModifiedOrderEventPublisher.response = result
       this.ModifiedOrderEventPublisher.publish()
       return this.ModifiedOrderEventPublisher.response
@@ -224,7 +224,7 @@ Publisher events go in this place
  * It adds a client to the database.
  * @param {string} MangaId - The id of the manga you want to add a client to.
  */
-  async AddClient(ClientId: string): Promise<ClientDomainBase> {
+  async AddClient(ClientId: ClientDomainBase): Promise<ClientDomainBase> {
     if(this.orderService && this.AddCustomerEventPublisher)
     {
       const result = await this.orderService.AddClient(ClientId)
@@ -246,10 +246,10 @@ Publisher events go in this place
   * It updates the stock of a manga.
   * @param {string} MangaId - The id of the manga you want to update.
   */
-  async UpdateMangaStock(MangaId: string): Promise<MangaDomainBase> {
+  async UpdateMangaStock(MangaId: string, stock: number): Promise<MangaDomainBase> {
     if(this.orderService && this.ModifiedMangaStockingEventPublisher)
     {
-      const result = await this.orderService.UpdateMangaStock(MangaId)
+      const result = await this.orderService.UpdateMangaStock(MangaId, stock)
 
       this.ModifiedMangaStockingEventPublisher.response = result
 
@@ -268,11 +268,11 @@ Publisher events go in this place
   * It updates a client.
   * @param {string} ClientId - The unique identifier for the client.
   */
- async UpdateClient(ClientId: string): Promise<ClientDomainBase> {
+ async UpdateClient(ClientId: string, data: ClientDomainBase): Promise<ClientDomainBase> {
     {
       if(this.orderService && this.ModifiedClientEventPublisher)
       {
-        const result = await this.orderService.UpdateClient(ClientId)
+        const result = await this.orderService.UpdateClient(ClientId, data)
   
         this.ModifiedClientEventPublisher.response = result
   
@@ -297,10 +297,10 @@ Publisher events go in this place
  * It updates the name of the manga.
  * @param {string} name - The name of the manga.
  */
- async UpdateName(name: string): Promise<MangaDomainBase> {
+ async UpdateName(idClient:string, name: string): Promise<MangaDomainBase> {
      if(this.orderService && this.NameMangaModifiedEventPublisher)
     {
-      const result = await this.MangaService.UpdateName(name)
+      const result = await this.MangaService.UpdateName(idClient, name)
 
       this.NameMangaModifiedEventPublisher.response = result
 
@@ -317,10 +317,10 @@ Publisher events go in this place
  * It updates the state of the manga.
  * @param {number} state - The state of the manga.
  */
-   async UpdateState(state: number): Promise<MangaDomainBase> {
+   async UpdateState(idmanga: string , state: number): Promise<MangaDomainBase> {
      if(this.orderService && this.StateModifiedEventPublisher)
      {
-       const result = await this.MangaService.UpdateState(state)
+       const result = await this.MangaService.UpdateState(idmanga, state)
  
        this.StateModifiedEventPublisher.response = result
  
@@ -339,10 +339,10 @@ Publisher events go in this place
  * It updates the price of the manga.
  * @param {number} Price - number - The price of the manga.
  */
-   async  UpdatePrice(Price: number): Promise<MangaDomainBase> {
+   async  UpdatePrice(idmanga: string ,Price: number): Promise<MangaDomainBase> {
      if(this.orderService && this.PrinceModifiedEventPublisher)
      {
-       const result = await this.MangaService.UpdateState(Price)
+       const result = await this.MangaService.UpdateState(idmanga, Price)
  
        this.PrinceModifiedEventPublisher.response = result
  
@@ -357,7 +357,7 @@ Publisher events go in this place
    }
   
 
-  async UpdateClientName(idclient: number,name: string): Promise<ClientDomainBase> {
+  async UpdateClientName(idclient: string,name: string): Promise<ClientDomainBase> {
     if(this.orderService && this.NameModifiedEventPublisher)
      {
        const result = await this.ClientService.UpdateClientName(idclient,name)
@@ -376,7 +376,7 @@ Publisher events go in this place
 
 
  /* The above code is a sample of a domain event handler. */
-  async UpdateClientPhone(idclient: number, phone: number): Promise<ClientDomainBase> {
+  async UpdateClientPhone(idclient: string, phone: number): Promise<ClientDomainBase> {
     if(this.orderService && this.PhoneModifiedEventPublisher)
     {
       const result = await this.ClientService.UpdateClientPhone(idclient,phone)

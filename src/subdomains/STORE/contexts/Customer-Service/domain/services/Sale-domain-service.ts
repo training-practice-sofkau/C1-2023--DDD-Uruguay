@@ -9,8 +9,7 @@ export interface SaleDomainService
     RegisterSale(sale: T): Promise <T>;
     GetClient(ClientId: string): Promise <ClientDomainBase>;
     GetSalesList(): Promise <SaleDomainEntity>;
-    Delete(saleId: string ): Promise <T>
-    AddSeller(sellerID: string): Promise <SellerDomain>;
-    UpdateSeller(sellerID: string): Promise <SellerDomain>;
-    UpdateBill(BillId: string): Promise <BillDomain>;
+    AddSeller(sellerID: SellerDomain): Promise <SellerDomain>;
+    UpdateSeller(sellerID: string, data: SellerDomain): Promise <SellerDomain>;
+    UpdateBill(BillId: string, data: BillDomain): Promise <BillDomain>;
  }
