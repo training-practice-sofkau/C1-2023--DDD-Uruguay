@@ -1,10 +1,16 @@
 import { AggregateRootException } from '../../../../../../libs/sofka/exceptions/aggregate-root.exception';
 import { IInvoiceDomainService } from '../services/invoice.domain-service';
-import { ICreateInvoiceCommand, IAddWarrantyCommand, ICreateCustomerCommand } from '../interfaces/commands/invoice';
+import { ICreateInvoiceCommand, IAddWarrantyCommand, ICreateCustomerCommand, INotifyCustomerCommand } from '../interfaces/commands/invoice';
 import { CustomerCreatedEventPublisherBase, InvoiceCreatedEventPublisherBase} from '../events/publishers/invoice';
 import { UUIDValueObject } from '../value-objects/common';
-import { CreateInvoice, CreateCustomer, AddWarranty} from './helpers/Invoice';
+import { CreateInvoice, CreateCustomer, AddWarranty, CalculateServiceCharge, NotifyCustomer, MarkInvoiceAsPaid} from './helpers/Invoice';
 import { WarrantyAddedEventPublisherBase } from '../events/publishers/invoice/warranty-added.event-publisher';
+import { ServiceChargeCalculatedEventPublisherBase } from '../events/publishers/invoice/service-charge-calculated.event-publisher';
+import { CustomerNotifiedEventPublisherBase } from '../events/publishers/invoice/customer-notified.event-publisher';
+import { InvoiceMarkedAsPaidEventPublisherBase } from '../events/publishers/invoice/marked-as-paid.event-publisher';
+
+
+
 
 export class InvoiceAggregate implements IInvoiceDomainService{
 
@@ -12,7 +18,9 @@ export class InvoiceAggregate implements IInvoiceDomainService{
     private readonly invoiceCreatedEventPublisherBase?: InvoiceCreatedEventPublisherBase;
     private readonly customerCreatedEventPublisherBase?: CustomerCreatedEventPublisherBase;
     private readonly warrantyAddedEventPublisherBase?: WarrantyAddedEventPublisherBase;
-    
+    private readonly serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase;
+    private readonly customerNotifiedEventPublisherBase?: CustomerNotifiedEventPublisherBase;
+    private readonly invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase;
 
     constructor(
         {
@@ -20,12 +28,18 @@ export class InvoiceAggregate implements IInvoiceDomainService{
             invoiceCreatedEventPublisherBase,
             customerCreatedEventPublisherBase,
             warrantyAddedEventPublisherBase,
+            serviceChargeCalculatedEventPublisherBase,
+            customerNotifiedEventPublisherBase,
+            invoiceMarkedAsPaidEventPublisherBase,
 
         }:{
             invoiceService?: IInvoiceDomainService,
             invoiceCreatedEventPublisherBase?: InvoiceCreatedEventPublisherBase,
             customerCreatedEventPublisherBase?: CustomerCreatedEventPublisherBase,
             warrantyAddedEventPublisherBase?: WarrantyAddedEventPublisherBase,
+            serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase,
+            customerNotifiedEventPublisherBase?: CustomerNotifiedEventPublisherBase,
+            invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase,
         }
     ){
 
@@ -33,8 +47,10 @@ export class InvoiceAggregate implements IInvoiceDomainService{
         this.invoiceCreatedEventPublisherBase = invoiceCreatedEventPublisherBase;
         this.customerCreatedEventPublisherBase = customerCreatedEventPublisherBase;
         this.warrantyAddedEventPublisherBase = warrantyAddedEventPublisherBase;
+        this.serviceChargeCalculatedEventPublisherBase = serviceChargeCalculatedEventPublisherBase;
+        this.customerNotifiedEventPublisherBase = customerNotifiedEventPublisherBase;
+        this.invoiceMarkedAsPaidEventPublisherBase = invoiceMarkedAsPaidEventPublisherBase;
     }
-
 
     /**
      * Creates a new Invoice entity
@@ -74,8 +90,13 @@ export class InvoiceAggregate implements IInvoiceDomainService{
         return CreateCustomer(customerData, this.invoiceService, this.customerCreatedEventPublisherBase);
     }
 
-
-
+    /**
+     * Adds a new warranty entity
+     *
+     * @param {IAddWarrantyCommand} warrantyData
+     * @return {*}  {Promise<boolean>} success ( true / false )
+     * @memberof InvoiceAggregate
+     */
     AddWarranty(warrantyData: IAddWarrantyCommand): Promise<boolean> {
         if(!this.invoiceService){
             throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');        
@@ -87,19 +108,57 @@ export class InvoiceAggregate implements IInvoiceDomainService{
         return AddWarranty(warrantyData, this.invoiceService, this.warrantyAddedEventPublisherBase);
     }
 
-
-
-
-
+    /**
+     * Calculates the charge of the service ( ammount to pay )
+     *
+     * @param {UUIDValueObject} ticketID
+     * @return {*}  {Promise<number>} gets the total amount to pay
+     * @memberof InvoiceAggregate
+     */
     CalculateServiceCharge(ticketID: UUIDValueObject): Promise<number> {
-        throw new Error('Method not implemented.');
+        if(!this.invoiceService){
+            throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');        
+        }
+        if(!this.serviceChargeCalculatedEventPublisherBase){
+            throw new AggregateRootException('InvoiceAggregate: "serviceChargeCalculatedEventPublisherBase" is not defined!');
+        }
+
+        return CalculateServiceCharge(ticketID, this.invoiceService, this.serviceChargeCalculatedEventPublisherBase);
     }
-    NotifyCustomer(customerID: UUIDValueObject): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-    
+
+    /**
+     * Send a Notification to the costumer abount the pending invoice
+     *
+     * @param {INotifyCustomerCommand} notification
+     * @return {*}  {Promise<boolean>} success ( true / false )
+     * @memberof InvoiceAggregate
+     */
+    NotifyCustomer(notification: INotifyCustomerCommand): Promise<boolean> {
+        if(!this.invoiceService){
+            throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');        
+        }
+        if(!this.customerNotifiedEventPublisherBase){
+            throw new AggregateRootException('InvoiceAggregate: "customerNotifiedEventPublisherBase" is not defined!');
+        }
+
+        return NotifyCustomer(notification, this.invoiceService, this.customerNotifiedEventPublisherBase);
+    }    
+
+    /**
+     * Marks the invoice as Paid
+     *
+     * @return {*}  {Promise<boolean>} success ( true / false )
+     * @memberof InvoiceAggregate
+     */
     MarkAsPaid(): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        if(!this.invoiceService){
+            throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');        
+        }
+        if(!this.invoiceMarkedAsPaidEventPublisherBase){
+            throw new AggregateRootException('InvoiceAggregate: "invoiceMarkedAsPaidEventPublisherBase" is not defined!');
+        }
+
+        return MarkInvoiceAsPaid(this.invoiceService, this.invoiceMarkedAsPaidEventPublisherBase);
     }
     
 

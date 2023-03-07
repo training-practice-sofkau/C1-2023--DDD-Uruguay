@@ -1,6 +1,6 @@
 import { IInvoiceDomainService } from '../../../../services/invoice.domain-service';
 import { WarrantyAddedEventPublisherBase } from '../../../../events/publishers/invoice/warranty-added.event-publisher';
-import { IAddWarrantyCommand } from '../../../../interfaces/commands/invoice/warranty/add-warranty.command';
+import { IAddWarrantyCommand } from '../../../../interfaces/commands/invoice/add-warranty.command';
 
 export const AddWarranty = async (
     warrantyData: IAddWarrantyCommand,

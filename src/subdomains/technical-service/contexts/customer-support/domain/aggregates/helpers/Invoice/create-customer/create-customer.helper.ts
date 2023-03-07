@@ -1,5 +1,5 @@
 import { IInvoiceDomainService } from '../../../../services/invoice.domain-service';
-import { ICreateCustomerCommand } from '../../../../interfaces/commands/invoice/customer/create-customer.command';
+import { ICreateCustomerCommand } from '../../../../interfaces/commands/invoice/create-customer.command';
 import { CustomerCreatedEventPublisherBase } from '../../../../events/publishers/invoice/customer-created.event-publisher';
 
 export const CreateCustomer = async (
