@@ -5,7 +5,7 @@ Response = ClientDomainBase
 >   extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'order-publish-event',
+            'order-client-modified-successfull',
             JSON.stringify({ data: this.response })
         )
 }
