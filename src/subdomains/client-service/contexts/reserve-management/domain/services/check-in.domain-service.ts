@@ -12,5 +12,5 @@ export interface ICheckInDomainService<CheckInDomainEntity> {
 
     updateGuestPhone(checkInId: string, guestId: string, newPhone: string): Promise<string>
     
-    updateRoomKey(checkInId: string, roomId: string, newRoomKey: number): Promise<number>
+    updateRoomKeyAccessLevel(checkInId: string, roomId: string, newRoomKeyAccessLevel: string): Promise<string>
 }
