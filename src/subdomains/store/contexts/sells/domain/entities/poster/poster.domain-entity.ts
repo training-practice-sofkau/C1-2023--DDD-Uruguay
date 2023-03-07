@@ -4,11 +4,11 @@ import { v4 as uuid } from 'uuid';
 
 export class PosterDomainEntity implements IPosterDomainEntity {
     posterId: string | IdValueObject;
-    type: string | PosterTypeValueObject;
-    flavour: string | FlavourValueObject;
-    price: number | PriceValueObject;
-    stock: number | StockValueObject;
-    image: string | ImageValueObject;
+    type?: string | PosterTypeValueObject;
+    flavour?: string | FlavourValueObject;
+    price?: number | PriceValueObject;
+    stock?: number | StockValueObject;
+    image?: string | ImageValueObject;
 
     constructor(data?: IPosterDomainEntity) {
         if (data.posterId) this.posterId = data.posterId

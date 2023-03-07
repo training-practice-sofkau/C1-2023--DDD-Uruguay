@@ -1,6 +1,6 @@
-import { ProductDomainEntity } from "../../../../entities"
+import { IdValueObject, PriceValueObject } from "../../../../value-objects"
 
 export interface IProductUpdatePriceCommand{
-    product: ProductDomainEntity
-    newPrice: number
+    productId: string | IdValueObject
+    newPrice: number | PriceValueObject
 }

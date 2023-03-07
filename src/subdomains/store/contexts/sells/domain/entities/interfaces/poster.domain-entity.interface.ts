@@ -3,9 +3,9 @@ import { FlavourValueObject, IdValueObject, ImageValueObject, PosterTypeValueObj
 
 export interface IPosterDomainEntity {
     posterId: string | IdValueObject
-    type: string | PosterTypeValueObject
-    flavour: string | FlavourValueObject
-    price: number | PriceValueObject
-    stock: number | StockValueObject
-    image: string | ImageValueObject
+    type?: string | PosterTypeValueObject
+    flavour?: string | FlavourValueObject
+    price?: number | PriceValueObject
+    stock?: number | StockValueObject
+    image?: string | ImageValueObject
 }

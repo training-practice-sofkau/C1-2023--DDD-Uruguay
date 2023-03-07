@@ -1,5 +1,8 @@
-import { CounterDomainEntity } from "../../../entities";
+import { IPosterDomainEntity, IProductDomainEntity } from "../../../entities";
+import { IdValueObject } from "../../../value-objects";
 
 export interface ICounterCreateCounterCommand{
-    counter: CounterDomainEntity
+    counterId: string | IdValueObject
+    product: IProductDomainEntity
+    poster: IPosterDomainEntity
 }

@@ -1,4 +1,7 @@
-export interface IProductDomainService<ProductDomainEntity> {
-    updateStock(product: ProductDomainEntity, newStock: number): ProductDomainEntity
-    updatePrice(product: ProductDomainEntity, newPrice: number): ProductDomainEntity
+import { IProductDomainEntity, ProductDomainEntity } from "../entities"
+import { IProductUpdatePriceCommand, IProductUpdateStockCommand } from "../interfaces"
+
+export interface IProductDomainService {
+    updateStock(product: IProductUpdateStockCommand): ProductDomainEntity
+    updateProductPrice(product: IProductUpdatePriceCommand): ProductDomainEntity
 }

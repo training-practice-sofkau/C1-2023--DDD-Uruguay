@@ -1,6 +1,10 @@
-import { PosterDomainEntity } from "../../../../entities"
+import { IdValueObject, PosterTypeValueObject, FlavourValueObject, PriceValueObject, StockValueObject, ImageValueObject } from "../../../../value-objects"
 
 export interface IPosterUpdateImageCommand{
-    poster: PosterDomainEntity
-    newImage: string
+    posterId: string | IdValueObject
+    type: string | PosterTypeValueObject
+    flavour: string | FlavourValueObject
+    price: number | PriceValueObject
+    stock: number | StockValueObject
+    image: string | ImageValueObject
 }

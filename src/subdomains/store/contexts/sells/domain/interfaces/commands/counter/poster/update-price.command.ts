@@ -1,6 +1,6 @@
-import { PosterDomainEntity } from "../../../../entities"
+import { IdValueObject } from "../../../../value-objects"
 
 export interface IPosterUpdatePriceCommand{
-    poster: PosterDomainEntity
-    newPrice: string
+    posterId: string | IdValueObject
+    newPrice: string | IdValueObject
 }

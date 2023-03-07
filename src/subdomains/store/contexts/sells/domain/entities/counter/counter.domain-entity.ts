@@ -5,6 +5,7 @@ import { ProductDomainEntity } from "../product";
 import { PosterDomainEntity } from "../poster";
 
 export class CounterDomainEntity implements ICounterDomainEntity{
+    
     counterId: string | IdValueObject;
     product: ProductDomainEntity;
     poster: PosterDomainEntity;

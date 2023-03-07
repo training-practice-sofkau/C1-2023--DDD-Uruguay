@@ -1,4 +1,7 @@
-export interface IPosterDomainService<PosterDomainEntity> {
-    updateImage(poster: PosterDomainEntity, newImage: string): PosterDomainEntity
-    updatePrice(poster: PosterDomainEntity, newPrice: number): PosterDomainEntity
+import { PosterDomainEntity } from "../entities"
+import { IPosterUpdateImageCommand, IPosterUpdatePriceCommand } from "../interfaces"
+
+export interface IPosterDomainService {
+    updateImage(poster: IPosterUpdateImageCommand, newImage: string): Promise<PosterDomainEntity>
+    updatePosterPrice(poster: IPosterUpdatePriceCommand, newPrice: number): Promise<PosterDomainEntity>
 }
