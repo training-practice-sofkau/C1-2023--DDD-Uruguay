@@ -3,6 +3,16 @@ import { AggregateRootException } from '../../../../../../libs/sofka/exceptions'
 import { UUIDValueObject } from '../value-objects/common';
 
 import {
+    CustomerEmailChangedEventPublisherBase,
+    CustomerPhoneChangedEventPublisherBase
+} from '../events/publishers/customer/';
+
+import { 
+    IChangeCustomerPhoneCommand, 
+    IChangeCustomerEmailCommand 
+} from '../interfaces/commands/invoice/customer';
+
+import {
     IInvoiceDomainService,
     ICustomerDomainService,
     IWarrantyDomainService
@@ -34,13 +44,16 @@ import {
     MarkInvoiceAsPaid
 } from './helpers/Invoice';
 
-
+import { 
+    ChangeCustomerEmail, 
+    ChangeCustomerPhone,
+} from './helpers/customer/';
 
 
 //TODO: Completar el AR incluyendo los servicios de las entidades asociadas (customer y warranty)
 
 
-export class InvoiceAggregate implements IInvoiceDomainService {
+export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainService {
 
     private readonly invoiceService?: IInvoiceDomainService;
     private readonly customerService?: ICustomerDomainService;
@@ -51,6 +64,9 @@ export class InvoiceAggregate implements IInvoiceDomainService {
     private readonly serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase;
     private readonly customerNotifiedEventPublisherBase?: CustomerNotifiedEventPublisherBase;
     private readonly invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase;
+    private readonly customerEmailChangedEventPublisherBase?: CustomerEmailChangedEventPublisherBase;
+    private readonly customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase;
+
 
     constructor(
         {
@@ -63,6 +79,8 @@ export class InvoiceAggregate implements IInvoiceDomainService {
             serviceChargeCalculatedEventPublisherBase,
             customerNotifiedEventPublisherBase,
             invoiceMarkedAsPaidEventPublisherBase,
+            customerEmailChangedEventPublisherBase,
+            customerPhoneChangedEventPublisherBase
 
         }: {
             invoiceService?: IInvoiceDomainService,
@@ -74,6 +92,8 @@ export class InvoiceAggregate implements IInvoiceDomainService {
             serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase,
             customerNotifiedEventPublisherBase?: CustomerNotifiedEventPublisherBase,
             invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase,
+            customerEmailChangedEventPublisherBase?: CustomerEmailChangedEventPublisherBase,
+            customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase,
         }
     ) {
 
@@ -86,7 +106,13 @@ export class InvoiceAggregate implements IInvoiceDomainService {
         this.serviceChargeCalculatedEventPublisherBase = serviceChargeCalculatedEventPublisherBase;
         this.customerNotifiedEventPublisherBase = customerNotifiedEventPublisherBase;
         this.invoiceMarkedAsPaidEventPublisherBase = invoiceMarkedAsPaidEventPublisherBase;
+        this.customerEmailChangedEventPublisherBase = customerEmailChangedEventPublisherBase;
+        this.customerPhoneChangedEventPublisherBase = customerPhoneChangedEventPublisherBase;
     }
+
+
+
+    //#region INVOICE methods
 
     /**
      * Creates a new Invoice entity
@@ -94,7 +120,7 @@ export class InvoiceAggregate implements IInvoiceDomainService {
      * @param {ICreateInvoiceCommand} invoiceData
      * @return {*}  {Promise<boolean>} success ( true / false )
      * @memberof InvoiceAggregate
-     */
+    */
     async createInvoice(invoiceData: ICreateInvoiceCommand): Promise<boolean> {
 
         if (!this.invoiceService) {
@@ -197,9 +223,54 @@ export class InvoiceAggregate implements IInvoiceDomainService {
         return await MarkInvoiceAsPaid(this.invoiceService, this.invoiceMarkedAsPaidEventPublisherBase);
     }
 
+    //#endregion
 
 
+    //#region CUSTOMER methods
 
 
+    /**
+     * Changes the Phone number of the customer
+     *
+     * @param {IChangeCustomerPhoneCommand} data
+     * @return {*}  {Promise<boolean>}
+     * @memberof InvoiceAggregate
+     */
+    async changeCustomerPhone(data: IChangeCustomerPhoneCommand): Promise<boolean> {
+
+        if (!this.customerService) {
+            throw new AggregateRootException('InvoiceAggregate: "CustomerService" is not defined!');
+        }
+        if (!this.customerPhoneChangedEventPublisherBase) {
+            throw new AggregateRootException('InvoiceAggregate: "customerPhoneChangedEventPublisherBase" is not defined!');
+        }
+
+        return await ChangeCustomerPhone(data, this.customerService, this.customerPhoneChangedEventPublisherBase);
+
+
+    }
+
+
+    /**
+     * Changes the Email address of the provided customer
+     *
+     * @param {IChangeCustomerEmailCommand} data
+     * @return {*}  {Promise<boolean>}
+     * @memberof InvoiceAggregate
+     */
+    async changeCustomerEmail(data: IChangeCustomerEmailCommand): Promise<boolean> {
+
+        if (!this.customerService) {
+            throw new AggregateRootException('InvoiceAggregate: "CustomerService" is not defined!');
+        }
+        if (!this.customerEmailChangedEventPublisherBase) {
+            throw new AggregateRootException('InvoiceAggregate: "customerEmailChangedEventPublisherBase" is not defined!');
+        }
+
+        return await ChangeCustomerEmail(data, this.customerService, this.customerEmailChangedEventPublisherBase);
+
+    }
+
+    //#endregion
 
 }

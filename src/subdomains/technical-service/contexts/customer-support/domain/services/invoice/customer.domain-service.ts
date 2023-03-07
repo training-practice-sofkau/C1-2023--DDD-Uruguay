@@ -1,7 +1,9 @@
+import { IChangeCustomerPhoneCommand, IChangeCustomerEmailCommand} from '../../interfaces/commands/invoice/customer';
+
 export interface ICustomerDomainService {
 
-    changeCustomerPhone( ): Promise<boolean>;
+    changeCustomerPhone( data: IChangeCustomerPhoneCommand ): Promise<boolean>;
 
-    changeCustomerEmail( ): Promise<boolean>;
+    changeCustomerEmail( data: IChangeCustomerEmailCommand ): Promise<boolean>;
 
 }
