@@ -1,13 +1,14 @@
 import { IdValueObject, TotalPriceValueObject, TicketTypeValueObject, QuantityValueObject, DateValueObject } from "../../value-objects";
-import { ISellerDomainEntity, IClientDomainEntity, IProductDomainEntity } from "../interfaces";
 import { ITicketDomainEntity } from "../interfaces/ticket.domain-entity.interface";
 import { v4 as uuid } from 'uuid';
+import { ClientDomainEntity } from "../client";
+import { SellerDomainEntity } from "../seller";
 
 export class TicketDomainEntity implements ITicketDomainEntity {
     ticketId: string | IdValueObject;
     productId: string | IdValueObject;
-    seller: ISellerDomainEntity;
-    client: IClientDomainEntity;
+    seller: SellerDomainEntity;
+    client: ClientDomainEntity;
     totalPrice: number | TotalPriceValueObject;
     type: string | TicketTypeValueObject;
     quantity: number | QuantityValueObject;
