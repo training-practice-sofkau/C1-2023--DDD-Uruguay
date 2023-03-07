@@ -3,9 +3,9 @@ import { IChangeEmployeeMailCommand, IChangeEmployeeStatusCommand } from '../../
 
 export interface IEmployeeDomainService{
 
-    createEmployee(employeeData: ICreateEmployeeCommand) : Promise < boolean >;
+    CreateEmployee(employeeData: ICreateEmployeeCommand) : Promise < boolean >;
 
-    changeEmployeeEmail(data: IChangeEmployeeMailCommand) : Promise < boolean >;
+    ChangeEmployeeEmail(data: IChangeEmployeeMailCommand) : Promise < boolean >;
 
     changeEmployeeStatus(data: IChangeEmployeeStatusCommand) : Promise < boolean >;
 
