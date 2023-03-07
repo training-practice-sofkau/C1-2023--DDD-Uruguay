@@ -10,5 +10,5 @@ export interface IPlanDomainEntityInterface {
     dateInicioPlan : number | DateValueObject;
     dateFinPlan : number | DateValueObject;
     costoPlan : number | CostoValueObject;
-
+    
 }
