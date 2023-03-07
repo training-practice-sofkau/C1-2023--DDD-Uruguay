@@ -225,55 +225,140 @@ export class SecretariaAggregate implements ISecretariaDomainService{
         throw new AggregateRootException('Servicio Cesion indefinido')
 
         if(!this.cesionFechaModificadaEvent)
-        throw new AggregateRootException('Evento creador de secretaria indefinido')
+        throw new AggregateRootException('Evento Fecha de cesion indefinido')
 
-        const result = await this.cesionService.modificarFechaRetorno(fecha);
+        const result = await this.cesionService.modificarFechaSalida(fecha);
         this.cesionFechaModificadaEvent.response = result;
         this.cesionFechaModificadaEvent.publish();
         return result;
     }
 
     async ModificarFechaRetornoCesion(fecha: IModificarFechaCommands):Promise<CesionDomainEntity>{
-        throw new Error("Method not implemented.");
-    }
-    
-    async ModificarEquipoCesion(equipo: IModificarEquipoCommands): Promise<CesionDomainEntity> {
-        throw new Error("Method not implemented.");
-    }
-
-    async ModificarStateTraspaso(state: IModificarStateCommands): Promise<TraspasoDomainEntity> {
         if(!this.cesionService)
         throw new AggregateRootException('Servicio Cesion indefinido')
 
-        if(!this.cesionStateModificadoEvent)
+        if(!this.cesionFechaModificadaEvent)
+        throw new AggregateRootException('Evento Fecha de cesion indefinido')
+
+        const result = await this.cesionService.modificarFechaRetorno(fecha);
+        this.cesionFechaModificadaEvent.response = result;
+        this.cesionFechaModificadaEvent.publish();
+        return result
+    }
+
+    async ModificarEquipoNuevoCesion(equipo: IModificarEquipoCommands): Promise<CesionDomainEntity> {
+        if(!this.cesionService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.cesionEquipoModificadaEvent)
+        throw new AggregateRootException('Evento equipo de cesion indefinido')
+
+        const result = await this.cesionService.modificarEquipoNuevo(equipo);
+        this.cesionEquipoModificadaEvent.response = result;
+        this.cesionEquipoModificadaEvent.publish();
+        return result
+    }
+
+    async ModificarEquipoSalidaCesion(equipo: IModificarEquipoCommands): Promise<CesionDomainEntity> {
+        if(!this.cesionService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.cesionEquipoModificadaEvent)
+        throw new AggregateRootException('Evento equipo de cesion indefinido')
+
+        const result = await this.cesionService.modificarEquipoSalida(equipo);
+        this.cesionEquipoModificadaEvent.response = result;
+        this.cesionEquipoModificadaEvent.publish();
+        return result
+    }
+
+    async ModificarStateTraspaso(state: IModificarStateCommands): Promise<TraspasoDomainEntity> {
+        if(!this.traspasoService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.traspasoStateModificadoEvent)
         throw new AggregateRootException('Evento creador de secretaria indefinido')
 
-        const result = await this.cesionService.modificarState(state);
-        this.cesionStateModificadoEvent.response = result;
-        this.cesionStateModificadoEvent.publish();
+        const result = await this.traspasoService.modificarState(state);
+        this.traspasoStateModificadoEvent.response = result;
+        this.traspasoStateModificadoEvent.publish();
         return result;
     }
 
     async ModificarStateContrato(state: IModificarStateCommands): Promise<ContratoDomainEntity> {
-        throw new Error("Method not implemented.");
+        if(!this.traspasoService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.traspasoStateModificadoEvent)
+        throw new AggregateRootException('Evento creador de secretaria indefinido')
+
+        const result = await this.traspasoService.modificarState(state);
+        this.traspasoStateModificadoEvent.response = result;
+        this.traspasoStateModificadoEvent.publish();
+        return result;
     }
-    async ModificarCostoTraspaso(Costo: IModificarCostoCommands): Promise<TraspasoDomainEntity> {
-        throw new Error("Method not implemented.");
-    }
-    async ModificarCostoContrato(Costo: IModificarCostoCommands): Promise<ContratoDomainEntity> {
-        throw new Error("Method not implemented.");
+
+    async ModificarCostoTraspaso(costo: IModificarCostoCommands): Promise<TraspasoDomainEntity> {
+        if(!this.traspasoService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.traspasoCostoModificadoEvent)
+        throw new AggregateRootException('Evento creador de secretaria indefinido')
+
+        const result = await this.traspasoService.modificarCosto(costo);
+        this.traspasoCostoModificadoEvent.response = result;
+        this.traspasoCostoModificadoEvent.publish();
+        return result;
     }
     
     async ModificarFechaSalidaTraspaso(fecha: IModificarFechaCommands): Promise<TraspasoDomainEntity> {
+        if(!this.traspasoService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.traspasoFechaModificadoEvent)
+        throw new AggregateRootException('Evento creador de secretaria indefinido')
+
+        const result = await this.traspasoService.modificarFechaSalida(fecha);
+        this.traspasoFechaModificadoEvent.response = result;
+        this.traspasoFechaModificadoEvent.publish();
+        return result;
+    }
+    async ModificarEquipoNuevoTraspaso(equipo: IModificarEquipoCommands): Promise<TraspasoDomainEntity> {
+        if(!this.traspasoService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.traspasoEquipoModificadaEvent)
+        throw new AggregateRootException('Evento creador de secretaria indefinido')
+
+        const result = await this.traspasoService.modificarEquipoNuevo(equipo);
+        this.traspasoEquipoModificadaEvent.response = result;
+        this.traspasoEquipoModificadaEvent.publish();
+        return result;
+    }
+
+    async ModificarEquipoSalidaTraspaso(equipo: IModificarEquipoCommands): Promise<TraspasoDomainEntity> {
+        if(!this.traspasoService)
+        throw new AggregateRootException('Servicio Cesion indefinido')
+
+        if(!this.traspasoEquipoModificadaEvent)
+        throw new AggregateRootException('Evento creador de secretaria indefinido')
+
+        const result = await this.traspasoService.modificarEquipoSalida(equipo);
+        this.traspasoEquipoModificadaEvent.response = result;
+        this.traspasoEquipoModificadaEvent.publish();
+        return result;
+    }
+
+
+
+
+    async ModificarCostoContrato(Costo: IModificarCostoCommands): Promise<ContratoDomainEntity> {
         throw new Error("Method not implemented.");
     }
     async ModificarFechaSalidaContrato(fecha: IModificarFechaCommands): Promise<ContratoDomainEntity> {
         throw new Error("Method not implemented.");
     }
   
-    async ModificarEquipoTraspaso(equipo: IModificarEquipoCommands): Promise<TraspasoDomainEntity> {
-        throw new Error("Method not implemented.");
-    }
 
     
 

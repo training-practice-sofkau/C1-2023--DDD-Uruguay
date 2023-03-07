@@ -20,26 +20,28 @@ export interface ISecretariaDomainService{
 
     NegociarTraspaso(traspaso: INegociarTraspasoCommands):Promise<TraspasoDomainEntity>;
 
-    //Modificar state
-    ModificarStateCesion(state: IModificarStateCommands):Promise<CesionDomainEntity>;
-    ModificarStateTraspaso(state: IModificarStateCommands):Promise<TraspasoDomainEntity>;
-    ModificarStateContrato(state: IModificarStateCommands):Promise<ContratoDomainEntity>;
 
-    //Modificar Costo
-    ModificarCostoCesion(Costo: IModificarCostoCommands):Promise<CesionDomainEntity>;
-    ModificarCostoTraspaso(Costo: IModificarCostoCommands):Promise<TraspasoDomainEntity>;
-    ModificarCostoContrato(Costo: IModificarCostoCommands):Promise<ContratoDomainEntity>;
-
-    //Modificar Fecha
-    ModificarFechaSalidaCesion(fecha: IModificarFechaCommands):Promise<CesionDomainEntity>;
-    ModificarFechaRetornoCesion(fecha: IModificarFechaCommands):Promise<CesionDomainEntity>;
     
-    ModificarFechaSalidaTraspaso(fecha: IModificarFechaCommands):Promise<TraspasoDomainEntity>;
+    //contrato
+    ModificarStateContrato(state: IModificarStateCommands):Promise<ContratoDomainEntity>;
+    ModificarCostoContrato(Costo: IModificarCostoCommands):Promise<ContratoDomainEntity>;
     ModificarFechaSalidaContrato(fecha: IModificarFechaCommands):Promise<ContratoDomainEntity>;
     
-    //Modificar Equipo
-    ModificarEquipoCesion(equipo: IModificarEquipoCommands):Promise<CesionDomainEntity>;
-    ModificarEquipoTraspaso(equipo: IModificarEquipoCommands):Promise<TraspasoDomainEntity>;
+    //cesion
+    ModificarStateCesion(state: IModificarStateCommands):Promise<CesionDomainEntity>;
+    ModificarCostoCesion(Costo: IModificarCostoCommands):Promise<CesionDomainEntity>;
+    ModificarFechaSalidaCesion(fecha: IModificarFechaCommands):Promise<CesionDomainEntity>;
+    ModificarFechaRetornoCesion(fecha: IModificarFechaCommands):Promise<CesionDomainEntity>;
+    ModificarEquipoSalidaCesion(equipo: IModificarEquipoCommands):Promise<CesionDomainEntity>;
+    ModificarEquipoNuevoCesion(equipo: IModificarEquipoCommands):Promise<CesionDomainEntity>;
+    
+    
+    //traspaso
+    ModificarStateTraspaso(state: IModificarStateCommands):Promise<TraspasoDomainEntity>;
+    ModificarCostoTraspaso(Costo: IModificarCostoCommands):Promise<TraspasoDomainEntity>;
+    ModificarFechaSalidaTraspaso(fecha: IModificarFechaCommands):Promise<TraspasoDomainEntity>;
+    ModificarEquipoNuevoTraspaso(equipo: IModificarEquipoCommands):Promise<TraspasoDomainEntity>;
+    ModificarEquipoSalidaTraspaso(equipo: IModificarEquipoCommands):Promise<TraspasoDomainEntity>;
 
 
 
