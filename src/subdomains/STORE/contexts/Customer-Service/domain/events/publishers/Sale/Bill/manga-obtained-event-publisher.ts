@@ -6,7 +6,7 @@ Response = MangaDomainBase
 >   extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'event-publish',
+            'sale-manga-get-successfull',
             JSON.stringify({ data: this.response })
         )
 }

@@ -6,7 +6,7 @@ Response = BillDomain
 >   extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'event-publish',
+            'sale-bill-modified-successfull',
             JSON.stringify({ data: this.response })
         )
 }
