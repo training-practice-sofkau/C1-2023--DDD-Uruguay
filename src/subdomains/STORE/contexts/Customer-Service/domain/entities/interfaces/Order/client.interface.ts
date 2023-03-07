@@ -7,6 +7,4 @@ export interface IClientEntity {
     Name: ClientNameValue
     Phone: PhoneValue
 
-
-
 }
