@@ -6,6 +6,8 @@ import { PaymentAmountValue } from "../../value-objects/Sale/Bill/payment-amount
 import { PaymentMethodValue } from "../../value-objects/Sale/Bill/payment-method-value/payment-method-value";
 import { TotalValue } from "../../value-objects/Sale/Bill/total-value/total-value";
 import { IBillEntity } from "../interfaces/Sale/bill.interface";
+import { v4 as uuidv4 } from 'uuid';
+
 
 export class BillDomain implements IBillEntity{
     IDBill: IdbillValue;
@@ -32,8 +34,16 @@ export class BillDomain implements IBillEntity{
     
         if (_data?.PaymentAmount) this.PaymentAmount = _data.PaymentAmount;
 
-        if (_data?.PaymentMethod) this.PaymentMethod = _data.PaymentMethod;
+        if (_data?.Total) this.Total = _data.Total;
 
+        if (_data?.IdClinet) this.IdClinet = _data.IdClinet;
+
+        else this.IdClinet = uuidv4()      
+
+        if (_data?.IdManga) this.IdManga = _data.IdManga;
+
+
+        else this.IdManga = uuidv4()      
 
     }
 }
