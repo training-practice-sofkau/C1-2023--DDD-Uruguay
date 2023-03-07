@@ -31,6 +31,17 @@ import {
     IConsumptionDomainService,
     IInvoiceDomainService
 } from "../services";
+import {
+    AddConsumption,
+    AddInvoice,
+    CreateCheckOut,
+    UpdateConsumptionExtra,
+    UpdateConsumptionMiniBar,
+    UpdateCost,
+    UpdateExtra,
+    UpdateInvoiceCost,
+    UpdateMiniBar
+} from "./helpers";
 
 export class CheckOutAggregate implements
     ICheckOutDomainService,
