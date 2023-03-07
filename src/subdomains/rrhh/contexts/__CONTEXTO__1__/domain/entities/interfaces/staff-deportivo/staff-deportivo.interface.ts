@@ -5,5 +5,5 @@ export interface IStaffDeportivoDomainEntity {
     staffDeportivoId: string | IdValueObject;
     tamiteId: string | IdValueObject;
     directivaId: string | IdValueObject;
-    empleado: EmpleadoDomainEntity;
+    empleado: EmpleadoDomainEntity[];
 }

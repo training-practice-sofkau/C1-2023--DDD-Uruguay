@@ -1,1 +1,1 @@
-export class TraspasoDomainInterface {}
+export interface TraspasoDomainInterface {}
