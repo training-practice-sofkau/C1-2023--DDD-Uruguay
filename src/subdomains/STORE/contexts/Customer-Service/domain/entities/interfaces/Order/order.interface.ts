@@ -8,5 +8,4 @@ export interface IOrderentity {
     client:  IClientEntity
     Manga: IMangaEntity
 
-
 }

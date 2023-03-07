@@ -26,9 +26,7 @@ export class OrderAgregate
 
 /* 
 Publisher events go in this place
-
 */
-
  /* A way to define the events that will be used in the aggregate. */
   private readonly RegisterOrderEventPublisher: OrderAddEventPublisher;
   private readonly AddCustomerEventPublisher: ClientAddEventPublisher;
@@ -90,6 +88,11 @@ Publisher events go in this place
 
 
 
+/**
+ * A function that is called when the RegisterOrder command is received.
+ * @param {OrderDomainEntityBase} order - OrderDomainEntityBase: The order to be registered.
+ * @returns The response of the event publisher
+ */
   async RegisterOrder(order: OrderDomainEntityBase): Promise<OrderDomainEntityBase> {
 
     if(this.orderService && this.RegisterOrderEventPublisher){        
@@ -105,6 +108,11 @@ Publisher events go in this place
 
 
 }
+ /**
+  * The function GetClient is an async function that returns a Promise of type ClientDomainBase
+  * @param {string} ClientId - string
+  * @returns The result of the GetClient method of the OrderService
+  */
  async  GetClient(ClientId: string): Promise<ClientDomainBase> {
 
     if(this.orderService && this.GetClientEventPublisher)
@@ -118,25 +126,106 @@ Publisher events go in this place
       return this.GetClientEventPublisher.response
 
     }
-
+    throw new AggregateRootException(
+      'OrderAgregate "OrderService" y/o "GetClientEventPublisher" no estan definidos'
+  )
   }
 
 
-  UpdateOrder(OrderId: string): Promise<OrderDomainEntityBase> {
-    throw new Error('Method not implemented.');
+/**
+ * It updates an order.
+ * @param {string} OrderId - The order id to be updated.
+ * @returns The OrderDomainEntityBase
+ */
+  async UpdateOrder(OrderId: string): Promise<OrderDomainEntityBase> 
+  {
+    if(this.orderService && this.ModifiedClientEventPublisher){
+      const result = await this.orderService.UpdateOrder(OrderId)
+      this.ModifiedOrderEventPublisher.response = result
+      this.ModifiedOrderEventPublisher.publish()
+      return this.ModifiedOrderEventPublisher.response
+    }
+
+    throw new AggregateRootException(
+      'OrderAgregate "OrderService" y/o "ModifiedClientEventPublisher" no estan definidos'
+  )
+
   }
-  Delete(OrderId: string): Promise<OrderDomainEntityBase> {
-    throw new Error('Method not implemented.');
+
+/**
+ * The function Delete() is an async function that takes an OrderId as a parameter and returns a
+ * Promise of type OrderDomainEntityBase
+ * @param {string} OrderId - The id of the order to be deleted.
+ * @returns The OrderDomainEntityBase
+ */
+
+  async Delete(OrderId: string): Promise<OrderDomainEntityBase> {
+    if(this.orderService && this.DeleteOrderEventPublisher)
+    {
+      const result = await this.orderService.Delete(OrderId)
+
+      this.DeleteOrderEventPublisher.response = result
+
+      this.DeleteOrderEventPublisher.publish()
+      
+      return this.DeleteOrderEventPublisher.response
+
+    }
+    throw new AggregateRootException(
+      'OrderAgregate "OrderService" y/o "DeleteOrderEventPublisher" no estan definidos'
+  )
   }
-  GetManga(MangaId: string): Promise<OrderDomainEntityBase> {
-    throw new Error('Method not implemented.');
+
+
+/**
+ * It gets a manga by its id.
+ * @param {string} MangaId - The id of the manga to be retrieved.
+ * @returns The result of the GetManga method of the OrderService
+ */
+
+  async GetManga(MangaId: string): Promise<MangaDomainBase> {
+
+    if(this.orderService && this.GetMangaEventPublisher)
+    {
+      const result = await this.orderService.GetManga(MangaId)
+
+      this.GetMangaEventPublisher.response = result
+
+      this.GetMangaEventPublisher.publish()
+      
+      return this.GetMangaEventPublisher.response
+
+    }
+    throw new AggregateRootException(
+      'OrderAgregate "OrderService" y/o "GetMangaEventPublisher" no estan definidos'
+  )
   }
+
+
+
+/**
+ * It adds a client to the database.
+ * @param {string} MangaId - The id of the manga you want to add a client to.
+ */
   AddClient(MangaId: string): Promise<ClientDomainBase> {
     throw new Error('Method not implemented.');
   }
+
+
+
+ /**
+  * It updates the stock of a manga.
+  * @param {string} MangaId - The id of the manga you want to update.
+  */
   UpdateMangaStock(MangaId: string): Promise<OrderDomainEntityBase> {
     throw new Error('Method not implemented.');
   }
+
+
+ /**
+  * It updates a client.
+  * @param {string} ClientId - The unique identifier for the client.
+  */
   UpdateClient(ClientId: string): Promise<ClientDomainBase> {
     throw new Error('Method not implemented.');
   }
@@ -148,13 +237,27 @@ Publisher events go in this place
    *
    */
 
+/**
+ * It updates the name of the manga.
+ * @param {string} name - The name of the manga.
+ */
  UpdateName(name: string): Promise<MangaDomainBase> {
   console.log(name);
   throw new Error('Method not implemented.');
  }
+/**
+ * It updates the state of the manga.
+ * @param {number} state - The state of the manga.
+ */
    UpdateState(state: number): Promise<MangaDomainBase> {
      throw new Error('Method not implemented.');
    }
+
+
+/**
+ * It updates the price of the manga.
+ * @param {number} Price - number - The price of the manga.
+ */
    UpdatePrice(Price: number): Promise<MangaDomainBase> {
      throw new Error('Method not implemented.');
    }
