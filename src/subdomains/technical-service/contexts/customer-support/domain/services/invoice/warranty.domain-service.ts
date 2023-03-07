@@ -1,9 +1,12 @@
+import { IAddItemToWarrantyCommand } from '../../interfaces/commands/invoice/warranty/add-item-to-warranty.command';
+import { IRemoveItemFromWarrantyCommand } from '../../interfaces/commands/invoice/warranty/remove-item-from-warranty.command';
+import { IChangeWarrantyStatusCommand } from '../../interfaces/commands/invoice/warranty/change-warranty-status.command';
 export interface IWarrantyDomainService {
 
-    AddItemCovered(): Promise<boolean>;
+    AddItemtoWarranty(data: IAddItemToWarrantyCommand): Promise<boolean>;
 
-    RemoveItemCovered(): Promise<boolean>;
+    RemoveItemFromWarranty(data: IRemoveItemFromWarrantyCommand): Promise<boolean>;
 
-    ChangeWarrantyStatus(): Promise<boolean>;
+    ChangeWarrantyStatus(data: IChangeWarrantyStatusCommand): Promise<boolean>;
 
 }

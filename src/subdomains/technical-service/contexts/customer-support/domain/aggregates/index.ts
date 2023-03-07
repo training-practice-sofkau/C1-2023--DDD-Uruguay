@@ -1,3 +1,2 @@
-export * from './helpers';
-export * from './invoice.aggregate';
+export * from './Invoice';
 
