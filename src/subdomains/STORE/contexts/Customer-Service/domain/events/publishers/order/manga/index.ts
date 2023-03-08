@@ -1,3 +1,3 @@
-export * from './name-modified-event-publisher';
-export * from './prince-modified-event-publisher';
-export * from './state-modified-event-publisher';
+export * from './modified-name-event-publisher';
+export * from './modified-prince-event-publisher';
+export * from './modified-state-event-publisher';

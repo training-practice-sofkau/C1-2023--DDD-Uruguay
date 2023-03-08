@@ -1,1 +1,9 @@
-export class UpdateClient {}
+
+export interface IUpdateClient {
+    
+        ClientID: string;
+        Name: string;
+        Phone: number;    
+    
+
+}

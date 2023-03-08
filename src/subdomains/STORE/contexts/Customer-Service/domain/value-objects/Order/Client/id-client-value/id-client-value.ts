@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
-import { ValueObjectBase } from "src/libs";
-import { IsUuid } from "src/libs/validations/is-uuid.validations";
+import { ValueObjectBase, IsUuid } from "../../../../../../../../../libs";
+
 
 export class IdClientValueObject extends ValueObjectBase<string>{
   
@@ -18,13 +18,13 @@ export class IdClientValueObject extends ValueObjectBase<string>{
  */
 
   validateData(): void {
-this.validateStructure()
+  this.validateStructure()
   }
 
 /**
  * If the value is not null and the value is not a valid UUID, then set an error
  */
-  private validateStructure(): void {
+private validateStructure(): void {
   
     if(this.value && !IsUuid(this.value) === false)
 {

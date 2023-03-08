@@ -1,1 +1,4 @@
-export class Delete {}
+
+export interface IDeleteOrder {
+    OrderID: string
+}

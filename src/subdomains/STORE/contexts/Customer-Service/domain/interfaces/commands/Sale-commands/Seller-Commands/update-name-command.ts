@@ -1,1 +1,7 @@
-export class UpdateName {}
+export interface IUpdateNameSeller {
+
+
+    idBill: string
+    name: string 
+
+}

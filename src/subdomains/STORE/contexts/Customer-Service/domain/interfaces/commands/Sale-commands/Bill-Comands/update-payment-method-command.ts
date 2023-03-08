@@ -1,1 +1,6 @@
-export class UpdatePaymentMethod {}
+export interface UpdatePaymentMethod {
+
+    idBill: string
+    paymentMethod: string 
+
+}

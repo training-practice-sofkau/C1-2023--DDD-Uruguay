@@ -1,1 +1,5 @@
-export class GetSalesList {}
+export interface IGetSalesList {
+
+    IdSale: string 
+
+}

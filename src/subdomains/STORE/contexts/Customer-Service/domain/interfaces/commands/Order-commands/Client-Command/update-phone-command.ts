@@ -1,1 +1,4 @@
-export class UpdatePhone {}
+export interface UpdatePhoneClient {
+  clientId: string;
+  newPhone: string;
+}

@@ -1,1 +1,4 @@
-export class UpdateName {}
+export interface UpdateNameManga {
+    MangaId: string
+    newName: string
+}

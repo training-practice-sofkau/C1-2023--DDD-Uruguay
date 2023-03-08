@@ -1,0 +1,2 @@
+
+export * from './idmanga-value';

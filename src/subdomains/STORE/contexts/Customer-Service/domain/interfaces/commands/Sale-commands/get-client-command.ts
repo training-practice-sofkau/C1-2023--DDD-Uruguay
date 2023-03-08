@@ -1,1 +1,3 @@
-export class GetClient {}
+export interface IGetClientSale {
+    IDclient: string;
+}

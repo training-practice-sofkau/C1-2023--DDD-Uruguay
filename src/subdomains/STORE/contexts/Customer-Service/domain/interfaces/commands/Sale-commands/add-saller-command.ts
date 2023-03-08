@@ -1,1 +1,5 @@
-export class AddSaller {}
+export interface IAddSaller {
+   IdSeller: string;
+   Name:  string;
+   
+}

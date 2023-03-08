@@ -1,1 +1,4 @@
-export class UpdatePrice {}
+export interface UpdatePriceManga {
+    MangaId: string
+    newPrice: number
+}

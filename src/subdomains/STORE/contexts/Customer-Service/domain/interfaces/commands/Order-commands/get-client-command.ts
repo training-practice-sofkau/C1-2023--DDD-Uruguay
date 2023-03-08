@@ -1,1 +1,4 @@
-export class GetClient {}
+export interface IGetClient {
+    ClientID: string
+
+}

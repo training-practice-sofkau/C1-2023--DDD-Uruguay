@@ -1,2 +1,2 @@
-export * from './Name-Modified-event-publisher';
-export * from './Phone-modified-event-publisher';
+export * from './Modified-Name-event-publisher';
+export * from './modified-Phone-event-publisher';
