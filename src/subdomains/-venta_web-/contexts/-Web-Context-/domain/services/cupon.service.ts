@@ -1,4 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { IUpdatePorcentajeMethod } from "../interfaces/commands/compra/cupon/updatePorcentaje.command";
 
-@Injectable()
-export class CuponService {}
+export interface  ICuponService {
+
+    updatePorcentaje(data : IUpdatePorcentajeMethod) : Promise<number> //Utilizo la interface de Command
+
+}

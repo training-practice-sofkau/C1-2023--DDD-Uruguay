@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { IUpdatePhoneMethod } from "../interfaces/commands/compra/cliente/updatePhone.command";
 
-@Injectable()
-export class ClienteService {}
+export interface IClienteService {
+
+    updatePhone(data: IUpdatePhoneMethod ) : Promise<number> //Utilizo la interface de Command
+}
