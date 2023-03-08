@@ -1,1 +1,3 @@
-export class ModificarStateCommands {}
+export interface IModificarStateCommands {
+    state : boolean;
+}

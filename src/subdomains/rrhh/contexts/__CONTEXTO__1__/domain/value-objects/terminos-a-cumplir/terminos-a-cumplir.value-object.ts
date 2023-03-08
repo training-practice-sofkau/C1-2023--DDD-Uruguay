@@ -1,14 +1,26 @@
 import {  ValueObjectBase } from 'src/libs';
-import { uuid4 } from 'uuid';
+
 
 export class TerminosACumplirValueObject extends ValueObjectBase<string> {
    
-   constructor(value?:string){
-    super(value ? value : uuid4() )
+   constructor( value? : string ){
+    super(value ? value : "" );
    }
 
     validateData(): void {
-        throw new Error('Method not implemented.');
+        this.contenidoTerminos();
+    }
+
+    contenidoTerminos(): void {
+
+        if(this.value.length > 2000){
+            const error = {
+                field: "Terminos",
+                message:"Los terminos no puede superar los 2000 caracteres "
+            }
+            this.setError(error);
+        }
+
     }
      
   

@@ -1,4 +1,5 @@
-import { IdValueObject } from './id.value-object';
+import { IdValueObject } from "./id.value-object";
+
 
 describe('IdValueObject', () => {
   it('should be defined', () => {
