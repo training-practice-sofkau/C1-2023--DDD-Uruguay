@@ -23,7 +23,7 @@ In addition, the way in which the focus has been made on one of the contexts to 
 
 <br>
 
-![Model](assets/DDD-ServicioTecnico-EdinsonAcosta-ClarifiedModel-Corrected.drawio.png)
+![Model](assets/DDD-ServicioTecnico-EdinsonAcosta-ClarifiedModel-Corrected.png)
 
 ### <div align="center">Model</div>
 
@@ -35,3 +35,21 @@ This first delivery includes, as requested:
 * Business analysis and modeling (assets folder)
 * project folder structure
 * aggregates, entities, value objects, some validations and other required files.
+
+
+## Second delivery:
+
+This second installment includes the implementation of the logic of:
+
+* Domain entities
+* Aggregates: invoice & employee (completed), support-ticket (in progress)
+* Events: publishers and subscribers for Invoice and Employee Entities
+* Interfaces: for all aggregates and entities
+* Services: 
+    + InvoiceService, CustomerService, WarrantyService, EmployeeService, RoleService, TicketSupportService -> completed
+    + DeviceService, RepairService -> inProgress
+* ValueObjects: all completed with validations.
+
+
+
+

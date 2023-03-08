@@ -1,5 +1,6 @@
-import { validate } from 'class-validator';
+
 import { ValueObjectBase } from '../../../../../../../libs/sofka/bases/object-value.base';
+import { IsEmptyOrNull } from '../../../../../../../libs/validations/checkIsEmptyOrNull.validation';
 
 export class WarrantyStatusValueObject extends ValueObjectBase<WarrantyStatus>{
     
@@ -21,7 +22,7 @@ export class WarrantyStatusValueObject extends ValueObjectBase<WarrantyStatus>{
      */
     private validateContent() {
 
-        if (this.value == null ||
+        if (IsEmptyOrNull(this.value) ||
             (this.value != WarrantyStatus.Canceled && 
             this.value != WarrantyStatus.Finished &&
             this.value != WarrantyStatus.Valid)) {

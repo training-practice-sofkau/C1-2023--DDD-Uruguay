@@ -1,10 +1,12 @@
+import { IsEmptyOrNull } from "src/libs/validations/checkIsEmptyOrNull.validation";
 import { ValueObjectBase } from "../../../../../../../../libs/sofka/bases/object-value.base";
+import { StringBiggerThanMaxLength } from '../../../../../../../../libs/validations/string-max-length.validation';
 
 export class NoteValueObject extends ValueObjectBase<string> {
     
     constructor(value?: string){
 
-        super(value ? value : '');
+        super(value ? value : null);
     }    
 
     /**
@@ -25,8 +27,7 @@ export class NoteValueObject extends ValueObjectBase<string> {
      */
     private validateContent() {
 
-        if (this.value === '') {
-
+        if (IsEmptyOrNull(this.value)) {
             const error = {
                 field: 'Note',
                 message: 'Not data was given!'
@@ -36,7 +37,7 @@ export class NoteValueObject extends ValueObjectBase<string> {
         }
 
         // checks that the string given is not more than 250 char long
-        if(this.value.length > 250){
+        if(StringBiggerThanMaxLength(this.value, 250)){
             const error = {
                 field: 'Note',
                 message: 'The Note given is too long!'

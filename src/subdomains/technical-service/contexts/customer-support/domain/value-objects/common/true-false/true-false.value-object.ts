@@ -1,5 +1,6 @@
 import { IsBoolean } from '../../../../../../../../libs/validations/true-false.validation';
 import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
+import { IsEmptyOrNull } from 'src/libs/validations/checkIsEmptyOrNull.validation';
 
 export class TrueFalseValueObject extends ValueObjectBase<boolean> {
 
@@ -27,8 +28,7 @@ export class TrueFalseValueObject extends ValueObjectBase<boolean> {
      */
     private validateContent(): void {
 
-        if (this.value === null) {
-
+        if (IsEmptyOrNull(this.value)) {
             const error = {
                 field: 'TrueFalse',
                 message: 'Not value was given!'
