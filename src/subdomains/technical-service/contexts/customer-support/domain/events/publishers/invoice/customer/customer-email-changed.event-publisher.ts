@@ -4,7 +4,7 @@ export abstract class CustomerEmailChangedEventPublisherBase < Response = boolea
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'CustomerEmailChangedEventPublisher',
+            'customer-support.customer-email-changed',
             JSON.stringify({ data: this.response })
         )
     }

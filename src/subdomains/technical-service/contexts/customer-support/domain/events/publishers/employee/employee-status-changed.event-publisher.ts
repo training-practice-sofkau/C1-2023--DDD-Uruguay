@@ -3,7 +3,7 @@ export abstract class EmployeeStatusChangedEventPublisherBase < Response = boole
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'EmployeeStatusChangedEventPublisherBase',
+            'customer-support.employee-status-changed',
             JSON.stringify({ data: this.response })
         )
     }

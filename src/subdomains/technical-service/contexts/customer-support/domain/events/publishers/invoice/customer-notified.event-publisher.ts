@@ -3,7 +3,7 @@ export abstract class CustomerNotifiedEventPublisherBase < Response = boolean > 
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'CustomerNotifiedEventPublisherBase',
+            'customer-support.customer-notified',
             JSON.stringify({ data: this.response })
         )
     }

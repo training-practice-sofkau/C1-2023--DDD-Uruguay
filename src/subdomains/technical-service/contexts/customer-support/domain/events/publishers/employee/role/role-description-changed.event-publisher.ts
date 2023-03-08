@@ -3,7 +3,7 @@ export abstract class RoleDescriptionChangedEventPublisherBase < Response = bool
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'RoleDescriptionChangedEventPublisherBase',
+            'customer-support.role-description-changed',
             JSON.stringify({ data: this.response })
         )
     }

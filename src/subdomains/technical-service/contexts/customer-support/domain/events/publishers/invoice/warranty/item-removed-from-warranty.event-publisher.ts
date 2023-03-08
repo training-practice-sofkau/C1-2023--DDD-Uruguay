@@ -4,7 +4,7 @@ export abstract class ItemRemovedFromWarrantyEventPublisherBase < Response = boo
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'ItemRemovedFromWarrantyEventPublisherBase:',
+            'customer-support.item-removed-from-warranty',
             JSON.stringify({ data: this.response })
         )
     }

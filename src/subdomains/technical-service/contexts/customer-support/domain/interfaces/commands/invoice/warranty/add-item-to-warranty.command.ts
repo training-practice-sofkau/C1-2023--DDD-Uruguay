@@ -3,6 +3,6 @@ import { ItemValueObject } from '../../../../value-objects/warranty/item.value-o
 
 export interface IAddItemToWarrantyCommand{
 
-    warrantyID: string | UUIDValueObject;
-    itemToAdd: ItemValueObject;    
+    warrantyID: string;
+    itemToAdd: string;    
 }

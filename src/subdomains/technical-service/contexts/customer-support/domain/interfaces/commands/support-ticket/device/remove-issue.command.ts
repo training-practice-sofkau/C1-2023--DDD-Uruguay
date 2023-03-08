@@ -3,6 +3,6 @@ import { UUIDValueObject } from '../../../../value-objects/common';
 
 export interface IRemoveIssueCommand{
 
-    deviceID: string | UUIDValueObject;
-    issueToRemove: IssueValueObject;
+    deviceID: string;
+    issueToRemove: string;
 }

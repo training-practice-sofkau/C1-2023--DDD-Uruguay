@@ -3,7 +3,7 @@ export abstract class ServiceChargeCalculatedEventPublisherBase < Response = num
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'ServiceChargeCalculatedEventPublisherBase',
+            'customer-support.service-charge-calculated',
             JSON.stringify({ data: this.response })
         )
     }

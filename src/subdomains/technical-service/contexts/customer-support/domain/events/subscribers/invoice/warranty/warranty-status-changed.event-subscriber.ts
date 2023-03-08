@@ -1,6 +1,6 @@
 export abstract class WarrantyStatusChangedEventSubscriber {
     async handle(event: any) {
-      console.log('WarrantyStatusChangedEventSubscriber', event);
+      console.log('customer-support.warranty-status-changed', event);
       console.log('Event launched - Do Something');
     }
   }

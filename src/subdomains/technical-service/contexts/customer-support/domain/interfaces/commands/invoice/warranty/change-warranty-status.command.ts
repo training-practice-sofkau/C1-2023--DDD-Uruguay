@@ -3,7 +3,7 @@ import { WarrantyStatusValueObject } from '../../../../value-objects/warranty/wa
 
 export interface IChangeWarrantyStatusCommand{
 
-    warrantyID: string | UUIDValueObject;
-    warrantyStatus: WarrantyStatusValueObject;
-    reason: string | NoteValueObject;    
+    warrantyID: string;
+    warrantyStatus: string;
+    reason: string;    
 }

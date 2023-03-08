@@ -3,7 +3,7 @@ export abstract class WarrantyAddedEventPublisherBase < Response = boolean > ext
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'WarrantyAddedEventPublisherBase',
+            'customer-support.warranty-added',
             JSON.stringify({ data: this.response })
         )
     }

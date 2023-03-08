@@ -2,8 +2,8 @@ import { EmailValueObject, FullnameValueObject, PhoneValueObject } from "../../.
 
 export interface ICreateCustomerCommand{
 
-    customerName: string | FullnameValueObject;
-    customerEmail: string | EmailValueObject;
-    customerPhone: string | PhoneValueObject; 
+    customerName: string ;
+    customerEmail: string ;
+    customerPhone: string ; 
     
 }

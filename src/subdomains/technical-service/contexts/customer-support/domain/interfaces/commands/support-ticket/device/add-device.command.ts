@@ -2,6 +2,6 @@ import { DeviceTypeValueObject, IssueValueObject } from '../../../../value-objec
 
 export interface IAddDeviceCommand{
 
-    deviceType: DeviceTypeValueObject;
-    issues: IssueValueObject[];
+    deviceType: string;
+    issues: string[];
 }

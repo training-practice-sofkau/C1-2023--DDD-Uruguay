@@ -2,6 +2,6 @@ import { UUIDValueObject, TrueFalseValueObject } from '../../../value-objects/co
 
 export interface IChangeEmployeeStatusCommand {
  
-    employeeID?: string | UUIDValueObject; 
-    newStatus?: boolean | TrueFalseValueObject;
+    employeeID?: string; 
+    newStatus?: boolean;
 }

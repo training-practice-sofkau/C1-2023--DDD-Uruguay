@@ -3,6 +3,6 @@ import { UUIDValueObject } from '../../../../value-objects/common';
 
 export interface IAddIssueCommand{
 
-    deviceID: string | UUIDValueObject;
-    issueToAdd: IssueValueObject;
+    deviceID: string;
+    issueToAdd: string;
 }

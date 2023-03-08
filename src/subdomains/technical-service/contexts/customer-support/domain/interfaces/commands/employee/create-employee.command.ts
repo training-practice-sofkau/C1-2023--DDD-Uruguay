@@ -2,8 +2,8 @@ import { UUIDValueObject, NoteValueObject, FullnameValueObject, EmailValueObject
 
 export interface ICreateEmployeeCommand {
 
-    employeeFullname?: string | FullnameValueObject;
-    employeeEmail?: string | EmailValueObject;
-    employeeRoleID?: string | UUIDValueObject; 
+    employeeFullname?: string;
+    employeeEmail?: string;
+    employeeRoleID?: string;
 
 }

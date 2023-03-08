@@ -3,6 +3,6 @@ import { ItemValueObject } from '../../../../value-objects/warranty/item.value-o
 
 export interface IRemoveItemFromWarrantyCommand{
 
-    warrantyID: string | UUIDValueObject;
-    itemToRemove: ItemValueObject;    
+    warrantyID: string;
+    itemToRemove: string;    
 }

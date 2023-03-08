@@ -3,7 +3,7 @@ import { PhoneValueObject } from '../../../../value-objects/common/phone/phone.v
 
 export interface IChangeCustomerPhoneCommand{
 
-    customerID: string | UUIDValueObject;
-    phoneNumber: string | PhoneValueObject;
+    customerID: string;
+    phoneNumber: string;
     
 }

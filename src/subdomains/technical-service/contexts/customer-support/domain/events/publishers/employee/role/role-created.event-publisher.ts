@@ -3,7 +3,7 @@ export abstract class RoleCreatedEventPublisherBase < Response = boolean > exten
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'RoleCreatedEventPublisherBase',
+            'customer-support.role-created',
             JSON.stringify({ data: this.response })
         )
     }

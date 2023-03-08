@@ -3,7 +3,7 @@ export abstract class IssueAddedEventPublisherBase < Response = boolean > extend
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'IssueAddedEventPublisherBase',
+            'customer-support.issue-added',
             JSON.stringify({ data: this.response })
         )
     }

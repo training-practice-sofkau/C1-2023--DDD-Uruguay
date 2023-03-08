@@ -4,7 +4,7 @@ export abstract class WarrantyStatusChangedEventPublisherBase < Response = boole
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'WarrantyStatusChangedEventPublisherBase:',
+            'customer-support.warranty-status-changed',
             JSON.stringify({ data: this.response })
         )
     }

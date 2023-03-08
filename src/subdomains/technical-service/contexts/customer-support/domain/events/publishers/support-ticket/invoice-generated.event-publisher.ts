@@ -3,7 +3,7 @@ export abstract class InvoiceGeneratedEventPublisherBase < Response = boolean > 
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'InvoiceGeneratedEventPublisherBase',
+            'customer-support.invoice-generated',
             JSON.stringify({ data: this.response })
         )
     }

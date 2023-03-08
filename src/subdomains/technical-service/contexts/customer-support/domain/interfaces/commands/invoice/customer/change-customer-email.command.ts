@@ -3,7 +3,7 @@ import { EmailValueObject } from '../../../../value-objects/common/email/email.v
 
 export interface IChangeCustomerEmailCommand{
 
-    customerID: string | UUIDValueObject;
-    newEmail: string | EmailValueObject;
+    customerID: string;
+    newEmail: string;
     
 }
