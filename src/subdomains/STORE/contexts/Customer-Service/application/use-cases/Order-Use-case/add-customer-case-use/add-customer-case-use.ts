@@ -3,6 +3,11 @@ import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
 import { ClientAddResponse, IAddClient } from "../../../../domain/interfaces";
 import { ClientDomainService } from "../../../../domain/services";
 import { AddedSaleEventPublisher } from '../../../../domain/events/publishers/Sale/Added-sale-event-publisher';
+import { ClientAddEventPublisher } from '../../../../domain/events/publishers/order/added-customer-event-Publisher';
+import { ClientDomainBase, IClientEntity } from "../../../../domain/entities";
+import { IdclientValue } from '../../../../domain/value-objects/Sale/Bill/idclient-value/idclient-value';
+import { ClientNameValue } from "../../../../domain/value-objects";
+import { PhoneValue } from '../../../../domain/value-objects/Order/Client/phone-value/phone-value';
 
 export class AddCustomerCaseUse<
     Command extends IAddClient = IAddClient,
@@ -16,12 +21,12 @@ export class AddCustomerCaseUse<
 
     constructor(
         private readonly ClientService: ClientDomainService,
-        private readonly AddedSaleEventPublisher: AddedSaleEventPublisher,
+        private readonly AddCustomerEventPublisher: ClientAddEventPublisher,
     ) {
         super();
         this.OrderAgregate = new OrderAgregate({
             ClientService,
-            AddedSaleEventPublisher
+            AddCustomerEventPublisher
         })
     }
 
@@ -33,7 +38,7 @@ export class AddCustomerCaseUse<
 
     private async executeCommand(
         command: Command
-    ): Promise<ClientDomainEntitybase | null> {
+    ): Promise<ClientDomainBase | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
         const entity = this.createEntityClientDomain(ValueObject);
@@ -42,14 +47,18 @@ export class AddCustomerCaseUse<
 
     private createValueObject(
         command: Command
-    ): IClientDomainEntity {
+    ): IClientEntity {
 
-        const fullName = new FullNameValueObject(command.fullName);
-        const phone = new PhoneObjectValue(command.phone);
+        const ClientID = new IdclientValue(command.ClientID)
+        const  Name = new ClientNameValue(command.Name)
+        const  Phone = new PhoneValue(command.Phone)
 
         return {
-            fullName,
-            phone
+           
+            ClientID,
+            Name,
+            Phone
+
         }
     }
 
@@ -77,22 +86,22 @@ export class AddCustomerCaseUse<
 
     private createEntityClientDomain(
         valueObject: IClientDomainEntity
-    ): ClientDomainEntitybase {
+    ): ClientDomainBase {
 
         const {
             fullName,
             phone
         } = valueObject
 
-        return new ClientDomainEntitybase({
+        return new ClientDomainBase({
             fullName: fullName.valueOf(),
             phone: phone.valueOf()
         })
     }
 
     private exectueOrderAggregateRoot(
-        entity: ClientDomainEntitybase,
-    ): Promise<ClientDomainEntitybase | null> {
+        entity: ClientDomainBase,
+    ): Promise<ClientDomainBase | null> {
         return this.orderAggregateRoot.registerClient(entity)
     }
 }
