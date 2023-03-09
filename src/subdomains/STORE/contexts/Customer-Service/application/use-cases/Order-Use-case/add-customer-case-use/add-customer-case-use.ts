@@ -2,7 +2,6 @@ import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/lib
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
 import { ClientAddResponse, IAddClient } from "../../../../domain/interfaces";
 import { ClientDomainService } from "../../../../domain/services";
-import { AddedSaleEventPublisher } from '../../../../domain/events/publishers/Sale/Added-sale-event-publisher';
 import { ClientAddEventPublisher } from '../../../../domain/events/publishers/order/added-customer-event-Publisher';
 import { ClientDomainBase, IClientEntity } from "../../../../domain/entities";
 import { IdclientValue } from '../../../../domain/value-objects/Sale/Bill/idclient-value/idclient-value';
@@ -95,13 +94,16 @@ export class AddCustomerCaseUse<
         } = valueObject
 
         return new ClientDomainBase({
-          Name: Name.valueOf()
+          
+          Name: Name.valueOf(),
+          Phone: Phone.valueOf(),
         })
+
     }
 
     private exectueOrderAggregateRoot(
         entity: ClientDomainBase,
     ): Promise<ClientDomainBase | null> {
-        return this.orderAggregateRoot.registerClient(entity)
+        return this.OrderAgregate.AddClient(entity)
     }
 }

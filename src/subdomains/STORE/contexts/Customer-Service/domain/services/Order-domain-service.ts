@@ -18,7 +18,7 @@ export interface IorderDomainService
     UpdateOrder(data: IUpdateOrder ): Promise <T>
     Delete(data: IDeleteOrder): Promise <T>
     GetManga(data: IGetMangaData): Promise <MangaDomainBase>;
-    AddClient(data: IAddClient): Promise <ClientDomainBase>;
+    AddClient(data: ClientDomainBase): Promise <ClientDomainBase>;
     UpdateMangaStock(data: IUpdateMangaStock ): Promise <MangaDomainBase>;
     UpdateClient(data: IUpdateClient): Promise <ClientDomainBase>;
  }

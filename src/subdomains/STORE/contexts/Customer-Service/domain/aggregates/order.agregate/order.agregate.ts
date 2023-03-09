@@ -234,7 +234,7 @@ Publisher events go in this place
    * It adds a client to the database.
    * @param {string} MangaId - The id of the manga you want to add a client to.
    */
-  async AddClient(data: IAddClient): Promise<ClientDomainBase> {
+  async AddClient(data: ClientDomainBase): Promise<ClientDomainBase> {
     if (this.orderService && this.AddCustomerEventPublisher) {
       const result = await this.orderService.AddClient(data);
 
