@@ -1,6 +1,6 @@
-import { SecretariaDomainEntity } from '../../../entities/secretaria/secretaria.domain-entity';
+import { CesionDomainEntity } from '../../../entities/cesion/cesion.domain-entity';
 
-export interface CesionNegociadoResponse {
+export interface ICesionNegociadoResponse {
     success: boolean;
-    data: SecretariaDomainEntity | null;
+    data: CesionDomainEntity | null;
 }

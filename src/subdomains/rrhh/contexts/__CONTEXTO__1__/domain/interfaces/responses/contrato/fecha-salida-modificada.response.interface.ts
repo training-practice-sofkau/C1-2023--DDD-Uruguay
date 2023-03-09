@@ -1,6 +1,6 @@
 import { ContratoDomainEntity } from "../../../entities/contrato/contrato.domain-entity";
 
-export interface FechaSalidaModificadaResponse{
+export interface IFechaSalidaModificadaResponse{
     success: boolean;
     data: ContratoDomainEntity | null;
 }

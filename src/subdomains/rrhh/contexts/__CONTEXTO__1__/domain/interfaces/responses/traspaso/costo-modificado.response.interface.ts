@@ -1,6 +1,6 @@
 import { TraspasoDomainEntity } from '../../../entities/traspaso/traspaso.domain-entity';
 
-export interface CostoModificadoResponse {
+export interface ICostoModificadoResponse {
 
     success: boolean;
     data: TraspasoDomainEntity | null;

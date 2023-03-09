@@ -1,6 +1,6 @@
 import { SecretariaDomainEntity } from '../../../entities/secretaria/secretaria.domain-entity';
 
-export interface SecretariaCreadaResponse {
+export interface ISecretariaCreadaResponse {
     success: boolean;
     data: SecretariaDomainEntity | null;
 }

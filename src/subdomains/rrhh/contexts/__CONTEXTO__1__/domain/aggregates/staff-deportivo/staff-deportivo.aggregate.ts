@@ -1,14 +1,13 @@
 import { IEmpleadoDomainService } from '../../services/staff-Deportivo/empleado.domain-service';
 import { IStaffDeportivoDomainService } from '../../services/staff-Deportivo/staff-deportivo.domain-service';
 import { StaffDeportivoDomainEntity } from '../../entities/staff-deportivo/staff-deportivo.entity';
-import { IAgregarEmpleadoCommands, IModificarFechaTramiteCommands, IModificarSalarioEmpleadoCommands } from '../../interfaces';
+import { IAgregarEmpleadoCommands, ICrearNegociacionCommands, IModificarDocumentoCommands, IModificarFechaCommands, IModificarFechaTramiteCommands, IModificarNombreCommands, IModificarSalarioCommands, IModificarSalarioEmpleadoCommands, IModificarTipoEmpleadoCommands } from '../../interfaces';
 import { ICrearStaffDeportivoCommands } from '../../interfaces/commands/staff-deportivo/crear-staff-deportivo.commands';
 import { ICrearTramiteCommands } from '../../interfaces/commands/staff-deportivo/crear-tramite.commands';
 import { INegociacionDomainService } from '../../services/staff-Deportivo/negociacion.domain-service';
 import { ITramiteDomainService } from '../../services/staff-Deportivo/tramite.domain-service';
 import { EmpleadoAgregadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-agregado.event-publisher';
-import { DirectivaCreadaEventPublisher } from '../../events/publishers/staff-deporitvo/directiva-creada.event-publisher';
-import { DirectivaModificadoEventPublisher } from '../../events/publishers/staff-deporitvo/directiva-modificado.event-publisher';
+import { StaffDeportivoCreadoEventPublisher } from '../../events/publishers/staff-deporitvo/staff-depotivo-creado.event-publisher';
 import { EmpleadoRemovidoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-removido.event-publisher';
 import { TramiteAgregadoEventPublisher } from '../../events/publishers/staff-deporitvo/tramite-agregado.event-publisher';
 import { AggregateRootException } from '../../../../../../../libs/sofka/exceptions/aggregate-root.exception';
@@ -17,21 +16,21 @@ import { EmpleadoDomainEntity } from '../../entities/empleado/EmpleadoDomainEnti
 import { TramiteDomainEntity } from '../../entities/tramite/tramite.entity.interface';
 import { FechaTramiteModificadaEventPublisher } from '../../events/publishers/staff-deporitvo/fecha-tramite-modificada.event-publisher';
 
-export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
+export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IEmpleadoDomainService,ITramiteDomainService{
     //Service
     private readonly staffDeportivoService?: IStaffDeportivoDomainService;
 
     private readonly empleadoService?: IEmpleadoDomainService;
     //private readonly negociacionService?: INegociacionDomainService;
-    private readonly tamiteService?: ITramiteDomainService;
+    private readonly tramiteService?: ITramiteDomainService;
 
     //Events
     //directiva
-    private readonly directivaCreadaEvent?: DirectivaCreadaEventPublisher;
+    private readonly staffDeportivoCreadoEvent?: StaffDeportivoCreadoEventPublisher;
     
 
     //empleado
-    private readonly empleadoCreadoEvent?: EmpleadoAgregadoEventPublisher;
+    private readonly empleadoAgregadoEvent?: EmpleadoAgregadoEventPublisher;
     private readonly salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher;
    
 
@@ -44,13 +43,14 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
         {
             //services
             staffDeportivoService,
+
             empleadoService,
             negociacionService,
-            tamiteService,
+            tramiteService,
             //events
-            directivaCreadaEvent,
-            directivaModificadaEvent,
-            empleadoCreadoEvent,
+            staffDeportivoCreadoEvent,
+           // staffDeportivoModificadaEvent,
+            empleadoAgregadoEvent,
             salarioEmpleadoModificadoEvent,
             empleadoRemovidoEvent,
             tamiteAgregadoEvent,
@@ -58,49 +58,50 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
 
         }: {
             //services
-            staffDeportivoService?: IStaffDeportivoDomainService,
-            empleadoService?: IEmpleadoDomainService,
-            negociacionService?: INegociacionDomainService,
-            tamiteService?: ITramiteDomainService,
+            staffDeportivoService?: IStaffDeportivoDomainService;
+            empleadoService?: IEmpleadoDomainService;
+            negociacionService?: INegociacionDomainService;
+            tramiteService?: ITramiteDomainService;
             //events
-            directivaCreadaEvent?: DirectivaCreadaEventPublisher,
-            directivaModificadaEvent?: DirectivaModificadoEventPublisher,
-            empleadoCreadoEvent?: EmpleadoAgregadoEventPublisher,
-            salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher,
-            empleadoRemovidoEvent?: EmpleadoRemovidoEventPublisher,
-            tamiteAgregadoEvent?: TramiteAgregadoEventPublisher,
-            fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher,
+            staffDeportivoCreadoEvent?: StaffDeportivoCreadoEventPublisher;
+           // directivaModificadaEvent?: StaffDeportivoModificadoEventPublisher,
+            empleadoAgregadoEvent?: EmpleadoAgregadoEventPublisher;
+            salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher;
+            empleadoRemovidoEvent?: EmpleadoRemovidoEventPublisher;
+            tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
+            fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher;
         }
     ) {
         //services
-        this.staffDeportivoService = staffDeportivoService,
+        this.staffDeportivoService = staffDeportivoService;
 
-        this.empleadoService = empleadoService,
+        this.empleadoService = empleadoService;
         //this.negociacionService = negociacionService,
-        this.tamiteService = tamiteService,
+        this.tramiteService = tramiteService;
         //events
-        this.directivaCreadaEvent = directivaCreadaEvent,
-        this.empleadoCreadoEvent = empleadoCreadoEvent,
-        this.salarioEmpleadoModificadoEvent = salarioEmpleadoModificadoEvent,
-        this.tamiteAgregadoEvent = tamiteAgregadoEvent,
-        this.fechaTamiteModificadoEvent = fechaTamiteModificadoEvent
+       // this.directivaCreadaEvent = directivaCreadaEvent,
+       this.staffDeportivoCreadoEvent = staffDeportivoCreadoEvent;
+        this.empleadoAgregadoEvent = empleadoAgregadoEvent;
+        this.salarioEmpleadoModificadoEvent = salarioEmpleadoModificadoEvent;
+        this.tamiteAgregadoEvent = tamiteAgregadoEvent;
+        this.fechaTamiteModificadoEvent = fechaTamiteModificadoEvent;
 
     }
 
-    async CrearStaffDeportivo(staffDeportivo: ICrearStaffDeportivoCommands): Promise<StaffDeportivoDomainEntity> {
+    async CrearStaffDeportivo(staffDeportivo: StaffDeportivoDomainEntity): Promise<StaffDeportivoDomainEntity> {
         if(!this.staffDeportivoService)
         throw new AggregateRootException('Servicio Staff Deportivo indefinido')
 
-        if(!this.directivaCreadaEvent)
+        if(!this.staffDeportivoCreadoEvent)
         throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
 
         const result = await this.staffDeportivoService.CrearStaffDeportivo(staffDeportivo);
-        this.directivaCreadaEvent.response = result;
-        this.directivaCreadaEvent.publish();
+        this.staffDeportivoCreadoEvent.response = result;
+        this.staffDeportivoCreadoEvent.publish();
         return result;
     }
 
-    async CrearTramite(tramite: ICrearTramiteCommands): Promise<TramiteDomainEntity> {
+    async CrearTramite(tramite: TramiteDomainEntity): Promise<TramiteDomainEntity> {
        if(!this.staffDeportivoService)
         throw new AggregateRootException('Servicio Staff Deportivo indefinido')
 
@@ -113,22 +114,29 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
         return result;
     }
 
-    async AgregarEmpleado(empleado: IAgregarEmpleadoCommands): Promise<EmpleadoDomainEntity> {
+    async AgregarEmpleado(empleado: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
        if(!this.staffDeportivoService)
         throw new AggregateRootException('Servicio Staff Deportivo indefinido')
 
-        if(!this.empleadoCreadoEvent)
+        if(!this.empleadoAgregadoEvent)
         throw new AggregateRootException('Evento creador Empleado indefinido')
 
         const result = await this.staffDeportivoService.AgregarEmpleado(empleado);
-        this.empleadoCreadoEvent.response = result;
-        this.empleadoCreadoEvent.publish();
+        this.empleadoAgregadoEvent.response = result;
+        this.empleadoAgregadoEvent.publish();
         return result;
     }
 
-    
-    async ModificarSalarioEmpleado(salario: IModificarSalarioEmpleadoCommands): Promise<EmpleadoDomainEntity> {
-       if(!this.empleadoService)
+  
+
+
+    modificarNombre(nombre: IModificarNombreCommands): Promise<EmpleadoDomainEntity> {
+        throw new Error('Method not implemented.');
+    }
+
+    //Salario del empleado
+    async modificarSalario(salario: IModificarSalarioCommands): Promise<EmpleadoDomainEntity> {
+        if(!this.empleadoService)
         throw new AggregateRootException('Servicio de Empleado indefinido')
 
         if(!this.salarioEmpleadoModificadoEvent)
@@ -139,19 +147,35 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
         this.salarioEmpleadoModificadoEvent.publish();
         return result;
     }
+    modificarDocumento(documento: IModificarDocumentoCommands): Promise<EmpleadoDomainEntity> {
+        throw new Error('Method not implemented.');
+    }
+    modificarTipoEmpleado(tipo: IModificarTipoEmpleadoCommands): Promise<EmpleadoDomainEntity> {
+        throw new Error('Method not implemented.');
+    }
 
-    async ModificarFechaTramite(tramite: IModificarFechaTramiteCommands): Promise<TramiteDomainEntity> {
-        if(!this.tamiteService)
+    CrearNegociacion(negociacion: ICrearNegociacionCommands): Promise<TramiteDomainEntity> {
+        throw new Error('Method not implemented.');
+    }
+
+    async ModificarFecha(fecha: IModificarFechaCommands): Promise<TramiteDomainEntity> {
+        if(!this.tramiteService)
         throw new AggregateRootException('Servicio de Empleado indefinido')
 
         if(!this.fechaTamiteModificadoEvent)
         throw new AggregateRootException('Evento que modifica el salario de un empleado indefinido')
 
-        const result = await this.tamiteService.ModificarFecha(tramite);
+        const result = await this.tramiteService.ModificarFecha(fecha);
         this.fechaTamiteModificadoEvent.response = result;
         this.fechaTamiteModificadoEvent.publish();
         return result;
+    
     }
+
+   
+   
+
+   
 
    
 

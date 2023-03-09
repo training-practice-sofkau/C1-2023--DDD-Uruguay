@@ -2,15 +2,17 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 import { IdValueObject } from '../../value-objects/id/id.value-object';
-import { EmpleadoDomainEntity } from '../empleado/EmpleadoDomainEntity';
 import { IStaffDeportivoDomainEntity } from '../interfaces';
+import { NombreValueObject } from '../../value-objects/nombre/nombre.value-object';
+import { ITramiteDomainInterface } from '../interfaces/tramite/tramite.domain-interface';
+import { IEmpleadoDomainEntity } from '../interfaces/empleado/empleado.domain-entity.interface';
 export class StaffDeportivoDomainEntity implements IStaffDeportivoDomainEntity {
     
     
     staffDeportivoId?: string | IdValueObject;
-    tamiteId?: string | IdValueObject;
-    directivaId?: string | IdValueObject;
-    empleado: EmpleadoDomainEntity[];
+    nombre?: string | NombreValueObject;
+    tramite?: ITramiteDomainInterface;
+    empleado?: IEmpleadoDomainEntity;
 
     constructor(_staffDeportivo?: IStaffDeportivoDomainEntity) {
 
@@ -19,11 +21,12 @@ export class StaffDeportivoDomainEntity implements IStaffDeportivoDomainEntity {
         else
             this.staffDeportivoId = uuidv4();
 
-        if (_staffDeportivo.tamiteId)
-            this.tamiteId = _staffDeportivo.tamiteId;
+            if (_staffDeportivo.nombre)
+                this.nombre = _staffDeportivo.nombre;
 
-        if (_staffDeportivo.directivaId)
-            this.directivaId = _staffDeportivo.directivaId;
+        if (_staffDeportivo.tramite)
+            this.tramite = _staffDeportivo.tramite;
+
 
         if (_staffDeportivo.empleado)
             this.empleado = _staffDeportivo.empleado;

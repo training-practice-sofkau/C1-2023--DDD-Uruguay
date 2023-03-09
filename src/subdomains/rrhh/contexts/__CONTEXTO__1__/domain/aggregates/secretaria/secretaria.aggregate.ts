@@ -154,7 +154,7 @@ export class SecretariaAggregate implements ISecretariaDomainService{
         return result;
     }
 
-    async NegociarCesion(cesion: INegociarCesionCommands): Promise<CesionDomainEntity> {
+    async NegociarCesion(cesion: CesionDomainEntity): Promise<CesionDomainEntity> {
         if(!this.secretariaService)
         throw new AggregateRootException('Servicio secretaria indefinido')
 
@@ -167,7 +167,7 @@ export class SecretariaAggregate implements ISecretariaDomainService{
         return result;
     }
 
-    async NegociarContrato(contrato: INegociarContratoCommands): Promise<ContratoDomainEntity> {
+    async NegociarContrato(contrato: ContratoDomainEntity): Promise<ContratoDomainEntity> {
         if(!this.secretariaService)
         throw new AggregateRootException('Servicio secretaria indefinido')
 

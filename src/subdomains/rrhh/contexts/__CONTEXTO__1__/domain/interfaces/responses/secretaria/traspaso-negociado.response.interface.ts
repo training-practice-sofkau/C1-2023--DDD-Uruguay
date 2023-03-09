@@ -1,6 +1,7 @@
 import { SecretariaDomainEntity } from "../../../entities/secretaria/secretaria.domain-entity";
+import { TraspasoDomainEntity } from '../../../entities/traspaso/traspaso.domain-entity';
 
-export interface TraspasoNegociadoResponse {
+export interface ITraspasoNegociadoResponse {
     success: boolean;
-    data: SecretariaDomainEntity | null;
+    data: TraspasoDomainEntity | null;
 }

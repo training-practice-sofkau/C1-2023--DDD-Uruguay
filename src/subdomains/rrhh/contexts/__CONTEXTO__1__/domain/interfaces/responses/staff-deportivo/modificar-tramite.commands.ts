@@ -1,6 +1,6 @@
 import { StaffDeportivoDomainEntity } from "../../../entities/staff-deportivo/staff-deportivo.entity";
 
-export interface TramiteModificadoResponse {
+export interface ITramiteModificadoResponse {
     success: boolean;
     data: StaffDeportivoDomainEntity | null;
 }

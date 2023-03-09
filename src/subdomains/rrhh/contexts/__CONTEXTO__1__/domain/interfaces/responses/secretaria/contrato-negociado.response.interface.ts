@@ -1,6 +1,6 @@
-import { SecretariaDomainEntity } from "../../../entities/secretaria/secretaria.domain-entity";
+import { ContratoDomainEntity } from '../../../entities/contrato/contrato.domain-entity';
 
-export interface ContratoNegociadoResponse {
+export interface IContratoNegociadoResponse {
     success: boolean;
-    data: SecretariaDomainEntity | null;
+    data: ContratoDomainEntity | null;
 }

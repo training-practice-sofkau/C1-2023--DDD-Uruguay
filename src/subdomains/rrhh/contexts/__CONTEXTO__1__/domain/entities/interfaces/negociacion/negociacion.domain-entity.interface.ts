@@ -7,7 +7,7 @@ export interface INegociacionDomainEntityInterface {
     negociacionId?: string | IdValueObject;
     equipoSalidaId?: string | IdValueObject;
     equipoEntradaId?: string | IdValueObject;
-    tipoNegociacion: string | TipoNegociacionValueObject;
+    tipoNegociacion?: string | TipoNegociacionValueObject;
     terminoACumplir?: string | TerminosACumplirValueObject;
     state?: boolean;
     

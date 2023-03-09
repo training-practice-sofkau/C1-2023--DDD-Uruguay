@@ -1,6 +1,6 @@
 import { NegociacionDomainEntity } from "../../../entities";
 
-export interface TipoNegociacionModificadoResponse {
+export interface ITipoNegociacionModificadoResponse {
     
     success: boolean;
     data: NegociacionDomainEntity | null;

@@ -1,6 +1,6 @@
 import { CesionDomainEntity } from '../../../entities/cesion/cesion.domain-entity';
 
-export interface FechaSalidaModificadoResponse{
+export interface IFechaSalidaModificadoResponse{
     success: boolean;
     data: CesionDomainEntity | null;
 }

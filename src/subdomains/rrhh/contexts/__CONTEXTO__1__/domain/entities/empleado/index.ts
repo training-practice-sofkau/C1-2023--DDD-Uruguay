@@ -1,2 +1,1 @@
-
-export * from './empleado.domain-entity';
+export * from './EmpleadoDomainEntity';

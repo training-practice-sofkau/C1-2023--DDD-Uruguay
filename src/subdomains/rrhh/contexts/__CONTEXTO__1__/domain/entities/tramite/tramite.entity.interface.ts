@@ -3,12 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import { IdValueObject } from '../../value-objects';
 import { FechaValueObject } from '../../value-objects/fecha';
 import { ITramiteDomainInterface } from '../interfaces/tramite/tramite.domain-interface';
-import { NegociacionDomainEntity } from '../negociacion';
+import { INegociacionDomainEntityInterface } from '../interfaces/negociacion/negociacion.domain-entity.interface';
 
 export class TramiteDomainEntity implements ITramiteDomainInterface{
 
     tramiteId?: string | IdValueObject;
-    negociacion: NegociacionDomainEntity;
+    negociacion?: INegociacionDomainEntityInterface;
     fecha?: string | FechaValueObject;
 
     constructor(_tramite?: ITramiteDomainInterface) {

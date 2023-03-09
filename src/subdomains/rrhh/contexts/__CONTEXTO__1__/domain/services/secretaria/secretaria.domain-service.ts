@@ -14,11 +14,11 @@ export interface ISecretariaDomainService{
     CrearSecretaria(secretaria: ICrearSecretariaCommands):Promise<SecretariaDomainEntity>;
 
 
-    NegociarCesion(cesion: INegociarCesionCommands):Promise<CesionDomainEntity>;
+    NegociarCesion(cesion: CesionDomainEntity):Promise<CesionDomainEntity>;
 
-    NegociarContrato(contrato: INegociarContratoCommands):Promise<ContratoDomainEntity>;
+    NegociarContrato(contrato: ContratoDomainEntity):Promise<ContratoDomainEntity>;
 
-    NegociarTraspaso(traspaso: INegociarTraspasoCommands):Promise<TraspasoDomainEntity>;
+    NegociarTraspaso(traspaso: TraspasoDomainEntity):Promise<TraspasoDomainEntity>;
 
 
     

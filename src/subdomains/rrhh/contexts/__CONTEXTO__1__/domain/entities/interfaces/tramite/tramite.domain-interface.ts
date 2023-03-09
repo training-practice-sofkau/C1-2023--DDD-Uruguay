@@ -1,9 +1,9 @@
 import { IdValueObject } from '../../../value-objects/id/id.value-object';
-import { NegociacionDomainEntity } from '../../negociacion/negociacion.domain-entity';
 import { FechaValueObject } from '../../../value-objects/fecha/fecha.value-object';
+import { INegociacionDomainEntityInterface } from '../negociacion';
 export interface ITramiteDomainInterface {
 
     tramiteId?: string | IdValueObject;
-    negociacion: NegociacionDomainEntity;
+    negociacion?: INegociacionDomainEntityInterface;
     fecha?: string | FechaValueObject;
 }

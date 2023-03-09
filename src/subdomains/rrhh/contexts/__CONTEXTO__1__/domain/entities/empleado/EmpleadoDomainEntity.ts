@@ -13,9 +13,9 @@ import { CostoValueObject } from '../../value-objects/costo';
 
 export class EmpleadoDomainEntity implements IEmpleadoDomainEntity {
 
-    empleadoId: string | IdValueObject;
-    nombre: string | NombreValueObject;
-    documento: string | DocumentoValueObject;
+    empleadoId?: string | IdValueObject;
+    nombre?: string | NombreValueObject;
+    documento?: string | DocumentoValueObject;
     tipoEmpleado?: string | TipoEmpleadoValueObject;
     nacionalidad?: string | NacionalidadValueObject;
     edad?: number | EdadValueObject;

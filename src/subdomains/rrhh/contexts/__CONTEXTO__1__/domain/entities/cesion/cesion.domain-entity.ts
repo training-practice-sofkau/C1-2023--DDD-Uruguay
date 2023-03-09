@@ -4,6 +4,7 @@ import { IdValueObject } from '../../value-objects';
 import { CostoValueObject } from '../../value-objects/costo';
 import { FechaValueObject } from '../../value-objects/fecha';
 import { ICesionDomainInterface } from '../interfaces/cesion/cesion.domain-interface';
+import { StateValueObject } from '../../value-objects/state/state.value-object';
 export class CesionDomainEntity implements ICesionDomainInterface {
    
     cesionId?: string | IdValueObject;
@@ -11,7 +12,7 @@ export class CesionDomainEntity implements ICesionDomainInterface {
     equipoNuevoId?: string | IdValueObject;
     fechaSalida?: string | FechaValueObject;
     costo?: number | CostoValueObject;
-    state?: boolean;
+    state?: boolean | StateValueObject;
 
     constructor(_cesion?: ICesionDomainInterface) {
 
