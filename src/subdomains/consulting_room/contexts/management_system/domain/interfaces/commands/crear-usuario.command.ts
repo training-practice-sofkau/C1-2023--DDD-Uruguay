@@ -1,3 +1,5 @@
+import { IClientDomainEntity } from "../../entities";
+
 export interface IAddOrderCommand {
     orderId?: string;
     description?: string;

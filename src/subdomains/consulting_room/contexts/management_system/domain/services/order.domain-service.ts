@@ -1,4 +1,3 @@
-import { IOrderDomainEntity } from '../entities/interfaces';
 import { OrderDomainEntityBase } from '../entities/order.domain-entity';
 
 /**
@@ -14,5 +13,5 @@ export interface IOrderDomainService<
 
     createOrder(order: T): Promise<T>;
     getOrder(orderId: string): Promise<T>;
-    updateDescriptio(orderId: string, newDescription: string): Promise<string>;
+    updateDescription(orderId: string, newDescription: string): Promise<string>;
 }

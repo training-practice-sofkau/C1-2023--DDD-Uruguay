@@ -1,9 +1,8 @@
 import { ValueObjectBase } from "@sofka";
-import { IsEmpty, StringMaxLength } from "@validations";
+import { StringMaxLength, IsEmpty } from "@validations";
 
 
 export class FullNameValueObject extends ValueObjectBase<string>{
-
     validateData(): void {
         this.validateStructure();
     }
@@ -15,15 +14,13 @@ export class FullNameValueObject extends ValueObjectBase<string>{
                 message: 'El nombre completo es obligatoria',
             };
             this.setError(error);
-        }
-
-        if (this.value && StringMaxLength(this.value, 20)) {
+        } else if (this.value && StringMaxLength(this.value, 20)) {
             const error = {
                 field: 'FullName',
-                message: 'El nombre completo supera el maximo de caracteres, que es 20',
+                message: 'El nombre completo mayor a 20 caracteres, debe ser breve...',
             };
             this.setError(error);
         }
-    }
 
+    }
 }

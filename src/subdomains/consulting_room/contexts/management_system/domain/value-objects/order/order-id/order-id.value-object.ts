@@ -1,6 +1,7 @@
-import { ValueObjectBase } from 'src/libs/';
+import { ValueObjectBase } from '@sofka';
+import { IsUUID } from '@validations';
+
 import { v4 as uuid } from 'uuid';
-import { IsUUID } from 'src/libs/';
 
 
 export class OrderIdValueObject extends ValueObjectBase<string>{

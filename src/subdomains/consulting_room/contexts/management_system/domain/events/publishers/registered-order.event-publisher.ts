@@ -1,5 +1,5 @@
 
-import { EventPublisherBase } from "src/libs";
+import { EventPublisherBase } from "@sofka";
 import { OrderDomainEntityBase } from "../../entities";
 
 
