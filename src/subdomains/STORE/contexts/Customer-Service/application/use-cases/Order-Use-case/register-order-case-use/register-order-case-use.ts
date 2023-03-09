@@ -1,15 +1,12 @@
-import { async } from "rxjs";
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
 import { ClientDomainBase, IOrderentity, OrderDomainEntityBase } from "../../../../domain/entities";
 import { ClientObtainedEventPublisher, MangaObtainedEventPublisher, OrderAddEventPublisher } from "../../../../domain/events";
 import { IRegisterOrder, RegisterdOrderResponse } from "../../../../domain/interfaces";
-import { ClientDomainService, MangaDomainService } from "../../../../domain/services";
+import { ClientDomainService, IorderDomainService, MangaDomainService } from "../../../../domain/services";
 import { IdOrdertValueObject } from "../../../../domain/value-objects";
-import { OrderService } from '../../../../infrastructure/persitence/services/OrderServices/OrderService';
 import { GetClientCaseUse } from "../get-client-case-use/get-client-case-use";
 import { GetMangaCaseUse } from '../get-manga-case-use/get-manga-case-use';
-import { IClientEntity } from '../../../../domain/entities/interfaces/Order/client.interface';
 
 export class RegisterOrderCaseUse<
     Command extends IRegisterOrder = IRegisterOrder,
@@ -24,7 +21,7 @@ export class RegisterOrderCaseUse<
     database: ClientDomainBase[]  = [];
 
     constructor(
-        private readonly orderService: OrderService,
+        private readonly orderService: IorderDomainService,
         private readonly RegisterOrderEventPublisher: OrderAddEventPublisher,
         private readonly ClientService: ClientDomainService,
         private readonly GetClientEventPublisher: ClientObtainedEventPublisher,
@@ -51,7 +48,7 @@ export class RegisterOrderCaseUse<
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
         const entity = this.createEntityClientDomain(ValueObject);
-        return this.exectueOrderAggregateRoot(entity)
+        return    this.exectueOrderAggregateRoot((await entity))
     }
 
 

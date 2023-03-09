@@ -137,7 +137,7 @@ Publisher events go in this place
    * @param {OrderDomainEntityBase} order - OrderDomainEntityBase: The order to be registered.
    * @returns The response of the event publisher
    */
-  async RegisterOrder(order: IRegisterOrder): Promise<OrderDomainEntityBase> {
+  async RegisterOrder(order: OrderDomainEntityBase): Promise<OrderDomainEntityBase> {
     if (this.orderService && this.RegisterOrderEventPublisher) {
       const result = await this.orderService.RegisterOrder(order);
       this.RegisterOrderEventPublisher.response = result;
