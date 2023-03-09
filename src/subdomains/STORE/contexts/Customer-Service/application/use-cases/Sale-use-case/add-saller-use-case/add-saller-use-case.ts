@@ -39,7 +39,7 @@ export class AddSallerUseCase<
 
     private async executeCommand(
         command: Command
-    ): Promise<ClientDomainBase | null> {
+    ): Promise<SaleDomainService | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
         const entity = this.createEntityClientDomain(ValueObject);
@@ -104,8 +104,8 @@ export class AddSallerUseCase<
     }
 
     private exectueOrderAggregateRoot(
-        entity: ClientDomainBase,
-    ): Promise<ClientDomainBase | null> {
-        return this.OrderAgregate.AddClient(entity)
+        entity: SaleDomainService,
+    ): Promise<SaleDomainService | null> {
+        return this.SaleAgregate.AddSeller(entity)
     }
 }
