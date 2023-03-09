@@ -15,7 +15,7 @@ export interface SaleDomainService
     RegisterSale(data: IRegisterSale): Promise <T>;
     GetClient(data: IGetClientSale): Promise <ClientDomainBase>;
     GetSalesList(data: IGetSalesList): Promise <SaleDomainEntity>;
-    AddSeller(data:  IAddSaller  ): Promise <SellerDomain>;
+    AddSeller(data:  SellerDomain  ): Promise <SellerDomain>;
     UpdateSeller(data: IUpdateNameSeller): Promise <SellerDomain>;
     UpdateBill(data: IUpdateBill): Promise <BillDomain>;
  }

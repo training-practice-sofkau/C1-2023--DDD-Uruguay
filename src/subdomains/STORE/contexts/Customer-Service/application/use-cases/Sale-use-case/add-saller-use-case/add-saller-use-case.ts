@@ -3,12 +3,13 @@ import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
 import { ClientAddResponse, IAddClient, IAddSaller } from "../../../../domain/interfaces";
 import { ClientDomainService, SaleDomainService } from "../../../../domain/services";
 import { ClientAddEventPublisher } from '../../../../domain/events/publishers/order/added-customer-event-Publisher';
-import { ClientDomainBase, IClientEntity } from "../../../../domain/entities";
+import { ClientDomainBase, IClientEntity, SellerDomain } from "../../../../domain/entities";
 import { IdclientValue } from '../../../../domain/value-objects/Sale/Bill/idclient-value/idclient-value';
-import { ClientNameValue } from "../../../../domain/value-objects";
+import { ClientNameValue, IdsellerValue } from "../../../../domain/value-objects";
 import { PhoneValue } from '../../../../domain/value-objects/Order/Client/phone-value/phone-value';
 import { AddedSellerEventPublisher } from '../../../../domain/events/publishers/Sale/added-seller-event-publisher';
 import { SaleAgregate } from "../../../../domain/aggregates/sale.agregate";
+import { NameSellerValue } from '../../../../domain/value-objects/Sale/Seller/name-value/name-value';
 
 export class AddSallerUseCase<
     Command extends IAddSaller = IAddSaller,
@@ -39,7 +40,7 @@ export class AddSallerUseCase<
 
     private async executeCommand(
         command: Command
-    ): Promise<SaleDomainService | null> {
+    ): Promise<SellerDomain | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
         const entity = this.createEntityClientDomain(ValueObject);
@@ -48,34 +49,32 @@ export class AddSallerUseCase<
 
     private createValueObject(
         command: Command
-    ): IClientEntity {
+    ): SellerDomain {
 
-        const ClientID = new IdclientValue(command.ClientID)
-        const  Name = new ClientNameValue(command.Name)
-        const  Phone = new PhoneValue(command.Phone)
+        const IdSeller   = new IdsellerValue(command.IdSeller)
+        const  Name = new NameSellerValue(command.Name)
 
         return {
            
-            ClientID,
+            IdSeller,
             Name,
-            Phone
 
         }
     }
 
     private validateValueObject(
-        valueObject: ClientDomainBase
+        valueObject: SellerDomain
     ): void {
         const {
             Name,
-            Phone
+            IdSeller
         } = valueObject
       
 
-        if (Phone instanceof PhoneValue && Phone.hasErrors())
-            this.setErrors(Phone.getErrors());    
+        if (IdSeller.hasErrors())
+            this.setErrors(IdSeller.getErrors());    
 
-        if (Name instanceof ClientNameValue && Name.hasErrors())
+        if (Name.hasErrors())
             this.setErrors(Name.getErrors());
 
         if (this.hasErrors() === true)
@@ -87,25 +86,25 @@ export class AddSallerUseCase<
     }
 
     private createEntityClientDomain(
-        valueObject: ClientDomainBase
-    ): ClientDomainBase {
+        valueObject: SellerDomain
+    ): SellerDomain {
 
         const {
             Name,
-            Phone
+            IdSeller
         } = valueObject
 
-        return new ClientDomainBase({
+        return new SellerDomain({
           
           Name: Name.valueOf(),
-          Phone: Phone.valueOf(),
+          IdSeller: IdSeller.valueOf(),
         })
 
     }
 
     private exectueOrderAggregateRoot(
-        entity: SaleDomainService,
-    ): Promise<SaleDomainService | null> {
+        entity: SellerDomain,
+    ): Promise<SellerDomain | null> {
         return this.SaleAgregate.AddSeller(entity)
     }
 }
