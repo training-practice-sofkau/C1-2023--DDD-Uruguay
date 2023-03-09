@@ -1,31 +1,33 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { ClientAddResponse, IAddClient } from "../../../../domain/interfaces";
-import { ClientDomainService } from "../../../../domain/services";
+import { ClientDomainService, SaleDomainService } from "../../../../domain/services";
 import { ClientAddEventPublisher } from '../../../../domain/events/publishers/order/added-customer-event-Publisher';
-import { ClientDomainBase, IClientEntity } from "../../../../domain/entities";
+import { ClientDomainBase, IClientEntity, SaleDomainEntity } from "../../../../domain/entities";
 import { IdclientValue } from '../../../../domain/value-objects/Sale/Bill/idclient-value/idclient-value';
 import { ClientNameValue } from "../../../../domain/value-objects";
 import { PhoneValue } from '../../../../domain/value-objects/Order/Client/phone-value/phone-value';
+import { SalesObtainedEventPublisher } from "../../../../domain/events";
+import { IRegisterSale } from "../../../../domain/interfaces";
+import { SaleAgregate } from "../../../../domain/aggregates/sale.agregate";
 
 export class RegisterSaleUseCase<
-    Command extends IAddClient = IAddClient,
-    Response extends ClientAddResponse = ClientAddResponse
+    Command extends IRegisterSale = IRegisterSale,
+    Response extends SalesObtainedEventPublisher = SalesObtainedEventPublisher
 >
     extends ValueObjectErrorHandler
     implements IUseCase<Command, Response>
 {
 
-    private readonly OrderAgregate: OrderAgregate;
+    private readonly SaleAgregate: SaleAgregate;
 
     constructor(
-        private readonly ClientService: ClientDomainService,
-        private readonly AddCustomerEventPublisher: ClientAddEventPublisher,
+        private readonly saleService: SaleDomainService,
+        private readonly SalesObtainedEventPublisher: SalesObtainedEventPublisher,
     ) {
         super();
-        this.OrderAgregate = new OrderAgregate({
-            ClientService,
-            AddCustomerEventPublisher
+        this.SaleAgregate = new SaleAgregate({
+            saleService,
+            SalesObtainedEventPublisher
         })
     }
 
@@ -37,7 +39,7 @@ export class RegisterSaleUseCase<
 
     private async executeCommand(
         command: Command
-    ): Promise<ClientDomainBase | null> {
+    ): Promise<SaleDomainEntity | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
         const entity = this.createEntityClientDomain(ValueObject);
@@ -49,24 +51,24 @@ export class RegisterSaleUseCase<
     ): IClientEntity {
 
         const ClientID = new IdclientValue(command.ClientID)
-        const  Name = new ClientNameValue(command.Name)
-        const  Phone = new PhoneValue(command.Phone)
+        const Name = new ClientNameValue(command.Name)
+        const Phone = new PhoneValue(command.Phone)
 
-        return {
-           
+        return {           
             ClientID,
             Name,
             Phone
-
         }
     }
 
     private validateValueObject(
-        valueObject: ClientDomainBase
+        valueObject: SaleDomainEntity
     ): void {
         const {
-            Name,
-            Phone
+           Bill,
+           IDOrder,
+           IDSale,
+           Seller 
         } = valueObject
       
 
@@ -85,15 +87,15 @@ export class RegisterSaleUseCase<
     }
 
     private createEntityClientDomain(
-        valueObject: ClientDomainBase
-    ): ClientDomainBase {
+        valueObject: SaleDomainEntity
+    ): SaleDomainEntity {
 
         const {
             Name,
             Phone
         } = valueObject
 
-        return new ClientDomainBase({
+        return new SaleDomainEntity({
           
           Name: Name.valueOf(),
           Phone: Phone.valueOf(),
@@ -102,8 +104,8 @@ export class RegisterSaleUseCase<
     }
 
     private exectueOrderAggregateRoot(
-        entity: ClientDomainBase,
-    ): Promise<ClientDomainBase | null> {
+        entity: SaleDomainEntity,
+    ): Promise<SaleDomainEntity | null> {
         return this.OrderAgregate.AddClient(entity)
     }
 }

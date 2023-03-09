@@ -1,10 +1,9 @@
-import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
+import { ValueObjectErrorHandler, IUseCase } from "src/libs";
 import { SaleAgregate } from "../../../../domain/aggregates/sale.agregate";
 import { SaleDomainEntity } from "../../../../domain/entities";
 import { IGetSalesList, SalesObtainedResponse } from "../../../../domain/interfaces";
 import { SaleDomainService } from "../../../../domain/services";
 import { SalesObtainedEventPublisher } from '../../../../domain/events/publishers/Sale/sales-obtained-event-publisher';
-import { DateValue } from "../../../../domain/value-objects/Sale/Bill/date-value";
 
 export class GetSalesListUseCase<
     Command extends IGetSalesList = IGetSalesList,
@@ -39,7 +38,6 @@ export class GetSalesListUseCase<
         command: Command
     ): Promise< SaleDomainEntity | null> {
         const ValueObject = this.getSale(command.IdSale);
-        this.validateValueObject(ValueObject);
         return this.execueteGetorderRoot(ValueObject)
     }
 
@@ -48,78 +46,9 @@ export class GetSalesListUseCase<
         idmanga: string
     ): SaleDomainEntity {
         return this.database.find((item) => item.IDSale.valueOf === idmanga.valueOf);
-        
-
-       
+               
     }
-
-    private validateValueObject(
-        valueObject: SaleDomainEntity
-    ): void {
-        const {
-          Bill:{
-            Date,
-            IDBill,
-            IdClinet,
-            IdManga,
-            PaymentAmount,
-            PaymentMethod,
-            Total
-          },
-          IDOrder,
-          IDSale,
-          Seller:{
-            IdSeller,
-            Name
-          },
-
-        } = valueObject
-      
-
-        if ( IdManga.hasErrors())
-        this.setErrors(IdManga.getErrors());    
-
-        if (Date instanceof DateValue && Date.hasErrors())
-            this.setErrors(Date.getErrors());    
-
-        if ( IDBill.hasErrors())
-            this.setErrors(IDBill.getErrors());
-
-        if (IdClinet.hasErrors())
-            this.setErrors(IdClinet.getErrors());    
-
-        if ( PaymentAmount.hasErrors())
-            this.setErrors(PaymentAmount.getErrors());
-
-        if (PaymentMethod.hasErrors())
-            this.setErrors(PaymentMethod.getErrors());
-
-
-        if (Total.hasErrors())
-            this.setErrors(Total.getErrors());
-
-        if (IdSeller.hasErrors())
-            this.setErrors(IdSeller.getErrors());
-
-        if (IDSale.hasErrors())
-            this.setErrors(IDSale.getErrors());
-
-        if (Name.hasErrors())
-            this.setErrors(Name.getErrors());
-
-        if (IDOrder.hasErrors())
-            this.setErrors(IDOrder.getErrors());
-
-
-
-        if (this.hasErrors() === true)
-            throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado para obtener datos',
-                this.getErrors(),
-            );
-
-    }
-  
+   
 
     private execueteGetorderRoot(
         entity: SaleDomainEntity,
