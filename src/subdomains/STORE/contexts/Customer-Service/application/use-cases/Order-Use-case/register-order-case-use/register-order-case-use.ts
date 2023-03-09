@@ -18,7 +18,6 @@ export class RegisterOrderCaseUse<
 {
 
     private readonly OrderAgregate: OrderAgregate;
-    database: ClientDomainBase[]  = [];
 
     constructor(
         private readonly orderService: IorderDomainService,
