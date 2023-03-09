@@ -8,7 +8,7 @@ import { UUIDValueObject, FullnameValueObject, EmailValueObject } from '../../..
 import { EmployeeDomainEntityBase } from '../../../domain/entities/employee/employee.domain-entity';
 
 
-export class CreateEmployeeUseCase<
+export class CreateEmployeeUseCase <
     Command extends ICreateEmployeeCommand = ICreateEmployeeCommand,
     Response extends IEmployeeCreatedResponse = IEmployeeCreatedResponse,
 > extends ValueObjectErrorHandler implements IUseCase<Command, Response> {
@@ -33,6 +33,15 @@ export class CreateEmployeeUseCase<
     }
 
 
+
+    /**
+     * executes all the steps needed to make a new entity
+     *
+     * @private
+     * @param {Command} command
+     * @return {*}  {(Promise<IEmployeeDomainEntity | null>)}
+     * @memberof CreateEmployeeUseCase
+     */
     private async executeCommand(command: Command): Promise<IEmployeeDomainEntity | null> {
 
         const VO = this.createValueObject(command);
@@ -127,8 +136,14 @@ export class CreateEmployeeUseCase<
         })        
     }
 
-
-
+    /**
+     * Executes the method on the aggregate
+     *
+     * @private
+     * @param {EmployeeDomainEntityBase} entity
+     * @return {*}  {(Promise< EmployeeDomainEntityBase | null >)}
+     * @memberof CreateEmployeeUseCase
+     */
     private executeCreateEmployeeAggregateRoot(
         entity: EmployeeDomainEntityBase,
     ): Promise< EmployeeDomainEntityBase | null > {

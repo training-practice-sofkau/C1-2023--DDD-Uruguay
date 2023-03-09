@@ -40,6 +40,14 @@ export class CreateInvoiceUseCase<
     }
 
 
+    /**
+     * executes all the steps needed to make a new entity
+     *
+     * @private
+     * @param {Command} command
+     * @return {*}  {(Promise<InvoiceDomainEntityBase | null>)}
+     * @memberof CreateInvoiceUseCase
+     */
     private async executeCommand(command: Command): Promise<InvoiceDomainEntityBase | null> {
 
         const VO = this.createValueObject(command);
