@@ -5,7 +5,7 @@ export abstract class UpdatePhoneEventPublisher<Response = number> extends Event
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'Telefono del usuario actualizado!',
+            'web-context.update-phone',
             JSON.stringify({ data: this.response })
         )
     }

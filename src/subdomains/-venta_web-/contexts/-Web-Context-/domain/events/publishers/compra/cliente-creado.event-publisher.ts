@@ -6,7 +6,7 @@ export abstract class ClienteCreadoEventPublisher<Response = ClienteDomainEntity
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'El cliente fue creado!',
+            'web-context.cliente-creado',
             JSON.stringify({ data: this.response })
         )
     }

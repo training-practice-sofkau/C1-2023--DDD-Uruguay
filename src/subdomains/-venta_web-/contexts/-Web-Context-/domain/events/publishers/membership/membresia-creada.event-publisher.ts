@@ -5,7 +5,7 @@ export abstract class MembershipCreadaEventPublisher<Response = MembershipDomain
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'Se creo una nueva Membresia!',
+            'web-context.membresia-creada',
             JSON.stringify({ data: this.response })
         )
     }

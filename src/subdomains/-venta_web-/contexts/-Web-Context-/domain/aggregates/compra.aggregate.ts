@@ -16,9 +16,9 @@ import { ICursoService } from "../services/curso.service";
 import { UpdatePhoneEventPublisher } from "../events/publishers/compra/cliente/update-phone.event-publisher";
 import { UpdatePorcentajeEventPublisher } from "../events/publishers/compra/cupon/update-porcentaje.event-publisher";
 import { UpdateCostoCursoEventPublisher } from "../events/publishers/compra/curso/update-costo.event-publisher";
-import { ClienteCreadoEventPublisher } from "../events/publishers/compra/clienteCreado.event-publisher";
-import { CompraCreadaEventPublisher } from "../events/publishers/compra/compraCreada.event-publisher";
-import { CursoCreadoEventPublisher } from "../events/publishers/compra/cursoCreado.event-publisher";
+import { ClienteCreadoEventPublisher } from "../events/publishers/compra/cliente-creado.event-publisher";
+import { CompraCreadaEventPublisher } from "../events/publishers/compra/compra-creada.event-publisher";
+import { CursoCreadoEventPublisher } from "../events/publishers/compra/curso-creado.event-publisher";
 import { AggregateRootException } from "src/libs/sofka/exceptions/aggregate-root.exception";
 
 

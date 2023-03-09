@@ -4,7 +4,7 @@ export abstract class ClienteCreadoEventPublisher<Response = string> extends Eve
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'El cliente fue creado!',
+            'web-context.cliente-creado',
             JSON.stringify({ data: this.response })
         )
     }

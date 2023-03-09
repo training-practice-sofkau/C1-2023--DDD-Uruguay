@@ -4,7 +4,7 @@ export abstract class UpdateNombrePlanEventPublisher<Response = string> extends 
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'El nombre del Plan fue actualizado!',
+            'web-context.update-nombre',
             JSON.stringify({ data: this.response })
         )
     }
