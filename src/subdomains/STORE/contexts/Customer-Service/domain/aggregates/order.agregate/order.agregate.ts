@@ -111,7 +111,7 @@ Publisher events go in this place
     MangaService?: MangaDomainService;
     orderService?: IorderDomainService;
     ClientService?: ClientDomainService;
-    RegisterOrderEventPublisher: OrderAddEventPublisher;
+    RegisterOrderEventPublisher?: OrderAddEventPublisher;
   }) {
     this.NameModifiedEventPublisher = NameModifiedEventPublisher;
     this.PhoneModifiedEventPublisher = PhoneModifiedEventPublisher;

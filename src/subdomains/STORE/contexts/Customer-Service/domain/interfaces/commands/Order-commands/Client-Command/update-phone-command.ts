@@ -1,4 +1,4 @@
 export interface UpdatePhoneClient {
-  clientId: string;
-  newPhone: string;
+  ClientID: string;
+  Phone: number;
 }
