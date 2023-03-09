@@ -42,7 +42,6 @@ export class GetMangaCaseUse<
         command: Command
     ): Promise< MangaDomainBase | null> {
         const ValueObject = this.getManga(command.MangaID);
-        this.validateValueObject(ValueObject);
         return this.execueteGetorderRoot(ValueObject)
     }
 
@@ -51,49 +50,8 @@ export class GetMangaCaseUse<
         idmanga: string
     ): MangaDomainBase {
         return this.database.find((item) => item.Mangaid.valueOf === idmanga.valueOf);
-        
-
-       
+               
     }
-
-    private validateValueObject(
-        valueObject: MangaDomainBase
-    ): void {
-        const {
-            Mangaid,
-            Name,
-            Price,
-            Stock,
-            state
-        } = valueObject
-      
-
-        if (Mangaid instanceof IdmangaValue && Mangaid.hasErrors())
-        this.setErrors(Mangaid.getErrors());    
-
-        if (Price instanceof PriceValue && Price.hasErrors())
-            this.setErrors(Price.getErrors());    
-
-        if (Name instanceof NameMangaValue && Name.hasErrors())
-            this.setErrors(Name.getErrors());
-
-        if (Stock instanceof StockValue && Stock.hasErrors())
-            this.setErrors(Stock.getErrors());    
-
-        if (Name instanceof NameMangaValue && Name.hasErrors())
-            this.setErrors(Name.getErrors());
-
-        if (state instanceof MangaSateValue && state.hasErrors())
-            this.setErrors(state.getErrors());
-
-        if (this.hasErrors() === true)
-            throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado para obtener datos',
-                this.getErrors(),
-            );
-
-    }
-  
 
     private execueteGetorderRoot(
         entity: MangaDomainBase,

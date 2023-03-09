@@ -99,7 +99,6 @@ export class AddSallerUseCase<
           Name: Name,
           IdSeller: IdSeller,
         })
-
     }
 
     private exectueOrderAggregateRoot(

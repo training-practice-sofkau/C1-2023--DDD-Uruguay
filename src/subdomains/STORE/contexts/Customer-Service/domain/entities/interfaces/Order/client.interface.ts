@@ -4,7 +4,7 @@ import { IdclientValue } from "../../../value-objects/Sale/Bill/idclient-value/i
 export interface IClientEntity {
 
     ClientID?:  IdclientValue
-    Name:  ClientNameValue
-    Phone:   PhoneValue
+    Name?:  ClientNameValue
+    Phone?:   PhoneValue
 
 }

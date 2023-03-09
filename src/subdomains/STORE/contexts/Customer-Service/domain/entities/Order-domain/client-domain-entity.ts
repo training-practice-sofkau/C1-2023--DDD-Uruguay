@@ -5,8 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 export class ClientDomainBase  implements IClientEntity {
     ClientID?:  IdclientValue;
-    Name: ClientNameValue;
-    Phone: PhoneValue;
+    Name?: ClientNameValue;
+    Phone?: PhoneValue;
 
     
     constructor (_data?: IClientEntity){

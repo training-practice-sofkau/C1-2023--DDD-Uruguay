@@ -356,7 +356,7 @@ Publisher events go in this place
    * @returns The result of the update of the client name
    */
   async UpdateClientName(
-    idclient: UpdateNameClient,
+    idclient: ClientDomainBase,
   ): Promise<ClientDomainBase> {
     if (this.orderService && this.NameModifiedEventPublisher) {
       const result = await this.ClientService.UpdateClientName(idclient);
