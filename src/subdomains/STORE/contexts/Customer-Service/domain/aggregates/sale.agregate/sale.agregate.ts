@@ -10,7 +10,6 @@ export class SaleAgregate
   private readonly billservice: BillDomainService;
   private readonly saleservice: SaleDomainService;
   private readonly sellerService: SellerDomainService;
-
   private readonly AddedSaleEventPublisher: AddedSaleEventPublisher;
   private readonly AddedSellerEventPublisher: AddedSellerEventPublisher;
   private readonly ClientObtainedEventPublisher: ClientObtainedEventPublisher;
