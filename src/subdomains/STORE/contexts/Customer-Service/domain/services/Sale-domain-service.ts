@@ -7,13 +7,14 @@ import { IGetClientSale } from '../interfaces/commands/Sale-commands/get-client-
 import { IAddSaller } from '../interfaces/commands/Sale-commands/add-saller-command';
 import { IUpdateNameSeller } from '../interfaces/commands/Sale-commands/Seller-Commands/update-name-command';
 import { IUpdateBill } from '../interfaces/commands/Sale-commands/update-bill-command';
+import { IGetSalesList } from '../interfaces/commands/Sale-commands/get-sales-list-command';
 
 
 export interface SaleDomainService 
  < T extends SaleDomainEntity = SaleDomainEntity >  {
     RegisterSale(data: IRegisterSale): Promise <T>;
     GetClient(data: IGetClientSale): Promise <ClientDomainBase>;
-    GetSalesList(): Promise <SaleDomainEntity>;
+    GetSalesList(data: IGetSalesList): Promise <SaleDomainEntity>;
     AddSeller(data:  IAddSaller  ): Promise <SellerDomain>;
     UpdateSeller(data: IUpdateNameSeller): Promise <SellerDomain>;
     UpdateBill(data: IUpdateBill): Promise <BillDomain>;

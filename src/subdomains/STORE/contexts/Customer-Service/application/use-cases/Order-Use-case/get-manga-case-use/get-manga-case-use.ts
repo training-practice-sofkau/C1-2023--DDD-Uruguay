@@ -3,10 +3,11 @@ import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
 import { IGetClient, IGetManga, MangaObtainedResponse } from "../../../../domain/interfaces";
 import { ClientObtainedResponse } from '../../../../domain/interfaces/responses/Order-Response/client-obtained-response';
 import { ClientDomainService, MangaDomainService } from "../../../../domain/services";
-import { ClientObtainedEventPublisher } from '../../../../domain/events/publishers/Sale/Client-obtained-event-publisher';
 import { ClientDomainBase } from '../../../../domain/entities/Order-domain/client-domain-entity';
 import { ClientNameValue,  IdmangaValue,  MangaSateValue,  NameMangaValue,  PhoneValue, PriceValue, StockValue } from "../../../../domain/value-objects";
 import { MangaDomainBase } from '../../../../domain/entities/Order-domain/manga-domain-entity';
+import { MangaObtainedEventPublisher } from '../../../../domain/events/publishers/Sale/Bill/manga-obtained-event-publisher';
+import { MangaModifiedEventPublisher } from '../../../../domain/events/publishers/order/modified-manga-stock-event-publisher';
 
 export class GetMangaCaseUse<
     Command extends IGetManga = IGetManga,
@@ -22,12 +23,12 @@ export class GetMangaCaseUse<
 
     constructor(
         private readonly MangaService: MangaDomainService,
-        private readonly GetClientEventPublisher: ClientObtainedEventPublisher,
+        private readonly GetMangaEventPublisher: MangaObtainedEventPublisher,
     ) {
         super();
         this.OrderAgregate = new OrderAgregate({
             MangaService,
-            GetClientEventPublisher,
+            GetMangaEventPublisher,
         })
     }
 

@@ -1,31 +1,31 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { MangaDomainBase } from "../../../../domain/entities";
-import { ClientObtainedEventPublisher } from "../../../../domain/events";
-import { IGetManga, MangaObtainedResponse } from "../../../../domain/interfaces";
-import { MangaDomainService } from "../../../../domain/services";
-import { IdmangaValue, PriceValue, NameMangaValue, StockValue, MangaSateValue } from "../../../../domain/value-objects";
+import { SaleAgregate } from "../../../../domain/aggregates/sale.agregate";
+import { SaleDomainEntity } from "../../../../domain/entities";
+import { IGetSalesList, SalesObtainedResponse } from "../../../../domain/interfaces";
+import { SaleDomainService } from "../../../../domain/services";
+import { SalesObtainedEventPublisher } from '../../../../domain/events/publishers/Sale/sales-obtained-event-publisher';
+import { DateValue } from "../../../../domain/value-objects/Sale/Bill/date-value";
 
 export class GetSalesListUseCase<
-    Command extends IGetManga = IGetManga,
-    Response extends MangaObtainedResponse =  MangaObtainedResponse
+    Command extends IGetSalesList = IGetSalesList,
+    Response extends SalesObtainedResponse =  SalesObtainedResponse
 
 >
     extends ValueObjectErrorHandler
     implements IUseCase<Command, Response>
 {
 
-    private readonly OrderAgregate: OrderAgregate;
-    database: MangaDomainBase[]  = [];
+    private readonly SaleAgregate: SaleAgregate;
+    database: SaleDomainEntity[]  = [];
 
     constructor(
-        private readonly MangaService: MangaDomainService,
-        private readonly GetClientEventPublisher: ClientObtainedEventPublisher,
+        private readonly saleService: SaleDomainService,
+        private SalesObtainedEventPublisher : SalesObtainedEventPublisher,
     ) {
         super();
-        this.OrderAgregate = new OrderAgregate({
-            MangaService,
-            GetClientEventPublisher,
+        this.SaleAgregate = new SaleAgregate({
+            saleService,
+            SalesObtainedEventPublisher,
         })
     }
 
@@ -37,51 +37,80 @@ export class GetSalesListUseCase<
 
     private async executeCommand(
         command: Command
-    ): Promise< MangaDomainBase | null> {
-        const ValueObject = this.getManga(command.MangaID);
+    ): Promise< SaleDomainEntity | null> {
+        const ValueObject = this.getSale(command.IdSale);
         this.validateValueObject(ValueObject);
         return this.execueteGetorderRoot(ValueObject)
     }
 
 
-    private getManga(
+    private getSale(
         idmanga: string
-    ): MangaDomainBase {
-        return this.database.find((item) => item.Mangaid.valueOf === idmanga.valueOf);
+    ): SaleDomainEntity {
+        return this.database.find((item) => item.IDSale.valueOf === idmanga.valueOf);
         
 
        
     }
 
     private validateValueObject(
-        valueObject: MangaDomainBase
+        valueObject: SaleDomainEntity
     ): void {
         const {
-            Mangaid,
-            Name,
-            Price,
-            Stock,
-            state
+          Bill:{
+            Date,
+            IDBill,
+            IdClinet,
+            IdManga,
+            PaymentAmount,
+            PaymentMethod,
+            Total
+          },
+          IDOrder,
+          IDSale,
+          Seller:{
+            IdSeller,
+            Name
+          },
+
         } = valueObject
       
 
-        if (Mangaid instanceof IdmangaValue && Mangaid.hasErrors())
-        this.setErrors(Mangaid.getErrors());    
+        if ( IdManga.hasErrors())
+        this.setErrors(IdManga.getErrors());    
 
-        if (Price instanceof PriceValue && Price.hasErrors())
-            this.setErrors(Price.getErrors());    
+        if (Date instanceof DateValue && Date.hasErrors())
+            this.setErrors(Date.getErrors());    
 
-        if (Name instanceof NameMangaValue && Name.hasErrors())
+        if ( IDBill.hasErrors())
+            this.setErrors(IDBill.getErrors());
+
+        if (IdClinet.hasErrors())
+            this.setErrors(IdClinet.getErrors());    
+
+        if ( PaymentAmount.hasErrors())
+            this.setErrors(PaymentAmount.getErrors());
+
+        if (PaymentMethod.hasErrors())
+            this.setErrors(PaymentMethod.getErrors());
+
+
+        if (Total.hasErrors())
+            this.setErrors(Total.getErrors());
+
+        if (IdSeller.hasErrors())
+            this.setErrors(IdSeller.getErrors());
+
+        if (IDSale.hasErrors())
+            this.setErrors(IDSale.getErrors());
+
+        if (Name.hasErrors())
             this.setErrors(Name.getErrors());
 
-        if (Stock instanceof StockValue && Stock.hasErrors())
-            this.setErrors(Stock.getErrors());    
+        if (IDOrder.hasErrors())
+            this.setErrors(IDOrder.getErrors());
 
-        if (Name instanceof NameMangaValue && Name.hasErrors())
-            this.setErrors(Name.getErrors());
 
-        if (state instanceof MangaSateValue && state.hasErrors())
-            this.setErrors(state.getErrors());
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
@@ -93,8 +122,8 @@ export class GetSalesListUseCase<
   
 
     private execueteGetorderRoot(
-        entity: MangaDomainBase,
-    ): Promise<MangaDomainBase > {     
+        entity: SaleDomainEntity,
+    ): Promise<SaleDomainEntity > {     
 
-        return this.OrderAgregate.GetManga({mangaID: entity.Mangaid.toString()})
+        return this.SaleAgregate.GetSalesList({IdSale: entity.IDSale.toString()})
     }}

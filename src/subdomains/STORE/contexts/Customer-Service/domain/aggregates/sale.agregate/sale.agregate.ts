@@ -1,7 +1,7 @@
 import { AggregateRootException } from "src/libs";
 import { SellerDomain, BillDomain, MangaDomainBase, SaleDomainEntity, ClientDomainBase } from "../../entities";
 import { AddedSaleEventPublisher, AddedSellerEventPublisher, ClientObtainedEventPublisher, BillModifiedEventPublisher, SellerModifiedEventPublisher, SalesObtainedEventPublisher, SellerNameModifiedEventPublisher, MangaObtainedEventPublisher, PaymentMethodEventPublisher, TotalModifiedEventPublisher } from "../../events";
-import { IUpdateNameSeller, UpdatePaymentMethod, IUpdateTotal, IGetMangaData, IRegisterSale, IGetClientSale, IAddSaller, IUpdateBill } from "../../interfaces";
+import { IUpdateNameSeller, UpdatePaymentMethod, IUpdateTotal, IGetMangaData, IRegisterSale, IGetClientSale, IAddSaller, IUpdateBill, IGetSalesList } from "../../interfaces";
 import { BillDomainService, SellerDomainService, SaleDomainService } from "../../services";
 
 export class SaleAgregate
@@ -138,9 +138,9 @@ export class SaleAgregate
     );
   }
 
-  async GetSalesList(): Promise<SaleDomainEntity> {
+  async GetSalesList(data: IGetSalesList  ): Promise<SaleDomainEntity> {
     if (this.billservice && this.SalesObtainedEventPublisher) {
-      const result = await this.saleservice.GetSalesList();
+      const result = await this.saleservice.GetSalesList(data );
       this.SalesObtainedEventPublisher.response = result;
       this.SalesObtainedEventPublisher.publish();
       return this.SalesObtainedEventPublisher.response;
