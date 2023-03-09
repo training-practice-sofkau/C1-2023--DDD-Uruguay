@@ -26,13 +26,11 @@ export class CreateRoleUseCase<
         })
     }
 
-
     async execute(command?: Command): Promise<Response> {
 
         const data = await this.executeCommand(command);
         return { success: data ? true : false, data } as unknown as Response;
     }
-
 
     /**
      * executes all the steps needed to make a new entity
@@ -51,8 +49,7 @@ export class CreateRoleUseCase<
         const entity = this.createEntityRoleDomain(VO);
 
         return this.executeCreateEmployeeAggregateRoot(entity); 
-    }
-   
+    }  
 
     /**
      * Generates a New ValueObject of type Role
