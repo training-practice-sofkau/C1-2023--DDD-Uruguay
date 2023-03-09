@@ -1,5 +1,6 @@
-import { EventPublisherBase } from "../../../../../../../../libs/sofka/bases";
-export abstract class EmployeeCreatedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
+import { EventPublisherBase } from "@sofka";
+import { EmployeeDomainEntityBase } from "../../../entities/employee/employee.domain-entity";
+export abstract class EmployeeCreatedEventPublisherBase < Response = EmployeeDomainEntityBase | null > extends EventPublisherBase<Response>{
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(

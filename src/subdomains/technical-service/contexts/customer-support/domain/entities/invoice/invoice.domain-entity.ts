@@ -1,14 +1,10 @@
 import { v4 as uuid } from "uuid";
+import { IsUUID, IsBoolean, IsValidDate } from '@validations';
 
-import { UUIDValueObject } from '../../value-objects/common';
-import { AmountValueObject } from '../../value-objects/invoice/amount.value-object';
-import { WarrantyStatusValueObject } from '../../value-objects/warranty/warranty-status.value-object';
+import { DateValueObject, TrueFalseValueObject, AmountValueObject, UUIDValueObject } from '../../value-objects/';
+
 import { IInvoiceDomainEntity } from '../interfaces/invoice/invoice.domain-entity.interface';
-import { TrueFalseValueObject } from '../../value-objects/common/true-false/true-false.value-object';
-import { IsUUID } from '../../../../../../../libs/validations/is-uuid.validation';
-import { IsValidDate } from "src/libs/validations/date.validation";
-import { DateValueObject } from '../../value-objects/common/date/date.value-object';
-import { IsBoolean } from '../../../../../../../libs/validations/true-false.validation';
+
 
 export class InvoiceDomainEntityBase implements IInvoiceDomainEntity {
 
@@ -17,7 +13,7 @@ export class InvoiceDomainEntityBase implements IInvoiceDomainEntity {
     ticketID?: string | UUIDValueObject;
     customerID?: string | UUIDValueObject;
     invoiceAmount?: number | AmountValueObject;
-    warranties?: WarrantyStatusValueObject[];
+    warrantyID?: string | UUIDValueObject;
     isPaid?: boolean | TrueFalseValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
@@ -36,7 +32,7 @@ export class InvoiceDomainEntityBase implements IInvoiceDomainEntity {
 
         if (_data?.invoiceAmount) this.invoiceAmount = _data.invoiceAmount;
 
-        if (_data?.warranties) this.warranties = _data.warranties;
+        if (_data?.warrantyID) this.warrantyID = _data.warrantyID;
 
         if (_data?.isPaid && IsBoolean(_data?.isPaid)) this.isPaid = _data.isPaid;
         else this.isPaid = false;

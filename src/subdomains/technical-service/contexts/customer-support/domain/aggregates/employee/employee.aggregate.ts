@@ -26,6 +26,7 @@ import {
 
 
 import { ChangeRoleDescription, CreateRole } from './helpers/role-service';
+import { EmployeeDomainEntityBase } from '../../entities/employee/employee.domain-entity';
 
 export class EmployeeAggregate implements IEmployeeDomainService, IRoleDomainService {
 
@@ -76,7 +77,7 @@ export class EmployeeAggregate implements IEmployeeDomainService, IRoleDomainSer
      * @return {*}  {Promise<boolean>}
      * @memberof EmployeeAggregate
      */
-    async CreateEmployee(employeeData: ICreateEmployeeCommand): Promise<boolean> {
+    async CreateEmployee(employeeData: EmployeeDomainEntityBase ): Promise< EmployeeDomainEntityBase | null > { //ICreateEmployeeCommand
 
         if (!this.employeeService) {
             throw new AggregateRootException('InvoiceAggregate: "EmployeeService" is not defined!');

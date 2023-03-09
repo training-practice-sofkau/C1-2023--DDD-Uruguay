@@ -4,10 +4,10 @@ import { WarrantyStatusValueObject } from "../../../value-objects/warranty";
 
 export interface ICreateInvoiceCommand{
 
-    dateEmitted: number | Date;
-    ticketID: string;
+    dateEmitted?: Date;
+    ticketID?: string;
     customerID?: string;
     invoiceAmount?: number;
-    warranties?: string[];
+    warrantyID?: string;
     isPaid?: boolean;
 }

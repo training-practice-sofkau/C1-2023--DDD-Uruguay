@@ -24,8 +24,7 @@ import {
     IWarrantyDomainService
 } from '../../services';
 
-import {
-    ICreateInvoiceCommand,
+import {    
     IAddWarrantyCommand,
     ICreateCustomerCommand,
     INotifyCustomerCommand,
@@ -64,6 +63,9 @@ import {
     ChangeWarrantyStatus, 
     RemoveItemFromWarranty 
 } from './helpers/warranty';
+import { InvoiceDomainEntityBase } from '../../entities/invoice/invoice.domain-entity';
+
+
 
 
 
@@ -146,7 +148,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>} success ( true / false )
      * @memberof InvoiceAggregate
     */
-    async createInvoice(invoiceData: ICreateInvoiceCommand): Promise<boolean> {
+    async createInvoice(invoiceData: InvoiceDomainEntityBase): Promise< InvoiceDomainEntityBase | null > {
 
         if (!this.invoiceService) {
             throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
