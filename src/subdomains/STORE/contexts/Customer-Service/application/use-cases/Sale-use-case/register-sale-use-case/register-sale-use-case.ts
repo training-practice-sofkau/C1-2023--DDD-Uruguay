@@ -43,21 +43,20 @@ export class RegisterSaleUseCase<
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
         const entity = this.createEntityClientDomain(ValueObject);
-        return this.exectueOrderAggregateRoot(entity)
+        return this.exectueOrderAggregateRoot((await entity ))
     }
 
     private createValueObject(
         command: Command
-    ): IClientEntity {
+    ): SaleDomainEntity {
 
-        const ClientID = new IdclientValue(command.ClientID)
-        const Name = new ClientNameValue(command.Name)
-        const Phone = new PhoneValue(command.Phone)
-
+        IDSale: IdSaleValueObject;
+        IDOrder: IdOrdertValueObject;
         return {           
-            ClientID,
-            Name,
-            Phone
+            IDOrder,                       
+            Bill,
+            IDSale,
+            Seller
         }
     }
 
@@ -86,19 +85,23 @@ export class RegisterSaleUseCase<
 
     }
 
-    private createEntityClientDomain(
+    private async createEntityClientDomain(
         valueObject: SaleDomainEntity
-    ): SaleDomainEntity {
+    ): Promise<SaleDomainEntity> {
 
         const {
-            Name,
-            Phone
+            Bill,
+            IDOrder,
+            IDSale,
+            Seller
         } = valueObject
 
         return new SaleDomainEntity({
           
-          Name: Name.valueOf(),
-          Phone: Phone.valueOf(),
+            Bill: (await responseClient).data ,
+            IDOrder: IDOrder,
+            IDSale:  IDSale,
+            Seller: (await responseManga).data,
         })
 
     }
@@ -106,6 +109,6 @@ export class RegisterSaleUseCase<
     private exectueOrderAggregateRoot(
         entity: SaleDomainEntity,
     ): Promise<SaleDomainEntity | null> {
-        return this.OrderAgregate.AddClient(entity)
+        return this.SaleAgregate.RegisterSale(entity)
     }
 }

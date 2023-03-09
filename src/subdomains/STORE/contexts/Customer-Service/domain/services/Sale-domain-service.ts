@@ -12,7 +12,7 @@ import { IGetSalesList } from '../interfaces/commands/Sale-commands/get-sales-li
 
 export interface SaleDomainService 
  < T extends SaleDomainEntity = SaleDomainEntity >  {
-    RegisterSale(data: IRegisterSale): Promise <T>;
+    RegisterSale(data: SaleDomainEntity): Promise <T>;
     GetClient(data: IGetClientSale): Promise <ClientDomainBase>;
     GetSalesList(data: IGetSalesList): Promise <SaleDomainEntity>;
     AddSeller(data:  SellerDomain  ): Promise <SellerDomain>;

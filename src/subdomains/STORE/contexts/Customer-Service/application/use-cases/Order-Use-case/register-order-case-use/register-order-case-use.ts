@@ -47,7 +47,7 @@ export class RegisterOrderCaseUse<
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
         const entity = this.createEntityClientDomain(ValueObject);
-        return    this.exectueOrderAggregateRoot((await entity))
+        return this.exectueOrderAggregateRoot((await entity))
     }
 
 
@@ -58,8 +58,7 @@ export class RegisterOrderCaseUse<
         const orderId = new IdOrdertValueObject(command.idOrder);
 
         return {
-            orderId
-            
+            orderId            
         }
     }
     

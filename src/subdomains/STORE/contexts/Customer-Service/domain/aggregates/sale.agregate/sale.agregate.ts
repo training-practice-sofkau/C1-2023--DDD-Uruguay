@@ -113,7 +113,7 @@ export class SaleAgregate
     );
   }
 
-  async RegisterSale(sale: IRegisterSale): Promise<SaleDomainEntity> {
+  async RegisterSale(sale: SaleDomainEntity): Promise<SaleDomainEntity> {
     if (this.billservice && this.AddedSaleEventPublisher) {
       const result = await this.saleservice.RegisterSale(sale);
       this.AddedSaleEventPublisher.response = result;
