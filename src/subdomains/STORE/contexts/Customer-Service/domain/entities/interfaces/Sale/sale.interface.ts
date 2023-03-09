@@ -6,10 +6,10 @@ import { ISellerEntity } from './seller.interface';
 export interface ISaleEntity {
 
 
-    Bill: IBillEntity 
-    Seller:  ISellerEntity
-    IDSale: IdSaleValueObject
-    IDOrder: IdOrdertValueObject
+    Bill?: IBillEntity 
+    Seller?:  ISellerEntity
+    IDSale?: IdSaleValueObject
+    IDOrder?: IdOrdertValueObject
 
 
 }

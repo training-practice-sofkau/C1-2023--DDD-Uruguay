@@ -4,7 +4,7 @@ import { ClientDomainService, SaleDomainService } from "../../../../domain/servi
 import { ClientAddEventPublisher } from '../../../../domain/events/publishers/order/added-customer-event-Publisher';
 import { ClientDomainBase, IClientEntity, SaleDomainEntity } from "../../../../domain/entities";
 import { IdclientValue } from '../../../../domain/value-objects/Sale/Bill/idclient-value/idclient-value';
-import { ClientNameValue } from "../../../../domain/value-objects";
+import { ClientNameValue, IdOrdertValueObject, IdSaleValueObject } from "../../../../domain/value-objects";
 import { PhoneValue } from '../../../../domain/value-objects/Order/Client/phone-value/phone-value';
 import { SalesObtainedEventPublisher } from "../../../../domain/events";
 import { IRegisterSale } from "../../../../domain/interfaces";
@@ -50,13 +50,11 @@ export class RegisterSaleUseCase<
         command: Command
     ): SaleDomainEntity {
 
-        IDSale: IdSaleValueObject;
-        IDOrder: IdOrdertValueObject;
+        const IDSale =  new IdSaleValueObject(command.IDSale)
+        const IDOrder = new IdOrdertValueObject(command.IDOrder);
         return {           
             IDOrder,                       
-            Bill,
             IDSale,
-            Seller
         }
     }
 
