@@ -8,7 +8,7 @@ import {
 } from "../../value-objects";
 
 export interface IRoomDomainEntity {
-    roomId: string | IdValueObject;
+    roomId?: string | IdValueObject;
     location: string | LocationValueObject;
     accommodation: string | AccommodationValueObject;
     type: string | TypeValueObject;
