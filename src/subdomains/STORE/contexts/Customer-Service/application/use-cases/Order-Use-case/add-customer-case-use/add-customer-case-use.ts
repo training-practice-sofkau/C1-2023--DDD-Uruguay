@@ -95,8 +95,8 @@ export class AddCustomerCaseUse<
 
         return new ClientDomainBase({
           
-          Name: Name.valueOf(),
-          Phone: Phone.valueOf(),
+          Name: Name,
+          Phone: Phone,
         })
 
     }

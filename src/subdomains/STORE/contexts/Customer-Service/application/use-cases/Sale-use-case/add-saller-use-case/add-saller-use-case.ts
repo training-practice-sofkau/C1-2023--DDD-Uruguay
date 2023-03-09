@@ -96,8 +96,8 @@ export class AddSallerUseCase<
 
         return new SellerDomain({
           
-          Name: Name.valueOf(),
-          IdSeller: IdSeller.valueOf(),
+          Name: Name,
+          IdSeller: IdSeller,
         })
 
     }

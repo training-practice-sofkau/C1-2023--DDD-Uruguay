@@ -4,8 +4,8 @@ import { ISellerEntity } from "../interfaces/Sale/seller.interface";
 import { v4 as uuidv4 } from 'uuid';
 
 export class SellerDomain  implements ISellerEntity{
-    IdSeller: string |  IdsellerValue;
-    Name: string | NameSellerValue;
+    IdSeller:   IdsellerValue;
+    Name:  NameSellerValue;
    
 
     constructor (_data?: ISellerEntity){
