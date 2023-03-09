@@ -155,6 +155,7 @@ Publisher events go in this place
    */
   async GetClient(data: IGetClient): Promise<ClientDomainBase> {
     if (this.orderService && this.GetClientEventPublisher) {
+      
       const result = await this.orderService.GetClient(data);
 
       this.GetClientEventPublisher.response = result;

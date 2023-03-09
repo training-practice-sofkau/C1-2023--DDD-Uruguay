@@ -1,13 +1,11 @@
-import { IUseCase, ValueObjectErrorHandler } from "src/libs";
+import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { ClientDomainBase, IOrderentity, OrderDomainEntityBase } from "../../../../domain/entities";
-import { OrderAddEventPublisher } from "../../../../domain/events";
-import { IGetClient, IRegisterOrder, RegisterdOrderResponse } from "../../../../domain/interfaces";
-import { OrderService } from '../../../../infrastructure/persitence/services/OrderServices/OrderService';
+import { IGetClient } from "../../../../domain/interfaces";
 import { ClientObtainedResponse } from '../../../../domain/interfaces/responses/Order-Response/client-obtained-response';
 import { ClientDomainService } from "../../../../domain/services";
 import { ClientObtainedEventPublisher } from '../../../../domain/events/publishers/Sale/Client-obtained-event-publisher';
 import { ClientDomainBase } from '../../../../domain/entities/Order-domain/client-domain-entity';
+import { ClientNameValue,  PhoneValue } from "../../../../domain/value-objects";
 
 export class GetClientCaseUse<
     Command extends IGetClient = IGetClient,
@@ -40,18 +38,17 @@ export class GetClientCaseUse<
 
     private async executeCommand(
         command: Command
-    ): Promise< | null> {
+    ): Promise< ClientDomainBase | null> {
         const ValueObject = this.getClient(command.ClientID);
         this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
-        return this.exectueOrderAggregateRoot(entity)
+        return this.execueteGetorderRoot(ValueObject)
     }
 
 
     private getClient(
-        clientId: string
+        idclient: string
     ): ClientDomainBase {
-        return  this.database.find((item) => item.ClientID === clientId)
+        return this.database.find((item) => item.ClientID.valueOf === idclient.valueOf);
         
 
        
@@ -61,42 +58,30 @@ export class GetClientCaseUse<
         valueObject: ClientDomainBase
     ): void {
         const {
-            fullName,
-            phone
+            Name,
+            Phone
         } = valueObject
+      
 
-        if (fullName instanceof FullNameValueObject && fullName.hasErrors())
-            this.setErrors(fullName.getErrors());
+        if (Phone instanceof PhoneValue && Phone.hasErrors())
+            this.setErrors(Phone.getErrors());    
 
-        if (phone instanceof PhoneObjectValue && phone.hasErrors())
-            this.setErrors(phone.getErrors());
+        if (Name instanceof ClientNameValue && Name.hasErrors())
+            this.setErrors(Name.getErrors());
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado por AddClientUseCase',
+                'Hay algunos errores en el comando ejecutado para obtener datos',
                 this.getErrors(),
             );
 
     }
+  
 
-    private createEntityClientDomain(
-        valueObject: IClientDomainEntity
-    ): ClientDomainEntitybase {
+    private execueteGetorderRoot(
+        entity: ClientDomainBase,
+    ): Promise<ClientDomainBase > {     
 
-        const {
-            fullName,
-            phone
-        } = valueObject
-
-        return new ClientDomainEntitybase({
-            fullName: fullName.valueOf(),
-            phone: phone.valueOf()
-        })
-    }
-
-    private exectueOrderAggregateRoot(
-        entity: ClientDomainEntitybase,
-    ): Promise<ClientDomainEntitybase | null> {
-        return this.orderAggregateRoot.registerClient(entity)
+        return this.OrderAgregate.GetClient({ClientID: entity.ClientID.toString()})
     }
 }
