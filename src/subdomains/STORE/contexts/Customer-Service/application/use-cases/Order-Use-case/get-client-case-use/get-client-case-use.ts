@@ -7,6 +7,7 @@ import { OrderService } from '../../../../infrastructure/persitence/services/Ord
 import { ClientObtainedResponse } from '../../../../domain/interfaces/responses/Order-Response/client-obtained-response';
 import { ClientDomainService } from "../../../../domain/services";
 import { ClientObtainedEventPublisher } from '../../../../domain/events/publishers/Sale/Client-obtained-event-publisher';
+import { ClientDomainBase } from '../../../../domain/entities/Order-domain/client-domain-entity';
 
 export class GetClientCaseUse<
     Command extends IGetClient = IGetClient,
@@ -40,7 +41,7 @@ export class GetClientCaseUse<
     private async executeCommand(
         command: Command
     ): Promise< | null> {
-        const ValueObject = this.getClient(command);
+        const ValueObject = this.getClient(command.ClientID);
         this.validateValueObject(ValueObject);
         const entity = this.createEntityClientDomain(ValueObject);
         return this.exectueOrderAggregateRoot(entity)
@@ -48,19 +49,16 @@ export class GetClientCaseUse<
 
 
     private getClient(
-        command: Command
+        clientId: string
     ): ClientDomainBase {
-        const index = this.database.findIndex(command.ClientID)
+        return  this.database.find((item) => item.ClientID === clientId)
         
 
-        return {
-            fullName,
-            phone
-        }
+       
     }
 
     private validateValueObject(
-        valueObject: IClientDomainEntity
+        valueObject: ClientDomainBase
     ): void {
         const {
             fullName,

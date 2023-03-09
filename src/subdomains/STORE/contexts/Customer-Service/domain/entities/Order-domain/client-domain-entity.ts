@@ -4,7 +4,7 @@ import { IClientEntity } from "../interfaces/Order/client.interface";
 import { v4 as uuidv4 } from 'uuid';
 
 export class ClientDomainBase  implements IClientEntity {
-    ClientID:  IdclientValue;
+    ClientID:  string |IdclientValue;
     Name: ClientNameValue;
     Phone: PhoneValue;
 
