@@ -4,4 +4,6 @@ export interface ITramiteDomainService<T extends TramiteDomainEntity = TramiteDo
 
     CrearNegociacion(negociacion: ICrearNegociacionCommands):Promise<T>;  
     ModificarFecha(fecha: IModificarFechaCommands):Promise<T>;
+
+    
  }

@@ -1,9 +1,7 @@
 import { IEmpleadoDomainService } from '../../services/staff-Deportivo/empleado.domain-service';
 import { IStaffDeportivoDomainService } from '../../services/staff-Deportivo/staff-deportivo.domain-service';
 import { StaffDeportivoDomainEntity } from '../../entities/staff-deportivo/staff-deportivo.entity';
-import { IAgregarEmpleadoCommands, ICrearNegociacionCommands, IModificarDocumentoCommands, IModificarFechaCommands, IModificarFechaTramiteCommands, IModificarNombreCommands, IModificarSalarioCommands, IModificarSalarioEmpleadoCommands, IModificarTipoEmpleadoCommands } from '../../interfaces';
-import { ICrearStaffDeportivoCommands } from '../../interfaces/commands/staff-deportivo/crear-staff-deportivo.commands';
-import { ICrearTramiteCommands } from '../../interfaces/commands/staff-deportivo/crear-tramite.commands';
+import { ICrearNegociacionCommands, IModificarDocumentoCommands, IModificarFechaCommands, IModificarFechaTramiteCommands, IModificarNombreCommands, IModificarSalarioCommands, IModificarSalarioEmpleadoCommands, IModificarTipoEmpleadoCommands } from '../../interfaces';
 import { INegociacionDomainService } from '../../services/staff-Deportivo/negociacion.domain-service';
 import { ITramiteDomainService } from '../../services/staff-Deportivo/tramite.domain-service';
 import { EmpleadoAgregadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-agregado.event-publisher';
@@ -15,6 +13,10 @@ import { SalarioEmpleadoModificadoEventPublisher } from '../../events/publishers
 import { EmpleadoDomainEntity } from '../../entities/empleado/EmpleadoDomainEntity';
 import { TramiteDomainEntity } from '../../entities/tramite/tramite.entity.interface';
 import { FechaTramiteModificadaEventPublisher } from '../../events/publishers/staff-deporitvo/fecha-tramite-modificada.event-publisher';
+import { BuscarTramiteCommands } from '../../interfaces/commands/staff-deportivo/buscar-tramite.commands';
+import { BuscarEmpleadoCommands } from '../../interfaces/commands/staff-deportivo/buscar-empleado.commands';
+import { EmpleadoBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
+import { TramiteBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
 
 export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IEmpleadoDomainService,ITramiteDomainService{
     //Service
@@ -32,11 +34,13 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
     //empleado
     private readonly empleadoAgregadoEvent?: EmpleadoAgregadoEventPublisher;
     private readonly salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher;
+    private readonly empleadoBuscadoEvent?: EmpleadoBuscadoEventPublisher;
    
 
     //tramite
     private readonly tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
     private readonly fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher;
+    private readonly tamiteBuscadoEvent?: TramiteBuscadoEventPublisher;
 
 
     constructor(
@@ -52,7 +56,9 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
            // staffDeportivoModificadaEvent,
             empleadoAgregadoEvent,
             salarioEmpleadoModificadoEvent,
-            empleadoRemovidoEvent,
+            empleadoBuscadoEvent,
+            
+            tamiteBuscadoEvent,
             tamiteAgregadoEvent,
             fechaTamiteModificadoEvent,
 
@@ -67,9 +73,11 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
            // directivaModificadaEvent?: StaffDeportivoModificadoEventPublisher,
             empleadoAgregadoEvent?: EmpleadoAgregadoEventPublisher;
             salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher;
-            empleadoRemovidoEvent?: EmpleadoRemovidoEventPublisher;
+            empleadoBuscadoEvent?: EmpleadoBuscadoEventPublisher;
+
             tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
             fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher;
+            tamiteBuscadoEvent?: TramiteBuscadoEventPublisher;
         }
     ) {
         //services
@@ -81,10 +89,14 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
         //events
        // this.directivaCreadaEvent = directivaCreadaEvent,
        this.staffDeportivoCreadoEvent = staffDeportivoCreadoEvent;
+        
         this.empleadoAgregadoEvent = empleadoAgregadoEvent;
         this.salarioEmpleadoModificadoEvent = salarioEmpleadoModificadoEvent;
+        this.empleadoBuscadoEvent = empleadoBuscadoEvent;
+
         this.tamiteAgregadoEvent = tamiteAgregadoEvent;
         this.fechaTamiteModificadoEvent = fechaTamiteModificadoEvent;
+        this.empleadoBuscadoEvent = empleadoBuscadoEvent;
 
     }
 
@@ -169,7 +181,33 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
         this.fechaTamiteModificadoEvent.response = result;
         this.fechaTamiteModificadoEvent.publish();
         return result;
+    }
+
     
+    async GetTramite(Tramite:BuscarTramiteCommands):Promise<TramiteDomainEntity>{
+        if(!this.staffDeportivoService)
+        throw new AggregateRootException('Servicio de Empleado indefinido')
+
+        if(!this.tamiteBuscadoEvent)
+        throw new AggregateRootException('Evento que modifica el salario de un empleado indefinido')
+
+        const result = await this.staffDeportivoService.GetTramite(Tramite);
+        this.tamiteBuscadoEvent.response = result;
+        this.tamiteBuscadoEvent.publish();
+        return result;
+    }
+
+   async  GetEmpleado(empleado:BuscarEmpleadoCommands):Promise<EmpleadoDomainEntity>{
+        if(!this.staffDeportivoService)
+        throw new AggregateRootException('Servicio de Empleado indefinido')
+
+        if(!this.empleadoBuscadoEvent)
+        throw new AggregateRootException('Evento que modifica el salario de un empleado indefinido')
+
+        const result = await this.staffDeportivoService.GetEmpleado(empleado);
+        this.empleadoBuscadoEvent.response = result;
+        this.empleadoBuscadoEvent.publish();
+        return result;
     }
 
    
