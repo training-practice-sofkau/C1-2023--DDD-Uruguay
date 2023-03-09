@@ -63,39 +63,39 @@ export class AddCustomerCaseUse<
     }
 
     private validateValueObject(
-        valueObject: IClientDomainEntity
+        valueObject: ClientDomainBase
     ): void {
         const {
-            fullName,
-            phone
+            Name,
+            Phone
         } = valueObject
+      
 
-        if (fullName instanceof FullNameValueObject && fullName.hasErrors())
-            this.setErrors(fullName.getErrors());
+        if (Phone instanceof PhoneValue && Phone.hasErrors())
+            this.setErrors(Phone.getErrors());    
 
-        if (phone instanceof PhoneObjectValue && phone.hasErrors())
-            this.setErrors(phone.getErrors());
+        if (Name instanceof ClientNameValue && Name.hasErrors())
+            this.setErrors(Name.getErrors());
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado por AddClientUseCase',
+                'Hay algunos errores en el comando ejecutado para crear cliente',
                 this.getErrors(),
             );
 
     }
 
     private createEntityClientDomain(
-        valueObject: IClientDomainEntity
+        valueObject: ClientDomainBase
     ): ClientDomainBase {
 
         const {
-            fullName,
-            phone
+            Name,
+            Phone
         } = valueObject
 
         return new ClientDomainBase({
-            fullName: fullName.valueOf(),
-            phone: phone.valueOf()
+          Name: Name.valueOf()
         })
     }
 

@@ -40,7 +40,6 @@ export class GetClientCaseUse<
         command: Command
     ): Promise< ClientDomainBase | null> {
         const ValueObject = this.getClient(command.ClientID);
-        this.validateValueObject(ValueObject);
         return this.execueteGetorderRoot(ValueObject)
     }
 
@@ -50,32 +49,7 @@ export class GetClientCaseUse<
     ): ClientDomainBase {
         return this.database.find((item) => item.ClientID.valueOf === idclient.valueOf);
         
-
-       
-    }
-
-    private validateValueObject(
-        valueObject: ClientDomainBase
-    ): void {
-        const {
-            Name,
-            Phone
-        } = valueObject
-      
-
-        if (Phone instanceof PhoneValue && Phone.hasErrors())
-            this.setErrors(Phone.getErrors());    
-
-        if (Name instanceof ClientNameValue && Name.hasErrors())
-            this.setErrors(Name.getErrors());
-
-        if (this.hasErrors() === true)
-            throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado para obtener datos',
-                this.getErrors(),
-            );
-
-    }
+    }   
   
 
     private execueteGetorderRoot(
