@@ -10,10 +10,10 @@ import {
 
 export class CustomerDomainEntity implements ICustomerDomainEntity{
 
-    customerId: string | IdValueObject;
-    fullName: string | FullNameValueObject;
-    document: number | DocumentValueObject;
-    paymentMethod: string | PaymentMethodValueObject;
+    customerId?: string | IdValueObject;
+    fullName?: string | FullNameValueObject;
+    document?: number | DocumentValueObject;
+    paymentMethod?: string | PaymentMethodValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;
