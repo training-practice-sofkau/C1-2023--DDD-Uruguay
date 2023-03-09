@@ -1,6 +1,8 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
 import { ClientAddResponse, IAddClient } from "../../../../domain/interfaces";
+import { ClientDomainService } from "../../../../domain/services";
+import { AddedSaleEventPublisher } from '../../../../domain/events/publishers/Sale/Added-sale-event-publisher';
 
 export class AddCustomerCaseUse<
     Command extends IAddClient = IAddClient,
@@ -14,12 +16,12 @@ export class AddCustomerCaseUse<
 
     constructor(
         private readonly ClientService: ClientDomainService,
-        private readonly registeredClientEventPublisherBase: RegisteredClientEventPublisherBase,
+        private readonly AddedSaleEventPublisher: AddedSaleEventPublisher,
     ) {
         super();
-        this.orderAggregateRoot = new OrderAggregate({
-            clientService,
-            registeredClientEventPublisherBase
+        this.OrderAgregate = new OrderAgregate({
+            ClientService,
+            AddedSaleEventPublisher
         })
     }
 
