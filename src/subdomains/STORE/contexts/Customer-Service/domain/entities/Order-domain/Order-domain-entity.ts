@@ -8,7 +8,7 @@ export class OrderDomainEntityBase implements IOrderentity {
 
     client: ClientDomainBase;
     Manga: MangaDomainBase;
-    orderId?: string | IdOrdertValueObject
+    orderId: string | IdOrdertValueObject
     
     constructor (_data?: IOrderentity){
 

@@ -1,9 +1,8 @@
 import { IUseCase, ValueObjectErrorHandler } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { OrderDomainEntityBase } from "../../../../domain/entities";
+import { ClientDomainBase, IOrderentity, OrderDomainEntityBase } from "../../../../domain/entities";
 import { OrderAddEventPublisher } from "../../../../domain/events";
 import { IRegisterOrder, RegisterdOrderResponse } from "../../../../domain/interfaces";
-import { IorderDomainService } from "../../../../domain/services";
 import { OrderService } from '../../../../infrastructure/persitence/services/OrderServices/OrderService';
 
 export class RegisterOrderCaseUse<
@@ -16,6 +15,7 @@ export class RegisterOrderCaseUse<
 {
 
     private readonly OrderAgregate: OrderAgregate;
+    database: ClientDomainBase[]  = [];
 
     constructor(
         private readonly orderService: OrderService,
@@ -43,12 +43,12 @@ export class RegisterOrderCaseUse<
         return this.exectueOrderAggregateRoot(entity)
     }
 
+    private getClient
+
     private createValueObject(
         command: Command
-    ): IorderDomainService {
-
-        const fullName = new FullNameValueObject(command.fullName);
-        const phone = new PhoneObjectValue(command.phone);
+    ): OrderDomainEntityBase {
+        client: command.
 
         return {
             fullName,
