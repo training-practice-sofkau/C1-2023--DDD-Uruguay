@@ -1,1 +1,1 @@
-export * from './__SUBDOMINIO__';
+export * from './-venta_web-';

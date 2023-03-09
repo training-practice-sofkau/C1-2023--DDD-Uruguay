@@ -5,7 +5,7 @@ import { UuidValueObject } from "../../value-objects/common-value-objects/uuid/u
 
 export interface IClienteDomainEntityInterface {
 
-    idCliente : string | UuidValueObject;
+    idCliente? : string | UuidValueObject;
     nombreCliente : string | FullnameValueObject,
     phoneCliente : string | PhoneValueObject,
     emailCliente : string | EmailValueObject;
