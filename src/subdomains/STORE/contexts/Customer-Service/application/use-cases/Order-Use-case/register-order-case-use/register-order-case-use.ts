@@ -92,9 +92,7 @@ export class RegisterOrderCaseUse<
         const getMangaCaseUse = new GetMangaCaseUse(this.MangaService , this.GetMangaEventPublisher);
         const responseManga = getMangaCaseUse.execute({MangaID: valueObject.orderId.value})
       
-        const { 
-            client,
-            Manga,
+        const {            
             orderId
         } = valueObject
 

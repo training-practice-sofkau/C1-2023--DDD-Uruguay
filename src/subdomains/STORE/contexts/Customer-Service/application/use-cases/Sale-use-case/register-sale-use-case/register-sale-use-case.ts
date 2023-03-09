@@ -62,18 +62,16 @@ export class RegisterSaleUseCase<
         valueObject: SaleDomainEntity
     ): void {
         const {
-           Bill,
-           IDOrder,
-           IDSale,
-           Seller 
+            IDOrder,                       
+            IDSale, 
         } = valueObject
       
 
-        if (Phone instanceof PhoneValue && Phone.hasErrors())
-            this.setErrors(Phone.getErrors());    
+        if (IDOrder.hasErrors())
+            this.setErrors(IDOrder.getErrors());    
 
-        if (Name instanceof ClientNameValue && Name.hasErrors())
-            this.setErrors(Name.getErrors());
+        if (IDSale.hasErrors())
+            this.setErrors(IDSale.getErrors());
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
@@ -88,10 +86,8 @@ export class RegisterSaleUseCase<
     ): Promise<SaleDomainEntity> {
 
         const {
-            Bill,
             IDOrder,
-            IDSale,
-            Seller
+            IDSale,            
         } = valueObject
 
         return new SaleDomainEntity({
