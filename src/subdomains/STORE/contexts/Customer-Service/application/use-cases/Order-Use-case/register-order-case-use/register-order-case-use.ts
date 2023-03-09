@@ -1,9 +1,15 @@
-import { IUseCase, ValueObjectErrorHandler } from "src/libs";
+import { async } from "rxjs";
+import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
 import { ClientDomainBase, IOrderentity, OrderDomainEntityBase } from "../../../../domain/entities";
-import { OrderAddEventPublisher } from "../../../../domain/events";
+import { ClientObtainedEventPublisher, MangaObtainedEventPublisher, OrderAddEventPublisher } from "../../../../domain/events";
 import { IRegisterOrder, RegisterdOrderResponse } from "../../../../domain/interfaces";
+import { ClientDomainService, MangaDomainService } from "../../../../domain/services";
+import { IdOrdertValueObject } from "../../../../domain/value-objects";
 import { OrderService } from '../../../../infrastructure/persitence/services/OrderServices/OrderService';
+import { GetClientCaseUse } from "../get-client-case-use/get-client-case-use";
+import { GetMangaCaseUse } from '../get-manga-case-use/get-manga-case-use';
+import { IClientEntity } from '../../../../domain/entities/interfaces/Order/client.interface';
 
 export class RegisterOrderCaseUse<
     Command extends IRegisterOrder = IRegisterOrder,
@@ -20,6 +26,11 @@ export class RegisterOrderCaseUse<
     constructor(
         private readonly orderService: OrderService,
         private readonly RegisterOrderEventPublisher: OrderAddEventPublisher,
+        private readonly ClientService: ClientDomainService,
+        private readonly GetClientEventPublisher: ClientObtainedEventPublisher,
+        private readonly MangaService: MangaDomainService,
+        private readonly GetMangaEventPublisher: MangaObtainedEventPublisher,
+    
     ) {
         super();
         this.OrderAgregate = new OrderAgregate({
@@ -43,59 +54,69 @@ export class RegisterOrderCaseUse<
         return this.exectueOrderAggregateRoot(entity)
     }
 
-    private getClient
 
     private createValueObject(
         command: Command
     ): OrderDomainEntityBase {
-        client: command.
+
+        const orderId = new IdOrdertValueObject(command.idOrder);
 
         return {
-            fullName,
-            phone
+            orderId
+            
         }
     }
-
+    
+    
     private validateValueObject(
-        valueObject: IClientDomainEntity
+        valueObject: OrderDomainEntityBase
     ): void {
+       
         const {
-            fullName,
-            phone
+            orderId
         } = valueObject
 
-        if (fullName instanceof FullNameValueObject && fullName.hasErrors())
-            this.setErrors(fullName.getErrors());
-
-        if (phone instanceof PhoneObjectValue && phone.hasErrors())
-            this.setErrors(phone.getErrors());
-
+        if (orderId.hasErrors())
+            this.setErrors(orderId.getErrors());
+         
         if (this.hasErrors() === true)
             throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado por AddClientUseCase',
+                'Hay algunos errores en el comando ejecutado para agregar order',
                 this.getErrors(),
             );
 
     }
 
-    private createEntityClientDomain(
-        valueObject: IClientDomainEntity
-    ): ClientDomainEntitybase {
+    private async createEntityClientDomain(
+        valueObject: IOrderentity
+    ): Promise<OrderDomainEntityBase> {
 
-        const {
-            fullName,
-            phone
+        const getClientUseCase = new GetClientCaseUse(this.ClientService , this.GetClientEventPublisher);
+        const responseClient = getClientUseCase.execute({ClientID: valueObject.orderId.value})
+
+        const getMangaCaseUse = new GetMangaCaseUse(this.MangaService , this.GetMangaEventPublisher);
+        const responseManga = getMangaCaseUse.execute({MangaID: valueObject.orderId.value})
+      
+        const { 
+            client,
+            Manga,
+            orderId
         } = valueObject
 
-        return new ClientDomainEntitybase({
-            fullName: fullName.valueOf(),
-            phone: phone.valueOf()
+
+
+        return new OrderDomainEntityBase({
+            client: (await responseClient).data ,
+            Manga: (await responseManga).data,
+            orderId: orderId
         })
     }
 
+
+
     private exectueOrderAggregateRoot(
-        entity: ClientDomainEntitybase,
-    ): Promise<ClientDomainEntitybase | null> {
-        return this.orderAggregateRoot.registerClient(entity)
+        entity: OrderDomainEntityBase,
+    ): Promise<OrderDomainEntityBase | null> {
+        return this.OrderAgregate.RegisterOrder(entity)
     }
 }
