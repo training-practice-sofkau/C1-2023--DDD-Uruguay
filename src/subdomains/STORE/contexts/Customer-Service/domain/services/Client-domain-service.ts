@@ -4,5 +4,5 @@ import { UpdatePhoneClient } from '../interfaces/commands/Order-commands/Client-
 export interface ClientDomainService  < T extends ClientDomainBase = ClientDomainBase >  {
 
     UpdateClientName(data: T):   Promise<T>;
-    UpdateClientPhone(data: UpdatePhoneClient): Promise<T>;
+    UpdateClientPhone(data: T): Promise<T>;
 }

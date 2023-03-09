@@ -374,7 +374,7 @@ Publisher events go in this place
 
   /* The above code is a sample of a domain event handler. */
   async UpdateClientPhone(
-    idclient: UpdatePhoneClient,
+    idclient: ClientDomainBase,
   ): Promise<ClientDomainBase> {
     if (this.orderService && this.PhoneModifiedEventPublisher) {
       const result = await this.ClientService.UpdateClientPhone(idclient);
