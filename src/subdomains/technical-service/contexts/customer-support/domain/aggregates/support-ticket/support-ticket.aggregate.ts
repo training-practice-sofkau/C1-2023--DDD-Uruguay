@@ -1,13 +1,12 @@
-
 import { AggregateRootException } from 'src/libs/sofka/exceptions';
-import { RepairsAddedEventPublisherBase } from '../../events/publishers/support-ticket/repairs/repairs-added.event-publisher';
-import { WorkStatusChangedEventPublisherBase } from '../../events/publishers/support-ticket/repairs/work-status-changed.event-publisher';
+import { RepairsAddedEventPublisherBase, WorkStatusChangedEventPublisherBase} from '../../events/publishers/support-ticket/repairs';
+
+import { DeviceDomainEntityBase } from '../../entities/support-ticket/device.domain-entity/device.domain-entity';
 
 import {
     IOpenNewTicketCommand,
     ICloseTicketCommand,
     IGenerateInvoiceCommand,
-    IAddDeviceCommand,
     IAddIssueCommand,
     IRemoveIssueCommand,
     IAddRepairsCommand,
@@ -43,6 +42,7 @@ import {
     NewTicketAddedEventPublisherBase
 
 } from '../../events/publishers/support-ticket';
+import { IDeviceDomainEntity } from '../../entities/interfaces';
 
 
 
@@ -103,11 +103,6 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
         this.workStatusChangedEventPublisherBase = workStatusChangedEventPublisherBase;
     }
 
-
-
-
-
-
     // #region SUPPORT-TICKET methods
 
 
@@ -129,7 +124,6 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
 
         return await OpenNewTicket(ticketData, this.supportTicketService, this.newTicketAddedEventPublisherBase);
     }
-
 
 
     /**
@@ -184,7 +178,7 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
      * @return {*}  {Promise<boolean>}
      * @memberof SupportTicketAggregate
      */
-    async AddDevice(deviceData: IAddDeviceCommand): Promise<boolean> {
+    async AddDevice(deviceData: DeviceDomainEntityBase): Promise<IDeviceDomainEntity | null> {
 
         if (!this.deviceService) {
             throw new AggregateRootException('InvoiceAggregate: "DeviceService" is not defined!');

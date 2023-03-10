@@ -1,5 +1,6 @@
-import { EventPublisherBase } from "../../../../../../../../../libs/sofka/bases";
-export abstract class DeviceAddedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
+import { EventPublisherBase } from "@sofka";
+import { IDeviceDomainEntity } from "../../../../entities/interfaces";
+export abstract class DeviceAddedEventPublisherBase < Response = IDeviceDomainEntity | null > extends EventPublisherBase<Response>{
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(

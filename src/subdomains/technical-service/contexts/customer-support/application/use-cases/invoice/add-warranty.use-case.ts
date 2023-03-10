@@ -1,6 +1,6 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from '@sofka';
 
-import { IWarrantyAdded, IAddWarrantyCommand } from '../../../domain/interfaces';
+import { IWarrantyAdded as IWarrantyAddedResponse, IAddWarrantyCommand } from '../../../domain/interfaces';
 import { InvoiceAggregate } from '../../../domain/aggregates/Invoice/invoice.aggregate';
 import { IWarrantyDomainService } from '../../../domain/services/invoice/warranty.domain-service';
 import { WarrantyAddedEventPublisherBase } from '../../../domain/events/publishers/invoice/warranty-added.event-publisher';
@@ -13,7 +13,7 @@ import { WarrantyDomainEntityBase } from '../../../domain/entities/invoice/warra
 
 export class AddWarrantyUseCase<
     Command extends IAddWarrantyCommand = IAddWarrantyCommand,
-    Response extends IWarrantyAdded = IWarrantyAdded
+    Response extends IWarrantyAddedResponse = IWarrantyAddedResponse
 > extends ValueObjectErrorHandler implements IUseCase<Command, Response> {
 
     private readonly invoiceAggregateRoot: InvoiceAggregate;
@@ -50,7 +50,7 @@ export class AddWarrantyUseCase<
 
         this.validateValueObject(VO);
 
-        const entity = this.createEntityWarrantyDomain(VO);
+        const entity = this.createWarrantyEntityDomain(VO);
 
         return this.executeAddWarrantyAggregateRoot(entity);
     }     
@@ -123,7 +123,7 @@ export class AddWarrantyUseCase<
      * @return {*} 
      * @memberof AddWarrantyUseCase
      */
-    createEntityWarrantyDomain(VO: IWarrantyDomainEntity) {
+    createWarrantyEntityDomain(VO: IWarrantyDomainEntity) {
 
         const {
             startDate,
