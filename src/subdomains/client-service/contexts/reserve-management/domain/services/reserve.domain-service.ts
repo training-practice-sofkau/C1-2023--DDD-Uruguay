@@ -18,7 +18,7 @@ export interface IReserveDomainService {
 
     addCustomer(customer: IAddCustomer): Promise<CustomerDomainEntity>;
 
-    updateStartDate(data: IUpdateStartDate): Promise<Date>;
+    updateStartDate(data: IUpdateStartDate): Promise<ReserveDomainEntity>;
 
     updateEndDate(data: IUpdateEndDate): Promise<Date>;
 

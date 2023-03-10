@@ -134,7 +134,7 @@ export class ReserveAggregate implements
         return await AddCustomer(customer, this.reserveService, this.customerAddedEventPublisher)
     }
 
-    async updateStartDate(data: IUpdateStartDate): Promise<Date> {
+    async updateStartDate(data: IUpdateStartDate): Promise<ReserveDomainEntity> {
         if (!this.reserveService)
             throw new AggregateRootException('reserveService no esta definido')
         if (!this.startDateUpdatedEventPublisher)
