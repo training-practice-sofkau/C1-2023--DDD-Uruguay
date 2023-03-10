@@ -7,6 +7,7 @@ import { CompanyBankAccountValueObject } from '../../../domain/value-objects';
 import { InvoiceAggregate } from '../../../domain/aggregates';
 import { IUpdateCompanyBankAccountCommand } from '../../../domain/interfaces/commands/invoice';
 import { IUpdateCompanyBankAccountResponse } from '../../../domain/interfaces/responses/invoice';
+import { GetInvoiceUserCase } from '.';
 
 export class UpdateCompanyNameUseCase<
     Command extends IUpdateCompanyBankAccountCommand = IUpdateCompanyBankAccountCommand,
@@ -20,6 +21,7 @@ export class UpdateCompanyNameUseCase<
 
     constructor(
         private readonly invoiceService: IInvoiceDomainService,
+        private readonly invoiceGet: GetInvoiceUserCase,
         private readonly registeredInvoiceEventPublisherBase: RegisteredInvoiceEventPublisherBase,
     ) {
         super();
@@ -39,8 +41,9 @@ export class UpdateCompanyNameUseCase<
         command: Command
     ): Promise<CompanyDomainEntityBase | null> {
         this.validateObjectValue(command.bankAccount);
-        command.domain.company.bankAccount = command.bankAccount;
-        return command.domain.company;
+        const invoice = await this.invoiceGet.execute({ invoiceId: command.invoiceId });
+        invoice.data.company.bankAccount = command.bankAccount;
+        return invoice.data.company;
     }
 
     private validateObjectValue(valueObject: CompanyBankAccountValueObject): void {

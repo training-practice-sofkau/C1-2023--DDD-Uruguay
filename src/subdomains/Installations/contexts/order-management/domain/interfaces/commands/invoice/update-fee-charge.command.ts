@@ -2,6 +2,6 @@ import { InvoiceDomainEntityBase } from '../../../entities';
 import { FeeChargeValueObject } from '../../../value-objects/invoice';
 
 export interface IUpdateFeeChargeCommand {
-    domain: InvoiceDomainEntityBase;
+    invoiceId: string;
     charge: FeeChargeValueObject;
 }

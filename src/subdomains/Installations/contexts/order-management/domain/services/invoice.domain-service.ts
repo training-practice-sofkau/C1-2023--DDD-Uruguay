@@ -5,7 +5,7 @@ import { CompanyNameValueObject, CompanyBankAccountValueObject, FeeChargeValueOb
 export interface IInvoiceDomainService<T extends InvoiceDomainEntityBase = InvoiceDomainEntityBase> {
 
     createInvoice(invoice: T): Promise<T>;
-    getInvoice(): Promise<InvoiceDomainEntityBase>;
+    getInvoice(invoiceId: string): Promise<InvoiceDomainEntityBase>;
     addCompany(company: CompanyDomainEntityBase): Promise<CompanyDomainEntityBase>;
     addFee(fee: FeeDomainEntityBase): Promise<FeeDomainEntityBase>;
     updateCompanyName(domain: InvoiceDomainEntityBase, newCompanyName: CompanyNameValueObject): Promise<CompanyDomainEntityBase>

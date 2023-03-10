@@ -7,6 +7,7 @@ import { FeeChargeValueObject } from '../../../domain/value-objects';
 import { InvoiceAggregate } from '../../../domain/aggregates';
 import { IUpdateFeeChargeCommand } from '../../../domain/interfaces/commands/invoice';
 import { IUpdateFeeChargeResponse } from '../../../domain/interfaces/responses/invoice';
+import { GetInvoiceUserCase } from '.';
 
 export class UpdateFeeChargeUseCase<
     Command extends IUpdateFeeChargeCommand = IUpdateFeeChargeCommand,
@@ -20,6 +21,7 @@ export class UpdateFeeChargeUseCase<
 
     constructor(
         private readonly invoiceService: IInvoiceDomainService,
+        private readonly invoiceGet: GetInvoiceUserCase,
         private readonly registeredInvoiceEventPublisherBase: RegisteredInvoiceEventPublisherBase,
     ) {
         super();
@@ -39,8 +41,9 @@ export class UpdateFeeChargeUseCase<
         command: Command
     ): Promise<FeeDomainEntityBase | null> {
         this.validateObjectValue(command.charge);
-        command.domain.fee.charge = command.charge;
-        return command.domain.fee;
+        const invoice = await this.invoiceGet.execute({ invoiceId: command.invoiceId });
+        invoice.data.fee.charge = command.charge;
+        return invoice.data.fee;
     }
 
     private validateObjectValue(valueObject: FeeChargeValueObject): void {
