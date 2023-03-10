@@ -23,6 +23,8 @@ export class RegisterSaleUseCase<
 {
 
     private readonly SaleAgregate: SaleAgregate;
+    private readonly GetBillUseCase: GetBillUseCase
+    private readonly GetSellerUseCase: GetSellerUseCase
 
     constructor(
         private readonly saleService: SaleDomainService,
@@ -91,11 +93,9 @@ export class RegisterSaleUseCase<
     private async createentitySaleDomain(
         valueObject: SaleDomainEntity
     ): Promise<SaleDomainEntity> {
-        const GetBillUse = new GetBillUseCase(this.saleService , this.BillObtainedEventPublisher);
-        const responseBill = GetBillUse.execute({ BillID: valueObject.IDOrder.value })
+        const responseBill = this.GetBillUseCase.execute({ BillID: valueObject.IDOrder.value })
         
-        const GetSellerUse = new GetSellerUseCase(this.saleService , this.SellerObtaiedEventPublisher);
-        const responseSeller = GetSellerUse.execute({SellerId: valueObject.Seller.IdSeller.value})
+        const responseSeller = this.GetSellerUseCase.execute({SellerId: valueObject.Seller.IdSeller.value})
 
         const {
             IDOrder,

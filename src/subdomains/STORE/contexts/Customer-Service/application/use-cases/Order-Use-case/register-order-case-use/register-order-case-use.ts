@@ -18,8 +18,11 @@ export class RegisterOrderCaseUse<
 {
 
     private readonly OrderAgregate: OrderAgregate;
+    private readonly GetClientCaseUse: GetClientCaseUse
+    private readonly GetMangaCaseUse: GetMangaCaseUse
 
     constructor(
+        
         private readonly orderService: IorderDomainService,
         private readonly RegisterOrderEventPublisher: OrderAddEventPublisher,
         private readonly ClientService: ClientDomainService,
@@ -86,11 +89,9 @@ export class RegisterOrderCaseUse<
         valueObject: IOrderentity
     ): Promise<OrderDomainEntityBase> {
 
-        const getClientUseCase = new GetClientCaseUse(this.ClientService , this.GetClientEventPublisher);
-        const responseClient = getClientUseCase.execute({ClientID: valueObject.orderId.value})
+        const responseClient = this.GetClientCaseUse.execute({ClientID: valueObject.orderId.value})
 
-        const getMangaCaseUse = new GetMangaCaseUse(this.MangaService , this.GetMangaEventPublisher);
-        const responseManga = getMangaCaseUse.execute({MangaID: valueObject.orderId.value})
+        const responseManga = this.GetMangaCaseUse.execute({MangaID: valueObject.orderId.value})
       
         const {            
             orderId
