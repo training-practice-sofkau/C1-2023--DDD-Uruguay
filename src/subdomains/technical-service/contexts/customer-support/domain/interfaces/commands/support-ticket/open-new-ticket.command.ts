@@ -4,7 +4,7 @@ import { UUIDValueObject, DateValueObject } from "../../../value-objects/common"
 export interface IOpenNewTicketCommand{
 
     ticketID: string;
-    openDate: number | Date;
+    openDate: Date;
     deviceID: string; 
     employeeID: string; 
     

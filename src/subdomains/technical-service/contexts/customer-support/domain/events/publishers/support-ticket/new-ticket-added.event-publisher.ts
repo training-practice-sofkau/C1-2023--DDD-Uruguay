@@ -1,5 +1,6 @@
-import { EventPublisherBase } from "../../../../../../../../libs/sofka/bases";
-export abstract class NewTicketAddedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
+import { EventPublisherBase } from "@sofka";
+import { ISupportTicketEntity } from "../../../entities/interfaces";
+export abstract class NewTicketAddedEventPublisherBase < Response = ISupportTicketEntity | null  > extends EventPublisherBase<Response>{
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(

@@ -42,7 +42,7 @@ import {
     NewTicketAddedEventPublisherBase
 
 } from '../../events/publishers/support-ticket';
-import { IDeviceDomainEntity } from '../../entities/interfaces';
+import { IDeviceDomainEntity, ISupportTicketEntity } from '../../entities/interfaces';
 
 
 
@@ -113,7 +113,7 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
      * @return {*}  {Promise<boolean>}
      * @memberof SupportTicketAggregate
      */
-    async OpenNewTicket(ticketData: IOpenNewTicketCommand): Promise<boolean> {
+    async OpenNewTicket(ticketData: ISupportTicketEntity): Promise<ISupportTicketEntity | null > {
 
         if (!this.supportTicketService) {
             throw new AggregateRootException('InvoiceAggregate: "SupportTicketService" is not defined!');
