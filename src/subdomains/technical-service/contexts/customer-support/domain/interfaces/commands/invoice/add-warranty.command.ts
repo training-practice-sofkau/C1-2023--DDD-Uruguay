@@ -4,9 +4,9 @@ import { ItemValueObject, WarrantyStatusValueObject } from "../../../value-objec
 
 export interface IAddWarrantyCommand {
 
-    startDate?:  number | Date;
-    endDate?:  number | Date ;
+    startDate?:  Date;
+    endDate?:  Date;
     itemsCovered?: string[];
-    warrantyStatus: string;    
+    warrantyStatus?: string;    
 
 }

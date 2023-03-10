@@ -3,6 +3,7 @@ import { UUIDValueObject } from '../../value-objects/common';
 import { ICreateCustomerCommand, IAddWarrantyCommand } from '../../interfaces/commands/invoice';
 import { INotifyCustomerCommand } from '../../interfaces/commands/invoice/notify-customer.command';
 import { InvoiceDomainEntityBase } from '../../entities/invoice/invoice.domain-entity';
+import { IWarrantyDomainEntity } from '../../entities/interfaces';
 
 export interface IInvoiceDomainService { // <T extends InvoiceDomainEntityBase = InvoiceDomainEntityBase>
 
@@ -13,7 +14,7 @@ export interface IInvoiceDomainService { // <T extends InvoiceDomainEntityBase =
 
     NotifyCustomer( notification: INotifyCustomerCommand ) : Promise < boolean >  //return success (true/false) 
 
-    AddWarranty( warrantyData: IAddWarrantyCommand ) : Promise < boolean >//return success (true/false) 
+    AddWarranty( warrantyData: IWarrantyDomainEntity ) : Promise < IWarrantyDomainEntity | null >//return success (true/false) 
 
     MarkAsPaid() : Promise <boolean> //return success (true/false) 
     

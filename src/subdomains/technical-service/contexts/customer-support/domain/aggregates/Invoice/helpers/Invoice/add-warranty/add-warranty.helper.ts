@@ -1,12 +1,13 @@
-import { IInvoiceDomainService } from '../../../../services/invoice/invoice.domain-service';
-import { WarrantyAddedEventPublisherBase } from '../../../../events/publishers/invoice/warranty-added.event-publisher';
-import { IAddWarrantyCommand } from '../../../../interfaces/commands/invoice/add-warranty.command';
+
+import { IWarrantyDomainEntity } from '../../../../../entities/interfaces';
+import { WarrantyAddedEventPublisherBase } from '../../../../../events/publishers';
+import { IInvoiceDomainService } from '../../../../../services/invoice';
 
 export const AddWarranty = async (
-    warrantyData: IAddWarrantyCommand,
+    warrantyData: IWarrantyDomainEntity,
     invoiceService: IInvoiceDomainService,
     warrantyAddedEventPublisherBase: WarrantyAddedEventPublisherBase
-): Promise<boolean> => {
+): Promise<IWarrantyDomainEntity | null> => {
 
     const result = await invoiceService.AddWarranty(warrantyData);
     warrantyAddedEventPublisherBase.response = result;
