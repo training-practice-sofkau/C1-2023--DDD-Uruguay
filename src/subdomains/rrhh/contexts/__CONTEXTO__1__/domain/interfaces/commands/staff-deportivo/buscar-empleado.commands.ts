@@ -1,3 +1,3 @@
-export class BuscarEmpleadoCommands {
+export interface IBuscarEmpleadoCommands {
     empleadoId: string ;
 }

@@ -6,11 +6,12 @@ import { ICrearStaffDeportivoCommands } from '../../../domain/interfaces';
 import { IStaffDeportivoDomainService } from '../../../domain/services/staff-Deportivo/staff-deportivo.domain-service';
 import { StaffDeportivoCreadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/staff-depotivo-creado.event-publisher';
 import { StaffDeportivoDomainEntity } from '../../../domain/entities/staff-deportivo/staff-deportivo.entity';
-import { IdValueObject } from '../../../domain/value-objects/id/id.value-object';
 import { EmpleadoDomainEntity } from '../../../domain/entities/empleado/EmpleadoDomainEntity';
 import { NombreValueObject } from '../../../domain/value-objects/nombre/nombre.value-object';
 import { ValueObjectException } from 'src/libs';
-import { TramiteDomainEntity } from '../../../domain/entities/tramite/tramite.entity.interface';
+import { TramiteBuscadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
+import { EmpleadoBuscadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
+import { GetTramiteUseCase } from './buscar-tramite.use-case';
 
 export class CrearStaffDeportivoUseCase 
     extends ValueObjectErrorHandler
@@ -21,20 +22,20 @@ export class CrearStaffDeportivoUseCase
         constructor(
             private readonly staffDeportivoService: IStaffDeportivoDomainService,
             private readonly staffDeportivoCreadoEvent : StaffDeportivoCreadoEventPublisher,
+            private readonly tamiteBuscadoEvent : TramiteBuscadoEventPublisher,
+            private readonly empleadoBuscadoEvent : EmpleadoBuscadoEventPublisher,
         ){
             super();
-            this.aggregateRoot = new StaffDeportivoAggregate({staffDeportivoService,staffDeportivoCreadoEvent});
+            this.aggregateRoot = new StaffDeportivoAggregate({staffDeportivoService,staffDeportivoCreadoEvent,tamiteBuscadoEvent,empleadoBuscadoEvent});
         }
    
     async execute(command: ICrearStaffDeportivoCommands): Promise<IStaffDeportivoCreadoResponse> {
 
 
-        const staffDeportivoId = new IdValueObject(command.staffDeportivoId) ;
         const nombre = new NombreValueObject(command.nombre);
 
     
         // Recopilando errores
-        if (staffDeportivoId.hasErrors() === true) this.setErrors(staffDeportivoId.getErrors());
         if (nombre.hasErrors() === true) this.setErrors(nombre.getErrors());
     
         // Validando errores
@@ -43,12 +44,16 @@ export class CrearStaffDeportivoUseCase
             'Errores en el comando "ICrearStaffDeportivoCommand"',
             this.getErrors(),
             );
-
+            
+        const getTramite = new GetTramiteUseCase(this.staffDeportivoService,this.tamiteBuscadoEvent);
+        getTramite.execute({tramiteId: command.tamite})
+       
         // Ejecución de la lógica del caso de uso
         const entity = new StaffDeportivoDomainEntity({
-            staffDeportivoId: staffDeportivoId.valueOf(),
+           
+
             nombre: nombre.valueOf(),
-            tramite: new TramiteDomainEntity(),
+            tramite: ,
             empleado: new EmpleadoDomainEntity(),
             
         });

@@ -1,3 +1,3 @@
-export class BuscarTramiteCommands {
-    tramiteId: string;
+export interface IBuscarTramiteCommands {
+    tramiteId: string ;
 }
