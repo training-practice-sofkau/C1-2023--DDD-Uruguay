@@ -1,10 +1,13 @@
-import { CounterDomainEntity, PosterDomainEntity, IProductDomainEntity, ProductDomainEntity } from "../entities";
-import { CounterCreatedCounterEventPublisherBase, CounterCreatedPosterEventPublisherBase, CounterCreatedProductEventPublisherBase, PosterUpdatedPriceEventPublisherBase } from "../events";
+import { CounterDomainEntity, PosterDomainEntity, ProductDomainEntity } from "../entities";
+import { CounterCreatedCounterEventPublisherBase, CounterCreatedPosterEventPublisherBase, CounterCreatedProductEventPublisherBase, CounterTurnedOffFreezerEventPublisherBase, PosterUpdatedPriceEventPublisherBase } from "../events";
 import { ICounterCreateCounterCommand, ICounterCreatePosterCommand, ICounterCreateProductCommand, IPosterUpdateImageCommand, IProductUpdatePriceCommand, IProductUpdateStockCommand } from "../interfaces";
 import { ICounterDomainService, IPosterDomainService, IProductDomainService } from "../services";
 import { AggregateRootException } from '../../../../../../libs/sofka/exceptions/aggregate-root.exception';
 import { IPosterUpdatePriceCommand } from '../interfaces/commands/counter/poster/update-price.command';
 import { PosterUpdatedImageEventPublisherBase } from '../events/publishers/counter/poster/updated-image.event-publisher';
+import { ProductUpdatedPriceEventPublisherBase } from '../events/publishers/counter/product/updated-price.event-publisher';
+import { ProductUpdatedStockEventPublisherBase } from '../events/publishers/counter/product/updated-stock.event-publisher';
+import { CounterTurnedOnFreezerEventPublisherBase } from '../events/publishers/counter/turednon-freezer.event-publisher';
 
 export class CounterAggregate implements
     ICounterDomainService,
@@ -22,6 +25,14 @@ export class CounterAggregate implements
     //poster
     private readonly posterUpdatedImageEventPublisherBase?: PosterUpdatedImageEventPublisherBase
     private readonly posterUpdatedPriceEventPublisherBase?: PosterUpdatedPriceEventPublisherBase
+    
+    //product
+    private readonly productUpdatedPriceEventPublisherBase?: ProductUpdatedPriceEventPublisherBase
+    private readonly productUpdatedStockEventPublisherBase?: ProductUpdatedStockEventPublisherBase
+
+    //freezer
+    private readonly counterTurnedOffFreezerEventPublisherBase?: CounterTurnedOffFreezerEventPublisherBase
+    private readonly counterTurnedOnFreezerEventPublisherBase?: CounterTurnedOnFreezerEventPublisherBase
 
     constructor(
         {
@@ -35,7 +46,15 @@ export class CounterAggregate implements
 
             //poster
             posterUpdatedImageEventPublisherBase,
-            posterUpdatedPriceEventPublisherBase
+            posterUpdatedPriceEventPublisherBase,
+
+            //product
+            productUpdatedPriceEventPublisherBase,
+            productUpdatedStockEventPublisherBase,
+
+            //freezer
+            counterTurnedOffFreezerEventPublisherBase,
+            counterTurnedOnFreezerEventPublisherBase
         }: {
             counterService?: ICounterDomainService,
             posterService?: IPosterDomainService,
@@ -46,8 +65,16 @@ export class CounterAggregate implements
             counterCreatedProductEventPublisherBase?: CounterCreatedProductEventPublisherBase,
 
             //poster
-            posterUpdatedImageEventPublisherBase?: PosterUpdatedImageEventPublisherBase
-            posterUpdatedPriceEventPublisherBase?: PosterUpdatedPriceEventPublisherBase
+            posterUpdatedImageEventPublisherBase?: PosterUpdatedImageEventPublisherBase,
+            posterUpdatedPriceEventPublisherBase?: PosterUpdatedPriceEventPublisherBase,
+
+            //product
+            productUpdatedPriceEventPublisherBase?: ProductUpdatedPriceEventPublisherBase,
+            productUpdatedStockEventPublisherBase?: ProductUpdatedStockEventPublisherBase,
+
+            //freezer
+            counterTurnedOffFreezerEventPublisherBase?: CounterTurnedOffFreezerEventPublisherBase,
+            counterTurnedOnFreezerEventPublisherBase?: CounterTurnedOnFreezerEventPublisherBase
         }
     ) {
         this.counterService = counterService,
@@ -57,7 +84,15 @@ export class CounterAggregate implements
 
             //poster
             this.posterUpdatedImageEventPublisherBase = posterUpdatedImageEventPublisherBase,
-            this.posterUpdatedImageEventPublisherBase = posterUpdatedImageEventPublisherBase
+            this.posterUpdatedPriceEventPublisherBase = posterUpdatedPriceEventPublisherBase,
+            
+            //product
+            this.productUpdatedPriceEventPublisherBase = productUpdatedPriceEventPublisherBase,
+            this.productUpdatedStockEventPublisherBase = productUpdatedStockEventPublisherBase,
+
+            //freezer
+            this.counterTurnedOffFreezerEventPublisherBase = counterTurnedOffFreezerEventPublisherBase,
+            this.counterTurnedOnFreezerEventPublisherBase = counterTurnedOnFreezerEventPublisherBase
     }
 
 
@@ -69,11 +104,23 @@ export class CounterAggregate implements
      * @return {*}  {ProductDomainEntity}
      * @memberof CounterAggregate
      */
-    updateStock(product: IProductUpdateStockCommand): ProductDomainEntity {
-        throw new Error("Method not implemented.");
+    async updateStock(product: IProductUpdateStockCommand): Promise<ProductDomainEntity> {
+        if (!this.productService) throw new AggregateRootException("Product service not found")
+        if (!this.productUpdatedStockEventPublisherBase) throw new AggregateRootException("PRODUCT Update stock event not found")
+    
+        const stockResult = await this.productService.updateStock(product)
+        this.productUpdatedStockEventPublisherBase.response = stockResult
+        this.productUpdatedStockEventPublisherBase.publish()
+        return stockResult
     }
-    updateProductPrice(product: IProductUpdatePriceCommand): ProductDomainEntity {
-        throw new Error("Method not implemented.");
+    async updateProductPrice(product: IProductUpdatePriceCommand): Promise<ProductDomainEntity> {
+        if (!this.productService) throw new AggregateRootException("Product service not found")
+        if (!this.productUpdatedPriceEventPublisherBase) throw new AggregateRootException("Updated Price event not found")
+    
+        const priceResult = await this.productService.updateProductPrice(product)
+        this.productUpdatedPriceEventPublisherBase.response = priceResult
+        this.productUpdatedPriceEventPublisherBase.publish()
+        return priceResult
     }
 
     /**
@@ -131,14 +178,33 @@ export class CounterAggregate implements
         return posterResult
     }
 
-    async createProduct(poster: ICounterCreateProductCommand): Promise<ProductDomainEntity> {
-        throw new Error("Method not implemented.");
+    async createProduct(product: ICounterCreateProductCommand): Promise<ProductDomainEntity> {
+        if (!this.counterService) throw new AggregateRootException("Service not found")
+        if (!this.counterCreatedProductEventPublisherBase) throw new AggregateRootException("Create product event not found")
+
+        const productCreated = await this.counterService.createProduct(product)
+        this.counterCreatedProductEventPublisherBase.response = productCreated
+        this.counterCreatedProductEventPublisherBase.publish()
+        return productCreated
     }
+    
     async turnOffFreezer(counterId: string, turnOff: boolean): Promise<boolean> {
-        throw new Error("Method not implemented.");
-    }
-    async turnOnFreezer(counterId: string, turnOff: boolean): Promise<boolean> {
-        throw new Error("Method not implemented.");
+        if (!this.counterService) throw new AggregateRootException("CounterService not found")
+        if (!this.counterTurnedOffFreezerEventPublisherBase) throw new AggregateRootException("Turned Off freezer event not found")
+
+        const turnedOff = await this.counterService.turnOffFreezer(counterId, turnOff)
+        this.counterTurnedOffFreezerEventPublisherBase.response = turnedOff
+        this.counterTurnedOffFreezerEventPublisherBase.publish()
+        return turnedOff
     }
 
+    async turnOnFreezer(counterId: string, turnOn: boolean): Promise<boolean> {
+        if (!this.counterService) throw new AggregateRootException("CounterService not found")
+        if (!this.counterTurnedOffFreezerEventPublisherBase) throw new AggregateRootException("Turned On freezer event not found")
+
+        const turnedOn = await this.counterService.turnOnFreezer(counterId, turnOn)
+        this.counterTurnedOnFreezerEventPublisherBase.response = turnedOn
+        this.counterTurnedOnFreezerEventPublisherBase.publish()
+        return turnedOn
+    }
 }

@@ -2,7 +2,7 @@ import { EventPublisherBase } from "src/libs";
 import { CounterDomainEntity } from "../../../entities";
 
 export abstract class CounterTurnedOnFreezerEventPublisherBase<
-    Response = CounterDomainEntity
+    Response = boolean
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
