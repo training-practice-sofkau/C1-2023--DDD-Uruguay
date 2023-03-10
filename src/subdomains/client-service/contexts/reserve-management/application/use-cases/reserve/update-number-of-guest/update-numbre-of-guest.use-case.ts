@@ -1,5 +1,18 @@
-import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs/sofka";
-import { INumberOfGuestsUpdatedResponse, IReserveDomainEntity, IReserveDomainService, IUpdateNumberOfGuests, NumberOfGuestsUpdatedEventPublisher, NumberOfGuestsValueObject, ReserveAggregate, ReserveDomainEntity } from "../../../../domain";
+import {
+    IUseCase,
+    ValueObjectErrorHandler,
+    ValueObjectException
+} from "src/libs/sofka";
+import {
+    INumberOfGuestsUpdatedResponse,
+    IReserveDomainEntity,
+    IReserveDomainService,
+    IUpdateNumberOfGuests,
+    NumberOfGuestsUpdatedEventPublisher,
+    NumberOfGuestsValueObject,
+    ReserveAggregate,
+    ReserveDomainEntity
+} from "../../../../domain";
 
 export class UpdateNumbreOfGuestUseCase<
     Command extends IUpdateNumberOfGuests = IUpdateNumberOfGuests,
@@ -46,8 +59,8 @@ export class UpdateNumbreOfGuestUseCase<
             numberOfGuests,
         } = valueObject
 
-        if ( numberOfGuests instanceof  NumberOfGuestsValueObject &&  numberOfGuests.hasErrors())
-            this.setErrors( numberOfGuests.getErrors());
+        if (numberOfGuests instanceof NumberOfGuestsValueObject && numberOfGuests.hasErrors())
+            this.setErrors(numberOfGuests.getErrors());
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
@@ -59,10 +72,12 @@ export class UpdateNumbreOfGuestUseCase<
     private createNewNumberOfGuests(valueObject: IReserveDomainEntity): ReserveDomainEntity {
         const {
             numberOfGuests,
+            reserveId,
         } = valueObject
 
         return new ReserveDomainEntity({
             numberOfGuests: numberOfGuests.valueOf(),
+            reserveId: reserveId.valueOf(),
         })
     }
 
