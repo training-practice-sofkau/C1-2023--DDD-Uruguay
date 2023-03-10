@@ -18,7 +18,6 @@ export class AddSallerUseCase<
     extends ValueObjectErrorHandler
     implements IUseCase<Command, Response>
 {
-
     private readonly SaleAgregate: SaleAgregate;
 
     constructor(

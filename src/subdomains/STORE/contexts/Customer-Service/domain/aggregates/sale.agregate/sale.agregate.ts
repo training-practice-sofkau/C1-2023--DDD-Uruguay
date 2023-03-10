@@ -110,7 +110,7 @@ export class SaleAgregate
     );
   }
 
-  async UpdatePaymentMethod(data: UpdatePaymentMethod): Promise<BillDomain> {
+  async UpdatePaymentMethod(data: BillDomain): Promise<BillDomain> {
     if (this.billservice && this.PaymentMethodEventPublisher) {
       const result = await this.billservice.UpdatePaymentMethod(data);
       this.PaymentMethodEventPublisher.response = result;

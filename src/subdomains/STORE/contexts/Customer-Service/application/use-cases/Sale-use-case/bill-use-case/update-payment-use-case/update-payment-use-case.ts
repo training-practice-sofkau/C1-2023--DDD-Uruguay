@@ -1,11 +1,11 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates/order.agregate";
 import { SaleAgregate } from "src/subdomains/STORE/contexts/Customer-Service/domain/aggregates/sale.agregate";
-import { ClientDomainBase, IBillEntity, IClientEntity, IMangaEntity, MangaDomainBase } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
+import { BillDomain, ClientDomainBase, IBillEntity, IClientEntity, IMangaEntity, MangaDomainBase } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
 import { ClientObtainedEventPublisher, MangaModifiedEventPublisher, NameMangaModifiedEventPublisher, NameModifiedEventPublisher, PaymentMethodEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events";
 import { PaymentMethodUpdatedResponse, UpdateNameClient, UpdateNameManga, UpdatePaymentMethod, UpdatePhoneClient, UpradedNameMangaResponse, UpradedNameResponse, UpradedPhoneResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces";
 import { BillDomainService, ClientDomainService, MangaDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
-import { ClientNameValue, IdclientValue, IdmangaValue, NameMangaValue, PhoneValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
+import { ClientNameValue, IdbillValue, IdclientValue, IdmangaValue, NameMangaValue, PaymentMethodValue, PhoneValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
 import { PhoneModifiedEventPublisher } from '../../../../../domain/events/publishers/order/client/modified-Phone-event-publisher';
 
 export class UpdatePaymentUseCase<
@@ -48,8 +48,8 @@ export class UpdatePaymentUseCase<
     private createValueObject(
         command: Command
     ): IBillEntity {
-        const idBill =  new IdmangaValue(command.idBill)
-        const  paymentMethod  = new  NameMangaValue (command.paymentMethod)
+        const IDBill =  new IdbillValue(command.idBill)
+        const  PaymentMethod  = new  PaymentMethodValue (command.paymentMethod)
         return {
             IDBill,
             PaymentMethod
@@ -57,24 +57,24 @@ export class UpdatePaymentUseCase<
     }
 
     private validateValueObject(
-        valueObject: MangaDomainBase
+        valueObject: BillDomain
     ): void {
         
         const {
-            Mangaid,
-            Name
+            IDBill,
+            PaymentMethod
         } = valueObject
       
       
-        if ( Mangaid.hasErrors())
-        this.setErrors(Mangaid.getErrors());
+        if ( IDBill.hasErrors())
+        this.setErrors(IDBill.getErrors());
 
-        if (Name.hasErrors())
-            this.setErrors(Name.getErrors());
+        if (PaymentMethod.hasErrors())
+            this.setErrors(PaymentMethod.getErrors());
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado para cambiar el nombre   del manga  ',
+                'Hay algunos errores en el comando ejecutado para cambiar el metodo de pago del manga  ',
                 this.getErrors(),
             );
 
@@ -82,25 +82,25 @@ export class UpdatePaymentUseCase<
 
     private createEntityClientDomain(
         
-        valueObject: MangaDomainBase
+        valueObject: BillDomain
 
-    ): MangaDomainBase {
+    ): BillDomain {
        
         const {
-            Name,
-            Mangaid
+            IDBill,
+            PaymentMethod
         } = valueObject
 
-        return new MangaDomainBase({          
-            Name: Name,
-            Mangaid: Mangaid
+        return new BillDomain({          
+            IDBill: IDBill,
+            PaymentMethod: PaymentMethod
         })
 
     }
 
     private exectueOrderAggregateRoot(
-        entity: MangaDomainBase,
-    ): Promise<MangaDomainBase | null> {
-        return this.OrderAgregate.UpdateName(entity)
+        entity: BillDomain,
+    ): Promise<BillDomain | null> {
+        return this.SaleAgregate.UpdatePaymentMethod(entity)
     }
 }
