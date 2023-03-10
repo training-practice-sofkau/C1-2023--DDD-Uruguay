@@ -59,7 +59,7 @@ export class InvoiceAggregate implements IInvoiceDomainService {
         return CreateInvoice(invoice, this.invoiceService, this.registeredInvoiceEventPublisherBase)
     }
 
-    async getInvoice(): Promise<InvoiceDomainEntityBase> {
+    async getInvoice(invoiceId: string): Promise<InvoiceDomainEntityBase> {
         if (!this.getInvoiceEventPublisherBase)
             throw new AggregateRootException('GetInvoiceEventPublisherBase is not defined')
 
