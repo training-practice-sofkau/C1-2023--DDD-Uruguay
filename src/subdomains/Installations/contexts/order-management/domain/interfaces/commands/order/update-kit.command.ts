@@ -1,7 +1,7 @@
+import { OrderDomainEntityBase } from '../../../entities';
 import { KitDomainEntityBase } from '../../../entities/order';
 
 export interface IUpdateKitCommand {
-    kitId: string;
-    kit?: KitDomainEntityBase;
-    model: string;
+    domain: OrderDomainEntityBase;
+    kit: KitDomainEntityBase;
 }

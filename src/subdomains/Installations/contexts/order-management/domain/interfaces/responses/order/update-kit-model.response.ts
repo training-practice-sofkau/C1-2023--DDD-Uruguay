@@ -1,6 +1,6 @@
 import { KitDomainEntityBase } from "../../../entities/order";
 
-export interface IUpdateKitResponse {
+export interface IUpdateKitModelResponse {
   success: boolean;
   data: KitDomainEntityBase | null;
 }

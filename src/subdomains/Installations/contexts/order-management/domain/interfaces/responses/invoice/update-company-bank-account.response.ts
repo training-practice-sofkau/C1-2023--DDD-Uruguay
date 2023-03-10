@@ -1,6 +1,6 @@
 import { CompanyDomainEntityBase } from "../../../entities/invoice";
 
-export interface IUpdateCompanyResponse {
+export interface IUpdateCompanyBankAccountResponse {
   success: boolean;
   data: CompanyDomainEntityBase | null;
 }

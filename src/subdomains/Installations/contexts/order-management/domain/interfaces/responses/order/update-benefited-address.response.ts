@@ -1,6 +1,6 @@
 import { BenefitedDomainEntityBase } from "../../../entities/order";
 
-export interface IUpdateBenefitedResponse {
+export interface IUpdateBenefitedAddressResponse {
   success: boolean;
   data: BenefitedDomainEntityBase | null;
 }
