@@ -1,4 +1,4 @@
 export interface IUpdatePaymentMethod {
-    customerId: string;
-    newPaymentMethod: string;
+    customerId?: string;
+    paymentMethod?: string;
 }

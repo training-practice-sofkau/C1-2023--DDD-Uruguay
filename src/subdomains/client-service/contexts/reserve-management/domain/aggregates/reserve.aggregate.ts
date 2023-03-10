@@ -180,7 +180,7 @@ export class ReserveAggregate implements
     }
 
 
-    async updatePaymentMethod(data: IUpdatePaymentMethod): Promise<string> {
+    async updatePaymentMethod(data: IUpdatePaymentMethod): Promise<CustomerDomainEntity> {
         if (!this.customerService)
             throw new AggregateRootException('customerService no esta definido')
         if (!this.paymentMethodUpdatedEventPublisher)
