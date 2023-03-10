@@ -1,7 +1,5 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { StaffDeportivoAggregate, IStaffDeportivoDomainService, NombreValueObject, EmpleadoDomainEntity, INombreModificadoResponse, IEmpleadoDomainEntity, IdValueObject, IModificarTipoEmpleadoCommands, ITipoEmpleadoModificadoResponse, TipoEmpleadoValueObject } from "../../../domain";
-import { NombreModificadoEventPublisher } from '../../../domain/events/publishers/empleado/nombre-modificado.event-publisher';
-import { IModificarNombreCommands } from '../../../domain/interfaces/commands/empleado/modificar-nombre.commands';
+import { StaffDeportivoAggregate, IStaffDeportivoDomainService, EmpleadoDomainEntity, IEmpleadoDomainEntity, IdValueObject, IModificarTipoEmpleadoCommands, ITipoEmpleadoModificadoResponse, TipoEmpleadoValueObject } from "../../../domain";
 import { EmpleadoBuscadoEventPublisher } from "../../../domain/events/publishers/staff-deporitvo/empleado-buscado.event-publisher";
 import { TipoEmpleadoModificadoEventPublisher } from '../../../domain/events/publishers/empleado/tipo-empleado-modificado';
 

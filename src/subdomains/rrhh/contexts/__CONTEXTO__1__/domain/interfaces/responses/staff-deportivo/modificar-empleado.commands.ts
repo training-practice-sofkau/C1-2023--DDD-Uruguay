@@ -1,6 +1,6 @@
-import { CostoValueObject } from '../../../value-objects/costo/costo.value-object';
+import { EmpleadoDomainEntity } from '../../../entities/empleado/EmpleadoDomainEntity';
 
 export interface ISalarioEmpleadoModificadoResponse {
     success: boolean;
-    data: CostoValueObject | null;
+    data: EmpleadoDomainEntity | null;
 }
