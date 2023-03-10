@@ -3,11 +3,11 @@ import { IMangaEntity } from "../interfaces/Order/manga.interface";
 import { v4 as uuidv4 } from 'uuid';
 
 export class MangaDomainBase implements IMangaEntity {
-    Mangaid: IdmangaValue;
-    Name: NameMangaValue;
-    state: MangaSateValue;
-    Price: PriceValue;
-    Stock: StockValue;
+    Mangaid?: IdmangaValue;
+    Name?: NameMangaValue;
+    state?: MangaSateValue;
+    Price?: PriceValue;
+    Stock?: StockValue;
 
 
 

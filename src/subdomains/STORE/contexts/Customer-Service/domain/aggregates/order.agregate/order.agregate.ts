@@ -297,7 +297,7 @@ Publisher events go in this place
    * It updates the name of the manga.
    * @param {string} name - The name of the manga.
    */
-  async UpdateName(idClient: UpdateNameManga): Promise<MangaDomainBase> {
+  async UpdateName(idClient: MangaDomainBase): Promise<MangaDomainBase> {
     if (this.orderService && this.NameMangaModifiedEventPublisher) {
       const result = await this.MangaService.UpdateName(idClient);
 

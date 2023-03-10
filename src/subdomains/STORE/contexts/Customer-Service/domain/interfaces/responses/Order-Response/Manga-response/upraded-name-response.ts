@@ -1,6 +1,6 @@
 import { MangaDomainBase } from "../../../../entities/Order-domain/manga-domain-entity";
 
-export class UpradedNameResponse {
+export class UpradedNameMangaResponse {
     succes: boolean;
     data: MangaDomainBase | null 
 }

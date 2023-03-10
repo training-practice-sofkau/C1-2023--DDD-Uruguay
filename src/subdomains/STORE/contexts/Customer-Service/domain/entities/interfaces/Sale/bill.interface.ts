@@ -8,13 +8,13 @@ import { TotalValue } from "../../../value-objects/Sale/Bill/total-value/total-v
 
 export interface IBillEntity {
 
-IDBill: IdbillValue,
-Date:  DateValue
-PaymentMethod: PaymentMethodValue
-PaymentAmount: PaymentAmountValue
-Total: TotalValue
-IdClinet: IdclientValue
-IdManga: IdmangaValue
+IDBill?: IdbillValue,
+Date?:  DateValue
+PaymentMethod?: PaymentMethodValue
+PaymentAmount?: PaymentAmountValue
+Total?: TotalValue
+IdClinet?: IdclientValue
+IdManga?: IdmangaValue
 
 
 }

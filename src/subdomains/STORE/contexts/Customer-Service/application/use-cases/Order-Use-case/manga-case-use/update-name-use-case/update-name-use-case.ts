@@ -1,15 +1,15 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates/order.agregate";
-import { ClientDomainBase, IClientEntity, MangaDomainBase } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
-import { ClientObtainedEventPublisher, MangaModifiedEventPublisher, NameModifiedEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events";
-import { UpdateNameClient, UpdateNameManga, UpdatePhoneClient, UpradedNameResponse, UpradedPhoneResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces";
+import { ClientDomainBase, IClientEntity, IMangaEntity, MangaDomainBase } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
+import { ClientObtainedEventPublisher, MangaModifiedEventPublisher, NameMangaModifiedEventPublisher, NameModifiedEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events";
+import { UpdateNameClient, UpdateNameManga, UpdatePhoneClient, UpradedNameMangaResponse, UpradedNameResponse, UpradedPhoneResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces";
 import { ClientDomainService, MangaDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
-import { ClientNameValue, IdclientValue, PhoneValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
+import { ClientNameValue, IdclientValue, IdmangaValue, NameMangaValue, PhoneValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
 import { PhoneModifiedEventPublisher } from '../../../../../domain/events/publishers/order/client/modified-Phone-event-publisher';
 
 export class UpdateNameUseCase<
     Command extends UpdateNameManga = UpdateNameManga,
-    Response extends UpradedPhoneResponse = 
+    Response extends UpradedNameMangaResponse = UpradedNameMangaResponse
 >
     extends ValueObjectErrorHandler
     implements IUseCase<Command, Response>
@@ -19,7 +19,7 @@ export class UpdateNameUseCase<
 
     constructor(
         private readonly MangaService: MangaDomainService,
-        private readonly NameMangaModifiedEventPublisher: MangaModifiedEventPublisher,
+        private readonly NameMangaModifiedEventPublisher: NameMangaModifiedEventPublisher,
     ) {
         super();
         this.OrderAgregate = new OrderAgregate({
@@ -46,13 +46,11 @@ export class UpdateNameUseCase<
     private createValueObject(
         command: Command
     ): IMangaEntity {
-
-        const  Phone = new PhoneValue(command.Phone)
-        const ClientID = new IdclientValue(command.ClientID)
-
+        const Mangaid =  new IdmangaValue(command.MangaId)
+        const  Name  = new  NameMangaValue (command.newName)
         return {
-           Phone,
-          ClientID
+            Mangaid,
+            Name
         }
     }
 
@@ -61,20 +59,20 @@ export class UpdateNameUseCase<
     ): void {
         
         const {
-            Phone,
-            ClientID
+            Mangaid,
+            Name
         } = valueObject
       
       
-        if ( ClientID.hasErrors())
-        this.setErrors(ClientID.getErrors());
+        if ( Mangaid.hasErrors())
+        this.setErrors(Mangaid.getErrors());
 
-        if (Phone.hasErrors())
-            this.setErrors(Phone.getErrors());
+        if (Name.hasErrors())
+            this.setErrors(Name.getErrors());
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado para cambiar el telefono  del cliente ',
+                'Hay algunos errores en el comando ejecutado para cambiar el nombre   del manga  ',
                 this.getErrors(),
             );
 
@@ -87,13 +85,13 @@ export class UpdateNameUseCase<
     ): MangaDomainBase {
        
         const {
-            Phone,
-            ClientID
+            Name,
+            Mangaid
         } = valueObject
 
         return new MangaDomainBase({          
-            Phone: Phone,
-          ClientID: ClientID
+            Name: Name,
+            Mangaid: Mangaid
         })
 
     }
@@ -101,6 +99,6 @@ export class UpdateNameUseCase<
     private exectueOrderAggregateRoot(
         entity: MangaDomainBase,
     ): Promise<MangaDomainBase | null> {
-        return this.OrderAgregate.UpdateClientPhone(entity)
+        return this.OrderAgregate.UpdateName(entity)
     }
 }
