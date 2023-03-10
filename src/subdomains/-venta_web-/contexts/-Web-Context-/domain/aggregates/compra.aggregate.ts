@@ -147,7 +147,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
           );
     }
 
-    async updatePhone(data: IUpdatePhoneMethod): Promise<number> {
+    async updatePhone(data: IUpdatePhoneMethod ): Promise<ClienteDomainEntity > {
 
         if (this.clienteService && this.updatePhoneEventPublisher) {
             const result = await this.clienteService.updatePhone(data);
