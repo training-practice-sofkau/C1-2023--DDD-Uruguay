@@ -1,6 +1,6 @@
 import { ValueObjectBase } from "src/libs";
 
-enum ImgType{
+export enum ImgType{
     URL = "URL",
     JPG = "JPG"
 }

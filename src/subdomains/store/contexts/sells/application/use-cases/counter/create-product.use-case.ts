@@ -1,4 +1,4 @@
-import { IUseCase, ValueObjectErrorHandler } from "src/libs";
+import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
 import { CounterAggregate, CounterCreatedProductEventPublisherBase, DateValueObject, FlavourValueObject, ICounterCreateProductCommand, ICounterProductCreatedResponse, IdValueObject, IProductDomainEntity, IProductDomainService, PriceValueObject, ProductDomainEntity, ProductTypeValueObject, StockValueObject } from "../../../domain";
 
 export class CreateProductUseCase<
@@ -9,12 +9,12 @@ export class CreateProductUseCase<
     implements IUseCase<Command, Response>
 {
 
-    private readonly counterAggregateRoot : CounterAggregate
+    private readonly counterAggregateRoot: CounterAggregate
 
     constructor(
-        private readonly productService : IProductDomainService,
-        private readonly counterCreatedProductEventPublisherBase : CounterCreatedProductEventPublisherBase
-    ){
+        private readonly productService: IProductDomainService,
+        private readonly counterCreatedProductEventPublisherBase: CounterCreatedProductEventPublisherBase
+    ) {
         super();
         this.counterAggregateRoot = new CounterAggregate({
             productService,
@@ -30,10 +30,11 @@ export class CreateProductUseCase<
     executeCommand(command: Command): Promise<ProductDomainEntity | null> {
         const valueObject = this.createValueObject(command)
         this.validateValueObject(valueObject)
-        return 
+        const product = this.createEntityPrductDomain(valueObject)
+        return this.executeProductAggregateRoot(valueObject)
     }
 
-    createValueObject(command : Command): IProductDomainEntity{
+    createValueObject(command: Command): IProductDomainEntity {
         const productId = new IdValueObject(command.productId)
         const type = new ProductTypeValueObject(command.type)
         const flavour = new FlavourValueObject(command.flavour)
@@ -51,14 +52,58 @@ export class CreateProductUseCase<
         }
     }
 
-    validateValueObject(valueObject: I){
+    validateValueObject(valueObject: IProductDomainEntity): void {
+        const {
+            productId,
+            type,
+            flavour,
+            price,
+            stock,
+            expirationDate
+        } = valueObject
 
+        if (productId instanceof IdValueObject && productId.hasErrors())
+            this.setErrors(productId.getErrors())
+        if (type instanceof ProductTypeValueObject && type.hasErrors())
+            this.setErrors(type.getErrors())
+        if (flavour instanceof FlavourValueObject && flavour.hasErrors())
+            this.setErrors(flavour.getErrors())
+        if (price instanceof PriceValueObject && price.hasErrors())
+            this.setErrors(price.getErrors())
+        if (stock instanceof StockValueObject && stock.hasErrors())
+            this.setErrors(stock.getErrors())
+        if (expirationDate instanceof DateValueObject && expirationDate.hasErrors())
+            this.setErrors(expirationDate.getErrors())
+
+        if (this.hasErrors() === true)
+            throw new ValueObjectException(
+                'Hay errres en validateValueObject',
+                this.getErrors()
+            )
     }
 
-    executeOrderAggregateRoot(){
-
+    createEntityPrductDomain(
+        valueObject: IProductDomainEntity
+    ): ProductDomainEntity {
+        const {
+            type,
+            flavour,
+            price,
+            stock,
+            expirationDate
+        } = valueObject
+        return new ProductDomainEntity({
+            type: type,
+            flavour: flavour,
+            price: price.valueOf(),
+            stock: stock.valueOf(),
+            expirationDate: expirationDate
+        })
     }
 
-
-
+    private executeProductAggregateRoot(
+        entity: ProductDomainEntity,
+    ): Promise<ProductDomainEntity | null> {
+        return this.counterAggregateRoot.createProduct(entity as ICounterCreateProductCommand)
+    }
 }

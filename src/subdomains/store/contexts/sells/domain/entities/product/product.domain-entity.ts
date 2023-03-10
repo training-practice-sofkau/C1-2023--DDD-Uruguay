@@ -1,11 +1,11 @@
-import { IdValueObject, ProductTypeValueObject, FlavourValueObject, PriceValueObject, StockValueObject, DateValueObject } from "../../value-objects";
+import { IdValueObject, ProductTypeValueObject, FlavourValueObject, PriceValueObject, StockValueObject, DateValueObject, DessertType, Flavour } from "../../value-objects";
 import { IProductDomainEntity } from "../interfaces";
 import { v4 as uuid } from 'uuid';
 
 export class ProductDomainEntity implements IProductDomainEntity {
-    productId: string | IdValueObject;
-    type: string | ProductTypeValueObject;
-    flavour: string | FlavourValueObject;
+    productId?: string | IdValueObject;
+    type: DessertType | ProductTypeValueObject;
+    flavour: Flavour | FlavourValueObject;
     price: number | PriceValueObject;
     stock: number | StockValueObject;
     expirationDate: Date | DateValueObject;

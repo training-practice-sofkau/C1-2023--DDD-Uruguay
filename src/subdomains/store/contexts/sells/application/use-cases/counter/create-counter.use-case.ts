@@ -4,6 +4,7 @@ import { ICounterDomainService } from '../../../domain/services/counter.domain-s
 import { CounterCreatedProductEventPublisherBase } from '../../../domain/events/publishers/counter/created-product.event-publisher';
 import { CounterDomainEntity } from '../../../domain/entities/counter/counter.domain-entity';
 import { ICounterDomainEntity } from '../../../domain/entities/interfaces/counter.domain-entity.interface';
+import { CreateProductUseCase } from "./create-product.use-case";
 
 
 export class CreateCounterUseCase<
@@ -15,6 +16,7 @@ export class CreateCounterUseCase<
 {
 
     private readonly counterAggregateRoot: CounterAggregate;
+    private readonly createProductUseCase: CreateProductUseCase
 
     constructor(
         private readonly counterService: ICounterDomainService,
@@ -42,7 +44,7 @@ export class CreateCounterUseCase<
 
     private createValueObject(command: Command): ICounterDomainEntity {
         const counterId = new IdValueObject(command.counterId);
-        const product = new (command.product);
+        const product = metodoGet.excecute({productId: command.product});
         const poster = new PhoneObjectValue(command.poster);
 
         return {
