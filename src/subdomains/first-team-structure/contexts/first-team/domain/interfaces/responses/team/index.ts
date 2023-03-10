@@ -1,4 +1,7 @@
 export * from './coach-added.response';
+export * from './got-coach.response';
+export * from './got-players.response';
+export * from './got-team.response';
 export * from './player-added.response';
 export * from './player-position-updated.response';
 export * from './registered-team.response';

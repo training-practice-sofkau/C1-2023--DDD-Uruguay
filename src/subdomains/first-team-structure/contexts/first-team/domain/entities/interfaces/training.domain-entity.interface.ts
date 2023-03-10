@@ -8,7 +8,7 @@ import { ITeamDomainEntity, ITrainerDomainEntity, ITrainingEquipmentDomainEntity
  * @interface ITrainingDomainEntity
  */
 export interface ITrainingDomainEntity {
-    trainingId: string | IdValueObject,
+    trainingId?: string | IdValueObject,
     duration: number | DurationValueObject,
     team: ITeamDomainEntity,
     trainingEquipments: Array<ITrainingEquipmentDomainEntity>,

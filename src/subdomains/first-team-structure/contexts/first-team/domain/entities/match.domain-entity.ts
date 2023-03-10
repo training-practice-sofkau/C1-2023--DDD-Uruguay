@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
  * @implements {IMatchDomainEntity}
  */
 export class MatchDomainEntity implements IMatchDomainEntity{
-    matchId: string | IdValueObject;
+    matchId?: string | IdValueObject;
     team: TeamDomainEntity;
     score: string | ScoreValueObject;
     rival: RivalDomainEntity;

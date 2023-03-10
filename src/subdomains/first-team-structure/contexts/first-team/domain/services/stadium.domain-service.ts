@@ -1,8 +1,8 @@
-import { CapacityValueObject, SquareMetersValueObject } from "../value-objects";
 import { StadiumDomainEntity } from '../entities/match/stadium.domain-entity';
 import { IUpdateStadiumCapacity, IUpdateStadiumSquareMeters } from "../interfaces";
 
 export interface IStadiumDomainService {
-    updateCapacity(capacity: IUpdateStadiumCapacity): Promise<StadiumDomainEntity | null>;
-    updateSquareMeters(squareMeters: IUpdateStadiumSquareMeters): Promise<StadiumDomainEntity | null>;
+    getStadium(id: string): Promise<StadiumDomainEntity | null>;
+    updateStadiumCapacity(capacity: IUpdateStadiumCapacity): Promise<StadiumDomainEntity | null>;
+    updateStadiumSquareMeters(squareMeters: IUpdateStadiumSquareMeters): Promise<StadiumDomainEntity | null>;
 }

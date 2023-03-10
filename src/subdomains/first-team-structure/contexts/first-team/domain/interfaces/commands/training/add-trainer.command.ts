@@ -1,9 +1,9 @@
-import { AgeValueObject, CountryValueObject, FullNameValueObject, IdValueObject, SpecialtyValueObject } from "../../../value-objects";
+import { FullNameValueObject } from "../../../value-objects";
 
 export interface IAddTrainerCommand {
-    trainerId: string | IdValueObject,
+    trainerId: string,
     fullName: string | FullNameValueObject,
-    age: number | AgeValueObject,
-    country: string | CountryValueObject,
-    specialty: string | SpecialtyValueObject
+    age: number,
+    country: string,
+    specialty: string
 }

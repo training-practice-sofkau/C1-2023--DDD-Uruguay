@@ -1,6 +1,6 @@
-import { GoalValueObject, IdValueObject } from "../../../value-objects";
+import { GoalValueObject } from "../../../value-objects";
 
 export interface IUpdateWorkoutGoalCommand {
-    workoutId: string | IdValueObject
+    workoutId: string,
     goal: string | GoalValueObject
 }

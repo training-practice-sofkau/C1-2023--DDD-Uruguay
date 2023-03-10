@@ -1,6 +1,6 @@
-import { IdValueObject, SquareMetersValueObject } from "../../../value-objects";
+import { SquareMetersValueObject } from "../../../value-objects";
 
 export interface IUpdateStadiumSquareMeters {
-    stadiumId: string | IdValueObject
+    stadiumId: string,
     squareMeters: number | SquareMetersValueObject
 }

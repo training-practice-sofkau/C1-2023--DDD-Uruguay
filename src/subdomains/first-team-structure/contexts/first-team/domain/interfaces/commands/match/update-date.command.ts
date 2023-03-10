@@ -1,6 +1,6 @@
-import { DateValueObject, IdValueObject } from "../../../value-objects";
+import { DateValueObject } from "../../../value-objects";
 
 export interface IUpdateDateCommand {
-    matchId: string | IdValueObject
+    matchId: string,
     date: Date | DateValueObject
 }

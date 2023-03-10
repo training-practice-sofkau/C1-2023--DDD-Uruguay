@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
  * @implements {ICoachDomainEntity}
  */
 export class CoachDomainEntity implements ICoachDomainEntity{
-    coachId: string | IdValueObject;
+    coachId?: string | IdValueObject;
     age: number | AgeValueObject;
     wage: number | WageValueObject;
     fullName: string | FullNameValueObject;

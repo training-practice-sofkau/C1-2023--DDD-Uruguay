@@ -1,6 +1,7 @@
+import { TrainingDomainEntity } from "../../../entities";
 import { DurationValueObject } from "../../../value-objects";
 
 export interface IUpdatedDurationResponse {
     success: boolean;
-    data: DurationValueObject | null;
+    data: TrainingDomainEntity | null;
 }

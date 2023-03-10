@@ -1,6 +1,6 @@
-import { CapacityValueObject, IdValueObject } from "../../../value-objects";
+import { CapacityValueObject } from "../../../value-objects";
 
 export interface IUpdateStadiumCapacity {
-    stadiumId: string | IdValueObject
+    stadiumId: string,
     capacity: number | CapacityValueObject
 }

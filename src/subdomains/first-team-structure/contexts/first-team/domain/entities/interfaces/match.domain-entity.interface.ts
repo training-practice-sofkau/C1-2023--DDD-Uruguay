@@ -10,7 +10,7 @@ import { ITeamDomainEntity } from './';
  * @interface IMatchDomainEntity
  */
 export interface IMatchDomainEntity {
-    matchId: string | IdValueObject,
+    matchId?: string | IdValueObject,
     team: ITeamDomainEntity,
     score: string | ScoreValueObject,
     rival: RivalDomainEntity,

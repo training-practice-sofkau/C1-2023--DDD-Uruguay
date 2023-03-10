@@ -1,6 +1,7 @@
+import { PlayerDomainEntity } from "../../../entities";
 import { PositionValueObject } from "../../../value-objects";
 
 export interface IUpdatedPlayerPositionResponse {
     success: boolean;
-    data: PositionValueObject | null;
+    data: PlayerDomainEntity | null;
 }

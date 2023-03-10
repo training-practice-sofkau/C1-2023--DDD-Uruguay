@@ -7,7 +7,7 @@ import { AgeValueObject, CountryValueObject, FullNameValueObject, IdValueObject,
  * @interface ITrainerDomainEntity
  */
 export interface ITrainerDomainEntity {
-    trainerId: string | IdValueObject,
+    trainerId?: string | IdValueObject,
     fullName: string | FullNameValueObject,
     age: number | AgeValueObject,
     country: string | CountryValueObject,

@@ -7,7 +7,7 @@ import { IdValueObject, NameValueObject, TownValueObject } from "../../../value-
  * @interface ITrainingFieldDomainEntity
  */
 export interface ITrainingFieldDomainEntity {
-    trainingFieldId: string | IdValueObject,
+    trainingFieldId?: string | IdValueObject,
     name: string | NameValueObject,
     town: string | TownValueObject
 }

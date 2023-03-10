@@ -5,6 +5,7 @@ import { TrainerDomainEntity } from "./training/trainer.domain-entity";
 import { TrainingEquipmentDomainEntity } from "./training/training-equipment.domain-entity";
 import { TrainingFieldDomainEntity } from "./training/training-field.domain-entity";
 import { WorkoutDomainEntity } from "./training/workout.domain-entity";
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  *Training Aggregate Entity
@@ -14,7 +15,7 @@ import { WorkoutDomainEntity } from "./training/workout.domain-entity";
  * @implements {ITrainingDomainEntity}
  */
 export class TrainingDomainEntity implements ITrainingDomainEntity{
-    trainingId: string | IdValueObject;
+    trainingId?: string | IdValueObject;
     duration: number | DurationValueObject;
     team: TeamDomainEntity;
     trainingEquipments: TrainingEquipmentDomainEntity[];
@@ -22,4 +23,23 @@ export class TrainingDomainEntity implements ITrainingDomainEntity{
     name: string | NameValueObject;
     trainer: TrainerDomainEntity;
     workouts: WorkoutDomainEntity[];
+
+    constructor(data: ITrainingDomainEntity) {
+        if(data.trainingId) this.trainingId = data.trainingId
+        else this.trainingId = uuidv4();
+
+        if(data.duration) this.duration = data.duration
+
+        if(data.team) this.team = data.team
+
+        if(data.trainingEquipments) this.trainingEquipments = data.trainingEquipments
+
+        if(data.trainingField) this.trainingField = data.trainingField
+
+        if(data.name) this.name = data.name
+
+        if(data.trainer) this.trainer = data.trainer
+        
+        if(data.workouts) this.workouts = data.workouts
+    }
 }

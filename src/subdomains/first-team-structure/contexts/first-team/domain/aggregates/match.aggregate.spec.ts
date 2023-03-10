@@ -1,4 +1,4 @@
-import { MatchAggregate } from './match.aggregate';
+import MatchAggregate from './match.aggregate';
 
 describe('MatchAggregate', () => {
   it('should be defined', () => {
