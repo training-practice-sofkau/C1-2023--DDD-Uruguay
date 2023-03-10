@@ -3,10 +3,10 @@ import { TramiteDomainEntity } from '../../../domain/entities/tramite/tramite.en
 import { TramiteBuscadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
 import { IStaffDeportivoDomainService } from '../../../domain/services/staff-Deportivo/staff-deportivo.domain-service';
 import { ItramiteBuscadoResponse } from '../../../domain/interfaces/responses/staff-deportivo/tamite-agregado.response';
-import { IBuscarTramiteCommands } from '../../../domain/interfaces/commands/staff-deportivo/buscar-tramite.commands';
 import { StaffDeportivoAggregate } from "../../../domain";
+import { IBuscarTramiteCommands } from '../../../domain/interfaces/commands/staff-deportivo/buscar-tramite.commands';
 
-export class GetTramiteUseCase extends ValueObjectErrorHandler
+export class BuscarTramiteUseCase extends ValueObjectErrorHandler
     implements IUseCase<IBuscarTramiteCommands, ItramiteBuscadoResponse> {
 
     private readonly aggregateRoot: StaffDeportivoAggregate;
@@ -31,7 +31,7 @@ export class GetTramiteUseCase extends ValueObjectErrorHandler
     private exectueOrderAggregateRoot(
         entity: TramiteDomainEntity,
     ): Promise<TramiteDomainEntity | null> {
-        return this.aggregateRoot.GetTramite(entity)
+        return this.aggregateRoot.BuscarTramite(entity)
     }
 }
 

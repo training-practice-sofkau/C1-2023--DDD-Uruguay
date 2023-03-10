@@ -1,24 +1,22 @@
 import { IEmpleadoDomainService } from '../../services/staff-Deportivo/empleado.domain-service';
 import { IStaffDeportivoDomainService } from '../../services/staff-Deportivo/staff-deportivo.domain-service';
 import { StaffDeportivoDomainEntity } from '../../entities/staff-deportivo/staff-deportivo.entity';
-import { ICrearNegociacionCommands, IModificarDocumentoCommands, IModificarFechaCommands, IModificarFechaTramiteCommands, IModificarNombreCommands, IModificarSalarioCommands, IModificarSalarioEmpleadoCommands, IModificarTipoEmpleadoCommands } from '../../interfaces';
+import { ICrearNegociacionCommands, IModificarDocumentoCommands, IModificarFechaCommands, IModificarNombreCommands, IModificarSalarioCommands, IModificarTipoEmpleadoCommands } from '../../interfaces';
 import { INegociacionDomainService } from '../../services/staff-Deportivo/negociacion.domain-service';
 import { ITramiteDomainService } from '../../services/staff-Deportivo/tramite.domain-service';
 import { EmpleadoAgregadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-agregado.event-publisher';
 import { StaffDeportivoCreadoEventPublisher } from '../../events/publishers/staff-deporitvo/staff-depotivo-creado.event-publisher';
-import { EmpleadoRemovidoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-removido.event-publisher';
 import { TramiteAgregadoEventPublisher } from '../../events/publishers/staff-deporitvo/tramite-agregado.event-publisher';
 import { AggregateRootException } from '../../../../../../../libs/sofka/exceptions/aggregate-root.exception';
 import { SalarioEmpleadoModificadoEventPublisher } from '../../events/publishers/staff-deporitvo/salario-empleado-modificado.event-publisher';
 import { EmpleadoDomainEntity } from '../../entities/empleado/EmpleadoDomainEntity';
 import { TramiteDomainEntity } from '../../entities/tramite/tramite.entity.interface';
 import { FechaTramiteModificadaEventPublisher } from '../../events/publishers/staff-deporitvo/fecha-tramite-modificada.event-publisher';
-import { BuscarTramiteCommands } from '../../interfaces/commands/staff-deportivo/buscar-tramite.commands';
-import { BuscarEmpleadoCommands } from '../../interfaces/commands/staff-deportivo/buscar-empleado.commands';
 import { EmpleadoBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
 import { TramiteBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
+import { NombreModificadoEventPublisher } from '../../events';
 
-export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IEmpleadoDomainService,ITramiteDomainService{
+export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
     //Service
     private readonly staffDeportivoService?: IStaffDeportivoDomainService;
 
@@ -35,6 +33,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
     private readonly empleadoAgregadoEvent?: EmpleadoAgregadoEventPublisher;
     private readonly salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher;
     private readonly empleadoBuscadoEvent?: EmpleadoBuscadoEventPublisher;
+    private readonly nombremodificadoEvent?: NombreModificadoEventPublisher;
    
 
     //tramite
@@ -54,10 +53,13 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
             //events
             staffDeportivoCreadoEvent,
            // staffDeportivoModificadaEvent,
+
+           //empleado
             empleadoAgregadoEvent,
             salarioEmpleadoModificadoEvent,
             empleadoBuscadoEvent,
-            
+            nombreModificadoEvent,
+            //tramite
             tamiteBuscadoEvent,
             tamiteAgregadoEvent,
             fechaTamiteModificadoEvent,
@@ -71,9 +73,10 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
             //events
             staffDeportivoCreadoEvent?: StaffDeportivoCreadoEventPublisher;
            // directivaModificadaEvent?: StaffDeportivoModificadoEventPublisher,
-            empleadoAgregadoEvent?: EmpleadoAgregadoEventPublisher;
-            salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher;
-            empleadoBuscadoEvent?: EmpleadoBuscadoEventPublisher;
+           empleadoAgregadoEvent?: EmpleadoAgregadoEventPublisher;
+           salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher;
+           empleadoBuscadoEvent?: EmpleadoBuscadoEventPublisher;
+           nombreModificadoEvent?: NombreModificadoEventPublisher;
 
             tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
             fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher;
@@ -89,11 +92,12 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
         //events
        // this.directivaCreadaEvent = directivaCreadaEvent,
        this.staffDeportivoCreadoEvent = staffDeportivoCreadoEvent;
-        
+        //empleado
         this.empleadoAgregadoEvent = empleadoAgregadoEvent;
         this.salarioEmpleadoModificadoEvent = salarioEmpleadoModificadoEvent;
         this.empleadoBuscadoEvent = empleadoBuscadoEvent;
-
+        this.nombremodificadoEvent = nombreModificadoEvent;
+        //tramite
         this.tamiteAgregadoEvent = tamiteAgregadoEvent;
         this.fechaTamiteModificadoEvent = fechaTamiteModificadoEvent;
         this.empleadoBuscadoEvent = empleadoBuscadoEvent;
@@ -117,8 +121,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
        if(!this.staffDeportivoService)
         throw new AggregateRootException('Servicio Staff Deportivo indefinido')
 
-        if(!this.tamiteAgregadoEvent)
-        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
+        if(!this.tamiteAgregadoEvent) throw new AggregateRootException('Evento creador de Staff Deportivo indefinido');
 
         const result = await this.staffDeportivoService.CrearTramite(tramite);
         this.tamiteAgregadoEvent.response = result;
@@ -130,8 +133,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
        if(!this.staffDeportivoService)
         throw new AggregateRootException('Servicio Staff Deportivo indefinido')
 
-        if(!this.empleadoAgregadoEvent)
-        throw new AggregateRootException('Evento creador Empleado indefinido')
+        if(!this.empleadoAgregadoEvent) throw new AggregateRootException('Evento Agregar Empleado indefinido');
 
         const result = await this.staffDeportivoService.AgregarEmpleado(empleado);
         this.empleadoAgregadoEvent.response = result;
@@ -142,7 +144,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
   
 
 
-    modificarNombre(nombre: IModificarNombreCommands): Promise<EmpleadoDomainEntity> {
+    modificarNombre(nombre: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
         throw new Error('Method not implemented.');
     }
 
@@ -184,27 +186,27 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService, IE
     }
 
     
-    async GetTramite(Tramite:BuscarTramiteCommands):Promise<TramiteDomainEntity>{
+    async BuscarTramite(Tramite: TramiteDomainEntity):Promise<TramiteDomainEntity>{
         if(!this.staffDeportivoService)
         throw new AggregateRootException('Servicio de Empleado indefinido')
 
         if(!this.tamiteBuscadoEvent)
         throw new AggregateRootException('Evento que modifica el salario de un empleado indefinido')
 
-        const result = await this.staffDeportivoService.GetTramite(Tramite);
+        const result = await this.staffDeportivoService.BuscarTramite(Tramite);
         this.tamiteBuscadoEvent.response = result;
         this.tamiteBuscadoEvent.publish();
         return result;
     }
 
-   async  GetEmpleado(empleado:BuscarEmpleadoCommands):Promise<EmpleadoDomainEntity>{
+   async  BuscarEmpleado(empleado: EmpleadoDomainEntity):Promise<EmpleadoDomainEntity>{
         if(!this.staffDeportivoService)
         throw new AggregateRootException('Servicio de Empleado indefinido')
 
         if(!this.empleadoBuscadoEvent)
         throw new AggregateRootException('Evento que modifica el salario de un empleado indefinido')
 
-        const result = await this.staffDeportivoService.GetEmpleado(empleado);
+        const result = await this.staffDeportivoService.BuscarEmpleado(empleado);
         this.empleadoBuscadoEvent.response = result;
         this.empleadoBuscadoEvent.publish();
         return result;

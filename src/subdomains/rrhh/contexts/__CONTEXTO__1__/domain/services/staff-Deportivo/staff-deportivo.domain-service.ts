@@ -1,10 +1,10 @@
 import { StaffDeportivoDomainEntity } from "../../entities/staff-deportivo/staff-deportivo.entity";
 import { EmpleadoDomainEntity } from '../../entities/empleado/EmpleadoDomainEntity';
 import { TramiteDomainEntity } from '../../entities/tramite/tramite.entity.interface';
-import { BuscarTramiteCommands } from '../../interfaces/commands/staff-deportivo/buscar-tramite.commands';
-import { BuscarEmpleadoCommands } from '../../interfaces/commands/staff-deportivo/buscar-empleado.commands';
+import { ITramiteDomainService } from './tramite.domain-service';
+import { IEmpleadoDomainService } from './empleado.domain-service';
 
-export interface IStaffDeportivoDomainService{ //<T extends StaffDeportivoDomainEntity >
+export interface IStaffDeportivoDomainService extends  ITramiteDomainService , IEmpleadoDomainService{ //<T extends StaffDeportivoDomainEntity >
 
     CrearStaffDeportivo(staffDeportivo: StaffDeportivoDomainEntity):Promise<StaffDeportivoDomainEntity>;
 
@@ -13,8 +13,8 @@ export interface IStaffDeportivoDomainService{ //<T extends StaffDeportivoDomain
     AgregarEmpleado(empleado:EmpleadoDomainEntity):Promise<EmpleadoDomainEntity>;
 
     
-    GetTramite(Tramite:BuscarTramiteCommands):Promise<TramiteDomainEntity>;
+    BuscarTramite(Tramite: TramiteDomainEntity):Promise<TramiteDomainEntity>;
 
-    GetEmpleado(empleado:BuscarEmpleadoCommands):Promise<EmpleadoDomainEntity>;
+    BuscarEmpleado(empleado: EmpleadoDomainEntity):Promise<EmpleadoDomainEntity>;
         
 }

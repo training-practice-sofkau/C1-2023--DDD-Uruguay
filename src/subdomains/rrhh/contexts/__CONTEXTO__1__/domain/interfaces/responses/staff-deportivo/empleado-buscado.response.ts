@@ -1,6 +1,6 @@
 import { EmpleadoDomainEntity } from '../../../entities';
 
-export interface IEmpleadoAgregadoResponse {
+export interface IEmpleadoBuscadoResponse {
     success: boolean;
     data: EmpleadoDomainEntity | null;
 }
