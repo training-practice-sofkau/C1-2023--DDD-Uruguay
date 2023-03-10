@@ -6,8 +6,8 @@ export interface ICursoDomainEntityInterface {
 
 
     idCurso? : string | UuidValueObject;
-    nombreCurso : string | FullnameValueObject,
-    nombreTeacher : string | FullnameValueObject,
-    costoCurso : number | CostoValueObject;
+    nombreCurso? : string | FullnameValueObject,
+    nombreTeacher? : string | FullnameValueObject,
+    costoCurso? : number | CostoValueObject;
 
 }

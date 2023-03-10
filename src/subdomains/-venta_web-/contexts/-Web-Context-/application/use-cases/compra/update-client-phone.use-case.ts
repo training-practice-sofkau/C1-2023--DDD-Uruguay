@@ -45,7 +45,7 @@ export class UpdateClientPhoneUseCase<
 
     //VALIDO LOS OBJETOS DE VALOR, SI HAY ERRORES LOS SETEO Y LOS MUESTRO
     private validateValueObject(valueObject: IClienteDomainEntityInterface): void {
-        const { nombreCliente, phoneCliente, emailCliente } = valueObject
+        const {  phoneCliente  } = valueObject
 
 
         if (phoneCliente instanceof PhoneValueObject && phoneCliente.hasErrors())
@@ -74,6 +74,6 @@ export class UpdateClientPhoneUseCase<
         return this.executeCompraAggregate(cliente);
     }
 
-
+    
 
 }

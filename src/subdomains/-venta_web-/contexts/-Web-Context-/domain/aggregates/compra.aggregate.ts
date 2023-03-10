@@ -135,7 +135,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
           );
     }
 
-    async updateCosto(data: IUpdateCostoMethod): Promise<number> {
+    async updateCosto(data: IUpdateCostoMethod): Promise<CursoDomainEntity> {
         if (this.cursoService && this.updateCostoCursoEventPublisher) {
             const result = await this.cursoService.updateCosto(data);
             this.updateCostoCursoEventPublisher.response = result;
@@ -160,20 +160,6 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
           );
     }
     
-
-    /*
-     async updateClientePhone(data: IUpdateClientPhoneMethod): Promise<number> {
-        throw new Error("Method not implemented.");
-    }
-
-    async updateCursoCosto(data: IUpdateCostoCursoPhoneMethod): Promise<CursoDomainEntity> {
-        throw new Error("Method not implemented.");
-    }
-
-    async updatePorcentajeCupon(data: IUpdatePorcentajeCuponMethod): Promise<number> {
-        throw new Error("Method not implemented.");
-    }
-    */
 
 
 }
