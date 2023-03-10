@@ -76,7 +76,7 @@ export class UpdateStateUseCase<
         } = valueObject
 
         return new RoomDomainEntity({
-            state: state,
+            state: state.valueOf(),
             roomId: roomId.valueOf(),
         })
     }

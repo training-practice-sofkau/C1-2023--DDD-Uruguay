@@ -76,7 +76,7 @@ export class UpdatePaymentMethodUseCase<
         } = valueObject
 
         return new CustomerDomainEntity({
-            paymentMethod: paymentMethod,
+            paymentMethod: paymentMethod.valueOf(),
             customerId: customerId.valueOf(),
         })
     }
