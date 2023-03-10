@@ -25,7 +25,7 @@ export class CreateClienteUseCase<
     //LO PRIMERO QUE NECESITO ES EL AGREGADO ROOT
     private readonly compraAggregate: CompraAggregate
 
-    //INYECTO EL SERVICIO NECESARIO Y EL EVENTO NECESARIO
+    //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
     constructor(private readonly compraService: ICompraService,
         private readonly clienteCreadoEventPublisher: ClienteCreadoEventPublisher) {
         super();
@@ -39,33 +39,27 @@ export class CreateClienteUseCase<
     */
     async execute(command?: Command): Promise<Response> {
         const data = await this.executeCompraAggregate(command)
-        return {success: data ? true :false, data }  as unknown as Response
+        return { success: data ? true : false, data } as unknown as Response
     }
 
-
-    async executeCommand(command: Command): Promise<ClienteDomainEntity | null> {
-       const ValueObject = this.createValueObject(command); //CREO LOS OBJETOS DE VALOR
-       this.validateValueObject(ValueObject); //VALIDO LOS OBJETOS DE VALOR
-       const cliente = this.createEntity(ValueObject); //CREO MI ENTIDAD A PARTIR DE LOS OBJETOS DE VALOR
-       
-       return this.executeCompraAggregate(cliente );
+    //METODO PARA EJECUTAR EL METODO DE MI AGREGADO
+    private executeCompraAggregate(cliente: IClienteDomainEntityInterface): Promise<ClienteDomainEntity | null> {
+        return this.compraAggregate.createCliente(cliente as ICreateClienteMethod)
     }
 
-    //METODOS AUXILIARES
+    //TRANSFORMO LOS STRING DE LA INTERFAZ COMMAND Y CREO LOS OBJETOS DE VALOR PARA PODER VALIDARLOS 
+    private createValueObject(command: Command): IClienteDomainEntityInterface {
 
-    //Transformo los string en el dato complejo de tipo objetos de valor para poder validarlo
-    private createValueObject(command: Command): IClienteDomainEntityInterface{
-        
-        const nombreCliente = new FullnameValueObject(command.nombreCliente); 
+        const nombreCliente = new FullnameValueObject(command.nombreCliente);
         const phoneCliente = new PhoneValueObject(command.phoneCliente);
         const emailCliente = new EmailValueObject(command.emailCliente);
-        
-        //throw new Error("Method not implemented.");
-        return {nombreCliente, phoneCliente, emailCliente}
+
+        return { nombreCliente, phoneCliente, emailCliente }
     }
 
+    //VALIDO LOS OBJETOS DE VALOR, SI HAY ERRORES LOS SETEO Y LOS MUESTRO
     private validateValueObject(valueObject: IClienteDomainEntityInterface): void {
-        const {nombreCliente, phoneCliente, emailCliente} = valueObject
+        const { nombreCliente, phoneCliente, emailCliente } = valueObject
 
         if (nombreCliente instanceof FullnameValueObject && nombreCliente.hasErrors())
             this.setErrors(nombreCliente.getErrors());
@@ -73,32 +67,31 @@ export class CreateClienteUseCase<
         if (phoneCliente instanceof PhoneValueObject && phoneCliente.hasErrors())
             this.setErrors(phoneCliente.getErrors());
 
-        if (emailCliente instanceof  EmailValueObject && emailCliente.hasErrors())
+        if (emailCliente instanceof EmailValueObject && emailCliente.hasErrors())
             this.setErrors(emailCliente.getErrors());
 
         if (this.hasErrors() === true)
-            throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado por create-cliente.use-case',
+            throw new ValueObjectException('Hay algunos errores en el comando ejecutado por create-cliente.use-case',
                 this.getErrors(),
             );
     }
 
-
     private createEntity(valueObject: IClienteDomainEntityInterface): ClienteDomainEntity {
+        const { nombreCliente, phoneCliente, emailCliente } = valueObject
 
-        const {nombreCliente, phoneCliente, emailCliente} = valueObject
-
-        return new ClienteDomainEntity({
-            nombreCliente: nombreCliente.valueOf(),
-            phoneCliente: phoneCliente.valueOf(),
-            emailCliente: emailCliente.valueOf()
-        })
+        return new ClienteDomainEntity({ nombreCliente: nombreCliente, phoneCliente: phoneCliente, emailCliente: emailCliente})
     }
 
-     //EN ESTA FUNCION PASO MI ENTIDAD PARA CREAR MI CLIENTE
-     private executeCompraAggregate(cliente: IClienteDomainEntityInterface): Promise<ClienteDomainEntity | null> {
-        return this.compraAggregate.createCliente(cliente as ICreateClienteMethod)
+
+    async executeCommand(command: Command): Promise<ClienteDomainEntity | null> {
+
+        const ValueObject = this.createValueObject(command); //CREO LOS OBJETOS DE VALOR
+        this.validateValueObject(ValueObject); //VALIDO LOS OBJETOS DE VALOR
+        const cliente = this.createEntity(ValueObject); //CREO MI ENTIDAD A PARTIR DE LOS OBJETOS DE VALOR
+
+        return this.executeCompraAggregate(cliente);
     }
+
 
 
 }
