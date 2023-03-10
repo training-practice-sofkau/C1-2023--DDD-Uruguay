@@ -1,7 +1,7 @@
 export interface IUpdateNameSeller {
 
 
-    idBill: string
+    idseller: string
     name: string 
 
 }

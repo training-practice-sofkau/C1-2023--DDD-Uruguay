@@ -98,7 +98,7 @@ export class SaleAgregate
     );
   }
 
-  async UpdateNameSeller(data: IUpdateNameSeller): Promise<SellerDomain> {
+  async UpdateNameSeller(data: SellerDomain): Promise<SellerDomain> {
     if (this.billservice && this.SellerNameModifiedEventPublisher) {
       const result = await this.sellerService.UpdateNameSeller(data);
       this.SellerNameModifiedEventPublisher.response = result;
