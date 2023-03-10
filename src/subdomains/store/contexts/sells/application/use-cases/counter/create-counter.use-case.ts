@@ -42,7 +42,7 @@ export class CreateCounterUseCase<
 
     private createValueObject(command: Command): ICounterDomainEntity {
         const counterId = new IdValueObject(command.counterId);
-        const product = new PhoneObjectValue(command.product);
+        const product = new (command.product);
         const poster = new PhoneObjectValue(command.poster);
 
         return {
