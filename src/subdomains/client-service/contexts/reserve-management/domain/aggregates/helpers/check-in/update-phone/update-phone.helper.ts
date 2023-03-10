@@ -1,14 +1,15 @@
-import { RoomKeyAccessLevelUpdatedEventPublisher } from "../../../../events";
+import { GuestDomainEntity } from "../../../../entities";
+import { PhoneUpdatedEventPublisher } from "../../../../events";
 import { IUpdatePhone } from "../../../../interfaces";
 import { IGuestDomainService } from "../../../../services";
 
 export const UpdatePhone = async (
     data: IUpdatePhone,
     guestService: IGuestDomainService,
-    roomKeyAccessLevelUpdatedEventPublisher: RoomKeyAccessLevelUpdatedEventPublisher
-): Promise<string | null> => {
+    phoneUpdatedEventPublisher: PhoneUpdatedEventPublisher
+): Promise<GuestDomainEntity | null> => {
     const result = await guestService.updatePhone(data);
-    roomKeyAccessLevelUpdatedEventPublisher.response = result;
-    roomKeyAccessLevelUpdatedEventPublisher.publish();
+    phoneUpdatedEventPublisher.response = result;
+    phoneUpdatedEventPublisher.publish();
     return result;
 }
