@@ -189,7 +189,7 @@ export class ReserveAggregate implements
         return await UpdatePaymentMethod(data, this.customerService, this.paymentMethodUpdatedEventPublisher)
     }
 
-    async updateState(data: IUpdateState): Promise<boolean> {
+    async updateState(data: IUpdateState): Promise<RoomDomainEntity> {
         if (!this.roomService)
             throw new AggregateRootException('roomService no esta definido')
         if (!this.stateUpdatedEventPublisher)
