@@ -49,23 +49,12 @@ export class RegisterSaleUseCase<
     private async executeCommand(
         command: Command
     ): Promise<SaleDomainEntity | null> {
-        const ValueObject = this.createValueObject(command);
-        this.validateValueObject(ValueObject);
-        const entity = this.createentitySaleDomain(ValueObject);
+        const entity = this.createentitySaleDomain(command);
+        this.validateValueObject((await entity));
+
         return this.exectueSaleAggregateRoot((await entity ))
     }
 
-    private createValueObject(
-        command: Command
-    ): SaleDomainEntity {
-
-        const IDSale =  new IdSaleValueObject(command.IDSale)
-        const IDOrder = new IdOrdertValueObject(command.IDOrder);
-        return {           
-            IDOrder,                       
-            IDSale,
-        }
-    }
 
     private validateValueObject(
         valueObject: SaleDomainEntity
@@ -91,16 +80,14 @@ export class RegisterSaleUseCase<
     }
 
     private async createentitySaleDomain(
-        valueObject: SaleDomainEntity
+        Command : Command
     ): Promise<SaleDomainEntity> {
-        const responseBill = this.GetBillUseCase.execute({ BillID: valueObject.IDOrder.value })
+        const responseBill = this.GetBillUseCase.execute({ BillID: Command.Billid })
         
-        const responseSeller = this.GetSellerUseCase.execute({SellerId: valueObject.Seller.IdSeller.value})
+        const responseSeller = this.GetSellerUseCase.execute({SellerId: Command.Sellerid})
 
-        const {
-            IDOrder,
-            IDSale,            
-        } = valueObject
+        const IDSale =  new IdSaleValueObject(Command.IDSale)
+        const IDOrder = new IdOrdertValueObject(Command.IDOrder);
 
         return new SaleDomainEntity({
           

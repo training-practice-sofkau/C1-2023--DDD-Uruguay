@@ -4,7 +4,7 @@ import { ClientDomainBase, IOrderentity, OrderDomainEntityBase } from "../../../
 import { ClientObtainedEventPublisher, MangaObtainedEventPublisher, OrderAddEventPublisher } from "../../../../domain/events";
 import { IRegisterOrder, RegisterdOrderResponse } from "../../../../domain/interfaces";
 import { ClientDomainService, IorderDomainService, MangaDomainService } from "../../../../domain/services";
-import { IdOrdertValueObject } from "../../../../domain/value-objects";
+import { IdClientValueObject, IdmangaValue, IdOrdertValueObject } from "../../../../domain/value-objects";
 import { GetClientCaseUse } from "../get-client-case-use/get-client-case-use";
 import { GetMangaCaseUse } from '../get-manga-case-use/get-manga-case-use';
 
@@ -47,23 +47,13 @@ export class RegisterOrderCaseUse<
     private async executeCommand(
         command: Command
     ): Promise<OrderDomainEntityBase | null> {
-        const ValueObject = this.createValueObject(command);
-        this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
+        const entity = this.createEntityClientDomain(command);
+        this.validateValueObject((await entity));
+
         return this.exectueOrderAggregateRoot((await entity))
     }
 
 
-    private createValueObject(
-        command: Command
-    ): OrderDomainEntityBase {
-
-        const orderId = new IdOrdertValueObject(command.idOrder);
-
-        return {
-            orderId            
-        }
-    }
     
     
     private validateValueObject(
@@ -86,16 +76,15 @@ export class RegisterOrderCaseUse<
     }
 
     private async createEntityClientDomain(
-        valueObject: IOrderentity
+        command: Command,
     ): Promise<OrderDomainEntityBase> {
 
-        const responseClient = this.GetClientCaseUse.execute({ClientID: valueObject.orderId.value})
+        const responseClient = this.GetClientCaseUse.execute({ClientID: command.clientID})
 
-        const responseManga = this.GetMangaCaseUse.execute({MangaID: valueObject.orderId.value})
+        const responseManga = this.GetMangaCaseUse.execute({MangaID: command.MangaID})
       
-        const {            
-            orderId
-        } = valueObject
+        const orderId = new IdOrdertValueObject(command.idOrder);
+
 
 
 
