@@ -174,7 +174,7 @@ export class CheckInAggregate implements
         return await UpdatePhone(data, this.guestService, this.phoneUpdatedEventPublisher)
     }
 
-    async updateEmail(data: IUpdateEmail): Promise<string> {
+    async updateEmail(data: IUpdateEmail): Promise<GuestDomainEntity> {
         if (!this.guestService)
             throw new AggregateRootException('guestService no esta definido')
         if (!this.emailUpdatedEventPublisher)
