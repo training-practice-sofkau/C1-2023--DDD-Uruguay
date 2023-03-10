@@ -39,7 +39,7 @@ export class UpdateStateUseCase<
     ): Promise<MangaDomainBase | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
+        const entity = this.createEntityMangaSatate(ValueObject);
         return this.exectueOrderAggregateRoot(entity)
     }
 
@@ -78,7 +78,7 @@ export class UpdateStateUseCase<
 
     }
 
-    private createEntityClientDomain(
+    private createEntityMangaSatate(
         
         valueObject: MangaDomainBase
 

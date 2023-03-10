@@ -39,7 +39,7 @@ export class UpdateNameClientCaseUse<
     ): Promise<ClientDomainBase | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
+        const entity = this.UpdateClientNameEntity(ValueObject);
         return this.exectueOrderAggregateRoot(entity)
     }
 
@@ -80,7 +80,7 @@ export class UpdateNameClientCaseUse<
 
     }
 
-    private createEntityClientDomain(
+    private UpdateClientNameEntity(
         
         valueObject: ClientDomainBase
 

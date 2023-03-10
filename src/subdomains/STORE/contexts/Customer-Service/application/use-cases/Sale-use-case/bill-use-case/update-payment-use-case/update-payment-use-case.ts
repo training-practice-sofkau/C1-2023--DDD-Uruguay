@@ -41,8 +41,8 @@ export class UpdatePaymentUseCase<
     ): Promise<BillDomain | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
-        return this.exectueOrderAggregateRoot(entity)
+        const entity = this.createentityPaymenMethodUpdate(ValueObject);
+        return this.exectueSaleAggregateRoot(entity)
     }
 
     private createValueObject(
@@ -74,13 +74,13 @@ export class UpdatePaymentUseCase<
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado para cambiar el metodo de pago del manga  ',
+                'Hay algunos errores en el comando ejecutado para cambiar el metodo de pago a  ',
                 this.getErrors(),
             );
 
     }
 
-    private createEntityClientDomain(
+    private createentityPaymenMethodUpdate(
         
         valueObject: BillDomain
 
@@ -98,7 +98,7 @@ export class UpdatePaymentUseCase<
 
     }
 
-    private exectueOrderAggregateRoot(
+    private exectueSaleAggregateRoot(
         entity: BillDomain,
     ): Promise<BillDomain | null> {
         return this.SaleAgregate.UpdatePaymentMethod(entity)

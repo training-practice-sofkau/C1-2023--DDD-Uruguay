@@ -39,7 +39,7 @@ export class UpdatePriceUseCase<
     ): Promise<MangaDomainBase | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
+        const entity = this.createEntityMangaPrice(ValueObject);
         return this.exectueOrderAggregateRoot(entity)
     }
 
@@ -78,7 +78,7 @@ export class UpdatePriceUseCase<
 
     }
 
-    private createEntityClientDomain(
+    private createEntityMangaPrice(
         
         valueObject: MangaDomainBase
 

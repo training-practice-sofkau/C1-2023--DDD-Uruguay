@@ -49,8 +49,8 @@ export class RegisterSaleUseCase<
     ): Promise<SaleDomainEntity | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
-        return this.exectueOrderAggregateRoot((await entity ))
+        const entity = this.createentitySaleDomain(ValueObject);
+        return this.exectueSaleAggregateRoot((await entity ))
     }
 
     private createValueObject(
@@ -88,7 +88,7 @@ export class RegisterSaleUseCase<
 
     }
 
-    private async createEntityClientDomain(
+    private async createentitySaleDomain(
         valueObject: SaleDomainEntity
     ): Promise<SaleDomainEntity> {
         const GetBillUse = new GetBillUseCase(this.saleService , this.BillObtainedEventPublisher);
@@ -112,7 +112,7 @@ export class RegisterSaleUseCase<
 
     }
 
-    private exectueOrderAggregateRoot(
+    private exectueSaleAggregateRoot(
         entity: SaleDomainEntity,
     ): Promise<SaleDomainEntity | null> {
         return this.SaleAgregate.RegisterSale(entity)

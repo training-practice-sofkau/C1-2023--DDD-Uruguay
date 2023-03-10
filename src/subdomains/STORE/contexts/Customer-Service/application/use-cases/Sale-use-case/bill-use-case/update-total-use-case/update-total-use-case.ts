@@ -38,8 +38,8 @@ export class UpdateTotalUseCase<
     ): Promise<BillDomain | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
-        return this.exectueOrderAggregateRoot(entity)
+        const entity = this.createentityPaymenTotalUpdate(ValueObject);
+        return this.exectueSaleAggregateRoot(entity)
     }
 
     private createValueObject(
@@ -77,7 +77,7 @@ export class UpdateTotalUseCase<
 
     }
 
-    private createEntityClientDomain(
+    private createentityPaymenTotalUpdate(
         
         valueObject: BillDomain
 
@@ -95,7 +95,7 @@ export class UpdateTotalUseCase<
 
     }
 
-    private exectueOrderAggregateRoot(
+    private exectueSaleAggregateRoot(
         entity: BillDomain,
     ): Promise<BillDomain | null> {
         return this.SaleAgregate.UpdatePaymentMethod(entity)

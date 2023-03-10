@@ -39,8 +39,8 @@ export class UpdateNameSallerUseCase<
     ): Promise<SellerDomain | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
-        return this.exectueOrderAggregateRoot(entity)
+        const entity = this.createentityNameSellerUpdate(ValueObject);
+        return this.exectueSaleAggregateRoot(entity)
     }
 
     private createValueObject(
@@ -78,7 +78,7 @@ export class UpdateNameSallerUseCase<
 
     }
 
-    private createEntityClientDomain(
+    private createentityNameSellerUpdate(
         
         valueObject: SellerDomain
 
@@ -96,7 +96,7 @@ export class UpdateNameSallerUseCase<
 
     }
 
-    private exectueOrderAggregateRoot(
+    private exectueSaleAggregateRoot(
         entity: SellerDomain,
     ): Promise<SellerDomain | null> {
         return this.SaleAgregate.UpdateNameSeller(entity)
