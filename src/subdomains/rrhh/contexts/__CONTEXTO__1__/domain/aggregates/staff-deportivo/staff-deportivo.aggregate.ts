@@ -14,7 +14,7 @@ import { TramiteDomainEntity } from '../../entities/tramite/tramite.entity.inter
 import { FechaTramiteModificadaEventPublisher } from '../../events/publishers/staff-deporitvo/fecha-tramite-modificada.event-publisher';
 import { EmpleadoBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
 import { TramiteBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
-import { NombreModificadoEventPublisher } from '../../events';
+import { DocumentoModificadoEventPublisher, NombreModificadoEventPublisher, SalarioModificadoEventPublisher, TipoEmpleadoModificadoEventPublisher } from '../../events';
 
 export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
     //Service
@@ -34,6 +34,9 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
     private readonly salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher;
     private readonly empleadoBuscadoEvent?: EmpleadoBuscadoEventPublisher;
     private readonly nombremodificadoEvent?: NombreModificadoEventPublisher;
+    private readonly documentoModificadoEvent?: DocumentoModificadoEventPublisher;
+    private readonly tipoEmpleadoModificadoEvent?: TipoEmpleadoModificadoEventPublisher;
+    private readonly salarioModificadoEvent?: SalarioModificadoEventPublisher;
    
 
     //tramite
@@ -59,6 +62,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
             salarioEmpleadoModificadoEvent,
             empleadoBuscadoEvent,
             nombreModificadoEvent,
+            documentoModificadoEvent,
             //tramite
             tamiteBuscadoEvent,
             tamiteAgregadoEvent,
@@ -77,7 +81,9 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
            salarioEmpleadoModificadoEvent?: SalarioEmpleadoModificadoEventPublisher;
            empleadoBuscadoEvent?: EmpleadoBuscadoEventPublisher;
            nombreModificadoEvent?: NombreModificadoEventPublisher;
+           documentoModificadoEvent?: DocumentoModificadoEventPublisher;
 
+           //tramite
             tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
             fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher;
             tamiteBuscadoEvent?: TramiteBuscadoEventPublisher;
@@ -97,6 +103,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
         this.salarioEmpleadoModificadoEvent = salarioEmpleadoModificadoEvent;
         this.empleadoBuscadoEvent = empleadoBuscadoEvent;
         this.nombremodificadoEvent = nombreModificadoEvent;
+        this.documentoModificadoEvent = documentoModificadoEvent;
         //tramite
         this.tamiteAgregadoEvent = tamiteAgregadoEvent;
         this.fechaTamiteModificadoEvent = fechaTamiteModificadoEvent;
@@ -144,12 +151,21 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
   
 
 
-    modificarNombre(nombre: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-        throw new Error('Method not implemented.');
+    async modificarNombre(nombre: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        if(!this.empleadoService)
+        throw new AggregateRootException('Servicio de Empleado indefinido')
+
+        if(!this.nombremodificadoEvent)
+        throw new AggregateRootException('Evento que modifica el documento de un empleado indefinido')
+
+        const result = await this.empleadoService.modificarNombre(nombre);
+        this.nombremodificadoEvent.response = result;
+        this.nombremodificadoEvent.publish();
+        return result;
     }
 
     //Salario del empleado
-    async modificarSalario(salario: IModificarSalarioCommands): Promise<EmpleadoDomainEntity> {
+    async modificarSalario(salario: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
         if(!this.empleadoService)
         throw new AggregateRootException('Servicio de Empleado indefinido')
 
@@ -161,11 +177,29 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
         this.salarioEmpleadoModificadoEvent.publish();
         return result;
     }
-    modificarDocumento(documento: IModificarDocumentoCommands): Promise<EmpleadoDomainEntity> {
-        throw new Error('Method not implemented.');
+    async modificarDocumento(documento: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        if(!this.empleadoService)
+        throw new AggregateRootException('Servicio de Empleado indefinido')
+
+        if(!this.documentoModificadoEvent)
+        throw new AggregateRootException('Evento que modifica el documento de un empleado indefinido')
+
+        const result = await this.empleadoService.modificarSalario(documento);
+        this.documentoModificadoEvent.response = result;
+        this.documentoModificadoEvent.publish();
+        return result;
     }
-    modificarTipoEmpleado(tipo: IModificarTipoEmpleadoCommands): Promise<EmpleadoDomainEntity> {
-        throw new Error('Method not implemented.');
+    async modificarTipoEmpleado(tipo: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        if(!this.empleadoService)
+        throw new AggregateRootException('Servicio de Empleado indefinido')
+
+        if(!this.tipoEmpleadoModificadoEvent)
+        throw new AggregateRootException('Evento que modifica el documento de un empleado indefinido')
+
+        const result = await this.empleadoService.modificarSalario(tipo);
+        this.tipoEmpleadoModificadoEvent.response = result;
+        this.tipoEmpleadoModificadoEvent.publish();
+        return result;
     }
 
     CrearNegociacion(negociacion: ICrearNegociacionCommands): Promise<TramiteDomainEntity> {

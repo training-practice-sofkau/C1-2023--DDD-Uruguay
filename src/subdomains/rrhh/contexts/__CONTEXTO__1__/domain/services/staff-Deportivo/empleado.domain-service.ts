@@ -1,12 +1,11 @@
 import { EmpleadoDomainEntity } from '../../entities/empleado/EmpleadoDomainEntity';
-import { IModificarNombreCommands, IModificarSalarioCommands, IModificarDocumentoCommands, IModificarTipoEmpleadoCommands } from '../../interfaces';
 
 export interface IEmpleadoDomainService<T extends EmpleadoDomainEntity = EmpleadoDomainEntity> {
 
-    modificarNombre(nombre: IModificarNombreCommands):Promise<T>;
-    modificarSalario(salario: IModificarSalarioCommands):Promise<T>;
-    modificarDocumento(documento: IModificarDocumentoCommands):Promise<T>;
-    modificarTipoEmpleado(tipo: IModificarTipoEmpleadoCommands):Promise<T>;
+    modificarNombre(nombre: EmpleadoDomainEntity):Promise<T>;
+    modificarSalario(salario: EmpleadoDomainEntity):Promise<T>;
+    modificarDocumento(documento: EmpleadoDomainEntity):Promise<T>;
+    modificarTipoEmpleado(tipo: EmpleadoDomainEntity):Promise<T>;
 
     
     

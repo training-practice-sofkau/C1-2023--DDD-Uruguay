@@ -1,33 +1,31 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { ICrearStaffDeportivoCommands, IStaffDeportivoCreadoResponse, StaffDeportivoAggregate, IStaffDeportivoDomainService, NombreValueObject, EmpleadoDomainEntity, INombreModificadoResponse, IEmpleadoDomainEntity, IdValueObject } from "../../../domain";
-import { NombreModificadoEventPublisher } from '../../../domain/events/publishers/empleado/nombre-modificado.event-publisher';
-import { IModificarNombreCommands } from '../../../domain/interfaces/commands/empleado/modificar-nombre.commands';
+import { StaffDeportivoAggregate, IStaffDeportivoDomainService,DocumentoValueObject, EmpleadoDomainEntity, IEmpleadoDomainEntity, IdValueObject, DocumentoModificadoEventPublisher, IModificarDocumentoCommands, IDocumentoModificadoResponse } from "../../../domain";
 import { EmpleadoBuscadoEventPublisher } from "../../../domain/events/publishers/staff-deporitvo/empleado-buscado.event-publisher";
 
-export class ModificarNombreEmpleadoUseCase 
+export class ModificarDocumentoEmpleadoUseCase 
     extends ValueObjectErrorHandler
-    implements IUseCase<IModificarNombreCommands, INombreModificadoResponse> {
+    implements IUseCase<IModificarDocumentoCommands, IDocumentoModificadoResponse> {
         
         private readonly aggregateRoot:StaffDeportivoAggregate;
 
         constructor(
             private readonly staffDeportivoService: IStaffDeportivoDomainService,
-            private readonly nombreModificadoEvent : NombreModificadoEventPublisher,
+            private readonly documentoModificadoEvent : DocumentoModificadoEventPublisher,
             private readonly empleadoBuscadoEvent : EmpleadoBuscadoEventPublisher,
         ){
             super();
-            this.aggregateRoot = new StaffDeportivoAggregate({staffDeportivoService,nombreModificadoEvent});
+            this.aggregateRoot = new StaffDeportivoAggregate({staffDeportivoService,documentoModificadoEvent});
         }
    
 
-    async execute(command?: IModificarNombreCommands): Promise<INombreModificadoResponse> {
+    async execute(command?: IModificarDocumentoCommands): Promise<IDocumentoModificadoResponse> {
         const data = await this.executeCommand(command);
 
         return { success: data ? true : false, data }
     }
 
     //Crea todo lo que tiene el comando con los value Object 
-    private async executeCommand(command: IModificarNombreCommands): Promise<EmpleadoDomainEntity | null> {
+    private async executeCommand(command: IModificarDocumentoCommands): Promise<EmpleadoDomainEntity | null> {
 
         //Llamada a la funcion que crea lso value object 
         const ValueObject = this.createValueObject(command);
@@ -43,15 +41,15 @@ export class ModificarNombreEmpleadoUseCase
     }
 
     //Crea los value Object 
-    private createValueObject(command: IModificarNombreCommands): IEmpleadoDomainEntity {
+    private createValueObject(command: IModificarDocumentoCommands): IEmpleadoDomainEntity {
 
         
         const empleadoId = new IdValueObject(command.empleadoid);
-        const nombre= new NombreValueObject(command.nombre);
+        const documento= new DocumentoValueObject(command.documento);
 
         return {
             empleadoId,
-            nombre,
+            documento,
         }
     }
 
@@ -59,11 +57,11 @@ export class ModificarNombreEmpleadoUseCase
     private validateValueObject(valueObject: IEmpleadoDomainEntity): void {
 
         const {
-            nombre,
+            documento,
         } = valueObject
 
-        if ( nombre instanceof NombreValueObject && nombre.hasErrors())
-            this.setErrors(nombre.getErrors());
+        if (documento instanceof DocumentoValueObject && documento.hasErrors())
+            this.setErrors(documento.getErrors());
 
 
         if (this.hasErrors() === true)
@@ -81,13 +79,13 @@ export class ModificarNombreEmpleadoUseCase
 
         const {
             empleadoId,
-            nombre,
+            documento,
             
         } = valueObject
 
         return new EmpleadoDomainEntity({
             empleadoId : empleadoId.valueOf(),
-            nombre: nombre.valueOf(),
+            documento: documento.valueOf(),
         })
     }
 
@@ -95,6 +93,6 @@ export class ModificarNombreEmpleadoUseCase
     private exectueOrderAggregateRoot(
         entity: EmpleadoDomainEntity,
     ): Promise<EmpleadoDomainEntity | null> {
-        return this.aggregateRoot.modificarNombre(entity)
+        return this.aggregateRoot.modificarDocumento(entity)
     }
 }
