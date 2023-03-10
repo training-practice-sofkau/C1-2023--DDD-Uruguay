@@ -9,6 +9,10 @@ import { PhoneValue } from '../../../../domain/value-objects/Order/Client/phone-
 import { SalesObtainedEventPublisher } from "../../../../domain/events";
 import { IRegisterSale } from "../../../../domain/interfaces";
 import { SaleAgregate } from "../../../../domain/aggregates/sale.agregate";
+import { GetBillUseCase } from "../get-bill-use-case/get-bill-use-case";
+import { BillObtainedEventPublisher } from "../../../../domain/events/publishers/Sale/Bill/bill-obtained.publish-event";
+import { SellerObtainedEventPublisher } from "../../../../domain/events/publishers/Sale/Seller/seller-obtained.publish-event";
+import { GetSellerUseCase } from "../get-seller-use-case/get-seller-use-case";
 
 export class RegisterSaleUseCase<
     Command extends IRegisterSale = IRegisterSale,
@@ -23,6 +27,9 @@ export class RegisterSaleUseCase<
     constructor(
         private readonly saleService: SaleDomainService,
         private readonly SalesObtainedEventPublisher: SalesObtainedEventPublisher,
+        private readonly BillObtainedEventPublisher: BillObtainedEventPublisher,
+        private readonly SellerObtaiedEventPublisher: SellerObtainedEventPublisher
+
     ) {
         super();
         this.SaleAgregate = new SaleAgregate({
@@ -84,6 +91,11 @@ export class RegisterSaleUseCase<
     private async createEntityClientDomain(
         valueObject: SaleDomainEntity
     ): Promise<SaleDomainEntity> {
+        const GetBillUse = new GetBillUseCase(this.saleService , this.BillObtainedEventPublisher);
+        const responseBill = GetBillUse.execute({ BillID: valueObject.IDOrder.value })
+        
+        const GetSellerUse = new GetSellerUseCase(this.saleService , this.SellerObtaiedEventPublisher);
+        const responseSeller = GetSellerUse.execute({SellerId: valueObject.Seller.IdSeller.value})
 
         const {
             IDOrder,
@@ -92,10 +104,10 @@ export class RegisterSaleUseCase<
 
         return new SaleDomainEntity({
           
-            Bill: (await responseClient).data ,
+            Bill: (await responseBill).data ,
             IDOrder: IDOrder,
             IDSale:  IDSale,
-            Seller: (await responseManga).data,
+            Seller: (await responseSeller).data,
         })
 
     }

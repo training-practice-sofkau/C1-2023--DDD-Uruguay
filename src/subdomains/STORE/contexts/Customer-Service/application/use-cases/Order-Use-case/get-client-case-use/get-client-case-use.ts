@@ -42,9 +42,6 @@ export class GetClientCaseUse<
         return this.OrderAgregate.GetClient(command.ClientID)
 
     }
-
-
-    
-  
+      
 }
  
