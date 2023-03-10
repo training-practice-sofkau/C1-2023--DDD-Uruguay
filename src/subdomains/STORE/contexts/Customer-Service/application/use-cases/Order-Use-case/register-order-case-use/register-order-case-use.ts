@@ -78,15 +78,18 @@ export class RegisterOrderCaseUse<
     private async createEntityClientDomain(
         command: Command,
     ): Promise<OrderDomainEntityBase> {
-
+        
         const responseClient = this.GetClientCaseUse.execute({ClientID: command.clientID})
 
         const responseManga = this.GetMangaCaseUse.execute({MangaID: command.MangaID})
       
         const orderId = new IdOrdertValueObject(command.idOrder);
 
-
-
+        if (!responseClient  || !responseManga) 
+        {  throw new ValueObjectException(
+            'Error al obtener datos ',
+            this.getErrors(),
+        ); }
 
         return new OrderDomainEntityBase({
             client: (await responseClient).data ,

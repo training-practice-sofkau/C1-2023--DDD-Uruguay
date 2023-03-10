@@ -89,6 +89,15 @@ export class RegisterSaleUseCase<
         const IDSale =  new IdSaleValueObject(Command.IDSale)
         const IDOrder = new IdOrdertValueObject(Command.IDOrder);
 
+
+
+        if (!responseBill  || !responseSeller) 
+        {  throw new ValueObjectException(
+            'Error al obtener datos ',
+            this.getErrors(),
+        ); }
+
+
         return new SaleDomainEntity({
           
             Bill: (await responseBill).data ,
