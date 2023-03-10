@@ -152,7 +152,7 @@ export class ReserveAggregate implements
         return await UpdateEndDate(data, this.reserveService, this.endDateUpdatedEventPublisher)
     }
 
-    async updateNumberOfGuests(data: IUpdateNumberOfGuests): Promise<number> {
+    async updateNumberOfGuests(data: IUpdateNumberOfGuests): Promise<ReserveDomainEntity> {
         if (!this.reserveService)
             throw new AggregateRootException('reserveService no esta definido')
         if (!this.numberOfGuestsUpdatedEventPublisher)

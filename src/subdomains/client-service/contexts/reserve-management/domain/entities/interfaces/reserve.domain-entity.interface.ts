@@ -5,7 +5,7 @@ export interface IReserveDomainEntity {
     reserveId?: string | IdValueObject;
     startDate?: Date | DateValueObject;
     endDate?: Date | DateValueObject;
-    numberOfGuests: number | NumberOfGuestsValueObject;
+    numberOfGuests?: number | NumberOfGuestsValueObject;
     room?: IRoomDomainEntity;
     customer?: ICustomerDomainEntity;
     createdAt?: number | Date;

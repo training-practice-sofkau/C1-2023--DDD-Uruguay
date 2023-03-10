@@ -22,7 +22,7 @@ export interface IReserveDomainService {
 
     updateEndDate(data: IUpdateEndDate): Promise<Date>;
 
-    updateNumberOfGuests(data: IUpdateNumberOfGuests): Promise<number>;
+    updateNumberOfGuests(data: IUpdateNumberOfGuests): Promise<ReserveDomainEntity>;
 
     updateCustomerPaymentMethod(data: IUpdateCustomerPaymentMethod): Promise<string>;
 

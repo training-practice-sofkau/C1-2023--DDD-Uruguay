@@ -4,12 +4,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 export class ReserveDomainEntity implements IReserveDomainEntity{
 
-    reserveId: string | IdValueObject;
-    startDate: Date | DateValueObject;
+    reserveId?: string | IdValueObject;
+    startDate?: Date | DateValueObject;
     endDate?: Date | DateValueObject;
-    numberOfGuests: number | NumberOfGuestsValueObject;
-    room: IRoomDomainEntity;
-    customer: ICustomerDomainEntity;
+    numberOfGuests?: number | NumberOfGuestsValueObject;
+    room?: IRoomDomainEntity;
+    customer?: ICustomerDomainEntity;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;
