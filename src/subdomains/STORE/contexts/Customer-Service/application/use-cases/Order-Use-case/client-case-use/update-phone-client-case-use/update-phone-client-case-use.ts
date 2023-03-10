@@ -74,7 +74,7 @@ export class UpdatePhoneClientCaseUse<
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado para cambiar el nombre del cliente ',
+                'Hay algunos errores en el comando ejecutado para cambiar el telefono  del cliente ',
                 this.getErrors(),
             );
 

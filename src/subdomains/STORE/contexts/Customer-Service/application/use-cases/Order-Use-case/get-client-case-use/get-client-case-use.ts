@@ -17,7 +17,6 @@ export class GetClientCaseUse<
 {
 
     private readonly OrderAgregate: OrderAgregate;
-    database: ClientDomainBase[]  = [];
 
     constructor(
         private readonly ClientService: ClientDomainService,
@@ -39,23 +38,13 @@ export class GetClientCaseUse<
     private async executeCommand(
         command: Command
     ): Promise< ClientDomainBase | null> {
-        const ValueObject = this.getClient(command.ClientID);
-        return this.execueteGetorderRoot(ValueObject)
-    }
-
-
-    private getClient(
-        idclient: string
-    ): ClientDomainBase {
-        return this.database.find((item) => item.ClientID.valueOf === idclient.valueOf);
         
-    }   
-  
+        return this.OrderAgregate.GetClient(command.ClientID)
 
-    private execueteGetorderRoot(
-        entity: ClientDomainBase,
-    ): Promise<ClientDomainBase > {     
-
-        return this.OrderAgregate.GetClient({ClientID: entity.ClientID.toString()})
     }
+
+
+    
+  
 }
+ 

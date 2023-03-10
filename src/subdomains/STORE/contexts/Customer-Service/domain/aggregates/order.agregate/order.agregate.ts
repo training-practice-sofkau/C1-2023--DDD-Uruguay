@@ -153,7 +153,7 @@ Publisher events go in this place
    * @param {string} ClientId - string
    * @returns The result of the GetClient method of the OrderService
    */
-  async GetClient(data: IGetClient): Promise<ClientDomainBase> {
+  async GetClient(data: string): Promise<ClientDomainBase> {
     if (this.orderService && this.GetClientEventPublisher) {
       
       const result = await this.orderService.GetClient(data);
@@ -215,7 +215,7 @@ Publisher events go in this place
    * @returns The result of the GetManga method of the OrderService
    */
 
-  async GetManga(data: IGetMangaData): Promise<MangaDomainBase> {
+  async GetManga(data: string): Promise<MangaDomainBase> {
     if (this.orderService && this.GetMangaEventPublisher) {
       const result = await this.orderService.GetManga(data);
 

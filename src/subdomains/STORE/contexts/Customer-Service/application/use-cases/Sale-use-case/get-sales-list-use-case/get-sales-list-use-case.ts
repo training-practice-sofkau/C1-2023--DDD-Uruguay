@@ -15,7 +15,6 @@ export class GetSalesListUseCase<
 {
 
     private readonly SaleAgregate: SaleAgregate;
-    database: SaleDomainEntity[]  = [];
 
     constructor(
         private readonly saleService: SaleDomainService,
@@ -37,22 +36,10 @@ export class GetSalesListUseCase<
     private async executeCommand(
         command: Command
     ): Promise< SaleDomainEntity | null> {
-        const ValueObject = this.getSale(command.IdSale);
-        return this.execueteGetorderRoot(ValueObject)
-    }
+        return this.SaleAgregate.GetSalesList(command.IdSale)    }
 
 
-    private getSale(
-        idmanga: string
-    ): SaleDomainEntity {
-        return this.database.find((item) => item.IDSale.valueOf === idmanga.valueOf);
-               
-    }
+
    
 
-    private execueteGetorderRoot(
-        entity: SaleDomainEntity,
-    ): Promise<SaleDomainEntity > {     
-
-        return this.SaleAgregate.GetSalesList({IdSale: entity.IDSale.toString()})
-    }}
+   }

@@ -19,7 +19,6 @@ export class GetMangaCaseUse<
 {
 
     private readonly OrderAgregate: OrderAgregate;
-    database: MangaDomainBase[]  = [];
 
     constructor(
         private readonly MangaService: MangaDomainService,
@@ -41,21 +40,11 @@ export class GetMangaCaseUse<
     private async executeCommand(
         command: Command
     ): Promise< MangaDomainBase | null> {
-        const ValueObject = this.getManga(command.MangaID);
-        return this.execueteGetorderRoot(ValueObject)
+        return this.OrderAgregate.GetManga(command.MangaID)
     }
 
 
-    private getManga(
-        idmanga: string
-    ): MangaDomainBase {
-        return this.database.find((item) => item.Mangaid.valueOf === idmanga.valueOf);
-               
-    }
+  
 
-    private execueteGetorderRoot(
-        entity: MangaDomainBase,
-    ): Promise<MangaDomainBase > {     
-
-        return this.OrderAgregate.GetManga({mangaID: entity.Mangaid.toString()})
-    }}
+  
+}

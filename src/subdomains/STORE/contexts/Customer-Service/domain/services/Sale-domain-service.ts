@@ -14,8 +14,9 @@ export interface SaleDomainService
  < T extends SaleDomainEntity = SaleDomainEntity >  {
     RegisterSale(data: SaleDomainEntity): Promise <T>;
     GetClient(data: IGetClientSale): Promise <ClientDomainBase>;
-    GetSalesList(data: IGetSalesList): Promise <SaleDomainEntity>;
+    GetSalesList(data: string): Promise <SaleDomainEntity>;
     AddSeller(data:  SellerDomain  ): Promise <SellerDomain>;
     UpdateSeller(data: IUpdateNameSeller): Promise <SellerDomain>;
-    UpdateBill(data: IUpdateBill): Promise <BillDomain>;
+   UpdateBill(data: IUpdateBill): Promise<BillDomain>;
+   GetSellers(data: string): Promise <SellerDomain>;
  }

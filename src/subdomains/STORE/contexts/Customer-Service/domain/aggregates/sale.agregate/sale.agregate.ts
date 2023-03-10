@@ -137,7 +137,7 @@ export class SaleAgregate
     );
   }
 
-  async GetSalesList(data: IGetSalesList  ): Promise<SaleDomainEntity> {
+  async GetSalesList(data: string  ): Promise<SaleDomainEntity> {
     if (this.billservice && this.SalesObtainedEventPublisher) {
       const result = await this.saleservice.GetSalesList(data );
       this.SalesObtainedEventPublisher.response = result;

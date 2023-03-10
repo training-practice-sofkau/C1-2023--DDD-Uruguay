@@ -14,10 +14,10 @@ import { IUpdateClient } from "../interfaces/commands/Order-commands/update-clie
 export interface IorderDomainService 
  < T extends OrderDomainEntityBase = OrderDomainEntityBase >  {
     RegisterOrder(data: T): Promise <T>;
-    GetClient(data: IGetClient): Promise <ClientDomainBase>;
+    GetClient(data: string): Promise <ClientDomainBase>;
     UpdateOrder(data: IUpdateOrder ): Promise <T>
     Delete(data: IDeleteOrder): Promise <T>
-    GetManga(data: IGetMangaData): Promise <MangaDomainBase>;
+    GetManga(data: string): Promise <MangaDomainBase>;
     AddClient(data: ClientDomainBase): Promise <ClientDomainBase>;
     UpdateMangaStock(data: IUpdateMangaStock ): Promise <MangaDomainBase>;
     UpdateClient(data: IUpdateClient): Promise <ClientDomainBase>;
