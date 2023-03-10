@@ -63,6 +63,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
             empleadoBuscadoEvent,
             nombreModificadoEvent,
             documentoModificadoEvent,
+            tipoEmpleadoModificadoEvent,
             //tramite
             tamiteBuscadoEvent,
             tamiteAgregadoEvent,
@@ -82,6 +83,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
            empleadoBuscadoEvent?: EmpleadoBuscadoEventPublisher;
            nombreModificadoEvent?: NombreModificadoEventPublisher;
            documentoModificadoEvent?: DocumentoModificadoEventPublisher;
+           tipoEmpleadoModificadoEvent?: TipoEmpleadoModificadoEventPublisher;
 
            //tramite
             tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
@@ -104,6 +106,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
         this.empleadoBuscadoEvent = empleadoBuscadoEvent;
         this.nombremodificadoEvent = nombreModificadoEvent;
         this.documentoModificadoEvent = documentoModificadoEvent;
+        this.tipoEmpleadoModificadoEvent = tipoEmpleadoModificadoEvent;
         //tramite
         this.tamiteAgregadoEvent = tamiteAgregadoEvent;
         this.fechaTamiteModificadoEvent = fechaTamiteModificadoEvent;
