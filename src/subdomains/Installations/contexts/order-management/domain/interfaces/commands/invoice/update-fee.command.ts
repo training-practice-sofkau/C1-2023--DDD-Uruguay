@@ -1,6 +1,6 @@
 import { FeeDomainEntityBase } from '../../../entities/invoice';
 
-export interface IUpdateFee {
+export interface IUpdateFeeCommand {
     feeId: string;
     fee?: FeeDomainEntityBase;
     tax: number;

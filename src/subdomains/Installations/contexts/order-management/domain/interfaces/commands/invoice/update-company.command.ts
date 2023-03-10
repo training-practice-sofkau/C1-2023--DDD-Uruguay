@@ -1,6 +1,6 @@
 import { CompanyDomainEntityBase } from '../../../entities/invoice';
 
-export interface IUpdateCompany {
+export interface IUpdateCompanyCommand {
     companyId: string;
     company?: CompanyDomainEntityBase;
     name: string;

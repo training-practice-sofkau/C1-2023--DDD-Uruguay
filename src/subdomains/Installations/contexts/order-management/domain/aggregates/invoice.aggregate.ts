@@ -65,14 +65,14 @@ export class InvoiceAggregate implements IInvoiceDomainService {
         return this.registeredInvoiceEventPublisherBase.response[0];
     }
 
-    async addCompany(invoiceId: string): Promise<CompanyDomainEntityBase> {
+    async addCompany(company: CompanyDomainEntityBase): Promise<CompanyDomainEntityBase> {
         if (!this.invoiceCompanyAddedEventPublisherBase)
             throw new AggregateRootException('InvoiceCompanyAddedEventPublisherBase is not defined')
 
         return this.invoiceCompanyAddedEventPublisherBase.response[0];
     }
     
-    async addFee(invoiceId: string): Promise<FeeDomainEntityBase> {
+    async addFee(fee: FeeDomainEntityBase): Promise<FeeDomainEntityBase> {
         if (!this.invoiceFeeAddedEventPublisherBase)
             throw new AggregateRootException('InvoiceFeeAddedEventPublisherBase is not defined')
 

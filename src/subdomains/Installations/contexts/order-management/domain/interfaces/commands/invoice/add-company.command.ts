@@ -1,4 +1,4 @@
-export interface IAddCompany {
+export interface IAddCompanyCommand {
     companyId: string;
     name: string;
     bankAccount: string;

@@ -1,6 +1,6 @@
 import { CompanyIdValueObject } from '../../../value-objects/invoice';
 
-export interface IAddBenefited {
+export interface IAddBenefitedCommand {
     benefitedId: string;
     name: string;
     phone: string;
