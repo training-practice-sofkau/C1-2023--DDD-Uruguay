@@ -5,7 +5,7 @@ export interface IEmployeeDomainService{
 
     CreateEmployee(employeeData: EmployeeDomainEntityBase) : Promise < EmployeeDomainEntityBase | null >; // ICreateEmployeeCommand
 
-    ChangeEmployeeEmail(data: IChangeEmployeeMailCommand) : Promise < boolean >;
+    ChangeEmployeeEmail(data: EmployeeDomainEntityBase) : Promise < boolean >;
 
     changeEmployeeStatus(data: IChangeEmployeeStatusCommand) : Promise < boolean >;
 
