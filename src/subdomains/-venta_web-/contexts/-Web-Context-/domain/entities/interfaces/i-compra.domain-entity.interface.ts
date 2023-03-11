@@ -3,11 +3,11 @@ import { IClienteDomainEntityInterface } from "./i-cliente.domain-entity.interfa
 import { ICuponDomainEntityInterface } from "./i-cupon.domain-entity.interface";
 import { ICursoDomainEntityInterface } from "./i-curso.domain-entity.interface";
 
-export interface ICompraDomainEntity {
+export interface ICompraDomainEntityInterface  {
 
-    idCompra : string | UuidValueObject;
-    clienteCompra :  IClienteDomainEntityInterface;
-    cursoCompra : ICursoDomainEntityInterface;
-    cuponCompra : ICuponDomainEntityInterface;
+    idCompra? : string | UuidValueObject;
+    clienteCompra? :  IClienteDomainEntityInterface;
+    cursoCompra? : ICursoDomainEntityInterface;
+    cuponCompra? : ICuponDomainEntityInterface;
 
 }

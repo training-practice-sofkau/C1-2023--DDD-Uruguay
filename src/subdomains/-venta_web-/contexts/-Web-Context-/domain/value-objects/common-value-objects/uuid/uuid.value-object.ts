@@ -22,13 +22,11 @@ export class UuidValueObject extends ValueObjectBase<string>{
             this.setError(error) // seteo el error si existe
         }
         
-
         if(!this.value){
             const error = {field : 'Id', message : 'El Id no existe!'}
             this.setError(error)
         }
     }
-
 
     
 }

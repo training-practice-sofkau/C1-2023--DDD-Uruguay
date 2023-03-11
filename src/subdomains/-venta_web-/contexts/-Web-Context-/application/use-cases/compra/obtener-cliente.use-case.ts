@@ -23,6 +23,11 @@ export class ObtenerClienteUseCase<
         this.compraAggregate = new CompraAggregate({ compraService, clienteConseguidoEventPublisher })
     }
 
+     /*
+    Una función asíncrona es una función que devuelve una Promesa y puede
+    utilizar la palabra clave await para esperar a que se resuelva la Promesa
+    antes de continuar con la ejecución del código.
+    */
     async execute(command?: Command): Promise<Response> {
         const data = await this.executeCommand(command);
 
@@ -31,9 +36,7 @@ export class ObtenerClienteUseCase<
 
 
     private async executeCommand(command: Command): Promise<ClienteDomainEntity | null> {
-
         return this.compraAggregate.obtenerCliente(command.idCliente)
-
     }
 
 }
