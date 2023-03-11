@@ -1,4 +1,4 @@
 export interface IUpdateAccessLevel {
-    roomKeyId: string;
-    accessLevel: string;
+    roomKeyId?: string;
+    accessLevel?: string;
 }

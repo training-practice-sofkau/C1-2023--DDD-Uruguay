@@ -183,7 +183,7 @@ export class CheckInAggregate implements
         return await UpdateEmail(data, this.guestService, this.emailUpdatedEventPublisher)
     }
 
-    async updateAccessLevel(data: IUpdateAccessLevel): Promise<string> {
+    async updateAccessLevel(data: IUpdateAccessLevel): Promise<RoomKeyDomainEntity> {
         if (!this.roomKeyService)
             throw new AggregateRootException('roomKeyService no esta definido')
         if (!this.accessLevelUpdatedEventPublisher)
