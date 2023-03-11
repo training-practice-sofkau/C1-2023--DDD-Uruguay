@@ -39,7 +39,7 @@ This first delivery includes, as requested:
 
 ## Second delivery:
 
-This second installment includes the implementation of the logic of:
+This second delivery includes the implementation of the logic of:
 
 * Domain entities
 * Aggregates: invoice & employee (completed), support-ticket (in progress)
@@ -52,4 +52,26 @@ This second installment includes the implementation of the logic of:
 
 
 
+## Third delivery:
+
+For this third delivery of the project, 12 use cases (minimum) were implemented as required.
+
+* multiple use cases of creation:
+
+    + CreateRoleUseCase
+    + CreateEmployeeUseCase
+    + AddWarrantyUseCase
+    + CreateCustomerUseCase
+    + CreateInvoiceUseCase
+    + AddDeviceUseCase
+    + OpenNewTicketUseCase
+
+* multiple upgrade use cases
+    + ChangeRoleDescriptionUseCase
+    + ChangeEmployeeEmailUseCase
+    + ChangeEmployeeStatusUseCase
+    + ChangeCustomerEmailUseCase
+    + ChangeCustomerPhoneUseCase
+
+* Model & BigPicture Updated
 

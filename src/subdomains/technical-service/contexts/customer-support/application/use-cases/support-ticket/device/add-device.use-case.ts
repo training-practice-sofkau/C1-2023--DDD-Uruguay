@@ -1,7 +1,6 @@
 import { IAddDeviceCommand } from '../../../../domain/interfaces/commands/support-ticket/device/add-device.command';
 import { ValueObjectErrorHandler } from '../../../../../../../../libs/sofka/bases/value-object-error-handler.base';
 import { IUseCase } from '../../../../../../../../libs/sofka/interface/use-case.interface';
-import { IDeviceAddedResponse } from '../../../../domain/interfaces/responses/service-ticket/device/device-added.response';
 import { SupportTicketAggregate } from '../../../../domain/aggregates/support-ticket/support-ticket.aggregate';
 import { IDeviceDomainService } from '../../../../domain/services/support-ticket/device.domain-service';
 import { DeviceAddedEventPublisherBase } from '../../../../domain/events/publishers/support-ticket/device/device-added.event-publisher';
@@ -10,6 +9,7 @@ import { DeviceTypeValueObject } from '../../../../domain/value-objects/device/d
 import { IssueValueObject } from '../../../../domain/value-objects/device/issue.value-object';
 import { ValueObjectException } from 'src/libs';
 import { DeviceDomainEntityBase } from '../../../../domain/entities/support-ticket/device.domain-entity/device.domain-entity';
+import { IDeviceAddedResponse } from '../../../../domain/interfaces/responses/support-ticket/device/device-added.response';
 
 export class AddDeviceUseCase<
     Command extends IAddDeviceCommand = IAddDeviceCommand,
