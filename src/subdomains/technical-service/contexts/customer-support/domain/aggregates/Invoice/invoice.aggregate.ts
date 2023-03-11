@@ -169,7 +169,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>} success ( true / false )
      * @memberof InvoiceAggregate
      */
-    async CreateCustomer(customerData: ICreateCustomerCommand): Promise<boolean> {
+    async CreateCustomer(customerData: CustomerDomainEntityBase): Promise<CustomerDomainEntityBase | null> {
 
         if (!this.invoiceService) {
             throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');

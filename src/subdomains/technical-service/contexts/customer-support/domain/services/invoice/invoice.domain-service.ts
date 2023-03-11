@@ -4,6 +4,7 @@ import { ICreateCustomerCommand, IAddWarrantyCommand } from '../../interfaces/co
 import { INotifyCustomerCommand } from '../../interfaces/commands/invoice/notify-customer.command';
 import { InvoiceDomainEntityBase } from '../../entities/invoice/invoice.domain-entity';
 import { IWarrantyDomainEntity } from '../../entities/interfaces';
+import { CustomerDomainEntityBase } from '../../entities/invoice/customer.domain-entity';
 
 export interface IInvoiceDomainService { // <T extends InvoiceDomainEntityBase = InvoiceDomainEntityBase>
 
@@ -18,6 +19,6 @@ export interface IInvoiceDomainService { // <T extends InvoiceDomainEntityBase =
 
     MarkAsPaid() : Promise <boolean> //return success (true/false) 
     
-    CreateCustomer( customerData : ICreateCustomerCommand ) : Promise < boolean > //return success (true/false) 
+    CreateCustomer( customerData : CustomerDomainEntityBase ) : Promise < CustomerDomainEntityBase | null > //return success (true/false) 
     
 }

@@ -83,6 +83,13 @@ export class CreateInvoiceUseCase<
         }
     }
 
+
+    /**
+     * Checks that the information of the new VO is valid
+     *
+     * @param {IInvoiceDomainEntity} VO
+     * @memberof CreateInvoiceUseCase
+     */
     validateValueObject(VO: IInvoiceDomainEntity) {
 
         const {
