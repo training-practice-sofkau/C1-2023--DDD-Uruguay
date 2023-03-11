@@ -1,4 +1,4 @@
-import { ClienteDomainEntity } from "../../../entities/common-entities/cliente.domain-entity";
+import { ClienteDomainEntity } from "../../entities/common-entities/cliente.domain-entity";
 
 
 export interface IClienteCreadoResponse {
