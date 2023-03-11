@@ -42,7 +42,8 @@ private executeCompraAggregate(compra: ICompraDomainEntityInterface ): Promise<C
 
 private  async createEntity(command: Command): Promise<CompraDomainEntity> {
 
-    const clienteCompra = this.obtenerClienteUseCase.execute({idCliente : command.idCliente})  
+    const clienteCompra = this.obtenerClienteUseCase.execute({idCliente : command.idCliente})
+    //const cursoCompra = this.obtenerCursoUseCase.execute({idCurso : command.idCurso}) 
 
     return new CompraDomainEntity({ clienteCompra : (await clienteCompra).data})
 }
@@ -50,7 +51,7 @@ private  async createEntity(command: Command): Promise<CompraDomainEntity> {
 
 async executeCommand(command: Command): Promise<CompraDomainEntity | null> {
 
-    const compraEntity = this.createEntity(command); //CREO MI ENTIDAD A PARTIR DE LOS OBJETOS DE VALOR
+    const compraEntity = this.createEntity(command);
 
     return this.executeCompraAggregate(compraEntity as CompraDomainEntity);
 }

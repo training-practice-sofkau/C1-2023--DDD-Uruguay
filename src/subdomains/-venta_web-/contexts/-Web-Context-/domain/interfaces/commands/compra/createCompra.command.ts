@@ -10,8 +10,6 @@ export interface ICreateCompraMethod {
     idCupon? : string;
     idCurso? : string;
 
-//****************************************** */
-
-    // newCompra : CompraDomainEntity;
+ 
 
 }
