@@ -1,6 +1,7 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
 import { CompraAggregate, CompraCreadaEventPublisher, CompraDomainEntity, ICompraCreadaResponse, ICompraDomainEntityInterface, ICompraService, ICreateCompraMethod, UuidValueObject } from "../../../domain";
 import { ObtenerClienteUseCase } from "./obtener-cliente.use-case";
+import { ObtenerCursoUseCase } from "./obtener-curso.use-case";
 
 export class CreateCompraUseCase<
 
@@ -15,7 +16,7 @@ implements IUseCase<Command, Response>{ //IMPLEMENTO LA INTERFAZ PARA EJECUTAR E
 //Y LOS CASOS DE USO QUE EJECUTAN EL METODO QUE ME PERMITE OBTENER LAS ENTIDADES
 private readonly compraAggregate: CompraAggregate
 private readonly obtenerClienteUseCase : ObtenerClienteUseCase
-// private readonly obtenerCursoeUseCase : ObtenerCursoUseCase
+private readonly obtenerCursoeUseCase : ObtenerCursoUseCase
 // private readonly obtenerCuponeUseCase : ObtenerCuponUseCase
 
 //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
@@ -24,10 +25,10 @@ constructor(private readonly compraService: ICompraService, private readonly com
     this.compraAggregate = new CompraAggregate({ compraService, compraCreadaEventPublisher })
 }
 
-/*
-Una función asíncrona es una función que devuelve una Promesa y puede
-utilizar la palabra clave await para esperar a que se resuelva la Promesa
-antes de continuar con la ejecución del código.
+ /*
+ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
+"await" PARA ESPERAR A QUE SE RESUELVA LA PROMESA
+ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
 */
 async execute(command?: Command): Promise<Response> {
     const data = await this.executeCompraAggregate(command)
@@ -43,9 +44,9 @@ private executeCompraAggregate(compra: ICompraDomainEntityInterface ): Promise<C
 private  async createEntity(command: Command): Promise<CompraDomainEntity> {
 
     const clienteCompra = this.obtenerClienteUseCase.execute({idCliente : command.idCliente})
-    //const cursoCompra = this.obtenerCursoUseCase.execute({idCurso : command.idCurso}) 
+    const cursoCompra = this.obtenerCursoeUseCase.execute({idCurso : command.idCurso}) 
 
-    return new CompraDomainEntity({ clienteCompra : (await clienteCompra).data})
+    return new CompraDomainEntity({ clienteCompra : (await clienteCompra).data, cursoCompra : (await cursoCompra).data})
 }
 
 
