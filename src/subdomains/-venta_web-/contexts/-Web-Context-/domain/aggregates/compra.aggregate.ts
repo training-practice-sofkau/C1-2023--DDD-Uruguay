@@ -20,6 +20,9 @@ import { ClienteCreadoEventPublisher } from "../events/publishers/compra/cliente
 import { CompraCreadaEventPublisher } from "../events/publishers/compra/compra-creada.event-publisher";
 import { CursoCreadoEventPublisher } from "../events/publishers/compra/curso-creado.event-publisher";
 import { AggregateRootException } from "src/libs/sofka/exceptions/aggregate-root.exception";
+import { ClienteConseguidoEventPublisher } from "../events/publishers/compra/cliente/cliente-conseguido.event-publisher";
+import { CuponConseguidoEventPublisher } from "../events/publishers/compra/cupon/cupon-conseguido.event-publisher";
+import { CursoConseguidoEventPublisher } from "../events/publishers/compra/curso/curso-conseguido.event-publisher";
 
 
 export class CompraAggregate implements IClienteService, ICompraService, ICuponService, ICursoService {
@@ -38,6 +41,8 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
     private readonly clienteCreadoEventPublisher?: ClienteCreadoEventPublisher;
     private readonly compraCreadaEventPublisher?: CompraCreadaEventPublisher;
     private readonly cursoCreadoEventPublisher?: CursoCreadoEventPublisher;
+    private readonly clienteConseguidoEventPublisher?: ClienteConseguidoEventPublisher;
+    private readonly cursoConseguidoEventPublisher?: CursoConseguidoEventPublisher;
 
 
     constructor({
@@ -53,7 +58,9 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         updateCostoCursoEventPublisher,
         clienteCreadoEventPublisher,
         compraCreadaEventPublisher,
-        cursoCreadoEventPublisher
+        cursoCreadoEventPublisher,
+        clienteConseguidoEventPublisher,
+        cursoConseguidoEventPublisher
 
     }: {
    
@@ -68,6 +75,8 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         clienteCreadoEventPublisher?: ClienteCreadoEventPublisher;
         compraCreadaEventPublisher?: CompraCreadaEventPublisher;
         cursoCreadoEventPublisher?: CursoCreadoEventPublisher;
+        clienteConseguidoEventPublisher?: ClienteConseguidoEventPublisher;
+        cursoConseguidoEventPublisher?: CursoConseguidoEventPublisher;
 
     }) {
 
@@ -82,8 +91,11 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         this.clienteCreadoEventPublisher = clienteCreadoEventPublisher;
         this.compraCreadaEventPublisher = compraCreadaEventPublisher;
         this.cursoCreadoEventPublisher = cursoCreadoEventPublisher;
+        this.clienteConseguidoEventPublisher = clienteConseguidoEventPublisher;
+        this.cursoConseguidoEventPublisher = cursoConseguidoEventPublisher;
 
     }
+ 
 
     //IMPLEMENTO LAS INTERFACES QUE MANEJAN LOS METODOS DE MI AGREGADO
    
@@ -161,5 +173,32 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
     }
     
 
+    //METODOS PARA OBTENER LAS ENTIDADES 
+    async obtenerCliente(client: string): Promise<ClienteDomainEntity> {
+      
+      if (this.compraService && this.clienteConseguidoEventPublisher) {
+        const result = await this.compraService.obtenerCliente(client);
+        this.clienteConseguidoEventPublisher.response = result;
+        this.clienteConseguidoEventPublisher.publish();
+        return this.clienteConseguidoEventPublisher.response;
+      }
+      throw new AggregateRootException(
+        'Faltan definir datos',
+      );
+
+    }
+
+    async obtnerCurso(course: string): Promise<CursoDomainEntity> {
+      if (this.compraService && this.cursoConseguidoEventPublisher) {
+        const result = await this.compraService.obtnerCurso(course);
+        this.cursoConseguidoEventPublisher.response = result;
+        this.cursoConseguidoEventPublisher.publish();
+        return this.cursoConseguidoEventPublisher.response;
+      }
+      throw new AggregateRootException(
+        'Faltan definir datos',
+      );
+
+    }
 
 }

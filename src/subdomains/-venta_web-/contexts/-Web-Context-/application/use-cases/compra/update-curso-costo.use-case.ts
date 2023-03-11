@@ -1,5 +1,8 @@
+
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { CompraAggregate, CostoValueObject, CursoDomainEntity, ICompraService, ICostoCursoActualizadoResponse, ICursoDomainEntityInterface, IUpdateCostoMethod, UpdateCostoCursoEventPublisher } from "../../../domain";
+import { CompraAggregate, CursoDomainEntity, ICompraService, ICursoDomainEntityInterface, IUpdateCostoMethod, UpdateCostoCursoEventPublisher } from "../../../domain";
+import { ICostoCursoActualizadoResponse } from "../../../domain/interfaces/responses";
+import { CostoValueObject } from "../../../domain/value-objects/common-value-objects/costo/costo.value-object";
 
 
 export class UpdateCursoCostoUseCase<

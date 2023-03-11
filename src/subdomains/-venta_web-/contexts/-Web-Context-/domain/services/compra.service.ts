@@ -4,18 +4,17 @@ import { CursoDomainEntity } from "../entities/compra/curso.domain-entity";
 import { ICreateClienteMethod } from "../interfaces/commands/compra/createCliente.command";
 import { ICreateCompraMethod } from "../interfaces/commands/compra/createCompra.command";
 import { ICreateCursoMethod } from "../interfaces/commands/compra/createCurso.command";
-import { IUpdateClientPhoneMethod } from "../interfaces/commands/compra/updateClientePhone.command";
-import { IUpdateCostoCursoPhoneMethod } from "../interfaces/commands/compra/updateCursoCosto.command";
-import { IUpdatePorcentajeCuponMethod } from "../interfaces/commands/compra/updatePorcentajeCupon.command";
 
 
 export interface ICompraService {
 
-    createCliente(cliente : ICreateClienteMethod) : Promise <ClienteDomainEntity>;
     createCompra(compra : ICreateCompraMethod ) : Promise<CompraDomainEntity>;
+    createCliente(cliente : ICreateClienteMethod) : Promise <ClienteDomainEntity>;
     createCurso(curso : ICreateCursoMethod) : Promise<CursoDomainEntity>;
-    //updateClientePhone(data : IUpdateClientPhoneMethod ) : Promise<number>;
-    //updateCursoCosto(data : IUpdateCostoCursoPhoneMethod) : Promise<CursoDomainEntity>;
-    //updatePorcentajeCupon(data :  IUpdatePorcentajeCuponMethod) : Promise<number>;
+
+    //METODOS PARA OBTENER LAS ENTIDADES ASOCIADAS AL AGREGADO
+    obtenerCliente(client : string) : Promise <ClienteDomainEntity>; //SE LE PASA UN ID?
+    obtnerCurso(course : string) : Promise<CursoDomainEntity>;
+
 
 }
