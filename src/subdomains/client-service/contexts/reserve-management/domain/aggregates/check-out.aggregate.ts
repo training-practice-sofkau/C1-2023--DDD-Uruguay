@@ -165,7 +165,7 @@ export class CheckOutAggregate implements
 
 
 
-    async updateCost(data: IUpdateCost): Promise<number> {
+    async updateCost(data: IUpdateCost): Promise<InvoiceDomainEntity> {
         if (!this.invoiceService)
             throw new AggregateRootException('invoiceService no esta definido')
         if (!this.costUpdatedEventPublisher)
