@@ -116,7 +116,7 @@ export class EmployeeAggregate implements IEmployeeDomainService, IRoleDomainSer
      * @return {*}  {Promise<boolean>}
      * @memberof EmployeeAggregate
      */
-    async changeEmployeeStatus(data: IChangeEmployeeStatusCommand): Promise<boolean> {
+    async ChangeEmployeeStatus(data: EmployeeDomainEntityBase): Promise<boolean> {
 
         if (!this.employeeService) {
             throw new AggregateRootException('InvoiceAggregate: "EmployeeService" is not defined!');

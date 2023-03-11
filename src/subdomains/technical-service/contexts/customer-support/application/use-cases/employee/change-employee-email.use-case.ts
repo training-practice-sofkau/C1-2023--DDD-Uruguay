@@ -1,14 +1,11 @@
-import { IChangeEmployeeMailCommand } from '../../../domain/interfaces/commands/employee/change-employee-email.command';
-import { IEmployeeEmailChangedResponse } from '../../../domain/interfaces/responses/employee/employee-email-changed.response';
-import { ValueObjectErrorHandler } from '../../../../../../../libs/sofka/bases/value-object-error-handler.base';
-import { IUseCase } from '../../../../../../../libs/sofka/interface/use-case.interface';
-import { EmployeeAggregate } from '../../../domain/aggregates/employee/employee.aggregate';
-import { IEmployeeDomainService } from '../../../domain/services/employee/employee.domain-service';
-import { EmployeeEmailChangedEventPublisherBase } from '../../../domain/events/publishers/employee/employee-email-changed.event-publisher';
-import { IEmployeeDomainEntity } from '../../../domain/entities/interfaces/employee/employee.domain-entity.interface';
-import { UUIDValueObject } from '../../../domain/value-objects/common/uuid/uuid.value-object';
-import { EmailValueObject } from '../../../domain/value-objects/common/email/email.value-object';
-import { ValueObjectException } from 'src/libs';
+import { ValueObjectErrorHandler,IUseCase, ValueObjectException } from '@sofka';
+
+import { IChangeEmployeeMailCommand, IEmployeeEmailChangedResponse } from '../../../domain/interfaces/';
+import { UUIDValueObject, EmailValueObject} from '../../../domain/value-objects/';
+import { EmployeeAggregate } from '../../../domain/aggregates/employee';
+import { IEmployeeDomainService } from '../../../domain/services/employee';
+import { EmployeeEmailChangedEventPublisherBase } from '../../../domain/events/publishers/employee/';
+import { IEmployeeDomainEntity } from '../../../domain/entities/interfaces/employee';
 import { EmployeeDomainEntityBase } from '../../../domain/entities/employee/employee.domain-entity';
 
 export class ChangeEmployeeEmailUseCase<
@@ -56,26 +53,6 @@ export class ChangeEmployeeEmailUseCase<
 
     }    
 
-    /**
-     * Creates and returns a new Employee Entity with only the needed info
-     *
-     * @param {IEmployeeDomainEntity} VO
-     * @return {*}  {EmployeeDomainEntityBase}
-     * @memberof ChangeEmployeeEmailUseCase
-     */
-    createEmployeeEntityDomain(VO: IEmployeeDomainEntity): EmployeeDomainEntityBase {
-        
-        const{
-            employeeID,
-            employeeEmail
-        }=VO;
-
-        return new EmployeeDomainEntityBase({
-            employeeID: employeeID.valueOf(),
-            employeeEmail: employeeEmail.valueOf()
-        })
-
-    }
     
     /**
      * Generates a Employee entity with the needed values (new email)
@@ -124,6 +101,27 @@ export class ChangeEmployeeEmailUseCase<
         );
     }
 
+    /**
+     * Creates and returns a new Employee Entity with only the needed info
+     *
+     * @param {IEmployeeDomainEntity} VO
+     * @return {*}  {EmployeeDomainEntityBase}
+     * @memberof ChangeEmployeeEmailUseCase
+     */
+    createEmployeeEntityDomain(VO: IEmployeeDomainEntity): EmployeeDomainEntityBase {
+        
+        const{
+            employeeID,
+            employeeEmail
+        }=VO;
+
+        return new EmployeeDomainEntityBase({
+            employeeID: employeeID.valueOf(),
+            employeeEmail: employeeEmail.valueOf()
+        })
+
+    }
+    
 
     /**
      *  Executes the method on the aggregate
