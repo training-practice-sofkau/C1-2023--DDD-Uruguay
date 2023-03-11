@@ -14,8 +14,7 @@ import {
 } from '../../events/publishers/invoice/customer';
 
 import {
-    IChangeCustomerPhoneCommand,
-    IChangeCustomerEmailCommand
+    IChangeCustomerPhoneCommand,    
 } from '../../interfaces/commands/invoice/customer';
 
 import {
@@ -63,8 +62,10 @@ import {
     ChangeWarrantyStatus, 
     RemoveItemFromWarranty 
 } from './helpers/warranty';
+
 import { InvoiceDomainEntityBase } from '../../entities/invoice/invoice.domain-entity';
 import { IWarrantyDomainEntity } from '../../entities/interfaces';
+import { CustomerDomainEntityBase } from '../../entities/invoice/customer.domain-entity';
 
 
 
@@ -263,7 +264,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>}
      * @memberof InvoiceAggregate
      */
-    async changeCustomerPhone(data: IChangeCustomerPhoneCommand): Promise<boolean> {
+    async ChangeCustomerPhone(data: CustomerDomainEntityBase): Promise<boolean> {
 
         if (!this.customerService) {
             throw new AggregateRootException('InvoiceAggregate: "CustomerService" is not defined!');
@@ -282,7 +283,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>}
      * @memberof InvoiceAggregate
      */
-    async changeCustomerEmail(data: IChangeCustomerEmailCommand): Promise<boolean> {
+    async ChangeCustomerEmail(data: CustomerDomainEntityBase): Promise<boolean> {
 
         if (!this.customerService) {
             throw new AggregateRootException('InvoiceAggregate: "CustomerService" is not defined!');

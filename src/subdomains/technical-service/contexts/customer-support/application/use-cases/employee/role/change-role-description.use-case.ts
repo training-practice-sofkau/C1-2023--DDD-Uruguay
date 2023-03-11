@@ -37,6 +37,15 @@ export class ChangeRoleDescriptionUseCase<
     }
 
     
+
+    /**
+     * executes all the steps needed to make a new entity
+     *
+     * @private
+     * @param {Command} command
+     * @return {*} 
+     * @memberof ChangeRoleDescriptionUseCase
+     */
     private async executeCommand (command: Command) {
         const VO = this.createValueObject(command);
         this.validateValueObject(VO);

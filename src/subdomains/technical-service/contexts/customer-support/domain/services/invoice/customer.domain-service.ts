@@ -1,9 +1,10 @@
+import { CustomerDomainEntityBase } from '../../entities/invoice/customer.domain-entity';
 import { IChangeCustomerPhoneCommand, IChangeCustomerEmailCommand} from '../../interfaces/commands/invoice/customer';
 
 export interface ICustomerDomainService {
 
-    changeCustomerPhone( data: IChangeCustomerPhoneCommand ): Promise<boolean>;
+    ChangeCustomerPhone( data: CustomerDomainEntityBase ): Promise<boolean>;
 
-    changeCustomerEmail( data: IChangeCustomerEmailCommand ): Promise<boolean>;
+    ChangeCustomerEmail( data: CustomerDomainEntityBase ): Promise<boolean>;
 
 }

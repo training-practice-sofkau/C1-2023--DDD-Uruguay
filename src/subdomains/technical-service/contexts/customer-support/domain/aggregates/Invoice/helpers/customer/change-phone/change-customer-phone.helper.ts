@@ -1,14 +1,15 @@
-import { IChangeCustomerPhoneCommand } from '../../../../interfaces/commands/invoice/customer';
-import { ICustomerDomainService } from '../../../../services/invoice/customer.domain-service';
-import { CustomerPhoneChangedEventPublisherBase } from '../../../../events/publishers/customer/';
+
+import { CustomerDomainEntityBase } from '../../../../../entities/invoice/customer.domain-entity';
+import { CustomerPhoneChangedEventPublisherBase } from '../../../../../events';
+import { ICustomerDomainService } from '../../../../../services';
 
 export const ChangeCustomerPhone = async (
-    data: IChangeCustomerPhoneCommand,
+    data: CustomerDomainEntityBase,
     customerService: ICustomerDomainService,
     customerPhoneChangedEventPublisherBase: CustomerPhoneChangedEventPublisherBase
 ): Promise<boolean> => {
 
-    const result = await customerService.changeCustomerPhone(data);
+    const result = await customerService.ChangeCustomerPhone(data);
     customerPhoneChangedEventPublisherBase.response = result;
     customerPhoneChangedEventPublisherBase.publish();
 

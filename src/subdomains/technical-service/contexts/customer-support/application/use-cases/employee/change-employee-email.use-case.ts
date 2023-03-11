@@ -111,7 +111,7 @@ export class ChangeEmployeeEmailUseCase<
         const{
             employeeID,
             employeeEmail
-        }=VO;
+        } = VO;
 
         return new EmployeeDomainEntityBase({
             employeeID: employeeID.valueOf(),
