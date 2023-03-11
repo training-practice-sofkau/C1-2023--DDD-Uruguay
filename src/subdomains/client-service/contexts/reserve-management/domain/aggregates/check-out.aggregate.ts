@@ -183,7 +183,7 @@ export class CheckOutAggregate implements
         return await UpdateExtra(data, this.consumptionService, this.extraUpdatedEventPublisher)
     }
 
-    async updateMiniBar(data: IUpdateMiniBar): Promise<number> {
+    async updateMiniBar(data: IUpdateMiniBar): Promise<ConsumptionDomainEntity> {
         if (!this.consumptionService)
             throw new AggregateRootException('consumptionService no esta definido')
         if (!this.miniBarUpdatedEventPublisher)

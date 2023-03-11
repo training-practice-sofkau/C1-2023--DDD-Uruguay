@@ -3,5 +3,5 @@ import { IUpdateExtra, IUpdateMiniBar } from "../interfaces";
 
 export interface IConsumptionDomainService {
     updateExtra(data: IUpdateExtra): Promise<ConsumptionDomainEntity>;
-    updateMiniBar(data: IUpdateMiniBar): Promise<number>;
+    updateMiniBar(data: IUpdateMiniBar): Promise<ConsumptionDomainEntity>;
 }
