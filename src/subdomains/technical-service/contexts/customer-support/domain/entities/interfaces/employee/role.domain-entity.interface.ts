@@ -5,7 +5,7 @@ export interface IRoleDomainEntity{
 
     roleID?: string | UUIDValueObject;
     roleName?: string | RoleValueObject;
-    roleDescription?: string | NoteValueObject;
+    roleDescription?: string | RoleValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

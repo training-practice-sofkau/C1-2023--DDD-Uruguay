@@ -7,6 +7,6 @@ export interface IRoleDomainService{
 
     CreateRole(roleData: RoleDomainEntityBase) : Promise < IRoleDomainEntity | null >;
 
-    ChangeRoleDescription(data: IChangeRoleDescriptionCommand) : Promise < boolean >;
+    ChangeRoleDescription(data: RoleDomainEntityBase) : Promise < boolean >;
 
 }

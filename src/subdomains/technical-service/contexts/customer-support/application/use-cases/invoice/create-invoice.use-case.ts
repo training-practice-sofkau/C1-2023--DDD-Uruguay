@@ -156,6 +156,15 @@ export class CreateInvoiceUseCase<
     }
 
 
+
+    /**
+     * Executes the method on the aggregate
+     *
+     * @private
+     * @param {InvoiceDomainEntityBase} entity
+     * @return {*}  {(Promise< InvoiceDomainEntityBase | null >)}
+     * @memberof CreateInvoiceUseCase
+     */
     private executeCreateInvoiceAggregateRoot(
         entity: InvoiceDomainEntityBase,
     ): Promise< InvoiceDomainEntityBase | null > {

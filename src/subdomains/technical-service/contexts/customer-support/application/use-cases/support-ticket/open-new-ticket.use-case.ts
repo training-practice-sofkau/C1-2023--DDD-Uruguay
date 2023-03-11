@@ -36,6 +36,15 @@ export class OpenNewTicketUseCase<
 
     }
 
+
+    /**
+     * executes all the steps needed to make a new entity
+     *
+     * @private
+     * @param {Command} command
+     * @return {*}  {(Promise<ISupportTicketEntity | null>)}
+     * @memberof OpenNewTicketUseCase
+     */
     private async executeCommand(command: Command): Promise<ISupportTicketEntity | null> {
 
         const VO = this.createValueObject(command);

@@ -127,6 +127,13 @@ export class AddDeviceUseCase<
     }
 
 
+    /**
+     * Executes the method on the aggregate
+     *
+     * @param {DeviceDomainEntityBase} entity
+     * @return {*}  {(Promise< IDeviceDomainEntity | null >)}
+     * @memberof AddDeviceUseCase
+     */
     executeAddDeviceAggregateRoot(
         entity: DeviceDomainEntityBase): Promise< IDeviceDomainEntity | null > {
 

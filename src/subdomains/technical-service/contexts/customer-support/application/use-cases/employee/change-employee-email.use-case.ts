@@ -26,11 +26,9 @@ export class ChangeEmployeeEmailUseCase<
         })
     }
 
-
     async execute(command?: Command): Promise<Response> {
         const data = await this.executeCommand(command);
-        return { success: data ? true : false, data } as unknown as Response;
-    
+        return { success: data ? true : false, data } as unknown as Response;    
     }
 
 
@@ -55,7 +53,7 @@ export class ChangeEmployeeEmailUseCase<
 
     
     /**
-     * Generates a Employee entity with the needed values (new email)
+     * Generates a Employee ValueObject with the needed values (new email)
      *
      * @param {Command} command
      * @return {*}  {IEmployeeDomainEntity}
