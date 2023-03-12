@@ -7,5 +7,6 @@ export * from './number-of-guest-updated.response';
 export * from './reserve-created.response';
 export * from './room';
 export * from './room-added.response';
+export * from './room-obtained-response';
 export * from './room-state-updated.response';
 export * from './start-date-updated.response';

@@ -1,4 +1,8 @@
-import { CustomerDomainEntity, ReserveDomainEntity, RoomDomainEntity } from "../entities";
+import {
+    CustomerDomainEntity,
+    ReserveDomainEntity,
+    RoomDomainEntity
+} from "../entities";
 import {
     IAddCustomer,
     IAddRoom,
@@ -29,4 +33,6 @@ export interface IReserveDomainService {
     updateRoomState(data: IUpdateRoomState): Promise<boolean>
 
     getCustomer(data: string): Promise<CustomerDomainEntity>;
+
+    getRoom(data: string): Promise<RoomDomainEntity>;
 }
