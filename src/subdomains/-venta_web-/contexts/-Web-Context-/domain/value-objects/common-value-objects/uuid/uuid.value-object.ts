@@ -4,7 +4,7 @@ import {v4 as uuid} from 'uuid';
 
 export class UuidValueObject extends ValueObjectBase<string>{
     
-    //Con el constructor objengo el valor 
+    //Con el constructor obtengo el valor 
     constructor(value? : string){
         super(value ? value : uuid())
     }

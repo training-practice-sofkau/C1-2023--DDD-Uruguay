@@ -22,7 +22,7 @@ export class CreateClienteUseCase<
     extends ValueObjectErrorHandler //EXTIENDO PARA EL MANEJO DE ERRORES
     implements IUseCase<Command, Response>{ //IMPLEMENTO LA INTERFAZ PARA EJECUTAR EL CASO DE USO
 
-    //LO PRIMERO QUE NECESITO ES EL AGREGADO ROOT
+    //LO PRIMERO QUE NECESITO ES DECLARAR LA PROPIEDAD DEL AGREGADO ROOT
     private readonly compraAggregate: CompraAggregate
 
     //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
