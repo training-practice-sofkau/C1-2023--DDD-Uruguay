@@ -1,5 +1,5 @@
 
 export interface IModificarEquipoNuevoCommands {
-    id:string;
+    negociacionId:string;
     equipoNuevoId : string ;
 }

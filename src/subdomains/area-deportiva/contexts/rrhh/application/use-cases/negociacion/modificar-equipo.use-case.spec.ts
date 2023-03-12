@@ -1,4 +1,4 @@
-import { ModificarEquipoUseCase } from './modificar-equipo.use-case';
+import { ModificarEquipoUseCase } from './modificar-equipo-nuevo.use-case';
 
 describe('ModificarEquipoUseCase', () => {
   it('should be defined', () => {

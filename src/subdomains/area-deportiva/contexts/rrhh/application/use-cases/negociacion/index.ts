@@ -1,5 +1,5 @@
 
-export * from './modificar-equipo.use-case';
+export * from './modificar-equipo-nuevo.use-case';
 
 export * from './modificar-state.use-case';
 
