@@ -4,9 +4,9 @@ import { PlanDomainEntity } from "../../../entities/membership/plan.domain-entit
 export interface ICreateMembershipMethod {
 
 
-    idMembership : string;
-    newCliente : ClienteDomainEntity;
-    newPlan : PlanDomainEntity;
+    idMembership? : string;
+    idCliente? : string;
+    idPlan? : string;
                         
 
 }

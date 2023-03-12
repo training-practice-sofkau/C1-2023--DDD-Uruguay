@@ -1,16 +1,16 @@
 import { UuidValueObject } from "../../value-objects/common-value-objects/uuid/uuid.value-object";
-import { IClienteDomainEntityInterface, IPlanDomainEntityInterface } from "../interfaces";
-import { IMembershipDomainEntity } from "../interfaces/i-membership.domain-entity.interface";
+import { IClienteDomainEntityInterface, IMembershipDomainEntityInterface, IPlanDomainEntityInterface } from "../interfaces";
+
 import { v4 as uuidv4 } from 'uuid';
 
-export class MembershipDomainEntity implements IMembershipDomainEntity{
+export class MembershipDomainEntity implements IMembershipDomainEntityInterface{
 
-    idMembership: string | UuidValueObject;
-    clienteMembership: IClienteDomainEntityInterface;
-    planMembership: IPlanDomainEntityInterface;
+    idMembership?: string | UuidValueObject;
+    clienteMembership?: IClienteDomainEntityInterface;
+    planMembership?: IPlanDomainEntityInterface;
 
     
-    constructor( _data? : IMembershipDomainEntity ){
+    constructor( _data? : IMembershipDomainEntityInterface ){
         
         if(_data.idMembership) this.idMembership = _data.idMembership
         

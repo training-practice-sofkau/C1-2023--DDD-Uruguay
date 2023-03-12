@@ -22,10 +22,10 @@ constructor(private readonly membershipService: IMembershipService, private read
     this.membershipAggregate = new MembershipAggregate({ membershipService, clienteConseguidoEventPublisher })
 }
 
- /*
-Una función asíncrona es una función que devuelve una Promesa y puede
-utilizar la palabra clave await para esperar a que se resuelva la Promesa
-antes de continuar con la ejecución del código.
+/*
+ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
+"await" PARA ESPERAR A QUE SE RESUELVA LA PROMESA
+ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
 */
 async execute(command?: Command): Promise<Response> {
     const data = await this.executeCommand(command);
