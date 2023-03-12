@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { IdValueObject, TerminosACumplirValueObject } from '../../value-objects';
 import { TipoNegociacionValueObject } from '../../value-objects/tipo-negociacion/tipo-negociacion.value-object';
 import { INegociacionDomainEntityInterface } from '../interfaces/negociacion/negociacion.domain-entity.interface';
+import { StateValueObject } from '../../value-objects/state/state.value-object';
 
 export class NegociacionDomainEntity implements INegociacionDomainEntityInterface {
    
@@ -13,7 +14,7 @@ export class NegociacionDomainEntity implements INegociacionDomainEntityInterfac
     equipoEntradaId?: string | IdValueObject;
     tipoNegociacion?: string | TipoNegociacionValueObject;
     terminoACumplir?: string | TerminosACumplirValueObject;
-    state?: boolean;
+    state?: boolean | StateValueObject;
     
     constructor(_negociacion?: INegociacionDomainEntityInterface) {
 

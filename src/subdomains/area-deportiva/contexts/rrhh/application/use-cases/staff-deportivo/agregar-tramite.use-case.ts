@@ -6,6 +6,12 @@ import { ICrearTramiteCommands } from '../../../domain/interfaces/commands/staff
 import { ITramiteCreadoResponse } from '../../../domain/interfaces/responses/staff-deportivo/tramite-creado.response';
 import { TramiteDomainEntity } from '../../../domain/entities/tramite/tramite.entity.interface';
 import { ITramiteDomainInterface } from '../../../domain/entities/interfaces/tramite/tramite.domain-interface';
+import { IdValueObject } from '../../../domain/value-objects/id/id.value-object';
+import { NegociacionDomainEntity } from '../../../domain/entities/negociacion/negociacion.domain-entity';
+import { TerminosACumplirValueObject } from '../../../domain/value-objects/terminos-a-cumplir/terminos-a-cumplir.value-object';
+import { StateValueObject } from '../../../domain/value-objects/state/state.value-object';
+import { INegociacionDomainEntityInterface } from '../../../domain/entities/interfaces/negociacion/negociacion.domain-entity.interface';
+import { TipoNegociacionValueObject } from '../../../domain/value-objects/tipo-negociacion/tipo-negociacion.value-object';
 
 export class AgregarTramiteUseCase extends ValueObjectErrorHandler
     implements IUseCase<ICrearTramiteCommands, ITramiteCreadoResponse> {
@@ -45,11 +51,31 @@ export class AgregarTramiteUseCase extends ValueObjectErrorHandler
 
     //Crea los value Object , comoo parametro se tiene un comando y retona un interface porque es la que tiene los OV
     private createValueObject(command: ICrearTramiteCommands): ITramiteDomainInterface {
-
+        //atributos de tramite
+        const tramiteId = new IdValueObject(command.tramiteId);
         const fecha = new FechaValueObject(command.fecha);
 
+        //atributo de negociacion
+        const negociacionId = new IdValueObject(command.negociacionId);
+        const equipoSalidaId = new IdValueObject(command.equipoSalidaId);
+        const equipoEntradaId = new IdValueObject(command.equipoEntradaId);
+        const tipoNegociacion = new TipoNegociacionValueObject(command.tipoNegociacion);
+        const terminoACumplir = new TerminosACumplirValueObject(command.terminoACumplir);
+        const state = new StateValueObject(command.state) ;
+        
+        const negociacion : INegociacionDomainEntityInterface = {
+            negociacionId,
+            equipoSalidaId,
+            equipoEntradaId,
+            tipoNegociacion,
+            terminoACumplir,
+            state,
+        };
+
         return {
-            fecha
+            tramiteId,
+            fecha,
+            negociacion
         }
     }
 
@@ -57,11 +83,34 @@ export class AgregarTramiteUseCase extends ValueObjectErrorHandler
     private validateValueObject(valueObject: ITramiteDomainInterface): void {
 
         const {
+            tramiteId,
             fecha,
+            negociacion
         } = valueObject
+
+        if (tramiteId instanceof IdValueObject && tramiteId.hasErrors())
+        this.setErrors(tramiteId.getErrors());
 
         if (fecha instanceof FechaValueObject && fecha.hasErrors())
             this.setErrors(fecha.getErrors());
+
+        if (negociacion.negociacionId instanceof IdValueObject && negociacion.negociacionId.hasErrors())
+            this.setErrors(negociacion.negociacionId.getErrors());
+
+        if (negociacion.equipoEntradaId instanceof IdValueObject && negociacion.equipoEntradaId.hasErrors())
+        this.setErrors(negociacion.equipoEntradaId.getErrors());
+
+        if (negociacion.equipoSalidaId instanceof IdValueObject && negociacion.equipoSalidaId.hasErrors())
+        this.setErrors(negociacion.equipoSalidaId.getErrors());
+
+        if (negociacion.tipoNegociacion instanceof TipoNegociacionValueObject && negociacion.tipoNegociacion.hasErrors())
+        this.setErrors(negociacion.tipoNegociacion.getErrors());
+
+        if (negociacion.terminoACumplir instanceof TerminosACumplirValueObject && negociacion.terminoACumplir.hasErrors())
+        this.setErrors(negociacion.terminoACumplir.getErrors());
+
+        if (negociacion.state instanceof StateValueObject && negociacion.state.hasErrors())
+        this.setErrors(negociacion.state.getErrors());
 
         if (this.hasErrors() === true)
             throw new ValueObjectException(
@@ -77,12 +126,23 @@ export class AgregarTramiteUseCase extends ValueObjectErrorHandler
     ): TramiteDomainEntity {
 
         const {
-            fecha
+            tramiteId,
+            fecha,
+            negociacion
         } = valueObject
 
         return new TramiteDomainEntity({
+            tramiteId: tramiteId.valueOf(),
+            fecha: fecha.valueOf(),
+            negociacion : new NegociacionDomainEntity({
+                negociacionId: negociacion.negociacionId,
+                equipoSalidaId: negociacion.equipoSalidaId,
+                equipoEntradaId: negociacion.equipoEntradaId,
+                tipoNegociacion: negociacion.tipoNegociacion,
+                terminoACumplir: negociacion.terminoACumplir,
+                state: negociacion.state,
+            })
 
-            fecha: fecha.valueOf()
         })
     }
 
