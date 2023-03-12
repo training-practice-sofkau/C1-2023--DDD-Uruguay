@@ -4,6 +4,7 @@ import {
     ValueObjectException
 } from "src/libs/sofka";
 import {
+    CustomerObtainedEventPublisher,
     DateValueObject,
     ICreateReserve,
     IReserveCreatedResponse,
@@ -12,8 +13,10 @@ import {
     NumberOfGuestsValueObject,
     ReserveAggregate,
     ReserveCreatedEventPublisher,
-    ReserveDomainEntity
+    ReserveDomainEntity,
+    RoomObtainedEventPublisher
 } from "../../../../domain";
+import { GetCustomerUseCase, GetRoomUseCase } from "..";
 
 export class CreateReserveUseCase<
     Command extends ICreateReserve = ICreateReserve,
@@ -21,10 +24,14 @@ export class CreateReserveUseCase<
 > extends ValueObjectErrorHandler implements IUseCase<Command, Response>
 {
     private readonly reserveAggregate: ReserveAggregate;
+    private readonly getCustomerUseCase: GetCustomerUseCase;
+    private readonly getRoomUseCase: GetRoomUseCase;
 
     constructor(
         private readonly reserveService: IReserveDomainService,
-        private readonly reserveCreatedEventPublisher: ReserveCreatedEventPublisher
+        private readonly reserveCreatedEventPublisher: ReserveCreatedEventPublisher,
+        private readonly customerObtainedEventPublisher: CustomerObtainedEventPublisher,
+        private readonly roomObtainedEventPublisher: RoomObtainedEventPublisher,
     ) {
         super();
         this.reserveAggregate = new ReserveAggregate({
@@ -43,8 +50,8 @@ export class CreateReserveUseCase<
     private async executeCommand(command: Command): Promise<ReserveDomainEntity | null> {
         const ValueObject = this.createValueObject(command);
         this.validateValueObject(ValueObject);
-        const reserve = this.createEntityReserveDomain(ValueObject);
-        return this.exectueReserveAggregate(reserve)
+        const reserve = this.createEntityReserveDomain(ValueObject, command);
+        return this.exectueReserveAggregate(await reserve)
     }
 
     private createValueObject(command: Command): IReserveDomainEntity {
@@ -76,15 +83,21 @@ export class CreateReserveUseCase<
             );
     }
 
-    private createEntityReserveDomain(valueObject: IReserveDomainEntity): ReserveDomainEntity {
+    private async createEntityReserveDomain(valueObject: IReserveDomainEntity, command: Command): Promise<ReserveDomainEntity> {
         const {
             numberOfGuests,
             startDate
         } = valueObject
 
+        const responseCustomer = this.getCustomerUseCase.execute({customerId: command.customerId})
+
+        const responseRoom = this.getRoomUseCase.execute({roomId: command.roomId})
+
         return new ReserveDomainEntity({
             numberOfGuests: numberOfGuests.valueOf(),
             startDate: startDate,
+            customer: (await responseCustomer).data ,
+            room: (await responseRoom).data,
         })
     }
 
