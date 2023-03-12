@@ -1,5 +1,6 @@
 export * from './customer';
 export * from './customer-added.response';
+export * from './customer-obtained-response';
 export * from './customer-payment-method-updated.response';
 export * from './end-date-updated.response';
 export * from './number-of-guest-updated.response';

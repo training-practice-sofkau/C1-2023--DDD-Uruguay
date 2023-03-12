@@ -1,6 +1,7 @@
 export * from './add-customer';
 export * from './add-room';
 export * from './create-reserve';
+export * from './get-customer';
 export * from './update-customer-payment-method';
 export * from './update-end-date';
 export * from './update-number-of-guests';

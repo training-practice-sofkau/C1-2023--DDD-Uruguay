@@ -27,4 +27,6 @@ export interface IReserveDomainService {
     updateCustomerPaymentMethod(data: IUpdateCustomerPaymentMethod): Promise<string>;
 
     updateRoomState(data: IUpdateRoomState): Promise<boolean>
+
+    getCustomer(data: string): Promise<CustomerDomainEntity>;
 }

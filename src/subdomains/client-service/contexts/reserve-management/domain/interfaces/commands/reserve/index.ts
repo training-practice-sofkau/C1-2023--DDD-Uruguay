@@ -2,6 +2,7 @@ export * from './add-customer.command';
 export * from './add-room.command';
 export * from './create-reserve.command';
 export * from './customer';
+export * from './get-customer.command';
 export * from './room';
 export * from './update-customer-payment-method.command';
 export * from './update-end-date.command';

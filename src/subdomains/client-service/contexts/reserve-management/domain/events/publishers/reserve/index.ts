@@ -1,5 +1,6 @@
 export * from './customer';
 export * from './customer-added.event-publisher';
+export * from './customer-obtained.event-publisher';
 export * from './customer-payment-method-updated.event-publisher';
 export * from './end-date-updated.event-publisher';
 export * from './number-of-guest-updated.event-publisher';
