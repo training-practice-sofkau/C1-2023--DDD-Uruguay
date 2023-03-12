@@ -7,7 +7,7 @@ export abstract class TipoEmpleadoModificadoEventPublisher
         
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.registered-order',
+            'rrhh.tipo-empleado-modificado',
             JSON.stringify({ data: this.response })
         )
     }

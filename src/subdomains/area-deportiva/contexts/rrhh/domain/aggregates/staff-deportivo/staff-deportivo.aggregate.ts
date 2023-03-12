@@ -1,7 +1,7 @@
 import { IEmpleadoDomainService } from '../../services/staff-Deportivo/empleado.domain-service';
 import { IStaffDeportivoDomainService } from '../../services/staff-Deportivo/staff-deportivo.domain-service';
 import { StaffDeportivoDomainEntity } from '../../entities/staff-deportivo/staff-deportivo.entity';
-import { ICrearNegociacionCommands, IModificarFechaCommands} from '../../interfaces';
+import { ICrearNegociacionCommands, IModificarEquipoNuevoCommands, IModificarEquipoSalidaCommands, IModificarFechaCommands, IModificarStateCommands, IModificarTipoNegociacionCommands} from '../../interfaces';
 import { INegociacionDomainService } from '../../services/staff-Deportivo/negociacion.domain-service';
 import { ITramiteDomainService } from '../../services/staff-Deportivo/tramite.domain-service';
 import { EmpleadoAgregadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-agregado.event-publisher';
@@ -14,14 +14,18 @@ import { TramiteDomainEntity } from '../../entities/tramite/tramite.entity.inter
 import { FechaTramiteModificadaEventPublisher } from '../../events/publishers/staff-deporitvo/fecha-tramite-modificada.event-publisher';
 import { EmpleadoBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
 import { TramiteBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
-import { DocumentoModificadoEventPublisher, NombreModificadoEventPublisher, SalarioModificadoEventPublisher, TipoEmpleadoModificadoEventPublisher } from '../../events';
+import { DocumentoModificadoEventPublisher, NombreModificadoEventPublisher, SalarioModificadoEventPublisher, TipoDeNegociacionModificadoEventPublisher, TipoEmpleadoModificadoEventPublisher } from '../../events';
+import { NegociacionDomainEntity } from '../../entities';
+import { EquipoNuevoModificadoEventPublisher } from '../../events/publishers/negociacion/equipo-nuevo-modificado.event-publisher';
+import { EquipoSalidaModificadoEventPublisher } from '../../events/publishers/negociacion/equipo-salida-modificado.event-publisher';
+import { StateModificadoEventPublisher } from '../../events/publishers/cesion/state-modificado.event-publisher';
 
 export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
     //Service
     private readonly staffDeportivoService?: IStaffDeportivoDomainService;
 
     private readonly empleadoService?: IEmpleadoDomainService;
-    //private readonly negociacionService?: INegociacionDomainService;
+    private readonly negociacionService?: INegociacionDomainService;
     private readonly tramiteService?: ITramiteDomainService;
 
     //Events
@@ -43,6 +47,13 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
     private readonly tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
     private readonly fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher;
     private readonly tamiteBuscadoEvent?: TramiteBuscadoEventPublisher;
+
+    //negociacion
+    private readonly negociacionEquipoNuevoModificadoEvent?: EquipoNuevoModificadoEventPublisher;
+    private readonly negociacionEquipoSalidaModificadoEvent?: EquipoSalidaModificadoEventPublisher;
+    private readonly negociacionStateModificadoEvent?: StateModificadoEventPublisher;
+    private readonly negociacionTipoNegociacionModificadoEvent?: TipoDeNegociacionModificadoEventPublisher;
+
 
 
     constructor(
@@ -68,6 +79,12 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
             tamiteBuscadoEvent,
             tamiteAgregadoEvent,
             fechaTamiteModificadoEvent,
+            
+            //negociacion
+            negociacionEquipoNuevoModificadoEvent,
+            negociacionEquipoSalidaModificadoEvent,
+            negociacionStateModificadoEvent,
+            negociacionTipoNegociacionModificadoEvent,
 
         }: {
             //services
@@ -89,6 +106,12 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
             tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
             fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher;
             tamiteBuscadoEvent?: TramiteBuscadoEventPublisher;
+
+            //negociacion
+            negociacionEquipoNuevoModificadoEvent?: EquipoNuevoModificadoEventPublisher;
+            negociacionEquipoSalidaModificadoEvent?: EquipoSalidaModificadoEventPublisher;
+            negociacionStateModificadoEvent?: StateModificadoEventPublisher;
+            negociacionTipoNegociacionModificadoEvent?: TipoDeNegociacionModificadoEventPublisher;
         }
     ) {
         //services
@@ -112,8 +135,65 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
         this.fechaTamiteModificadoEvent = fechaTamiteModificadoEvent;
         this.empleadoBuscadoEvent = empleadoBuscadoEvent;
 
+        //negociacion
+        this.negociacionEquipoNuevoModificadoEvent = negociacionEquipoNuevoModificadoEvent;
+        this.negociacionEquipoSalidaModificadoEvent = negociacionEquipoSalidaModificadoEvent;
+        this.negociacionStateModificadoEvent = negociacionStateModificadoEvent;
+        this.negociacionTipoNegociacionModificadoEvent = negociacionTipoNegociacionModificadoEvent;
     }
 
+
+    async NegociacionModificarEquipoNuevo(equipoNuevoId: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        if(!this.negociacionService)
+        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
+
+        if(!this.negociacionEquipoNuevoModificadoEvent)
+        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
+
+        const result = await this.negociacionService.NegociacionModificarEquipoNuevo(equipoNuevoId);
+        this.negociacionEquipoNuevoModificadoEvent.response = result;
+        this.negociacionEquipoNuevoModificadoEvent.publish();
+        return result;
+    }
+    
+    async NegociacionModificarEquipoSalida(equipoSalidaId: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        if(!this.negociacionService)
+        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
+
+        if(!this.negociacionEquipoSalidaModificadoEvent)
+        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
+
+        const result = await this.negociacionService.NegociacionModificarEquipoNuevo(equipoSalidaId);
+        this.negociacionEquipoSalidaModificadoEvent.response = result;
+        this.negociacionEquipoSalidaModificadoEvent.publish();
+        return result;
+    }
+    async NegociacionModificarState(state: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        if(!this.negociacionService)
+        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
+
+        if(!this.negociacionStateModificadoEvent)
+        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
+
+        const result = await this.negociacionService.NegociacionModificarState(state);
+        this.negociacionStateModificadoEvent.response = result;
+        this.negociacionStateModificadoEvent.publish();
+        return result;
+    }
+    async NegociacionModificarTipoNegociacion(tipo: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        if(!this.negociacionService)
+        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
+
+        if(!this.negociacionTipoNegociacionModificadoEvent)
+        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
+
+        const result = await this.negociacionService.NegociacionModificarTipoNegociacion(tipo);
+        this.negociacionTipoNegociacionModificadoEvent.response = result;
+        this.negociacionTipoNegociacionModificadoEvent.publish();
+        return result;
+    }
+
+    
     async CrearStaffDeportivo(staffDeportivo: StaffDeportivoDomainEntity): Promise<StaffDeportivoDomainEntity> {
         if(!this.staffDeportivoService)
         throw new AggregateRootException('Servicio Staff Deportivo indefinido')
