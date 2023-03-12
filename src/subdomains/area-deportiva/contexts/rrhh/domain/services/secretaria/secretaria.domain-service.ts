@@ -9,7 +9,7 @@ import { IContratoDomainService } from './contrato.domain-service';
 
 export interface ISecretariaDomainService extends ICesionDomainService,ITraspasoDomainService,IContratoDomainService{
 
-    CrearSecretaria(secretaria: ICrearSecretariaCommands):Promise<SecretariaDomainEntity>;
+    CrearSecretaria(secretaria: SecretariaDomainEntity):Promise<SecretariaDomainEntity>;
 
     NegociarCesion(cesion: CesionDomainEntity):Promise<CesionDomainEntity>;
 

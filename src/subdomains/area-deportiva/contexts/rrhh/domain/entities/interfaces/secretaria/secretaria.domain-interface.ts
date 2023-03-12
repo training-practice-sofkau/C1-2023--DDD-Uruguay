@@ -8,8 +8,8 @@ export interface ISecretariaDomainInterface {
     secretariaId?:string | IdValueObject;
     empleadoId?: string | IdValueObject;
     staffDeportivoId?: string | IdValueObject;
-    contrato: ContratoDomainEntity[];
-    traspaso: TraspasoDomainEntity[];
-    cesion: CesionDomainEntity[];
+    contrato?: ContratoDomainEntity;
+    traspaso?: TraspasoDomainEntity;
+    cesion?: CesionDomainEntity;
 
 }

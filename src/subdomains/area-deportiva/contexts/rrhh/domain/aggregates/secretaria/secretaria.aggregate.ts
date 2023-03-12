@@ -179,8 +179,10 @@ export class SecretariaAggregate implements ISecretariaDomainService{
          return result;
     }
     async BuscarContrato(contrato: ContratoDomainEntity): Promise<ContratoDomainEntity> {
-        if(!this.secretariaService) throw new AggregateRootException('Servicio secretaria indefinido');
-        if(!this.contratoBuscadoEvent)  throw new AggregateRootException('Evento buscar contrato indefinido');
+        if(!this.secretariaService) 
+        throw new AggregateRootException('Servicio secretaria indefinido');
+        if(!this.contratoBuscadoEvent)  
+        throw new AggregateRootException('Evento buscar contrato indefinido');
      
          const result = await this.secretariaService.BuscarContrato(contrato);
          this.contratoBuscadoEvent.response = result;
@@ -188,12 +190,12 @@ export class SecretariaAggregate implements ISecretariaDomainService{
          return result;
     }
 
-    async CrearSecretaria(secretaria: ICrearSecretariaCommands): Promise<SecretariaDomainEntity> {
+    async CrearSecretaria(secretaria: SecretariaDomainEntity): Promise<SecretariaDomainEntity> {
         if(!this.secretariaService)
-        throw new AggregateRootException('Servicio secretaria indefinido')
+        throw new AggregateRootException('Servicio secretaria indefinido');
 
         if(!this.secretariaCreadaEvent)
-        throw new AggregateRootException('Evento creador de secretaria indefinido')
+        throw new AggregateRootException('Evento creador de secretaria indefinido');
 
         const result = await this.secretariaService.CrearSecretaria(secretaria);
         this.secretariaCreadaEvent.response = result;

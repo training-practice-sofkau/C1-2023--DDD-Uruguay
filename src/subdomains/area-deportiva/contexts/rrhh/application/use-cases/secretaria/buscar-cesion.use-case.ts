@@ -4,7 +4,6 @@ import { ISecretariaDomainService } from '../../../domain/services/secretaria/se
 import { IBuscarCesionCommands } from '../../../domain/interfaces/commands/secretaria/buscar-cesion.commands';
 import { ICesionBuscadaResponse } from '../../../domain/interfaces/responses/secretaria/cesion-buscada.response';
 import { IUseCase, ValueObjectErrorHandler } from 'src/libs';
-import { CesionDomainEntity } from '../../../domain/entities/cesion/cesion.domain-entity';
 
 export class BuscarCesionUseCase extends ValueObjectErrorHandler
 implements IUseCase<IBuscarCesionCommands, ICesionBuscadaResponse> {
