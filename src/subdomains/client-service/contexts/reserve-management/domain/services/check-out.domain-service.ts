@@ -21,4 +21,8 @@ export interface ICheckOutDomainService {
     updateConsumptionExtra(data: IUpdateConsumptionExtra): Promise<number>
 
     updateConsumptionMiniBar(data: IUpdateConsumptionMiniBar): Promise<number>
+
+    getConsumption(data: string): Promise<ConsumptionDomainEntity>;
+
+    getInvoice(data: string): Promise<InvoiceDomainEntity>;
 }
