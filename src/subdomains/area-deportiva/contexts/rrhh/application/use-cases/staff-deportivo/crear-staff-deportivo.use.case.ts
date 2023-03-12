@@ -11,7 +11,9 @@ import { NombreValueObject } from '../../../domain/value-objects/nombre/nombre.v
 import { ValueObjectException } from 'src/libs';
 import { TramiteBuscadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
 import { EmpleadoBuscadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
-import { GetTramiteUseCase } from './buscar-tramite.use-case';
+import { BuscarTramiteUseCase } from './buscar-tramite.use-case';
+import { BuscarEmpleadoUseCase } from './buscar-empleado.use-case';
+import { IdValueObject } from '../../../domain';
 
 export class CrearStaffDeportivoUseCase 
     extends ValueObjectErrorHandler
@@ -31,11 +33,14 @@ export class CrearStaffDeportivoUseCase
    
     async execute(command: ICrearStaffDeportivoCommands): Promise<IStaffDeportivoCreadoResponse> {
 
-
+        //Creo los value object 
+        const staffDeportivoId = new IdValueObject(command.staffDeportivoId);
         const nombre = new NombreValueObject(command.nombre);
 
     
         // Recopilando errores
+        if (staffDeportivoId.hasErrors() === true) this.setErrors(staffDeportivoId.getErrors());
+
         if (nombre.hasErrors() === true) this.setErrors(nombre.getErrors());
     
         // Validando errores
@@ -45,16 +50,16 @@ export class CrearStaffDeportivoUseCase
             this.getErrors(),
             );
             
-        const getTramite = new GetTramiteUseCase(this.staffDeportivoService,this.tamiteBuscadoEvent);
-        getTramite.execute({tramiteId: command.tamite})
+        const obtenerTramite = new BuscarTramiteUseCase(this.staffDeportivoService,this.tamiteBuscadoEvent);
+        const obtnerEmpleado = new BuscarEmpleadoUseCase(this.staffDeportivoService,this.empleadoBuscadoEvent);
        
         // Ejecución de la lógica del caso de uso
         const entity = new StaffDeportivoDomainEntity({
            
-
+            staffDeportivoId: staffDeportivoId.valueOf(),
             nombre: nombre.valueOf(),
-            tramite: ,
-            empleado: new EmpleadoDomainEntity(),
+            tramite: (await obtenerTramite.execute({tramiteId: command.tamite})).data ,
+            empleado: (await obtnerEmpleado.execute({empleadoId : command.empleado})).data,
             
         });
         const result = await this.aggregateRoot.CrearStaffDeportivo(entity);//Se le puede pasar directamente la entidad como tambien se le pude pasar la interface 

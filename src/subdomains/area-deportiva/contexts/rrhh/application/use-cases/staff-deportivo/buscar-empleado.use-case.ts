@@ -4,9 +4,10 @@ import { INombreModificadoResponse } from '../../../domain/interfaces/responses/
 import { StaffDeportivoAggregate, IStaffDeportivoDomainService } from "../../../domain";
 import { EmpleadoDomainEntity } from '../../../domain/entities/empleado/EmpleadoDomainEntity';
 import { EmpleadoBuscadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
+import { IEmpleadoBuscadoResponse } from '../../../domain/interfaces/responses/staff-deportivo/empleado-buscado.response';
 
-export class empleadoIdEmpleadoUseCase extends ValueObjectErrorHandler
-implements IUseCase<IBuscarEmpleadoCommands, INombreModificadoResponse> {
+export class BuscarEmpleadoUseCase extends ValueObjectErrorHandler
+implements IUseCase<IBuscarEmpleadoCommands, IEmpleadoBuscadoResponse> {
 
 private readonly aggregateRoot: StaffDeportivoAggregate;
 
@@ -19,7 +20,7 @@ constructor(
 }
 
 //Ejecutar el comando , usando otra funcion para crear lo que necesita el comando 
-async execute(command?: IBuscarEmpleadoCommands): Promise<INombreModificadoResponse> {
+async execute(command?: IBuscarEmpleadoCommands): Promise<IEmpleadoBuscadoResponse> {
     const data = await this.exectueOrderAggregateRoot(command);
 
     return { success: data ? true : false, data }
