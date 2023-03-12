@@ -240,7 +240,7 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
 
     // #region REPAIRS methods
 
-    async AddRepair(repairData: IAddRepairsCommand): Promise<boolean> {
+    async AddRepair(repairData: RepairsDomainEntityBase): Promise<boolean> {
 
         if (!this.repairsService) {
             throw new AggregateRootException('InvoiceAggregate: "RepairsService" is not defined!');

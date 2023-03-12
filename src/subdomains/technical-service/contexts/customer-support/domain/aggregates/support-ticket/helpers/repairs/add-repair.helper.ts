@@ -1,9 +1,9 @@
 import {  RepairsAddedEventPublisherBase } from "../../../../events/publishers/";
 import {  IRepairsDomainService } from "../../../../services";
-import {  IAddRepairsCommand } from '../../../../interfaces/';
+import { RepairsDomainEntityBase } from "../../../../entities/support-ticket";
 
 export const AddRepair = async (
-    repairData: IAddRepairsCommand,
+    repairData: RepairsDomainEntityBase,
     repairsService: IRepairsDomainService,
     issueAddedEventPublisherBase: RepairsAddedEventPublisherBase
 ): Promise<boolean> => {

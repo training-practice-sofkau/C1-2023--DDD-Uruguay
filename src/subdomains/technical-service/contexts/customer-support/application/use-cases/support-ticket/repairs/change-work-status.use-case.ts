@@ -69,7 +69,7 @@ export class ChangeWorkStatusUseCase<
         const workFinished = new TrueFalseValueObject(command.newStatus);
 
         return{
-            repairsID, 
+            repairID: repairsID, 
             workFinished
         }
     }
@@ -84,13 +84,13 @@ export class ChangeWorkStatusUseCase<
     validateValueObject(VO: IRepairsDomainEntity) {
 
         const {
-            repairsID,
+            repairID ,
             workFinished
         } = VO;
 
          // validates repairsID
-         if (repairsID instanceof UUIDValueObject && repairsID.hasErrors())
-         this.setErrors(repairsID.getErrors());
+         if (repairID instanceof UUIDValueObject && repairID.hasErrors())
+         this.setErrors(repairID.getErrors());
  
          // validates workFinished
          if (workFinished instanceof TrueFalseValueObject && workFinished.hasErrors())
@@ -113,12 +113,12 @@ export class ChangeWorkStatusUseCase<
      */
     createRepairsEntity(VO: IRepairsDomainEntity) : RepairsDomainEntityBase {
         const {
-            repairsID,
+            repairID: repairsID,
             workFinished
         } = VO;
 
         return new RepairsDomainEntityBase ({
-            repairsID: repairsID.valueOf(),
+            repairID: repairsID.valueOf(),
             workFinished: workFinished.valueOf()
         })
     }

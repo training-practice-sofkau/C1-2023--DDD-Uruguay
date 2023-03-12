@@ -2,7 +2,7 @@
 import { ValueObjectBase } from '../../../../../../../libs/sofka/bases/object-value.base';
 import { StringBiggerThanMaxLength, IsEmptyOrNull } from '../../../../../../../libs/validations';
 
-export class FaultValueObject extends ValueObjectBase<string>{
+export class RepairValueObject extends ValueObjectBase<string>{
 
     constructor(value?: string) {
         super(value ? value : null);

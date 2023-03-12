@@ -1,11 +1,11 @@
 import { DateValueObject, TrueFalseValueObject, UUIDValueObject } from "../../../value-objects/common";
-import { FaultValueObject } from '../../../value-objects/repair';
+import { RepairValueObject } from '../../../value-objects/repair';
 
 export interface IRepairsDomainEntity{
 
-    repairsID?: string | UUIDValueObject;
-    repairsDate?: number | Date | DateValueObject;
-    repairs?: FaultValueObject[];
+    repairID?: string | UUIDValueObject;
+    repairDate?: number | Date | DateValueObject;
+    repairs?: string[] | RepairValueObject[];
     workFinished?: boolean | TrueFalseValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;

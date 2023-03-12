@@ -5,6 +5,7 @@ import { ISupportTicketClosedResponse, ICloseTicketCommand } from '../../../doma
 import { SupportTicketAggregate } from '../../../domain/aggregates/support-ticket/support-ticket.aggregate';
 import { ISupportTicketDomainService } from '../../../domain/services/support-ticket/support-ticket.domain-service';
 import { SupportTicketClosedEventPublisherBase } from '../../../domain/events/publishers/support-ticket/ticket-closed.event-publisher';
+
 import { ISupportTicketEntity } from '../../../domain/entities/interfaces/support-ticket/support-ticket.domain-entity.interface';
 
 import { TrueFalseValueObject, UUIDValueObject } from '../../../domain/value-objects/common/';

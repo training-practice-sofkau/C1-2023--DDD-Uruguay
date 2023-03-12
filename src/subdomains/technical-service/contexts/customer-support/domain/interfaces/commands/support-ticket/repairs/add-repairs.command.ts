@@ -1,8 +1,8 @@
 import { UUIDValueObject } from '../../../../value-objects/common';
-import { FaultValueObject } from '../../../../value-objects/repair/fault.value-object';
+import { RepairValueObject } from '../../../../value-objects/repair/repair.value-object';
 
 export interface IAddRepairsCommand{
 
-    repairID: string | UUIDValueObject;
-    faultToAdd: FaultValueObject;
+    repairID: string ;
+    repairToAdd: string[];
 }
