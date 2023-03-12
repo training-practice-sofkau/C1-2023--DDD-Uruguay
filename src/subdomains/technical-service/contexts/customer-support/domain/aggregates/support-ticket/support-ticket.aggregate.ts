@@ -1,16 +1,22 @@
-import { AggregateRootException } from 'src/libs/sofka/exceptions';
-import { RepairsAddedEventPublisherBase, WorkStatusChangedEventPublisherBase} from '../../events/publishers/support-ticket/repairs';
+import { AggregateRootException } from '@sofka';
 
-import { DeviceDomainEntityBase } from '../../entities/support-ticket/device.domain-entity/device.domain-entity';
+import { 
+    RepairsAddedEventPublisherBase, 
+    WorkStatusChangedEventPublisherBase
+} from '../../events/publishers/support-ticket/repairs';
 
-import {
-    IOpenNewTicketCommand,
-    ICloseTicketCommand,
+import { 
+    DeviceDomainEntityBase, 
+    SupportTicketDomainEntityBase, 
+    RepairsDomainEntityBase 
+} from '../../entities/support-ticket/';
+
+import {    
+    
     IGenerateInvoiceCommand,
     IAddIssueCommand,
     IRemoveIssueCommand,
-    IAddRepairsCommand,
-    IChangeWorkStatusCommand,
+    IAddRepairsCommand,   
 
 } from '../../interfaces';
 
@@ -34,7 +40,7 @@ import {
 } from './helpers';
 
 import {
-    TicketClosedEventPublisherBase,
+    SupportTicketClosedEventPublisherBase,
     InvoiceGeneratedEventPublisherBase,
     DeviceAddedEventPublisherBase,
     IssueAddedEventPublisherBase,
@@ -42,10 +48,11 @@ import {
     NewTicketAddedEventPublisherBase
 
 } from '../../events/publishers/support-ticket';
-import { IDeviceDomainEntity, ISupportTicketEntity } from '../../entities/interfaces';
-import { RepairsDomainEntityBase } from '../../entities/support-ticket/repairs.domain-entity/repairs.domain-entity';
 
-
+import { 
+    IDeviceDomainEntity, 
+    ISupportTicketEntity 
+} from '../../entities/interfaces';
 
 export class SupportTicketAggregate implements ISupportTicketDomainService, IDeviceDomainService, IRepairsDomainService {
 
@@ -53,7 +60,7 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
     private readonly deviceService?: IDeviceDomainService;
     private readonly repairsService?: IRepairsDomainService;
     private readonly newTicketAddedEventPublisherBase?: NewTicketAddedEventPublisherBase;
-    private readonly ticketClosedEventPublisherBase?: TicketClosedEventPublisherBase;
+    private readonly supportTicketClosedEventPublisherBase?: SupportTicketClosedEventPublisherBase;
     private readonly invoiceGeneratedEventPublisherBase?: InvoiceGeneratedEventPublisherBase;
     private readonly deviceAddedEventPublisherBase?: DeviceAddedEventPublisherBase;
     private readonly issueAddedEventPublisherBase?: IssueAddedEventPublisherBase;
@@ -67,7 +74,7 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
             repairsService,
             deviceService,
             newTicketAddedEventPublisherBase,
-            ticketClosedEventPublisherBase,
+            supportTicketClosedEventPublisherBase,
             invoiceGeneratedEventPublisherBase,
             deviceAddedEventPublisherBase,
             issueAddedEventPublisherBase,
@@ -81,7 +88,7 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
             deviceService?: IDeviceDomainService,
             repairsService?: IRepairsDomainService,
             newTicketAddedEventPublisherBase?: NewTicketAddedEventPublisherBase,
-            ticketClosedEventPublisherBase?: TicketClosedEventPublisherBase,
+            supportTicketClosedEventPublisherBase?: SupportTicketClosedEventPublisherBase,
             invoiceGeneratedEventPublisherBase?: InvoiceGeneratedEventPublisherBase,
             deviceAddedEventPublisherBase?: DeviceAddedEventPublisherBase,
             issueAddedEventPublisherBase?: IssueAddedEventPublisherBase,
@@ -95,7 +102,7 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
         this.deviceService = deviceService;
         this.repairsService = repairsService;
         this.newTicketAddedEventPublisherBase = newTicketAddedEventPublisherBase;
-        this.ticketClosedEventPublisherBase = ticketClosedEventPublisherBase;
+        this.supportTicketClosedEventPublisherBase = supportTicketClosedEventPublisherBase;
         this.invoiceGeneratedEventPublisherBase = invoiceGeneratedEventPublisherBase;
         this.deviceAddedEventPublisherBase = deviceAddedEventPublisherBase;
         this.issueAddedEventPublisherBase = issueAddedEventPublisherBase;
@@ -134,16 +141,16 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
      * @return {*}  {Promise<boolean>}
      * @memberof SupportTicketAggregate
      */
-    async CloseTicket(ticketData: ICloseTicketCommand): Promise<boolean> {
+    async CloseTicket(ticketData: SupportTicketDomainEntityBase): Promise<boolean> {
 
         if (!this.supportTicketService) {
             throw new AggregateRootException('InvoiceAggregate: "SupportTicketService" is not defined!');
         }
-        if (!this.ticketClosedEventPublisherBase) {
+        if (!this.supportTicketClosedEventPublisherBase) {
             throw new AggregateRootException('InvoiceAggregate: "TicketClosedEventPublisherBase" is not defined!');
         }
 
-        return await CloseTicket(ticketData, this.supportTicketService, this.ticketClosedEventPublisherBase);
+        return await CloseTicket(ticketData, this.supportTicketService, this.supportTicketClosedEventPublisherBase);
     }
 
 

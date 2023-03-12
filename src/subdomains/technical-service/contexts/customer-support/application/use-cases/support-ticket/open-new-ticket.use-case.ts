@@ -7,13 +7,13 @@ import { ISupportTicketEntity } from '../../../domain/entities/interfaces/suppor
 import { DateValueObject, UUIDValueObject } from '../../../domain/value-objects/common';
 
 import { ValueObjectException, IUseCase, ValueObjectErrorHandler } from '@sofka';
-import { INewTicketOpenedResponse } from '../../../domain/interfaces/responses/support-ticket/new-ticket-opened.response';
+import { ISupportTicketOpenedResponse } from '../../../domain/interfaces/responses/support-ticket/new-ticket-opened.response';
 import { SupportTicketDomainEntityBase } from '../../../domain/entities/support-ticket/service-ticket.domain-entity';
 
 
 export class OpenNewTicketUseCase<
     Command extends IOpenNewTicketCommand = IOpenNewTicketCommand,
-    Response extends INewTicketOpenedResponse = INewTicketOpenedResponse
+    Response extends ISupportTicketOpenedResponse = ISupportTicketOpenedResponse
 > extends ValueObjectErrorHandler implements IUseCase<Command, Response> {
 
     private readonly supportTicketAggregateRoot: SupportTicketAggregate;

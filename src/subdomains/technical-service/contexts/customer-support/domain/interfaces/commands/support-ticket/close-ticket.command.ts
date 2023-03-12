@@ -2,5 +2,6 @@ import { UUIDValueObject } from "../../../value-objects/common";
 
 export interface ICloseTicketCommand{
 
-    ticketID: string;    
+    ticketID: string;
+    isOpen: boolean;
 }

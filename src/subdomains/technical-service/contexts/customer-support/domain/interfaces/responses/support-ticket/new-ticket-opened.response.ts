@@ -1,3 +1,3 @@
-export interface INewTicketOpenedResponse{
+export interface ISupportTicketOpenedResponse{
     success: boolean; 
 }

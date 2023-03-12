@@ -1,12 +1,12 @@
 import { ISupportTicketEntity } from '../../entities/interfaces';
-import { ICloseTicketCommand, IGenerateInvoiceCommand } from '../../interfaces';
-import { IOpenNewTicketCommand } from '../../interfaces/commands/support-ticket/open-new-ticket.command';
+import { SupportTicketDomainEntityBase } from '../../entities/support-ticket/service-ticket.domain-entity';
+import { IGenerateInvoiceCommand } from '../../interfaces';
 
 export interface ISupportTicketDomainService {
 
     OpenNewTicket(ticketData: ISupportTicketEntity): Promise < ISupportTicketEntity | null >;
 
-    CloseTicket(ticketData: ICloseTicketCommand): Promise < boolean >;
+    CloseTicket(ticketData: SupportTicketDomainEntityBase): Promise < boolean >;
 
     GenerateInvoice(ticketData: IGenerateInvoiceCommand): Promise < boolean >;
 
