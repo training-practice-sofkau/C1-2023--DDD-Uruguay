@@ -125,6 +125,14 @@ export class CreateCustomerUserCase<
         })
     }
 
+
+    /**
+     * Executes the method on the aggregate
+     *
+     * @param {CustomerDomainEntityBase} entity
+     * @return {*}  {Promise<CustomerDomainEntityBase>}
+     * @memberof CreateCustomerUserCase
+     */
     executeCreateCustomerAggregateRoot(
         entity: CustomerDomainEntityBase): Promise<CustomerDomainEntityBase> {
         

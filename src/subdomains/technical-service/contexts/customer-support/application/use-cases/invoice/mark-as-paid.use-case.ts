@@ -104,7 +104,7 @@ export class MarkInvoiceAsPaidUseCase<
 
 
     /**
-     * Creates and returns a new Customer Entity with only the needed info
+     * Creates and returns a new Invoice Entity with only the needed info
      *
      * @param {IInvoiceDomainEntity} VO
      * @return {*}  {InvoiceDomainEntityBase}
@@ -123,6 +123,14 @@ export class MarkInvoiceAsPaidUseCase<
         })
     }
     
+
+    /**
+     * Executes the method on the aggregate
+     *
+     * @param {InvoiceDomainEntityBase} entity
+     * @return {*}  {Promise<boolean>}
+     * @memberof MarkInvoiceAsPaidUseCase
+     */
     executeMarkInvoiceAsPaidAggregateRoot(
         entity: InvoiceDomainEntityBase): Promise<boolean> {
         

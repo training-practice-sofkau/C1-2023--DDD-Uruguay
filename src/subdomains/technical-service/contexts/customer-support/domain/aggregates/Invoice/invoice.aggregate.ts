@@ -1,21 +1,22 @@
-import { AggregateRootException } from '../../../../../../../libs/sofka/exceptions';
+import { AggregateRootException } from '@sofka';
 
 import { UUIDValueObject } from '../../value-objects/common';
 
 import {
     ItemAddedToWarrantyEventPublisherBase,
     ItemRemovedFromWarrantyEventPublisherBase,
-    WarrantyStatusChangedEventPublisherBase
-} from '../../events/publishers/invoice/warranty';
-
-import {
+    WarrantyStatusChangedEventPublisherBase,
     CustomerEmailChangedEventPublisherBase,
-    CustomerPhoneChangedEventPublisherBase
-} from '../../events/publishers/invoice/customer';
+    CustomerPhoneChangedEventPublisherBase,
+    CustomerCreatedEventPublisherBase,
+    InvoiceCreatedEventPublisherBase,
+    ServiceChargeCalculatedEventPublisherBase,
+    CustomerNotifiedEventPublisherBase,
+    InvoiceMarkedAsPaidEventPublisherBase,
+    WarrantyAddedEventPublisherBase,
 
-import {
-    IChangeCustomerPhoneCommand,    
-} from '../../interfaces/commands/invoice/customer';
+} from '../../events/publishers/invoice/';
+
 
 import {
     IInvoiceDomainService,
@@ -23,23 +24,11 @@ import {
     IWarrantyDomainService
 } from '../../services';
 
-import {    
-    IAddWarrantyCommand,
-    ICreateCustomerCommand,
+import {        
     INotifyCustomerCommand,
-    IAddItemToWarrantyCommand,
-    IChangeWarrantyStatusCommand,
+    IAddItemToWarrantyCommand,    
     IRemoveItemFromWarrantyCommand
 } from '../../interfaces/commands/invoice';
-
-import {
-    CustomerCreatedEventPublisherBase,
-    InvoiceCreatedEventPublisherBase,
-    ServiceChargeCalculatedEventPublisherBase,
-    CustomerNotifiedEventPublisherBase,
-    InvoiceMarkedAsPaidEventPublisherBase,
-    WarrantyAddedEventPublisherBase,
-} from '../../events/publishers/invoice';
 
 
 import {
@@ -48,27 +37,23 @@ import {
     AddWarranty,
     CalculateServiceCharge,
     NotifyCustomer,
-    MarkInvoiceAsPaid
-} from './helpers/Invoice';
-
-import {
+    MarkInvoiceAsPaid,
     ChangeCustomerEmail,
     ChangeCustomerPhone,
-} from './helpers/customer';
-
-
-import { 
     AddItemToWarranty, 
     ChangeWarrantyStatus, 
     RemoveItemFromWarranty 
-} from './helpers/warranty';
 
-import { InvoiceDomainEntityBase } from '../../entities/invoice/invoice.domain-entity';
+} from './helpers';
+
+
+import { 
+    WarrantyDomainEntityBase, 
+    CustomerDomainEntityBase, 
+    InvoiceDomainEntityBase
+} from '../../entities/invoice/';
+
 import { IWarrantyDomainEntity } from '../../entities/interfaces';
-import { CustomerDomainEntityBase } from '../../entities/invoice/customer.domain-entity';
-
-
-
 
 
 export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainService, IWarrantyDomainService {
@@ -349,7 +334,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>}
      * @memberof InvoiceAggregate
      */
-    async ChangeWarrantyStatus(data: IChangeWarrantyStatusCommand): Promise<boolean> {
+    async ChangeWarrantyStatus(data: WarrantyDomainEntityBase): Promise<boolean> {
         
         if (!this.warrantyService) {
             throw new AggregateRootException('InvoiceAggregate: "WarrantyService" is not defined!');
