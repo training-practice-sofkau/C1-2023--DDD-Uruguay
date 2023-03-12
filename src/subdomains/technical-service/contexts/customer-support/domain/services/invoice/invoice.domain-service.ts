@@ -17,7 +17,7 @@ export interface IInvoiceDomainService { // <T extends InvoiceDomainEntityBase =
 
     AddWarranty( warrantyData: IWarrantyDomainEntity ) : Promise < IWarrantyDomainEntity | null >//return success (true/false) 
 
-    MarkAsPaid() : Promise <boolean> //return success (true/false) 
+    MarkAsPaid(invoiceData: InvoiceDomainEntityBase) : Promise <boolean> //return success (true/false) 
     
     CreateCustomer( customerData : CustomerDomainEntityBase ) : Promise < CustomerDomainEntityBase | null > //return success (true/false) 
     

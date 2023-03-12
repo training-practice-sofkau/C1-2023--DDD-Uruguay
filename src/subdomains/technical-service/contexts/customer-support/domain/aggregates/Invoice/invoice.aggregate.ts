@@ -241,7 +241,8 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>} success ( true / false )
      * @memberof InvoiceAggregate
      */
-    async MarkAsPaid(): Promise<boolean> {
+    async MarkAsPaid(data: InvoiceDomainEntityBase): Promise<boolean> {
+        
         if (!this.invoiceService) {
             throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
         }
@@ -249,7 +250,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
             throw new AggregateRootException('InvoiceAggregate: "invoiceMarkedAsPaidEventPublisherBase" is not defined!');
         }
 
-        return await MarkInvoiceAsPaid(this.invoiceService, this.invoiceMarkedAsPaidEventPublisherBase);
+        return await MarkInvoiceAsPaid(data, this.invoiceService, this.invoiceMarkedAsPaidEventPublisherBase);
     }
 
     //#endregion

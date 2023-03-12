@@ -1,1 +1,4 @@
-//TODO: hacer esto... si requiere
+export interface IMarkInvoiceAsPaidCommand{
+    invoiceID: string;
+    isPaid: true;    
+}
