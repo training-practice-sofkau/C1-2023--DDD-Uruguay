@@ -17,17 +17,20 @@ export class ObtenerClienteUseCase<
     //LO PRIMERO QUE NECESITO ES EL AGREGADO ROOT
     private readonly compraAggregate: CompraAggregate;
 
-    //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
+    /*INYECTO LAS DEPENDENCIAS, EL SERVICIO Y EL PUBLICADOR DE EVENTO DE CLIENTE OBTENIDO.
+    ESTAS DEPENDENCIAS SE UTILIZAN PARA CREAR UN AGREGADO COMPRA, QUE SE UTILIZA PARA REALIZAR
+    LA LOGICA DE ESTE CASO DE USO.
+    */
     constructor(private readonly compraService: ICompraService, private readonly clienteConseguidoEventPublisher: ClienteConseguidoEventPublisher) {
         super();
         this.compraAggregate = new CompraAggregate({ compraService, clienteConseguidoEventPublisher })
     }
 
-     /*
-    Una función asíncrona es una función que devuelve una Promesa y puede
-    utilizar la palabra clave await para esperar a que se resuelva la Promesa
-    antes de continuar con la ejecución del código.
-    */
+    /*
+    ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
+    "await" PARA ESPERAR A QUE SE RESUELVA LA PROMESA
+    ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
+   */
     async execute(command?: Command): Promise<Response> {
         const data = await this.executeCommand(command);
 
