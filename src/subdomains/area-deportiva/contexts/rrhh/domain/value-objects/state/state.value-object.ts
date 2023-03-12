@@ -21,3 +21,4 @@ export class StateValueObject extends ValueObjectBase<boolean> {
          }
  
      }
+}

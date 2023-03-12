@@ -4,10 +4,10 @@ import { IModificarEquipoCommands } from '../../interfaces/commands/shared/modif
 
 export interface ITraspasoDomainService<T extends TraspasoDomainEntity = TraspasoDomainEntity> {
 
-    modificarCosto(costo: IModificarCostoCommands):Promise<T>;
-    modificarFechaSalida(fechaSalida: IModificarFechaCommands):Promise<T>;
-    modificarEquipoNuevo(equipoNuevoId:IModificarEquipoCommands ):Promise<T>;
-    modificarEquipoSalida(equipoSalidaId: IModificarEquipoCommands):Promise<T>;
-    modificarState(state: IModificarStateCommands):Promise<T>;
+    TraspasoModificarCosto(costo: IModificarCostoCommands):Promise<T>;
+    TraspasoModificarFechaSalida(fechaSalida: IModificarFechaCommands):Promise<T>;
+    TraspasoModificarEquipoNuevo(equipoNuevoId:IModificarEquipoCommands ):Promise<T>;
+    TraspasoModificarEquipoSalida(equipoSalidaId: IModificarEquipoCommands):Promise<T>;
+    TraspasoModificarState(state: IModificarStateCommands):Promise<T>;
     
 }

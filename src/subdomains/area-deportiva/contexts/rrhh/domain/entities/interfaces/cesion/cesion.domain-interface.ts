@@ -5,7 +5,7 @@ import { StateValueObject } from '../../../value-objects/state/state.value-objec
 
 export interface ICesionDomainInterface {
     cesionId?: string | IdValueObject;
-    empleadoId: string | IdValueObject;
+    empleadoId?: string | IdValueObject;
     equipoNuevoId?: string | IdValueObject;
     fechaSalida?: string | FechaValueObject;
     costo?: number | CostoValueObject;

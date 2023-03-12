@@ -4,15 +4,16 @@ import { IdValueObject } from '../../value-objects';
 import { CostoValueObject } from '../../value-objects/costo';
 import { FechaValueObject } from '../../value-objects/fecha';
 import { ITraspasoDomainInterface } from '../interfaces/traspaso/traspaso.domain-interface';
+import { StateValueObject } from '../../value-objects/state/state.value-object';
 
 export class TraspasoDomainEntity implements ITraspasoDomainInterface {
 
     traspasoId?: string | IdValueObject;
-    empleadoId: string | IdValueObject;
+    empleadoId?: string | IdValueObject;
     equipoNuevoId?: string | IdValueObject;
     equipoSalidaId?: string | IdValueObject;
     costo?: number | CostoValueObject;
-    state?: boolean;
+    state?: boolean | StateValueObject;
     fechaSalida?: string | FechaValueObject;
     
     constructor(_traspaso?: ITraspasoDomainInterface) {

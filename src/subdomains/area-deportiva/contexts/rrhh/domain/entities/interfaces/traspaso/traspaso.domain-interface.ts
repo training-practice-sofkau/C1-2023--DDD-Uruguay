@@ -5,7 +5,7 @@ import { StateValueObject } from '../../../value-objects/state/state.value-objec
 export interface ITraspasoDomainInterface {
 
     traspasoId?: string | IdValueObject;
-    empleadoId: string | IdValueObject;
+    empleadoId?: string | IdValueObject;
     equipoNuevoId?: string | IdValueObject;
     equipoSalidaId?: string | IdValueObject;
     costo?: number | CostoValueObject;

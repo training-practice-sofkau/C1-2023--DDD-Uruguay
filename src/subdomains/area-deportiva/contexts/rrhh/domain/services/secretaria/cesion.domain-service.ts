@@ -1,16 +1,16 @@
 import { CesionDomainEntity } from '../../entities/cesion/cesion.domain-entity';
-import { IModificarCostoCommands, IModificarEquipoNuevoCommands, IModificarEquipoSalidaCommands, IModificarFechaRetornoCommands, IModificarFechaSalidaCommands, IModificarStateCommands } from '../../interfaces';
+import { IModificarCostoCommands,IModificarStateCommands } from '../../interfaces';
 import { IModificarEquipoCommands } from '../../interfaces/commands/shared/modificar-equipo-nuevo.commands.interface';
 import { IModificarFechaCommands } from '../../interfaces/commands/shared/modificar-fecha.commands';
 
 export interface ICesionDomainService<T extends CesionDomainEntity = CesionDomainEntity> {
 
-    modificarCosto(costo: IModificarCostoCommands):Promise<T>;
-    modificarFechaSalida(fechaSalida: IModificarFechaCommands):Promise<T>;
-    modificarFechaRetorno(fechaRetorno: IModificarFechaCommands):Promise<T>;
-    modificarEquipoNuevo(equipoNuevoId: IModificarEquipoCommands):Promise<T>;
-    modificarEquipoSalida(equipoSalidaId: IModificarEquipoCommands):Promise<T>;
-    modificarState(state: IModificarStateCommands):Promise<T>;
+    CesionModificarCosto(costo: IModificarCostoCommands):Promise<T>;
+    CesionModificarFechaSalida(fechaSalida: IModificarFechaCommands):Promise<T>;
+    CesionModificarFechaRetorno(fechaRetorno: IModificarFechaCommands):Promise<T>;
+    CesionModificarEquipoNuevo(equipoNuevoId: IModificarEquipoCommands):Promise<T>;
+    CesionModificarEquipoSalida(equipoSalidaId: IModificarEquipoCommands):Promise<T>;
+    CesionModificarState(state: IModificarStateCommands):Promise<T>;
     
     
 }

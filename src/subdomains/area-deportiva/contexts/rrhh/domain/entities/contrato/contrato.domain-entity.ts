@@ -3,16 +3,17 @@ import { v4 as uuidv4 } from "uuid";
 import { IdValueObject } from '../../value-objects';
 import { CostoValueObject } from '../../value-objects/costo';
 import { FechaValueObject } from '../../value-objects/fecha';
-import { ICotratoDomainInterface } from '../interfaces/contrato/cotrato.domain-interface';
-export class ContratoDomainEntity implements ICotratoDomainInterface {
+import { IContratoDomainInterface } from "../interfaces";
+import { StateValueObject } from '../../value-objects/state/state.value-object';
+export class ContratoDomainEntity implements IContratoDomainInterface {
     
     contratoId?: string | IdValueObject;
-    empleadoId: string | IdValueObject;
+    empleadoId?: string | IdValueObject;
     costo?: number | CostoValueObject;
     fechaFinalizacion?: string | FechaValueObject;
-    state?: boolean;
+    state?: boolean | StateValueObject;
 
-    constructor(_contrato?: ICotratoDomainInterface) {
+    constructor(_contrato?: IContratoDomainInterface) {
 
         if (_contrato.contratoId)
             this.contratoId = _contrato.contratoId;

@@ -8,7 +8,7 @@ import { StateValueObject } from '../../value-objects/state/state.value-object';
 export class CesionDomainEntity implements ICesionDomainInterface {
    
     cesionId?: string | IdValueObject;
-    empleadoId: string | IdValueObject;
+    empleadoId?: string | IdValueObject;
     equipoNuevoId?: string | IdValueObject;
     fechaSalida?: string | FechaValueObject;
     costo?: number | CostoValueObject;

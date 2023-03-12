@@ -3,8 +3,8 @@ import { IModificarCostoCommands, IModificarFechaCommands, IModificarStateComman
 
 export interface IContratoDomainService<T extends ContratoDomainEntity = ContratoDomainEntity> {
 
-    modificarCosto(costo: IModificarCostoCommands):Promise<T>;
-    modificarFechaSalida(fechaSalida: IModificarFechaCommands):Promise<T>;
-    modificarState(state: IModificarStateCommands):Promise<T>;
+    ContratoModificarCosto(costo: IModificarCostoCommands):Promise<T>;
+    ContratoModificarFechaSalida(fechaSalida: IModificarFechaCommands):Promise<T>;
+    ContratoModificarState(state: IModificarStateCommands):Promise<T>;
     
 }

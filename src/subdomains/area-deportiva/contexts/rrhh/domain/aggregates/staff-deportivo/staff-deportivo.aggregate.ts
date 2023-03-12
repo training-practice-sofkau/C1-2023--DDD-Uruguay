@@ -1,7 +1,7 @@
 import { IEmpleadoDomainService } from '../../services/staff-Deportivo/empleado.domain-service';
 import { IStaffDeportivoDomainService } from '../../services/staff-Deportivo/staff-deportivo.domain-service';
 import { StaffDeportivoDomainEntity } from '../../entities/staff-deportivo/staff-deportivo.entity';
-import { ICrearNegociacionCommands, IModificarDocumentoCommands, IModificarFechaCommands, IModificarNombreCommands, IModificarSalarioCommands, IModificarTipoEmpleadoCommands } from '../../interfaces';
+import { ICrearNegociacionCommands, IModificarFechaCommands} from '../../interfaces';
 import { INegociacionDomainService } from '../../services/staff-Deportivo/negociacion.domain-service';
 import { ITramiteDomainService } from '../../services/staff-Deportivo/tramite.domain-service';
 import { EmpleadoAgregadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-agregado.event-publisher';

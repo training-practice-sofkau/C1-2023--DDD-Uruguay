@@ -21,16 +21,14 @@ constructor(
 
 //Ejecutar el comando , usando otra funcion para crear lo que necesita el comando 
 async execute(command?: IBuscarEmpleadoCommands): Promise<IEmpleadoBuscadoResponse> {
-    const data = await this.exectueOrderAggregateRoot(command);
+    const data = await this.exectueStaffDeporivoAggregateRoot(command);
 
     return { success: data ? true : false, data }
 }
 
 
 //Manda a llamar al al servicio y asi usar sus metodos 
-private exectueOrderAggregateRoot(
-    entity: EmpleadoDomainEntity,
-): Promise<EmpleadoDomainEntity | null> {
+private exectueStaffDeporivoAggregateRoot(entity: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity | null> {
     return this.aggregateRoot.BuscarEmpleado(entity)
 }
 }
