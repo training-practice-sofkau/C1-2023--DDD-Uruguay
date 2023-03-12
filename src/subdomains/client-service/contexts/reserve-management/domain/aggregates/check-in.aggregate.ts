@@ -43,6 +43,8 @@ import {
     UpdateGuestPhone,
     UpdatePhone,
     UpdateRoomKeyAccessLevel,
+    GetRoomKey,
+    GetGuest,
 } from "./helpers";
 
 export class CheckInAggregate implements
