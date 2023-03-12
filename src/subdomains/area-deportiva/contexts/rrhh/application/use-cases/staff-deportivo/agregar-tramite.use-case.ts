@@ -132,8 +132,8 @@ export class AgregarTramiteUseCase extends ValueObjectErrorHandler
         } = valueObject
 
         return new TramiteDomainEntity({
-            tramiteId: tramiteId.valueOf(),
-            fecha: fecha.valueOf(),
+            tramiteId: tramiteId,
+            fecha: fecha,
             negociacion : new NegociacionDomainEntity({
                 negociacionId: negociacion.negociacionId,
                 equipoSalidaId: negociacion.equipoSalidaId,

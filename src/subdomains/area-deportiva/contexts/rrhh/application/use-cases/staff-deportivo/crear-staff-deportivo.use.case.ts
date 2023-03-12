@@ -56,8 +56,8 @@ export class CrearStaffDeportivoUseCase
         // Ejecución de la lógica del caso de uso
         const entity = new StaffDeportivoDomainEntity({
            
-            staffDeportivoId: staffDeportivoId.valueOf(),
-            nombre: nombre.valueOf(),
+            staffDeportivoId: staffDeportivoId,
+            nombre: nombre,
             tramite: (await obtenerTramite.execute({tramiteId: command.tamite})).data ,
             empleado: (await obtnerEmpleado.execute({empleadoId : command.empleado})).data,
             

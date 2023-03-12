@@ -1,5 +1,5 @@
 
 export interface IModificarTipoNegociacionCommands {
-    id:string;
+    negociacionId:string;
     tipoNegociacion: string ;
 }
