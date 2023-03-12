@@ -1,5 +1,5 @@
 import { IUseCase, ValueObjectErrorHandler } from "src/libs";
-import { IObtenerCursoMethod } from "../../../domain/interfaces/commands/compra/curso/ObtenerCurso.command";
+import { IObtenerCursoMethod } from "../../../domain/interfaces/commands/compra/curso/obtenerCurso.command";
 import { ICursoConseguidoResponse } from "../../../domain/interfaces/responses/compra/cursoConseguido.response";
 import { CompraAggregate, CursoDomainEntity, ICompraService } from "../../../domain";
 import { CursoConseguidoEventPublisher } from "../../../domain/events/publishers/compra/curso/curso-conseguido.event-publisher";
