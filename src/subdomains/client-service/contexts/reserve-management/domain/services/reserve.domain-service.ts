@@ -7,6 +7,7 @@ import {
     IAddCustomer,
     IAddRoom,
     ICreateReserve,
+    IGetRoom,
     IUpdateCustomerPaymentMethod,
     IUpdateEndDate,
     IUpdateNumberOfGuests,
@@ -34,5 +35,5 @@ export interface IReserveDomainService {
 
     getCustomer(data: string): Promise<CustomerDomainEntity>;
 
-    getRoom(data: string): Promise<RoomDomainEntity>;
+    getRoom(data: IGetRoom): Promise<RoomDomainEntity>;
 }

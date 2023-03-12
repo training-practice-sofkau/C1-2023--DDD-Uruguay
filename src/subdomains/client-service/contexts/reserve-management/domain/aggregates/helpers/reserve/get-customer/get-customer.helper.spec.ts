@@ -1,7 +1,7 @@
-import { UpdateStartDateHelper } from './get-customer.helper';
+import { GetCustomerHelper } from './get-customer.helper';
 
-describe('UpdateStartDateHelper', () => {
+describe('GetCustomerHelper', () => {
   it('should be defined', () => {
-    expect(new UpdateStartDateHelper()).toBeDefined();
+    expect(new GetCustomerHelper()).toBeDefined();
   });
 });

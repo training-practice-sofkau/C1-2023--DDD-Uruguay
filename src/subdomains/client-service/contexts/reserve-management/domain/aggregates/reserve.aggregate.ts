@@ -19,6 +19,7 @@ import {
     IAddCustomer, 
     IAddRoom, 
     ICreateReserve, 
+    IGetRoom, 
     IUpdateCustomerPaymentMethod, 
     IUpdateEndDate, 
     IUpdateNumberOfGuests, 
@@ -39,6 +40,7 @@ import {
     UpdatePaymentMethod,
     UpdateState,
     GetCustomer,
+    GetRoom,
 } from "./helpers/";
 
 export class ReserveAggregate implements
@@ -218,7 +220,12 @@ export class ReserveAggregate implements
         return await GetCustomer(data, this.reserveService, this.customerObtainedEventPublisher)
     }
 
-    async getRoom(data: string): Promise<RoomDomainEntity> {
-        throw new Error("Method not implemented.");
+    async getRoom(data: IGetRoom): Promise<RoomDomainEntity> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.roomObtainedEventPublisher)
+            throw new AggregateRootException('roomObtainedEventPublisher no esta definido')
+
+        return await GetRoom(data, this.reserveService, this.roomObtainedEventPublisher)
     }
 }
