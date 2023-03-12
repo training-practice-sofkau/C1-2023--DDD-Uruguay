@@ -3,8 +3,7 @@ import { AggregateRootException } from '@sofka';
 import { UUIDValueObject } from '../../value-objects/common';
 
 import {
-    ItemAddedToWarrantyEventPublisherBase,
-    ItemRemovedFromWarrantyEventPublisherBase,
+    
     WarrantyStatusChangedEventPublisherBase,
     CustomerEmailChangedEventPublisherBase,
     CustomerPhoneChangedEventPublisherBase,
@@ -14,6 +13,7 @@ import {
     CustomerNotifiedEventPublisherBase,
     InvoiceMarkedAsPaidEventPublisherBase,
     WarrantyAddedEventPublisherBase,
+    WarrantyEndDateChangedEventPublisherBase,
 
 } from '../../events/publishers/invoice/';
 
@@ -24,25 +24,15 @@ import {
     IWarrantyDomainService
 } from '../../services';
 
-import {        
-    INotifyCustomerCommand,
-    IAddItemToWarrantyCommand,    
-    IRemoveItemFromWarrantyCommand
-} from '../../interfaces/commands/invoice';
-
-
 import {
     CreateInvoice,
     CreateCustomer,
-    AddWarranty,
-    CalculateServiceCharge,
-    NotifyCustomer,
+    AddWarranty,        
     MarkInvoiceAsPaid,
     ChangeCustomerEmail,
-    ChangeCustomerPhone,
-    AddItemToWarranty, 
-    ChangeWarrantyStatus, 
-    RemoveItemFromWarranty 
+    ChangeCustomerPhone,    
+    ChangeWarrantyStatus,     
+    ChangeWarrantyEndDate
 
 } from './helpers';
 
@@ -64,13 +54,11 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
     private readonly invoiceCreatedEventPublisherBase?: InvoiceCreatedEventPublisherBase;
     private readonly customerCreatedEventPublisherBase?: CustomerCreatedEventPublisherBase;
     private readonly warrantyAddedEventPublisherBase?: WarrantyAddedEventPublisherBase;
-    private readonly serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase;
-    private readonly customerNotifiedEventPublisherBase?: CustomerNotifiedEventPublisherBase;
+    private readonly serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase;    
     private readonly invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase;
     private readonly customerEmailChangedEventPublisherBase?: CustomerEmailChangedEventPublisherBase;
-    private readonly customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase;
-    private readonly itemAddedToWarrantyEventPublisherBase?: ItemAddedToWarrantyEventPublisherBase;
-    private readonly itemRemovedFromWarrantyEventPublisherBase?: ItemRemovedFromWarrantyEventPublisherBase;
+    private readonly customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase;    
+    private readonly warrantyEndDateChangedEventPublisherBase?: WarrantyEndDateChangedEventPublisherBase;
     private readonly warrantyStatusChangedEventPublisherBase?: WarrantyStatusChangedEventPublisherBase;
 
 
@@ -86,9 +74,8 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
             customerNotifiedEventPublisherBase,
             invoiceMarkedAsPaidEventPublisherBase,
             customerEmailChangedEventPublisherBase,
-            customerPhoneChangedEventPublisherBase,
-            itemAddedToWarrantyEventPublisherBase,
-            itemRemovedFromWarrantyEventPublisherBase,
+            customerPhoneChangedEventPublisherBase,            
+            warrantyEndDateChangedEventPublisherBase,
             warrantyStatusChangedEventPublisherBase,
 
         }: {
@@ -102,9 +89,8 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
             customerNotifiedEventPublisherBase?: CustomerNotifiedEventPublisherBase,
             invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase,
             customerEmailChangedEventPublisherBase?: CustomerEmailChangedEventPublisherBase,
-            customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase,
-            itemAddedToWarrantyEventPublisherBase?: ItemAddedToWarrantyEventPublisherBase,
-            itemRemovedFromWarrantyEventPublisherBase?: ItemRemovedFromWarrantyEventPublisherBase,
+            customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase,            
+            warrantyEndDateChangedEventPublisherBase?: WarrantyEndDateChangedEventPublisherBase,
             warrantyStatusChangedEventPublisherBase?: WarrantyStatusChangedEventPublisherBase,
         }
     ) {
@@ -115,17 +101,14 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
         this.invoiceCreatedEventPublisherBase = invoiceCreatedEventPublisherBase;
         this.customerCreatedEventPublisherBase = customerCreatedEventPublisherBase;
         this.warrantyAddedEventPublisherBase = warrantyAddedEventPublisherBase;
-        this.serviceChargeCalculatedEventPublisherBase = serviceChargeCalculatedEventPublisherBase;
-        this.customerNotifiedEventPublisherBase = customerNotifiedEventPublisherBase;
+        this.serviceChargeCalculatedEventPublisherBase = serviceChargeCalculatedEventPublisherBase;        
         this.invoiceMarkedAsPaidEventPublisherBase = invoiceMarkedAsPaidEventPublisherBase;
         this.customerEmailChangedEventPublisherBase = customerEmailChangedEventPublisherBase;
-        this.customerPhoneChangedEventPublisherBase = customerPhoneChangedEventPublisherBase;
-        this.itemAddedToWarrantyEventPublisherBase = itemAddedToWarrantyEventPublisherBase;
-        this.itemRemovedFromWarrantyEventPublisherBase = itemRemovedFromWarrantyEventPublisherBase;
+        this.customerPhoneChangedEventPublisherBase = customerPhoneChangedEventPublisherBase;        
+        this.warrantyEndDateChangedEventPublisherBase = warrantyEndDateChangedEventPublisherBase;
         this.warrantyStatusChangedEventPublisherBase = warrantyStatusChangedEventPublisherBase;
     }
-   
-
+    
     //#region INVOICE methods
 
     /**
@@ -184,42 +167,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
         return await AddWarranty(warrantyData, this.invoiceService, this.warrantyAddedEventPublisherBase);
     }
 
-    /**
-     * Calculates the charge of the service ( ammount to pay )
-     *
-     * @param {UUIDValueObject} ticketID
-     * @return {*}  {Promise<number>} gets the total amount to pay
-     * @memberof InvoiceAggregate
-     */
-    async CalculateServiceCharge(ticketID: UUIDValueObject): Promise<number> {
-        if (!this.invoiceService) {
-            throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
-        }
-        if (!this.serviceChargeCalculatedEventPublisherBase) {
-            throw new AggregateRootException('InvoiceAggregate: "serviceChargeCalculatedEventPublisherBase" is not defined!');
-        }
-
-        return await CalculateServiceCharge(ticketID, this.invoiceService, this.serviceChargeCalculatedEventPublisherBase);
-    }
-
-    /**
-     * Send a Notification to the costumer abount the pending invoice
-     *
-     * @param {INotifyCustomerCommand} notification
-     * @return {*}  {Promise<boolean>} success ( true / false )
-     * @memberof InvoiceAggregate
-     */
-    async NotifyCustomer(notification: INotifyCustomerCommand): Promise<boolean> {
-        if (!this.invoiceService) {
-            throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
-        }
-        if (!this.customerNotifiedEventPublisherBase) {
-            throw new AggregateRootException('InvoiceAggregate: "customerNotifiedEventPublisherBase" is not defined!');
-        }
-
-        return await NotifyCustomer(notification, this.invoiceService, this.customerNotifiedEventPublisherBase);
-    }
-
+   
     /**
      * Marks the invoice as Paid
      *
@@ -285,27 +233,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
 
 
     //#region WARRANTY methods
-
-
-    /**
-     * Allows to Add an item to the warranty Item List
-     *
-     * @param {IAddItemToWarrantyCommand} data
-     * @return {*}  {Promise<boolean>}
-     * @memberof InvoiceAggregate
-     */
-    async AddItemtoWarranty(data: IAddItemToWarrantyCommand): Promise<boolean> {
-
-        if (!this.warrantyService) {
-            throw new AggregateRootException('InvoiceAggregate: "WarrantyService" is not defined!');
-        }
-        if (!this.itemAddedToWarrantyEventPublisherBase) {
-            throw new AggregateRootException('InvoiceAggregate: "ItemAddedToWarrantyEventPublisherBase" is not defined!');
-        }
-
-        return await AddItemToWarranty(data, this.warrantyService, this.itemAddedToWarrantyEventPublisherBase);
-    }
-
+    
 
     /**
      * Allows to remove an item from a Warranty Item List
@@ -314,16 +242,16 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>}
      * @memberof InvoiceAggregate
      */
-    async RemoveItemFromWarranty(data: IRemoveItemFromWarrantyCommand): Promise<boolean> {
+    async ChangeWarrantyEndDate(data: WarrantyDomainEntityBase): Promise<boolean> {
         
         if (!this.warrantyService) {
             throw new AggregateRootException('InvoiceAggregate: "WarrantyService" is not defined!');
         }
-        if (!this.itemRemovedFromWarrantyEventPublisherBase) {
-            throw new AggregateRootException('InvoiceAggregate: "ItemRemovedFromWarrantyEventPublisherBase" is not defined!');
+        if (!this.warrantyEndDateChangedEventPublisherBase) {
+            throw new AggregateRootException('InvoiceAggregate: "WarrantyEndDateChangedEventPublisherBase" is not defined!');
         }
 
-        return await RemoveItemFromWarranty(data, this.warrantyService, this.itemRemovedFromWarrantyEventPublisherBase);
+        return await ChangeWarrantyEndDate(data, this.warrantyService, this.warrantyEndDateChangedEventPublisherBase);
     }
 
 

@@ -1,10 +1,10 @@
 import { EventPublisherBase } from "src/libs";
 
-export abstract class ItemRemovedFromWarrantyEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
+export abstract class WarrantyEndDateChangedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'customer-support.item-removed-from-warranty',
+            'customer-support.warranty-end-date-changed',
             JSON.stringify({ data: this.response })
         )
     }

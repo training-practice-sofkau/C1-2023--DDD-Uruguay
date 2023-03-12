@@ -37,6 +37,14 @@ export class ChangeCustomerPhoneUseCase <
     }
 
 
+
+    /**
+     * executes all the steps needed to make a new entity
+     *
+     * @param {Command} command
+     * @return {*}  {Promise<boolean>}
+     * @memberof ChangeCustomerPhoneUseCase
+     */
     executeCommand(command: Command): Promise<boolean>{
         
         const VO = this.createValueObject(command);

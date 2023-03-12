@@ -1,37 +1,36 @@
+import { InvoiceAggregate } from '../../../../domain/aggregates/Invoice';
 
-import { IWarrantyStatusChangedResponse, IChangeWarrantyStatusCommand } from '../../../../domain/interfaces/';
+import { IWarrantyDomainService } from '../../../../domain/services/invoice';
 
-import { InvoiceAggregate } from '../../../../domain/aggregates/Invoice/';
+import { IWarrantyDomainEntity } from '../../../../domain/entities/interfaces/invoice';
 
-import { IWarrantyDomainService } from '../../../../domain/services/invoice/';
-
-import { WarrantyStatusChangedEventPublisherBase } from '../../../../domain/events/publishers/invoice/warranty/';
-
-import { IWarrantyDomainEntity } from '../../../../domain/entities/interfaces/invoice/';
-
-import { UUIDValueObject, WarrantyStatusValueObject } from '../../../../domain/value-objects';
+import { UUIDValueObject, DateValueObject } from '../../../../domain/value-objects';
 
 import { ValueObjectException, ValueObjectErrorHandler, IUseCase } from '@sofka';
 
 import { WarrantyDomainEntityBase } from '../../../../domain/entities/invoice/warranty.domain-entity';
+import { IChangeWarrantyEndDateCommand } from '../../../../domain/interfaces/commands/invoice/warranty/change-warranty-end-date.command';
+import { IWarrantyEndDateChangedResponse } from '../../../../domain/interfaces/responses/invoice/warranty/warranty-end-date-changed.response';
+import { WarrantyEndDateChangedEventPublisherBase } from '../../../../domain/events/publishers/invoice/warranty/warranty-end-date-changed.event-publisher';
 
 
 
-export class ChangeWarrantyStatusUseCase<
-    Command extends IChangeWarrantyStatusCommand = IChangeWarrantyStatusCommand,
-    Response extends IWarrantyStatusChangedResponse = IWarrantyStatusChangedResponse
+
+export class ChangeWarrantyEndDateUseCase<
+    Command extends IChangeWarrantyEndDateCommand = IChangeWarrantyEndDateCommand,
+    Response extends IWarrantyEndDateChangedResponse = IWarrantyEndDateChangedResponse
 > extends ValueObjectErrorHandler implements IUseCase<Command, Response>{
 
     private readonly invoiceAggregateRoot: InvoiceAggregate;
 
     constructor(
         private readonly warrantyService: IWarrantyDomainService,
-        private readonly warrantyStatusChangedEventPublisherBase: WarrantyStatusChangedEventPublisherBase
+        private readonly warrantyEndDateChangedEventPublisherBase: WarrantyEndDateChangedEventPublisherBase
     ){
         super();
         this.invoiceAggregateRoot = new InvoiceAggregate({
             warrantyService,
-            warrantyStatusChangedEventPublisherBase
+            warrantyEndDateChangedEventPublisherBase
         })
     }
 
@@ -55,11 +54,11 @@ export class ChangeWarrantyStatusUseCase<
 
         const entity = this.createWarrantyEntity(VO);
         
-        return this.executeChangeWarrantyStatusAggregateRoot(entity);
+        return this.executeChangeWarrantyEndDateAggregateRoot(entity);
     }
    
     /**
-     * Generates a Warranty entity type with only the needed values (warrantyStatus)
+     * Generates a Warranty entity type with only the needed values (End Date)
      *
      * @param {Command} command
      * @return {*}  {IWarrantyDomainEntity}
@@ -68,11 +67,11 @@ export class ChangeWarrantyStatusUseCase<
     createValueObject(command: Command): IWarrantyDomainEntity {
         
         const warrantyID = new UUIDValueObject(command.warrantyID);
-        const warrantyStatus = command.warrantyStatus;        
+        const endDate = new DateValueObject(command.newEndDate);        
 
         return{
             warrantyID,
-            warrantyStatus            
+            endDate
         }
     }
 
@@ -87,20 +86,20 @@ export class ChangeWarrantyStatusUseCase<
         
         const {
             warrantyID,
-            warrantyStatus            
+            endDate            
         } = VO;
 
         // validates warrantyID
         if (warrantyID instanceof UUIDValueObject && warrantyID.hasErrors())
         this.setErrors(warrantyID.getErrors());
 
-        // validates isPaid
-        if (warrantyStatus instanceof WarrantyStatusValueObject && warrantyStatus.hasErrors())
-        this.setErrors(warrantyStatus.getErrors());
+        // validates endDate
+        if (endDate instanceof DateValueObject && endDate.hasErrors())
+        this.setErrors(endDate.getErrors());
 
         if (this.hasErrors() === true)
         throw new ValueObjectException(
-            'ChangeWarrantyStatusUseCase command execution return some errors!',
+            'ChangeWarrantyEndDateUseCase command execution return some errors!',
             this.getErrors(),
         );
     }
@@ -117,12 +116,12 @@ export class ChangeWarrantyStatusUseCase<
      
         const {
             warrantyID,
-            warrantyStatus            
+            endDate            
         } = VO;
 
         return new WarrantyDomainEntityBase ({
             warrantyID: warrantyID.valueOf(),
-            warrantyStatus: warrantyStatus
+            endDate: endDate.valueOf()
         })
     }
 
@@ -135,9 +134,9 @@ export class ChangeWarrantyStatusUseCase<
      * @return {*}  {Promise<boolean>}
      * @memberof ChangeWarrantyStatusUseCase
      */
-    executeChangeWarrantyStatusAggregateRoot(
+    executeChangeWarrantyEndDateAggregateRoot(
         entity: WarrantyDomainEntityBase): Promise<boolean> {
         
-            return this.invoiceAggregateRoot.ChangeWarrantyStatus(entity);
+            return this.invoiceAggregateRoot.ChangeWarrantyEndDate(entity);
     }
 }

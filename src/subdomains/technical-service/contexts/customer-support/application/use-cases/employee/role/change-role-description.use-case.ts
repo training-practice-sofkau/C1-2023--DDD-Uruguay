@@ -1,12 +1,12 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from '@sofka';
 
-import { IChangeRoleDescriptionCommand } from '../../../../domain/interfaces/commands/employee/role';
-import { IRoleDescriptionChangedResponse } from '../../../../domain/interfaces/responses/employee/role';
+import { IRoleDescriptionChangedResponse, IChangeRoleDescriptionCommand } from '../../../../domain/interfaces/';
+
 import { EmployeeAggregate } from '../../../../domain/aggregates/employee/employee.aggregate';
 import { IEmployeeDomainService } from '../../../../domain/services/employee/employee.domain-service';
 import { EmployeeStatusChangedEventPublisherBase } from '../../../../domain/events/publishers/employee/employee-status-changed.event-publisher';
-import { UUIDValueObject } from '../../../../domain/value-objects/common/uuid/uuid.value-object';
-import { RoleValueObject } from '../../../../domain/value-objects/employee/role.value-object';
+import { RoleValueObject, UUIDValueObject } from '../../../../domain/value-objects/';
+
 import { IRoleDomainEntity } from '../../../../domain/entities/interfaces/employee/role.domain-entity.interface';
 import { RoleDomainEntityBase } from '../../../../domain/entities/employee/role.domain-entity/role.domain-entity';
 
@@ -105,13 +105,13 @@ export class ChangeRoleDescriptionUseCase<
 
 
     /**
-     * Creates and returns a new Employee Entity with only the needed info
+     * Creates and returns a new Role Entity with only the needed info
      *
      * @param {IRoleDomainEntity} VO
      * @return {*} 
      * @memberof ChangeRoleDescriptionUseCase
      */
-    createRoleEntity(VO: IRoleDomainEntity) {
+    createRoleEntity(VO: IRoleDomainEntity) : RoleDomainEntityBase {
         const  {
             roleID,            
             roleDescription

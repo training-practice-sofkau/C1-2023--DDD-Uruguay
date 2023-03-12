@@ -7,7 +7,7 @@ import { EmployeeStatusChangedEventPublisherBase } from '../../../domain/events/
 import { IEmployeeDomainEntity } from '../../../domain/entities/interfaces';
 import { UUIDValueObject, TrueFalseValueObject } from '../../../domain/value-objects/common';
 import { EmployeeDomainEntityBase } from '../../../domain/entities/employee/employee.domain-entity';
-import { ChangeEmployeeStatus } from '../../../domain/aggregates/employee/helpers/employee-service/change-employee-status/change-employee-status.helper';
+
 
 
 export class ChangeEmployeeStatusUseCase<

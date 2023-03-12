@@ -1,4 +1,4 @@
-import { EventPublisherBase } from "src/libs";
+import { EventPublisherBase } from "@sofka";
 
 export abstract class WarrantyStatusChangedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
 

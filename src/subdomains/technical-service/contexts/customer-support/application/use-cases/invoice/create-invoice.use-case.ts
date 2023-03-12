@@ -1,17 +1,15 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from '@sofka';
 
-import { ICreateInvoiceCommand } from '../../../domain/interfaces/commands/invoice/';
-import { IInvoiceCreatedResponse } from '../../../domain/interfaces/responses/invoice/';
+import { IInvoiceCreatedResponse, ICreateInvoiceCommand } from '../../../domain/interfaces';
+
 import { InvoiceAggregate } from '../../../domain/aggregates/invoice';
 import { IInvoiceDomainService } from '../../../domain/services/invoice';
 import { InvoiceCreatedEventPublisherBase } from '../../../domain/events/publishers/invoice';
 import { InvoiceDomainEntityBase } from '../../../domain/entities/invoice/invoice.domain-entity';
-import { DateValueObject } from '../../../domain/value-objects/common/date/date.value-object';
-import { UUIDValueObject } from '../../../domain/value-objects/common/uuid/uuid.value-object';
-import { AmountValueObject } from '../../../domain/value-objects/invoice/amount.value-object';
-import { TrueFalseValueObject } from '../../../domain/value-objects/common/true-false/true-false.value-object';
+
+import { TrueFalseValueObject, AmountValueObject, UUIDValueObject, DateValueObject } from '../../../domain/value-objects';
+
 import { IInvoiceDomainEntity } from '../../../domain/entities/interfaces/invoice/invoice.domain-entity.interface';
-import { WarrantyStatusValueObject } from '../../../domain/value-objects';
 
 export class CreateInvoiceUseCase<
     Command extends ICreateInvoiceCommand = ICreateInvoiceCommand,
@@ -101,7 +99,7 @@ export class CreateInvoiceUseCase<
             isPaid
         } = VO;
 
-        // validates Invoice Emition Date
+        // validates Invoice Emission Date
         if (dateEmitted instanceof DateValueObject && dateEmitted.hasErrors())
             this.setErrors(dateEmitted.getErrors());
 

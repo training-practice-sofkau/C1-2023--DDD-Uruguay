@@ -1,16 +1,15 @@
 import { ICreateCustomerCommand } from '../../../domain/interfaces/commands/invoice/create-customer.command';
 import { ICustomerCreatedResponse } from '../../../domain/interfaces/responses/invoice/customer-created.response';
-import { ValueObjectErrorHandler } from '../../../../../../../libs/sofka/bases/value-object-error-handler.base';
-import { IUseCase } from '../../../../../../../libs/sofka/interface/use-case.interface';
+
 import { InvoiceAggregate } from '../../../domain/aggregates/Invoice/invoice.aggregate';
 import { ICustomerDomainService } from '../../../domain/services/invoice/customer.domain-service';
 import { CustomerCreatedEventPublisherBase } from '../../../domain/events/publishers/invoice/customer-created.event-publisher';
 import { CustomerDomainEntityBase } from '../../../domain/entities/invoice/customer.domain-entity/customer.domain-entity';
 import { ICustomerDomainEntity } from '../../../domain/entities/interfaces/invoice/customer.domain-entity.interface';
-import { FullnameValueObject } from '../../../domain/value-objects/common/fullname/fullname.value-object';
-import { EmailValueObject } from '../../../domain/value-objects/common/email/email.value-object';
-import { PhoneValueObject } from '../../../domain/value-objects/common/phone/phone.value-object';
-import { ValueObjectException } from 'src/libs';
+
+import { PhoneValueObject, EmailValueObject, FullnameValueObject } from '../../../domain/value-objects/';
+
+import { ValueObjectException, IUseCase, ValueObjectErrorHandler } from '@sofka';
 
 
 export class CreateCustomerUserCase<
@@ -41,6 +40,13 @@ export class CreateCustomerUserCase<
 
 
 
+    /**
+     * executes all the steps needed to make a new entity
+     *
+     * @param {Command} command
+     * @return {*}  {(Promise<CustomerDomainEntityBase | null>)}
+     * @memberof CreateCustomerUserCase
+     */
     executeCommand(command: Command): Promise<CustomerDomainEntityBase | null> {
         const VO = this.createValueObject(command);
         this.validateValueObject(VO);
