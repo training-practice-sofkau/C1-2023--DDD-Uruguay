@@ -35,5 +35,5 @@ export interface IReserveDomainService {
 
     getCustomer(data: string): Promise<CustomerDomainEntity>;
 
-    getRoom(data: IGetRoom): Promise<RoomDomainEntity>;
+    getRoom(data: string): Promise<RoomDomainEntity>;
 }

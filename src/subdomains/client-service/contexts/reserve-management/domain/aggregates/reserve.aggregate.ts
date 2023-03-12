@@ -220,7 +220,7 @@ export class ReserveAggregate implements
         return await GetCustomer(data, this.reserveService, this.customerObtainedEventPublisher)
     }
 
-    async getRoom(data: IGetRoom): Promise<RoomDomainEntity> {
+    async getRoom(data: string): Promise<RoomDomainEntity> {
         if (!this.reserveService)
             throw new AggregateRootException('reserveService no esta definido')
         if (!this.roomObtainedEventPublisher)

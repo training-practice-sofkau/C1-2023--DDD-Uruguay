@@ -1,10 +1,9 @@
 import { RoomDomainEntity } from "../../../../entities";
 import { RoomObtainedEventPublisher } from "../../../../events";
-import { IGetRoom } from "../../../../interfaces";
 import { IReserveDomainService } from "../../../../services";
 
 export const GetRoom = async (
-    data: IGetRoom,
+    data: string,
     reserveService: IReserveDomainService,
     roomObtainedEventPublisher: RoomObtainedEventPublisher
 ): Promise<RoomDomainEntity | null> => {
