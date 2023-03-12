@@ -37,12 +37,14 @@ import {
     AddConsumption,
     AddInvoice,
     CreateCheckOut,
+    GetInvoice,
     UpdateConsumptionExtra,
     UpdateConsumptionMiniBar,
     UpdateCost,
     UpdateExtra,
     UpdateInvoiceCost,
-    UpdateMiniBar
+    UpdateMiniBar,
+    GetConsumption
 } from "./helpers";
 
 export class CheckOutAggregate implements
