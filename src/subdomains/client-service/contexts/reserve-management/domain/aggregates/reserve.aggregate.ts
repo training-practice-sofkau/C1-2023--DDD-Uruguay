@@ -11,7 +11,8 @@ import {
     EndDateUpdatedEventPublisher,
     CustomerPaymentMethodUpdatedEventPublisher,
     CustomerAddedEventPublisher,
-    CustomerObtainedEventPublisher
+    CustomerObtainedEventPublisher,
+    RoomObtainedEventPublisher
 } from "../events";
 import { AggregateRootException } from "src/libs/sofka";
 import { 
@@ -60,6 +61,7 @@ export class ReserveAggregate implements
     private readonly paymentMethodUpdatedEventPublisher?: PaymentMethodUpdatedEventPublisher;
     private readonly stateUpdatedEventPublisher?: StateUpdatedEventPublisher;
     private readonly customerObtainedEventPublisher?: CustomerObtainedEventPublisher;
+    private readonly roomObtainedEventPublisher?: RoomObtainedEventPublisher;
 
     constructor(
         {
@@ -78,6 +80,7 @@ export class ReserveAggregate implements
             paymentMethodUpdatedEventPublisher,
             stateUpdatedEventPublisher,
             customerObtainedEventPublisher,
+            roomObtainedEventPublisher
         }: {
             reserveService?: IReserveDomainService,
             customerService?: ICustomerDomainService,
@@ -93,7 +96,8 @@ export class ReserveAggregate implements
             startDateUpdatedEventPublisher?: StartDateUpdatedEventPublisher;
             paymentMethodUpdatedEventPublisher?: PaymentMethodUpdatedEventPublisher;
             stateUpdatedEventPublisher?: StateUpdatedEventPublisher;
-            customerObtainedEventPublisher?: CustomerObtainedEventPublisher,
+            customerObtainedEventPublisher?: CustomerObtainedEventPublisher;
+            roomObtainedEventPublisher?: RoomObtainedEventPublisher;
         }
     ) {
         this.reserveService = reserveService
@@ -111,6 +115,7 @@ export class ReserveAggregate implements
         this.paymentMethodUpdatedEventPublisher = paymentMethodUpdatedEventPublisher
         this.stateUpdatedEventPublisher = stateUpdatedEventPublisher
         this.customerObtainedEventPublisher = customerObtainedEventPublisher
+        this.roomObtainedEventPublisher = roomObtainedEventPublisher
     }
 
     async createReserve(reserve: ICreateReserve): Promise<ReserveDomainEntity> {
@@ -211,5 +216,9 @@ export class ReserveAggregate implements
             throw new AggregateRootException('customerObtainedEventPublisher no esta definido')
 
         return await GetCustomer(data, this.reserveService, this.customerObtainedEventPublisher)
+    }
+
+    async getRoom(data: string): Promise<RoomDomainEntity> {
+        throw new Error("Method not implemented.");
     }
 }

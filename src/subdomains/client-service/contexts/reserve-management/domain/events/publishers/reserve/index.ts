@@ -7,5 +7,6 @@ export * from './number-of-guest-updated.event-publisher';
 export * from './reserve-created.event-publisher';
 export * from './room';
 export * from './room-added.event-publisher';
+export * from './room-obtained.event-publisher';
 export * from './room-state-updated.event-publisher';
 export * from './start-date-updated.event-publisher';
