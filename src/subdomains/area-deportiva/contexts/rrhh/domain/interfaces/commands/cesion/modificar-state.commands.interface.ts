@@ -1,4 +1,4 @@
 export interface IModificarStateCommands {
-    id: string ;
+    negocaicionId: string ;
     state : boolean ;
 }
