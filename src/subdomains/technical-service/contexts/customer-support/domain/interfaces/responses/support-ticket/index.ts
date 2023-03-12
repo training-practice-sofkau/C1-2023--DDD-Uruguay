@@ -1,8 +1,5 @@
-export * from './clerk';
 export * from './device';
 
-
+export * from './new-ticket-opened.response';
 export * from './repairs';
-export * from './technician';
-
 

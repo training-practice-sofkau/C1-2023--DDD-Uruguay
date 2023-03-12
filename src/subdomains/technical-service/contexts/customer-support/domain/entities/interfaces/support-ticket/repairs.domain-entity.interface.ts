@@ -3,7 +3,7 @@ import { FaultValueObject } from '../../../value-objects/repair';
 
 export interface IRepairsDomainEntity{
 
-    repairsID: string | UUIDValueObject;
+    repairsID?: string | UUIDValueObject;
     repairsDate?: number | Date | DateValueObject;
     repairs?: FaultValueObject[];
     workFinished?: boolean | TrueFalseValueObject;

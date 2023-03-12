@@ -43,6 +43,7 @@ import {
 
 } from '../../events/publishers/support-ticket';
 import { IDeviceDomainEntity, ISupportTicketEntity } from '../../entities/interfaces';
+import { RepairsDomainEntityBase } from '../../entities/support-ticket/repairs.domain-entity/repairs.domain-entity';
 
 
 
@@ -253,7 +254,7 @@ export class SupportTicketAggregate implements ISupportTicketDomainService, IDev
      * @return {*}  {Promise<boolean>}
      * @memberof SupportTicketAggregate
      */
-    async ChangeWorkStatus(repairData: IChangeWorkStatusCommand): Promise<boolean> {
+    async ChangeWorkStatus(repairData: RepairsDomainEntityBase): Promise<boolean> {
 
         if (!this.repairsService) {
             throw new AggregateRootException('InvoiceAggregate: "RepairsService" is not defined!');
