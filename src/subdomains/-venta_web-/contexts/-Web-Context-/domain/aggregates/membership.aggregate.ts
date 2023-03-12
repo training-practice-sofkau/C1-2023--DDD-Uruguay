@@ -16,6 +16,8 @@ import { PlanCreadoEventPublisher } from "../events/publishers/membership/plan-c
 import { UpdateNombrePlanEventPublisher } from "../events/publishers/membership/plan/update-nombre.event-publisher";
 import { UpdateCostoPlanEventPublisher } from "../events/publishers/membership/plan/update-costo.event-publisher";
 import { AggregateRootException } from "src/libs/sofka/exceptions/aggregate-root.exception";
+import { ClienteConseguidoEventPublisher } from "../events/publishers/compra/cliente/cliente-conseguido.event-publisher";
+import { PlanConseguidoEventPublisher } from "../events/publishers/membership/plan/plan-conseguido.event-publisher";
 
 
 export class MembershipAggregate implements IClienteService, IPlanService, IMembershipService {
@@ -34,7 +36,10 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
     private readonly planCreadoEventPublisher?: PlanCreadoEventPublisher;
     private readonly updateNombrePlanEventPublisher?: UpdateNombrePlanEventPublisher;
     private readonly updateCostoPlanEventPublisher?: UpdateCostoPlanEventPublisher;
-    
+    private readonly clienteConseguidoEventPublisher?: ClienteConseguidoEventPublisher;
+    private readonly planConseguidoEventPublisher?: PlanConseguidoEventPublisher;
+
+
     constructor({
 
         //Constructor recibe objetos
@@ -47,7 +52,9 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
         membershipCreadaEventPublisher,
         planCreadoEventPublisher,
         updateNombrePlanEventPublisher,
-        updateCostoPlanEventPublisher
+        updateCostoPlanEventPublisher,
+        clienteConseguidoEventPublisher,
+        planConseguidoEventPublisher
 
     }: {
    
@@ -61,6 +68,8 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
         planCreadoEventPublisher?: PlanCreadoEventPublisher;
         updateNombrePlanEventPublisher?: UpdateNombrePlanEventPublisher;
         updateCostoPlanEventPublisher?: UpdateCostoPlanEventPublisher;
+        clienteConseguidoEventPublisher?: ClienteConseguidoEventPublisher;
+        planConseguidoEventPublisher?: PlanConseguidoEventPublisher;
       
 
     }) {
@@ -75,6 +84,8 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
         this.planCreadoEventPublisher = planCreadoEventPublisher;
         this.updateNombrePlanEventPublisher = updateNombrePlanEventPublisher;
         this.updateCostoPlanEventPublisher = updateCostoPlanEventPublisher;  
+        this.clienteConseguidoEventPublisher = clienteConseguidoEventPublisher;
+        this.planConseguidoEventPublisher = planConseguidoEventPublisher;
 
     }
 
@@ -115,7 +126,7 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
           );
     }
 
-    async updatePhone(data: IUpdatePhoneMethod): Promise<number> {
+    async updatePhone(data: IUpdatePhoneMethod): Promise<ClienteDomainEntity> {
         if (this.clienteService && this.updatePhoneEventPublisher) {
             const result = await this.clienteService.updatePhone(data);
             this.updatePhoneEventPublisher.response = result;
@@ -151,11 +162,35 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
           );
     }
 
-    
+    //METODOS PARA OBTENER LAS ENTIDADES 
+    async obtenerCliente(client: string): Promise<ClienteDomainEntity> {
+      
+      if (this.membershipService && this.clienteConseguidoEventPublisher) {
+        const result = await this.membershipService.obtenerCliente(client);
+        this.clienteConseguidoEventPublisher.response = result;
+        this.clienteConseguidoEventPublisher.publish();
+        return this.clienteConseguidoEventPublisher.response;
+      }
+      throw new AggregateRootException(
+        'Faltan definir datos',
+      );
+
+    }
     
 
-    
+    async obtenerPlan(plane: string): Promise<PlanDomainEntity> {
+      if (this.membershipService && this.planConseguidoEventPublisher) {
+        const result = await this.membershipService.obtenerPlan(plane);
+        this.planConseguidoEventPublisher.response = result;
+        this.planConseguidoEventPublisher.publish();
+        return this.planConseguidoEventPublisher.response;
+      }
+      throw new AggregateRootException(
+        'Faltan definir datos',
+      );
 
-    
+    }
+
+
     
 }
