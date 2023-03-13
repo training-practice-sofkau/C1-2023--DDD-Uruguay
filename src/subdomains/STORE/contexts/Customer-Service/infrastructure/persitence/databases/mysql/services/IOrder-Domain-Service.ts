@@ -1,32 +1,43 @@
+import { ClientRepository } from './../repositories/Client-Repository';
 import { ClientDomainBase, MangaDomainBase } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
 import { IUpdateOrder, IDeleteOrder, IUpdateMangaStock, IUpdateClient } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands";
 import { IorderDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
 import { OrderService } from "../../../services";
-import { OrderEntityDb } from "../entities";
+import { OrderEntityDb, ClientEntityDB } from "../entities";
+import { OrderRepository } from '../repositories/Order-Repository';
+import { MangaRepository } from '../repositories/Manga-repository';
+import { MangaEntityDb } from '../entities/Manga-entity-db';
 
 export class OrdertMySqlService implements IorderDomainService<OrderEntityDb> {
+
+    constructor(private readonly OrderRepository: OrderRepository, private readonly MangaRepository: MangaRepository, private readonly ClientRepository: ClientRepository
+       ) { }
+
+
     RegisterOrder(data: OrderEntityDb): Promise<OrderEntityDb> {
-        throw new Error("Method not implemented.");
+        return this.OrderRepository.create(data)
     }
     GetClient(data: string): Promise<ClientDomainBase> {
-        throw new Error("Method not implemented.");
+        return this.ClientRepository.findById(data)
     }
-    UpdateOrder(data: IUpdateOrder): Promise<OrderEntityDb> {
-        throw new Error("Method not implemented.");
-    }
-    Delete(data: IDeleteOrder): Promise<OrderEntityDb> {
-        throw new Error("Method not implemented.");
+   
+    Delete(data: string): Promise<OrderEntityDb> {
+        const DeleteUster = this.OrderRepository.findById(data)
+         this.OrderRepository.delete(data);
+        return DeleteUster;
+        
     }
     GetManga(data: string): Promise<MangaDomainBase> {
-        throw new Error("Method not implemented.");
+        return this.MangaRepository.findById(data)
     }
-    AddClient(data: ClientDomainBase): Promise<ClientDomainBase> {
-        throw new Error("Method not implemented.");
+    AddClient(data: ClientEntityDB): Promise<ClientDomainBase> {
+        return this.ClientRepository.create(data)
     }
     UpdateMangaStock(data: IUpdateMangaStock): Promise<MangaDomainBase> {
-        throw new Error("Method not implemented.");
-    }
-    UpdateClient(data: IUpdateClient): Promise<ClientDomainBase> {
-        throw new Error("Method not implemented.");
-    }
+        const newStockManga = new MangaEntityDb
+        newStockManga.Stock = data.MangaStock
+
+        return this.MangaRepository.update(data.MangaId, newStockManga)
+        }
+
 }

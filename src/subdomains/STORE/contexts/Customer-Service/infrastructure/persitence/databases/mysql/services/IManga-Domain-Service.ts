@@ -9,9 +9,7 @@ export class MangaMySqlServicez
 
 
      UpdateName(data: MangaEntityDb): Promise<MangaEntityDb> {
-
-         return this.MangaRepository.update(data.Mangaid, data)
-        
+         return this.MangaRepository.update(data.Mangaid, data)        
        }
 
     

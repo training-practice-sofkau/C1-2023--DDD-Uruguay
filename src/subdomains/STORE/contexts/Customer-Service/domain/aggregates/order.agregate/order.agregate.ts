@@ -146,18 +146,7 @@ Publisher events go in this place
    * @param {string} OrderId - The order id to be updated.
    * @returns The OrderDomainEntityBase
    */
-  async UpdateOrder(data: IUpdateOrder): Promise<OrderDomainEntityBase> {
-    if (this.orderService && this.ModifiedClientEventPublisher) {
-      const result = await this.orderService.UpdateOrder(data);
-      this.ModifiedOrderEventPublisher.response = result;
-      this.ModifiedOrderEventPublisher.publish();
-      return this.ModifiedOrderEventPublisher.response;
-    }
 
-    throw new AggregateRootException(
-      'OrderAgregate "OrderService" y/o "ModifiedClientEventPublisher" no estan definidos',
-    );
-  }
 
   /**
    * The function Delete() is an async function that takes an OrderId as a parameter and returns a
@@ -166,7 +155,7 @@ Publisher events go in this place
    * @returns The OrderDomainEntityBase
    */
 
-  async Delete(data: IDeleteOrder): Promise<OrderDomainEntityBase> {
+  async Delete(data: string): Promise<OrderDomainEntityBase> {
     if (this.orderService && this.DeleteOrderEventPublisher) {
       const result = await this.orderService.Delete(data);
 
@@ -241,26 +230,6 @@ Publisher events go in this place
   }
 
   /**
-   * It updates a client.
-   * @param {string} ClientId - The unique identifier for the client.
-   */
-  async UpdateClient(data: IUpdateClient): Promise<ClientDomainBase> {
-    {
-      if (this.orderService && this.ModifiedClientEventPublisher) {
-        const result = await this.orderService.UpdateClient(data);
-
-        this.ModifiedClientEventPublisher.response = result;
-
-        this.ModifiedClientEventPublisher.publish();
-
-        return this.ModifiedClientEventPublisher.response;
-      }
-      throw new AggregateRootException(
-        'OrderAgregate "OrderService" y/o "ModifiedMangaStockingEventPublisher" no estan definidos',
-      );
-    }
-  }
-
   /*
    * Methods for the manga entity
    *
@@ -287,7 +256,7 @@ Publisher events go in this place
    * It updates the state of the manga.
    * @param {number} state - The state of the manga.
    */
-  async UpdateState(idmanga: UpdateStateManga): Promise<MangaDomainBase> {
+  async UpdateState(idmanga: MangaDomainBase): Promise<MangaDomainBase> {
     if (this.orderService && this.StateModifiedEventPublisher) {
       const result = await this.MangaService.UpdateState(idmanga);
 
@@ -306,7 +275,7 @@ Publisher events go in this place
    * It updates the price of the manga.
    * @param {number} Price - number - The price of the manga.
    */
-  async UpdatePrice(idmanga: UpdatePriceManga): Promise<MangaDomainBase> {
+  async UpdatePrice(idmanga: MangaDomainBase): Promise<MangaDomainBase> {
     if (this.orderService && this.PrinceModifiedEventPublisher) {
       const result = await this.MangaService.UpdatePrice(idmanga);
 

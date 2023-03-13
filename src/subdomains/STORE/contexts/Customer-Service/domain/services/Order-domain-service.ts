@@ -14,10 +14,8 @@ export interface IorderDomainService
  < T extends OrderDomainEntityBase = OrderDomainEntityBase >  {
     RegisterOrder(data: T): Promise <T>;
     GetClient(data: string): Promise <ClientDomainBase>;
-    UpdateOrder(data: IUpdateOrder ): Promise <T>
-    Delete(data: IDeleteOrder): Promise <T>
+    Delete(data: string): Promise <T>
     GetManga(data: string): Promise <MangaDomainBase>;
     AddClient(data: ClientDomainBase): Promise <ClientDomainBase>;
     UpdateMangaStock(data: IUpdateMangaStock ): Promise <MangaDomainBase>;
-    UpdateClient(data: IUpdateClient): Promise <ClientDomainBase>;
  }
