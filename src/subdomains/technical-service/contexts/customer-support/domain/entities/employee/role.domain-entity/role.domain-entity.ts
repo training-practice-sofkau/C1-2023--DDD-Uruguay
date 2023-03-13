@@ -5,9 +5,9 @@ import { UUIDValueObject, NoteValueObject, RoleValueObject } from "../../../valu
 import { IRoleDomainEntity } from "../../interfaces/employee";
 
 export class RoleDomainEntityBase implements IRoleDomainEntity {
-    roleID: string | UUIDValueObject;
-    roleName: string | RoleValueObject;
-    roleDescription: string | NoteValueObject;
+    roleID?: string | UUIDValueObject;
+    roleName?: string | RoleValueObject;
+    roleDescription?: string | RoleValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

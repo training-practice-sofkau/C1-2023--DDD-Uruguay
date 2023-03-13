@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { IDeviceDomainEntity } from 'src/subdomains/technical-service/contexts/customer-support/domain/entities/interfaces';
-import { DeviceDomainEntityBase } from 'src/subdomains/technical-service/contexts/customer-support/domain/entities/support-ticket';
+import { IDeviceDomainEntity } from '../../../../../domain/entities/interfaces';
+import { DeviceDomainEntityBase } from '../../../../../domain/entities/support-ticket';
 import { IDeviceDomainService } from '../../../../../domain/services/support-ticket/device.domain-service';
 import { DeviceRepository } from '../repositories/device.repository';
 
@@ -11,9 +11,17 @@ export class DeviceMySqlService implements IDeviceDomainService{
         private readonly deviceRepository: DeviceRepository
     ){}
 
-//TODO: implementar metodos
+    /**
+     * Add a new Device entity on the DB
+     *
+     * @param {DeviceDomainEntityBase} deviceData
+     * @return {*}  {Promise<IDeviceDomainEntity>}
+     * @memberof DeviceMySqlService
+     */
     AddDevice(deviceData: DeviceDomainEntityBase): Promise<IDeviceDomainEntity> {
-        throw new Error('Method not implemented.');
+
+        return this.deviceRepository.create(deviceData);    
+
     }
     
 }
