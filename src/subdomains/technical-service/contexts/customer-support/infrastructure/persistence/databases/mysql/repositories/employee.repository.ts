@@ -63,7 +63,9 @@ export class EmployeeRepository
      * @return {*}  {Promise<EmployeeMySqlEntity>}
      * @memberof EmployeeRepository
      */
-    async update(employeeID: string, entity: EmployeeMySqlEntity): Promise<EmployeeMySqlEntity> {
+    async update(entity: EmployeeMySqlEntity): Promise<EmployeeMySqlEntity> {
+
+        const employeeID = entity.employeeID as string;
 
         let entityFound = await this.findById(employeeID);
 

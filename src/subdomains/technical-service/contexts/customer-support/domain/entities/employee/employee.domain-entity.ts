@@ -6,11 +6,11 @@ import { IEmployeeDomainEntity } from "../interfaces/employee/employee.domain-en
 import { IsUUID, IsEmail, IsValidFullname} from '../../../../../../../libs/validations';
 
 export class EmployeeDomainEntityBase implements IEmployeeDomainEntity{
-    employeeID?: string | UUIDValueObject;
-    employeeName?: string | FullnameValueObject;
-    employeeEmail?: string | EmailValueObject;
-    employeeRoleId?: string | UUIDValueObject;
-    employeeIsActive?: boolean | TrueFalseValueObject;
+    employeeID: string | UUIDValueObject;
+    employeeName: string | FullnameValueObject;
+    employeeEmail: string | EmailValueObject;
+    employeeRoleId: string | UUIDValueObject;
+    employeeIsActive: boolean | TrueFalseValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

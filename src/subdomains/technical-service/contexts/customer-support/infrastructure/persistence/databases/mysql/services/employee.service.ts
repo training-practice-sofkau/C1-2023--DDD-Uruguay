@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { EmployeeDomainEntityBase } from "src/subdomains/technical-service/contexts/customer-support/domain/entities/employee/employee.domain-entity";
+import { EmployeeDomainEntityBase } from "../../../../../domain/entities/employee/employee.domain-entity";
 import { IEmployeeDomainService } from '../../../../../domain/services/employee/employee.domain-service';
 import { EmployeeRepository as EmployeeRepository } from "../repositories";
 
@@ -10,19 +10,46 @@ export class EmployeeMySqlService implements IEmployeeDomainService{
         private readonly employeeRepository: EmployeeRepository
     ){}
 
+    /**
+     * Creates a new Employee Entity in DB
+     *
+     * @param {EmployeeDomainEntityBase} employeeData
+     * @return {*}  {Promise<EmployeeDomainEntityBase>}
+     * @memberof EmployeeMySqlService
+     */
+    async CreateEmployee(employeeData: EmployeeDomainEntityBase): Promise<EmployeeDomainEntityBase> {
+        return await this.employeeRepository.create(employeeData);
+    }
 
 
-    CreateEmployee(employeeData: EmployeeDomainEntityBase): Promise<EmployeeDomainEntityBase> {
-        throw new Error("Method not implemented.");
-    }
-    ChangeEmployeeEmail(data: EmployeeDomainEntityBase): Promise<boolean> {
-        throw new Error("Method not implemented.");
-    }
-    ChangeEmployeeStatus(data: EmployeeDomainEntityBase): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    /**
+     * Updates employee email
+     *
+     * @param {EmployeeDomainEntityBase} data
+     * @return {*}  {Promise<boolean>}
+     * @memberof EmployeeMySqlService
+     */
+    async ChangeEmployeeEmail(data: EmployeeDomainEntityBase): Promise<boolean>  {
+        
+        if(this.employeeRepository.update(data)) return await true;
+
+        return false;
     }
 
-//TODO: implementar metodos
-    
+
+    /**
+     * Updates employee Status
+     *
+     * @param {EmployeeDomainEntityBase} data
+     * @return {*}  {Promise<boolean>}
+     * @memberof EmployeeMySqlService
+     */
+    async ChangeEmployeeStatus(data: EmployeeDomainEntityBase): Promise<boolean> {
+       
+        if(this.employeeRepository.update(data)) return await true;
+
+        return false;
+    }
+   
     
 }

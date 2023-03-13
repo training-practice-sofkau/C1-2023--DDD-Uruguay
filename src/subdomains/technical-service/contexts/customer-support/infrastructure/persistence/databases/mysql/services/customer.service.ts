@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common/";
-import { CustomerDomainEntityBase } from "src/subdomains/technical-service/contexts/customer-support/domain/entities/invoice";
+import { CustomerDomainEntityBase } from "../../../../../domain/entities/invoice";
 import { ICustomerDomainService } from '../../../../../domain/services/invoice/customer.domain-service';
 import { CustomerRepository } from '../repositories/customer.repository';
 import { ICustomerDomainEntity } from '../../../../../domain/entities/interfaces/invoice/customer.domain-entity.interface';
@@ -19,7 +19,7 @@ export class CustomerMySqlService implements ICustomerDomainService {
      * @return {*}  {Promise<boolean>}
      * @memberof CustomerMySqlService
      */
-    ChangeCustomerPhone(data: CustomerDomainEntityBase): Promise<ICustomerDomainEntity> {
+    ChangeCustomerPhone(data: CustomerDomainEntityBase): Promise<CustomerDomainEntityBase> {
         return this.customerRepository.update(data);
     }
 
@@ -31,7 +31,7 @@ export class CustomerMySqlService implements ICustomerDomainService {
      * @return {*}  {Promise<boolean>}
      * @memberof CustomerMySqlService
      */
-    ChangeCustomerEmail(data: CustomerDomainEntityBase): Promise<ICustomerDomainEntity>  {
+    ChangeCustomerEmail(data: CustomerDomainEntityBase): Promise<CustomerDomainEntityBase>  {
         return this.customerRepository.update(data);
     }
 
