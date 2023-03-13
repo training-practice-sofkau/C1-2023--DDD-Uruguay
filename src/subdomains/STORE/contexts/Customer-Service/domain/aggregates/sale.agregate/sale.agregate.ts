@@ -158,7 +158,7 @@ export class SaleAgregate
     );
   }
 
-  async GetClient(ClientId: IGetClientSale): Promise<ClientDomainBase> {
+  async GetClient(ClientId: string): Promise<ClientDomainBase> {
     if (this.billservice && this.ClientObtainedEventPublisher) {
       const result = await this.saleservice.GetClient(ClientId);
       this.ClientObtainedEventPublisher.response = result;
