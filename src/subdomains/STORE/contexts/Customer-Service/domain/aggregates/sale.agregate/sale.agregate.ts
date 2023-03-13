@@ -212,15 +212,5 @@ export class SaleAgregate
    * @param {BillDomain} data - The data to be updated.
    * @returns The BillDomain object
    */
-  async UpdateBill(data: IUpdateBill): Promise<BillDomain> {
-    if (this.billservice && this.BillModifiedEventPublisher) {
-      const result = await this.saleservice.UpdateBill(data);
-      this.BillModifiedEventPublisher.response = result;
-      this.BillModifiedEventPublisher.publish();
-      return this.BillModifiedEventPublisher.response;
-    }
-    throw new AggregateRootException(
-      'SaleAgregate "saleservice" y/o "BillModifiedEventPublisher" no estan definidos',
-    );
-  }
+
 }
