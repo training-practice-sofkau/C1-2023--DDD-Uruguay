@@ -3,7 +3,7 @@ import { IGetClientSale, IUpdateNameSeller, IUpdateBill } from "src/subdomains/S
 import { SaleDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
 import { saleEntityBd } from "../entities/Sale-entity";
 import { SaleRepository } from '../repositories/Sale-Repository';
-import {ClientRepository} from '../'
+import {ClientRepository} from '../repositories'
 
 
 
