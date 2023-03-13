@@ -7,7 +7,7 @@ import { CapacityValueObject, IdValueObject, NameValueObject, SquareMetersValueO
  * @interface IStadiumDomainEntity
  */
 export interface IStadiumDomainEntity {
-    stadiumId: string | IdValueObject,
+    stadiumId?: string | IdValueObject,
     capacity: number | CapacityValueObject,
     squareMeters: number | SquareMetersValueObject,
     name: string | NameValueObject,

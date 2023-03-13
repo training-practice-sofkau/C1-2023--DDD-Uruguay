@@ -1,6 +1,7 @@
+import { WorkoutDomainEntity } from "../../../entities";
 import { GoalValueObject } from "../../../value-objects";
 
 export interface IUpdatedWorkoutGoalResponse {
     success: boolean;
-    data: GoalValueObject | null;
+    data: WorkoutDomainEntity | null;
 }

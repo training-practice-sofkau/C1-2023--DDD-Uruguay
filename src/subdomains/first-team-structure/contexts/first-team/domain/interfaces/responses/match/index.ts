@@ -1,4 +1,6 @@
 export * from './date-updated.response';
+export * from './got-rival.response';
+export * from './got-stadium.response';
 export * from './registered-match.response';
 export * from './rival-added.response';
 export * from './rival-town-updated.response';

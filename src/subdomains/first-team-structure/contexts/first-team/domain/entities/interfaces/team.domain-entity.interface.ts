@@ -8,7 +8,7 @@ import { ICoachDomainEntity, IPlayerDomainEntity } from "./team";
  * @interface ITeamDomainEntity
  */
 export interface ITeamDomainEntity {
-    teamId: string | IdValueObject,
+    teamId?: string | IdValueObject,
     coach: ICoachDomainEntity,
     players: Array<IPlayerDomainEntity>,
     name: string | NameValueObject,

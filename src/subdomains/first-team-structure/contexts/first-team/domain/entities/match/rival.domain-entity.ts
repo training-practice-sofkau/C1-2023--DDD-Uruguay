@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
  * @implements {IRivalDomainEntity}
  */
 export class RivalDomainEntity implements IRivalDomainEntity{
-    rivalId: string | IdValueObject;
+    rivalId?: string | IdValueObject;
     name: string | NameValueObject;
     town: string | TownValueObject;
 

@@ -1,6 +1,6 @@
-import { DateValueObject } from "../../../value-objects";
+import { MatchDomainEntity } from '../../../entities/match.domain-entity';
 
 export interface IUpdatedDateResponse {
     success: boolean;
-    data: DateValueObject | null;
+    data: MatchDomainEntity | null;
 }

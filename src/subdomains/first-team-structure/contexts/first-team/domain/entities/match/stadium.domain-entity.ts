@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
  * @implements {IStadiumDomainEntity}
  */
 export class StadiumDomainEntity implements IStadiumDomainEntity{
-    stadiumId: string | IdValueObject;
+    stadiumId?: string | IdValueObject;
     capacity: number | CapacityValueObject;
     squareMeters: number | SquareMetersValueObject;
     name: string | NameValueObject;

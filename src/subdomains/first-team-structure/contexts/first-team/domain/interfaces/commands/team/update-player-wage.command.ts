@@ -1,6 +1,6 @@
-import { IdValueObject, WageValueObject } from "../../../value-objects";
+import { WageValueObject } from "../../../value-objects";
 
 export interface IUpdatePlayerWageCommand {
-    playerId: string | IdValueObject
+    playerId: string,
     wage: number | WageValueObject
 }

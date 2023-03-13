@@ -23,7 +23,16 @@ export class IdValueObject extends ValueObjectBase<string> {
 
             this.setError(error)
         }
+        
+        if(this.value.length !== 36) {
+            const error: IErrorValueObject = {
+                field: 'ID',
+                message: 'Is not a correct UUID length'
+            }
 
+            this.setError(error)
+        }
+        
         if(!validateUUID(this.value)) {
             const error: IErrorValueObject = {
                 field: 'ID',
@@ -33,13 +42,5 @@ export class IdValueObject extends ValueObjectBase<string> {
             this.setError(error)
         }
 
-        if(this.value.length !== 36) {
-            const error: IErrorValueObject = {
-                field: 'ID',
-                message: 'Is not a correct UUID length'
-            }
-
-            this.setError(error)
-        }
     }
 }

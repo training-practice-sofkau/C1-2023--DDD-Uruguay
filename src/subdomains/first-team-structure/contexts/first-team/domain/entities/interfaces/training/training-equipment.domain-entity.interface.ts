@@ -7,7 +7,7 @@ import { IdValueObject, NameValueObject, TypeValueObject } from "../../../value-
  * @interface ITrainingEquipmentDomainEntity
  */
 export interface ITrainingEquipmentDomainEntity {
-    trainingEquipmentId: string | IdValueObject,
+    trainingEquipmentId?: string | IdValueObject,
     name: string | NameValueObject,
     type: string | TypeValueObject
 }

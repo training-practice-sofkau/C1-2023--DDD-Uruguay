@@ -7,7 +7,7 @@ import { IdValueObject, NameValueObject, TownValueObject } from "../../../value-
  * @interface IRivalDomainEntity
  */
 export interface IRivalDomainEntity {
-    rivalId: string | IdValueObject,
+    rivalId?: string | IdValueObject,
     name: string | NameValueObject,
     town: string | TownValueObject
 }

@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
  * @implements {IPlayerDomainEntity}
  */
 export class PlayerDomainEntity implements IPlayerDomainEntity{
-    playerId: string | IdValueObject;
+    playerId?: string | IdValueObject;
     age: number | AgeValueObject;
     wage: number | WageValueObject;
     position: PositionEnum | PositionValueObject;

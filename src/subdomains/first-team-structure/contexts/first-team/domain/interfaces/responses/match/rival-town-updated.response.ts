@@ -1,6 +1,7 @@
+import { RivalDomainEntity } from "../../../entities";
 import { TownValueObject } from "../../../value-objects";
 
 export interface IUpdatedRivalTownResponse {
     success: boolean;
-    data: TownValueObject | null;
+    data: RivalDomainEntity | null;
 }

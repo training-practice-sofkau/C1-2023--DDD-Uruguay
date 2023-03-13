@@ -1,6 +1,6 @@
-import { IdValueObject, NameValueObject } from "../../../value-objects";
+import { NameValueObject } from "../../../value-objects";
 
 export interface IUpdateNameCommand {
-    trainingId: string | IdValueObject
+    trainingId: string,
     name: string | NameValueObject
 }

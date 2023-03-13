@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
  * @implements {ITrainingEquipmentDomainEntity}
  */
 export class TrainingEquipmentDomainEntity implements ITrainingEquipmentDomainEntity{
-    trainingEquipmentId: string | IdValueObject;
+    trainingEquipmentId?: string | IdValueObject;
     name: string | NameValueObject;
     type: string | TypeValueObject;
 

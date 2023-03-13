@@ -1,6 +1,6 @@
-import { DurationValueObject, IdValueObject } from "../../../value-objects";
+import { DurationValueObject } from "../../../value-objects";
 
 export interface IUpdateDurationCommand {
-    trainingId: string | IdValueObject
+    trainingId: string,
     duration: number | DurationValueObject
 }

@@ -1,30 +1,16 @@
 import {
+  ITrainerDomainEntity,
+  ITrainingDomainEntity,
+  ITrainingEquipmentDomainEntity,
+  ITrainingFieldDomainEntity,
+  IWorkoutDomainEntity,
+  TeamDomainEntity,
   TrainerDomainEntity,
   TrainingDomainEntity,
   TrainingEquipmentDomainEntity,
   TrainingFieldDomainEntity,
   WorkoutDomainEntity,
 } from '../entities';
-import {
-  DateValueObject,
-  TypeValueObject,
-  NameValueObject,
-  SpecialtyValueObject,
-  GoalValueObject,
-} from '../value-objects';
-import {
-  AddedTrainerEventPublisher,
-  AddedTrainingEquipmentEventPublisher,
-  AddedTrainingFieldEventPublisher,
-  AddedWorkoutEventPublisher,
-  RegisteredTrainingEventPublisher,
-  UpdatedDurationEventPublisher,
-  UpdatedNameEventPublisher,
-  UpdatedTrainerSpecialtyEventPublisher,
-  UpdatedTrainingEquipmentTypeEventPublisher,
-  UpdatedTrainingFieldNameEventPublisher,
-  UpdatedWorkoutGoalEventPublisher,
-} from '../events';
 import {
   ITrainerDomainService,
   ITrainingDomainService,
@@ -33,170 +19,198 @@ import {
   IWorkoutDomainService,
 } from '../services';
 import { AggregateRootException } from 'src/libs';
-import { IAddTrainerCommand, IAddTrainingEquipmentCommand, IAddTrainingFieldCommand, IAddWorkoutCommand, IRegisterTrainingCommand, IUpdateDurationCommand, IUpdateNameCommand, IUpdateTrainerSpecialtyCommand, IUpdateTrainingEquipmentTypeCommand, IUpdateTrainingFieldNameCommand, IUpdateWorkoutGoalCommand } from '../interfaces';
+import { IUpdateDurationCommand, IUpdateNameCommand, IUpdateTrainerSpecialtyCommand, IUpdateTrainingEquipmentTypeCommand, IUpdateTrainingFieldNameCommand, IUpdateWorkoutGoalCommand } from '../interfaces';
+import { TrainingAggregateHelper } from './interfaces/training-helper';
 
-export class TrainingAggregate implements ITrainingDomainService {
+export class TrainingAggregate implements ITrainingDomainService, ITrainerDomainService, ITrainingEquipmentDomainService, ITrainingFieldDomainService, IWorkoutDomainService {
   constructor(
-    private readonly trainingService?: ITrainingDomainService,
-    private readonly trainingEquipmentService?: ITrainingEquipmentDomainService,
-    private readonly trainingFieldService?: ITrainingFieldDomainService,
-    private readonly trainerService?: ITrainerDomainService,
-    private readonly workoutService?: IWorkoutDomainService,
-    private readonly registeredTrainingEventPublisher?: RegisteredTrainingEventPublisher,
-    private readonly addedTrainingEquipmentEventPublisher?: AddedTrainingEquipmentEventPublisher,
-    private readonly addedTrainingFieldEventPublisher?: AddedTrainingFieldEventPublisher,
-    private readonly addedTrainerEventPublisher?: AddedTrainerEventPublisher,
-    private readonly addedWorkoutEventPublisher?: AddedWorkoutEventPublisher,
-    private readonly updatedDurationEventPublisher?: UpdatedDurationEventPublisher,
-    private readonly updatedTrainingEquipmentTypeEventPublisher?: UpdatedTrainingEquipmentTypeEventPublisher,
-    private readonly updatedNameEventPublisher?: UpdatedNameEventPublisher,
-    private readonly updatedTrainingFieldNameEventPublisher?: UpdatedTrainingFieldNameEventPublisher,
-    private readonly updatedTrainerSpecialtyEventPublisher?: UpdatedTrainerSpecialtyEventPublisher,
-    private readonly updatedWorkoutGoalEventPublisher?: UpdatedWorkoutGoalEventPublisher,
+    private readonly trainingAggregateHelper: TrainingAggregateHelper
   ) {}
-  async registerTraining(
-    training: IRegisterTrainingCommand,
-  ): Promise<TrainingDomainEntity> {
-    if (!this.trainingService)
+  async getWorkouts(id: string[]): Promise<WorkoutDomainEntity[]> {
+    if (!this.trainingAggregateHelper.workoutService)
+      throw new AggregateRootException('Workout service undefined');
+
+      const result = await this.trainingAggregateHelper.workoutService.getWorkouts(id);
+      return result;
+  }
+  async getTeam(id: string): Promise<TeamDomainEntity> {
+    if (!this.trainingAggregateHelper.trainingService)
       throw new AggregateRootException('Training service undefined');
-    if (!this.registeredTrainingEventPublisher)
+
+      const result = await this.trainingAggregateHelper.trainingService.getTeam(id);
+      return result;
+  }
+  async getTrainingField(id: string): Promise<TrainingFieldDomainEntity> {
+    if (!this.trainingAggregateHelper.trainingFieldService)
+      throw new AggregateRootException('Training Field service undefined');
+
+      const result = await this.trainingAggregateHelper.trainingFieldService.getTrainingField(id);
+      return result;
+  }
+  async getTrainingEquipment(id: string[]): Promise<TrainingEquipmentDomainEntity[]> {
+    if (!this.trainingAggregateHelper.trainingEquipmentService)
+      throw new AggregateRootException('Training Equipment service undefined');
+
+      const result = await this.trainingAggregateHelper.trainingEquipmentService.getTrainingEquipment(id);
+      return result;
+  }
+  async getTrainer(id: string): Promise<TrainerDomainEntity> {
+    if (!this.trainingAggregateHelper.trainerService)
+      throw new AggregateRootException('Trainer service undefined');
+
+      const result = await this.trainingAggregateHelper.trainerService.getTrainer(id);
+      return result;
+  }
+  async getTraining(id: string): Promise<TrainingDomainEntity> {
+    if (!this.trainingAggregateHelper.trainingService)
+      throw new AggregateRootException('Training service undefined');
+
+      const result = await this.trainingAggregateHelper.trainingService.getTraining(id);
+      return result;
+  }
+  async registerTraining(
+    training: ITrainingDomainEntity,
+  ): Promise<TrainingDomainEntity> {
+    if (!this.trainingAggregateHelper.trainingService)
+      throw new AggregateRootException('Training service undefined');
+    if (!this.trainingAggregateHelper.registeredTrainingEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainingService.registerTraining(training);
-    this.registeredTrainingEventPublisher.response = result;
-    this.registeredTrainingEventPublisher.publish();
+    const result = await this.trainingAggregateHelper.trainingService.registerTraining(training);
+    this.trainingAggregateHelper.registeredTrainingEventPublisher.response = result;
+    this.trainingAggregateHelper.registeredTrainingEventPublisher.publish();
     return result;
   }
   async addTrainingEquipment(
-    trainingEquipment: IAddTrainingEquipmentCommand,
+    trainingEquipment: ITrainingEquipmentDomainEntity,
   ): Promise<TrainingEquipmentDomainEntity> {
-    if (!this.trainingService)
+    if (!this.trainingAggregateHelper.trainingService)
       throw new AggregateRootException('Training service undefined');
-    if (!this.addedTrainingEquipmentEventPublisher)
+    if (!this.trainingAggregateHelper.addedTrainingEquipmentEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainingService.addTrainingEquipment(
+    const result = await this.trainingAggregateHelper.trainingService.addTrainingEquipment(
       trainingEquipment,
     );
-    this.addedTrainingEquipmentEventPublisher.response = result;
-    this.addedTrainingEquipmentEventPublisher.publish();
+    this.trainingAggregateHelper.addedTrainingEquipmentEventPublisher.response = result;
+    this.trainingAggregateHelper.addedTrainingEquipmentEventPublisher.publish();
     return result;
   }
   async addTrainingField(
-    trainingField: IAddTrainingFieldCommand,
+    trainingField: ITrainingFieldDomainEntity,
   ): Promise<TrainingFieldDomainEntity> {
-    if (!this.trainingService)
+    if (!this.trainingAggregateHelper.trainingService)
       throw new AggregateRootException('Training service undefined');
-    if (!this.addedTrainingFieldEventPublisher)
+    if (!this.trainingAggregateHelper.addedTrainingFieldEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainingService.addTrainingField(trainingField);
-    this.addedTrainingFieldEventPublisher.response = result;
-    this.addedTrainingFieldEventPublisher.publish();
+    const result = await this.trainingAggregateHelper.trainingService.addTrainingField(trainingField);
+    this.trainingAggregateHelper.addedTrainingFieldEventPublisher.response = result;
+    this.trainingAggregateHelper.addedTrainingFieldEventPublisher.publish();
     return result;
   }
-  async addTrainer(trainer: IAddTrainerCommand): Promise<TrainerDomainEntity> {
-    if (!this.trainingService)
+  async addTrainer(trainer: ITrainerDomainEntity): Promise<TrainerDomainEntity> {
+    if (!this.trainingAggregateHelper.trainingService)
       throw new AggregateRootException('Training service undefined');
-    if (!this.addedTrainerEventPublisher)
+    if (!this.trainingAggregateHelper.addedTrainerEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainingService.addTrainer(trainer);
-    this.addedTrainerEventPublisher.response = result;
-    this.addedTrainerEventPublisher.publish();
+    const result = await this.trainingAggregateHelper.trainingService.addTrainer(trainer);
+    this.trainingAggregateHelper.addedTrainerEventPublisher.response = result;
+    this.trainingAggregateHelper.addedTrainerEventPublisher.publish();
     return result;
   }
-  async addWorkout(workout: IAddWorkoutCommand): Promise<WorkoutDomainEntity> {
-    if (!this.trainingService)
+  async addWorkout(workout: IWorkoutDomainEntity): Promise<WorkoutDomainEntity> {
+    if (!this.trainingAggregateHelper.trainingService)
       throw new AggregateRootException('Training service undefined');
-    if (!this.addedWorkoutEventPublisher)
+    if (!this.trainingAggregateHelper.addedWorkoutEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainingService.addWorkout(workout);
-    this.addedWorkoutEventPublisher.response = result;
-    this.addedWorkoutEventPublisher.publish();
+    const result = await this.trainingAggregateHelper.trainingService.addWorkout(workout);
+    this.trainingAggregateHelper.addedWorkoutEventPublisher.response = result;
+    this.trainingAggregateHelper.addedWorkoutEventPublisher.publish();
     return result;
   }
   async updateDuration(
     date: IUpdateDurationCommand,
   ): Promise<TrainingDomainEntity> {
-    if (!this.trainingService)
+    if (!this.trainingAggregateHelper.trainingService)
       throw new AggregateRootException('Training service undefined');
-    if (!this.updatedDurationEventPublisher)
+    if (!this.trainingAggregateHelper.updatedDurationEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainingService.updateDuration(date);
-    this.updatedDurationEventPublisher.response = result;
-    this.updatedDurationEventPublisher.publish();
+    const result = await this.trainingAggregateHelper.trainingService.updateDuration(date);
+    this.trainingAggregateHelper.updatedDurationEventPublisher.response = result;
+    this.trainingAggregateHelper.updatedDurationEventPublisher.publish();
     return result;
   }
   async updateTrainingEquipmentType(
     type: IUpdateTrainingEquipmentTypeCommand,
   ): Promise<TrainingEquipmentDomainEntity> {
-    if (!this.trainingEquipmentService)
+    if (!this.trainingAggregateHelper.trainingEquipmentService)
       throw new AggregateRootException('Training Equipment service undefined');
-    if (!this.updatedTrainingEquipmentTypeEventPublisher)
+    if (!this.trainingAggregateHelper.updatedTrainingEquipmentTypeEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainingEquipmentService.updateType(
+    const result = await this.trainingAggregateHelper.trainingEquipmentService.updateTrainingEquipmentType(
       type,
     );
-    this.updatedTrainingEquipmentTypeEventPublisher.response = result;
-    this.updatedTrainingEquipmentTypeEventPublisher.publish();
+    this.trainingAggregateHelper.updatedTrainingEquipmentTypeEventPublisher.response = result;
+    this.trainingAggregateHelper.updatedTrainingEquipmentTypeEventPublisher.publish();
     return result;
   }
   async updateTrainingFieldName(
     name: IUpdateTrainingFieldNameCommand,
   ): Promise<TrainingFieldDomainEntity> {
-    if (!this.trainingFieldService)
+    if (!this.trainingAggregateHelper.trainingFieldService)
       throw new AggregateRootException('Training Field service undefined');
-    if (!this.updatedTrainingFieldNameEventPublisher)
+    if (!this.trainingAggregateHelper.updatedTrainingFieldNameEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainingFieldService.updateName(name);
-    this.updatedTrainingFieldNameEventPublisher.response = result;
-    this.updatedTrainingFieldNameEventPublisher.publish();
+    const result = await this.trainingAggregateHelper.trainingFieldService.updateTrainingFieldName(name);
+    this.trainingAggregateHelper.updatedTrainingFieldNameEventPublisher.response = result;
+    this.trainingAggregateHelper.updatedTrainingFieldNameEventPublisher.publish();
     return result;
   }
   async updateTrainerSpecialty(
     specialty: IUpdateTrainerSpecialtyCommand,
   ): Promise<TrainerDomainEntity> {
-    if (!this.trainerService)
+    if (!this.trainingAggregateHelper.trainerService)
       throw new AggregateRootException('Trainer service undefined');
-    if (!this.updatedTrainerSpecialtyEventPublisher)
+    if (!this.trainingAggregateHelper.updatedTrainerSpecialtyEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainerService.updateSpecialty(
+    const result = await this.trainingAggregateHelper.trainerService.updateTrainerSpecialty(
       specialty,
     );
-    this.updatedTrainerSpecialtyEventPublisher.response = result;
-    this.updatedTrainerSpecialtyEventPublisher.publish();
+    this.trainingAggregateHelper.updatedTrainerSpecialtyEventPublisher.response = result;
+    this.trainingAggregateHelper.updatedTrainerSpecialtyEventPublisher.publish();
     return result;
   }
   async updateWorkoutGoal(
     goal: IUpdateWorkoutGoalCommand,
   ): Promise<WorkoutDomainEntity> {
-    if (!this.workoutService)
+    if (!this.trainingAggregateHelper.workoutService)
       throw new AggregateRootException('Training service undefined');
-    if (!this.updatedWorkoutGoalEventPublisher)
+    if (!this.trainingAggregateHelper.updatedWorkoutGoalEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.workoutService.updateGoal(goal);
-    this.updatedWorkoutGoalEventPublisher.response = result;
-    this.updatedWorkoutGoalEventPublisher.publish();
+    const result = await this.trainingAggregateHelper.workoutService.updateWorkoutGoal(goal);
+    this.trainingAggregateHelper.updatedWorkoutGoalEventPublisher.response = result;
+    this.trainingAggregateHelper.updatedWorkoutGoalEventPublisher.publish();
     return result;
   }
   async updateName(
     name: IUpdateNameCommand,
   ): Promise<TrainingDomainEntity> {
-    if (!this.trainingService)
+    if (!this.trainingAggregateHelper.trainingService)
       throw new AggregateRootException('Training service undefined');
-    if (!this.updatedNameEventPublisher)
+    if (!this.trainingAggregateHelper.updatedNameEventPublisher)
       throw new AggregateRootException('Event Publisher undefined');
 
-    const result = await this.trainingService.updateName(name);
-    this.updatedNameEventPublisher.response = result;
-    this.updatedNameEventPublisher.publish();
+    const result = await this.trainingAggregateHelper.trainingService.updateName(name);
+    this.trainingAggregateHelper.updatedNameEventPublisher.response = result;
+    this.trainingAggregateHelper.updatedNameEventPublisher.publish();
     return result;
   }
 }

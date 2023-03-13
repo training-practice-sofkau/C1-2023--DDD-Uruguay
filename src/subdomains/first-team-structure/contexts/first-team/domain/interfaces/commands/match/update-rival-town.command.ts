@@ -1,6 +1,6 @@
-import { IdValueObject, TownValueObject } from "../../../value-objects";
+import { TownValueObject } from "../../../value-objects";
 
 export interface IUpdateRivalTownCommand {
-    rivalId: string | IdValueObject
+    rivalId: string,
     town: string | TownValueObject
 }

@@ -7,7 +7,7 @@ import { GoalValueObject, IdValueObject, NameValueObject, TypeValueObject } from
  * @interface IWorkoutDomainEntity
  */
 export interface IWorkoutDomainEntity {
-    workoutId: string | IdValueObject,
+    workoutId?: string | IdValueObject,
     name: string | NameValueObject,
     type: string | TypeValueObject,
     goal: string | GoalValueObject

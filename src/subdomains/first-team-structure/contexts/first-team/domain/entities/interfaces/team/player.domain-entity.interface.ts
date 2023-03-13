@@ -8,7 +8,7 @@ import { PositionEnum } from '../../../value-objects/team/player/position/positi
  * @interface IPlayerDomainEntity
  */
 export interface IPlayerDomainEntity {
-    playerId: string | IdValueObject,
+    playerId?: string | IdValueObject,
     age: number | AgeValueObject,
     wage: number | WageValueObject,
     position: PositionEnum | PositionValueObject, 
