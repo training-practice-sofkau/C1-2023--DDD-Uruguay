@@ -3,9 +3,10 @@ import { IUpdateTotal, IGetMangaData } from 'src/subdomains/Store/contexts/Custo
 import { BillDomainService } from '../../../../../domain/services/Bill-domain-service';
 import { BillEntityDB } from '../entities/Bill-entity';
 import { BillRepository } from '../repositories/Bill-repository';
+import { MangaRepository } from '../repositories/Manga-repository';
 export class BillMySqlService implements BillDomainService<BillEntityDB> {
 
-    constructor( private readonly BillRepository: BillRepository){}
+    constructor( private readonly BillRepository: BillRepository, private readonly MangaRepository: MangaRepository){}
 
 
     UpdatePaymentMethod(data: BillEntityDB): Promise<BillEntityDB> {
@@ -14,7 +15,7 @@ export class BillMySqlService implements BillDomainService<BillEntityDB> {
     UpdateTotal(data: BillEntityDB): Promise<BillEntityDB> {
         return this.BillRepository.update(data.IDBill, data)
     }
-    getMangaData(data: IGetMangaData): Promise<MangaDomainBase> {
-        throw new Error('Method not implemented.');
+     getMangaData(data: string): Promise<MangaDomainBase> {
+        return  this.MangaRepository.findById(data)
     }
 }

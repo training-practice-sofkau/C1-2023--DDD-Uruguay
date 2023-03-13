@@ -134,7 +134,7 @@ export class SaleAgregate
     );
   }
 
-  async getMangaData(idManga: IGetMangaData): Promise<MangaDomainBase> {
+  async getMangaData(idManga: string): Promise<MangaDomainBase> {
     if (this.billservice && this.MangaObtainedEventPublisher) {
       const result = await this.billservice.getMangaData(idManga);
       this.MangaObtainedEventPublisher.response = result;

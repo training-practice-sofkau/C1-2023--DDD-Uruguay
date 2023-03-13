@@ -7,6 +7,6 @@ export interface BillDomainService  < T extends BillDomain = BillDomain >  {
 
     UpdatePaymentMethod(data:T ):   Promise<T>;
     UpdateTotal(data:T): Promise<T>;
-    getMangaData(data: IGetMangaData): Promise<MangaDomainBase>;
+    getMangaData(data: string): Promise<MangaDomainBase>;
 
 }
