@@ -19,6 +19,16 @@ import { NegociacionDomainEntity } from '../../entities';
 import { EquipoNuevoModificadoEventPublisher } from '../../events/publishers/negociacion/equipo-nuevo-modificado.event-publisher';
 import { EquipoSalidaModificadoEventPublisher } from '../../events/publishers/negociacion/equipo-salida-modificado.event-publisher';
 import { StateModificadoEventPublisher } from '../../events/publishers/cesion/state-modificado.event-publisher';
+import { CrearStaffDeportivoHelper } from '../helpers/crear-staff-deportivo-de-staff-deportivo/crear-staff-deportivo.helper';
+import { CrearTramiteHelper } from '../helpers/crear-tramite-de-staff-deportivo/crear-tramite.helper';
+import { CrearEmpleadoHelper } from '../helpers/crear-empleado-de-staff-deportivo/crear-empleado.helper';
+import { ModificarNombreEmpleadoHelper } from '../helpers/modificar-nombre-empleado-de-staff-deportivo/modificar-nombre-empleado.helper';
+import { ModificarDocumentoEmpleadoHelper } from '../helpers/modificar-documento-empleado-de-staff-deportivo/modificar-documento-empleado.helper';
+import { ModificarSalarioEmpleadoHelper } from '../helpers/modificar-salario-empleado-de-staff-deportivo/modificar-salario-empleado.helper';
+import { ModificarTipoEmpleadoHelper } from '../helpers/modificar-tipo-empleado-de-staff-deportivo/modificar-tipo-empleado.helper';
+import { ModificarFechaTramiteHelper } from '../helpers/modificar-fecha-de-staff-deportivo/modificar-fecha-de-tramite.helper';
+import { BuscarTramiteHelper } from '../helpers/buscar-tramite-de-staff-deportivo/buscar-tramite.helper';
+import { BuscarEmpleadoHelper } from '../helpers/buscar-empleado-de-staff-deportivo/buscar-empleado.helper';
 
 export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
     //Service
@@ -143,191 +153,79 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
     }
 
 
-    async NegociacionModificarEquipoNuevo(equipoNuevoId: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
-        if(!this.negociacionService)
-        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
-
-        if(!this.negociacionEquipoNuevoModificadoEvent)
-        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
-
-        const result = await this.negociacionService.NegociacionModificarEquipoNuevo(equipoNuevoId);
-        this.negociacionEquipoNuevoModificadoEvent.response = result;
-        this.negociacionEquipoNuevoModificadoEvent.publish();
-        return result;
-    }
-    
-    async NegociacionModificarEquipoSalida(equipoSalidaId: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
-        if(!this.negociacionService)
-        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
-
-        if(!this.negociacionEquipoSalidaModificadoEvent)
-        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
-
-        const result = await this.negociacionService.NegociacionModificarEquipoNuevo(equipoSalidaId);
-        this.negociacionEquipoSalidaModificadoEvent.response = result;
-        this.negociacionEquipoSalidaModificadoEvent.publish();
-        return result;
-    }
-    async NegociacionModificarState(state: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
-        if(!this.negociacionService)
-        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
-
-        if(!this.negociacionStateModificadoEvent)
-        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
-
-        const result = await this.negociacionService.NegociacionModificarState(state);
-        this.negociacionStateModificadoEvent.response = result;
-        this.negociacionStateModificadoEvent.publish();
-        return result;
-    }
-    async NegociacionModificarTipoNegociacion(tipo: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
-        if(!this.negociacionService)
-        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
-
-        if(!this.negociacionTipoNegociacionModificadoEvent)
-        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
-
-        const result = await this.negociacionService.NegociacionModificarTipoNegociacion(tipo);
-        this.negociacionTipoNegociacionModificadoEvent.response = result;
-        this.negociacionTipoNegociacionModificadoEvent.publish();
-        return result;
-    }
-
-    
-    async CrearStaffDeportivo(staffDeportivo: StaffDeportivoDomainEntity): Promise<StaffDeportivoDomainEntity> {
-        if(!this.staffDeportivoService)
-        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
-
-        if(!this.staffDeportivoCreadoEvent)
-        throw new AggregateRootException('Evento creador de Staff Deportivo indefinido')
-
-        const result = await this.staffDeportivoService.CrearStaffDeportivo(staffDeportivo);
-        this.staffDeportivoCreadoEvent.response = result;
-        this.staffDeportivoCreadoEvent.publish();
-        return result;
-    }
-
-    async CrearTramite(tramite: TramiteDomainEntity): Promise<TramiteDomainEntity> {
-       if(!this.staffDeportivoService)
-        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
-
-        if(!this.tamiteAgregadoEvent) throw new AggregateRootException('Evento creador de Staff Deportivo indefinido');
-
-        const result = await this.staffDeportivoService.CrearTramite(tramite);
-        this.tamiteAgregadoEvent.response = result;
-        this.tamiteAgregadoEvent.publish();
-        return result;
-    }
-
-    async AgregarEmpleado(empleado: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-       if(!this.staffDeportivoService)
-        throw new AggregateRootException('Servicio Staff Deportivo indefinido')
-
-        if(!this.empleadoAgregadoEvent) throw new AggregateRootException('Evento Agregar Empleado indefinido');
-
-        const result = await this.staffDeportivoService.AgregarEmpleado(empleado);
-        this.empleadoAgregadoEvent.response = result;
-        this.empleadoAgregadoEvent.publish();
-        return result;
-    }
-
   
-
-
-    async modificarNombre(nombre: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-        if(!this.empleadoService)
-        throw new AggregateRootException('Servicio de Empleado indefinido')
-
-        if(!this.nombremodificadoEvent)
-        throw new AggregateRootException('Evento que modifica el documento de un empleado indefinido')
-
-        const result = await this.empleadoService.modificarNombre(nombre);
-        this.nombremodificadoEvent.response = result;
-        this.nombremodificadoEvent.publish();
-        return result;
+    
+     CrearStaffDeportivo(staffDeportivo: StaffDeportivoDomainEntity): Promise<StaffDeportivoDomainEntity> {
+       return CrearStaffDeportivoHelper(staffDeportivo,this.staffDeportivoService,this.staffDeportivoCreadoEvent);
     }
 
-    //Salario del empleado
-    async modificarSalario(salario: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-        if(!this.empleadoService)
-        throw new AggregateRootException('Servicio de Empleado indefinido')
-
-        if(!this.salarioEmpleadoModificadoEvent)
-        throw new AggregateRootException('Evento que modifica el salario de un empleado indefinido')
-
-        const result = await this.empleadoService.modificarSalario(salario);
-        this.salarioEmpleadoModificadoEvent.response = result;
-        this.salarioEmpleadoModificadoEvent.publish();
-        return result;
-    }
-    async modificarDocumento(documento: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-        if(!this.empleadoService)
-        throw new AggregateRootException('Servicio de Empleado indefinido')
-
-        if(!this.documentoModificadoEvent)
-        throw new AggregateRootException('Evento que modifica el documento de un empleado indefinido')
-
-        const result = await this.empleadoService.modificarSalario(documento);
-        this.documentoModificadoEvent.response = result;
-        this.documentoModificadoEvent.publish();
-        return result;
-    }
-    async modificarTipoEmpleado(tipo: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-        if(!this.empleadoService)
-        throw new AggregateRootException('Servicio de Empleado indefinido')
-
-        if(!this.tipoEmpleadoModificadoEvent)
-        throw new AggregateRootException('Evento que modifica el documento de un empleado indefinido')
-
-        const result = await this.empleadoService.modificarSalario(tipo);
-        this.tipoEmpleadoModificadoEvent.response = result;
-        this.tipoEmpleadoModificadoEvent.publish();
-        return result;
+     CrearTramite(tramite: TramiteDomainEntity): Promise<TramiteDomainEntity> {
+       return CrearTramiteHelper(tramite,this.staffDeportivoService,this.tamiteAgregadoEvent)
     }
 
-    CrearNegociacion(negociacion: ICrearNegociacionCommands): Promise<TramiteDomainEntity> {
+
+     AgregarEmpleado(empleado: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        return CrearEmpleadoHelper(empleado,this.staffDeportivoService,this.empleadoAgregadoEvent)
+    }
+
+     modificarNombre(nombre: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        return ModificarNombreEmpleadoHelper(nombre,this.staffDeportivoService,this.nombremodificadoEvent)
+
+    }
+
+
+     modificarSalario(salario: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        return ModificarSalarioEmpleadoHelper(salario,this.staffDeportivoService,this.salarioModificadoEvent)
+
+    }
+     modificarDocumento(documento: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+
+        return ModificarDocumentoEmpleadoHelper(documento,this.staffDeportivoService,this.documentoModificadoEvent)
+
+    }
+     modificarTipoEmpleado(tipo: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        return ModificarTipoEmpleadoHelper(tipo,this.staffDeportivoService,this.tipoEmpleadoModificadoEvent)
+
+    }
+
+    CrearNegociacion(negociacion: TramiteDomainEntity): Promise<TramiteDomainEntity> {
         throw new Error('Method not implemented.');
     }
 
-    async ModificarFecha(fecha: IModificarFechaCommands): Promise<TramiteDomainEntity> {
-        if(!this.tramiteService)
-        throw new AggregateRootException('Servicio de Empleado indefinido')
+     ModificarFecha(fecha: TramiteDomainEntity): Promise<TramiteDomainEntity> {
+        return ModificarFechaTramiteHelper(fecha,this.tramiteService,this.fechaTamiteModificadoEvent)
 
-        if(!this.fechaTamiteModificadoEvent)
-        throw new AggregateRootException('Evento que modifica el salario de un empleado indefinido')
-
-        const result = await this.tramiteService.ModificarFecha(fecha);
-        this.fechaTamiteModificadoEvent.response = result;
-        this.fechaTamiteModificadoEvent.publish();
-        return result;
     }
 
     
-    async BuscarTramite(Tramite: TramiteDomainEntity):Promise<TramiteDomainEntity>{
-        if(!this.staffDeportivoService)
-        throw new AggregateRootException('Servicio de Empleado indefinido')
+     BuscarTramite(Tramite: TramiteDomainEntity):Promise<TramiteDomainEntity>{
+        return BuscarTramiteHelper(Tramite,this.staffDeportivoService,this.tamiteBuscadoEvent)
 
-        if(!this.tamiteBuscadoEvent)
-        throw new AggregateRootException('Evento que modifica el salario de un empleado indefinido')
-
-        const result = await this.staffDeportivoService.BuscarTramite(Tramite);
-        this.tamiteBuscadoEvent.response = result;
-        this.tamiteBuscadoEvent.publish();
-        return result;
     }
 
-   async  BuscarEmpleado(empleado: EmpleadoDomainEntity):Promise<EmpleadoDomainEntity>{
-        if(!this.staffDeportivoService)
-        throw new AggregateRootException('Servicio de Empleado indefinido')
+     BuscarEmpleado(empleado: EmpleadoDomainEntity):Promise<EmpleadoDomainEntity>{
+        return BuscarEmpleadoHelper(empleado,this.staffDeportivoService,this.empleadoBuscadoEvent)
 
-        if(!this.empleadoBuscadoEvent)
-        throw new AggregateRootException('Evento que modifica el salario de un empleado indefinido')
-
-        const result = await this.staffDeportivoService.BuscarEmpleado(empleado);
-        this.empleadoBuscadoEvent.response = result;
-        this.empleadoBuscadoEvent.publish();
-        return result;
     }
+
+     NegociacionModificarEquipoNuevo(equipoNuevoId: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        return ModificarEquipoNuevoDeNegociacionHelper(equipoNuevoId,this.negociacionService,this.negociacionEquipoNuevoModificadoEvent)
+        
+    }
+    
+     NegociacionModificarEquipoSalida(equipoSalidaId: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        return ModificarEquipoSalidaDeNegociacionHelper(equipoSalidaId,this.negociacionService,this.negociacionEquipoSalidaModificadoEvent)
+
+    }
+     NegociacionModificarState(state: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        return ModificarStateDeNegociacionHelper(state,this.negociacionService,this.negociacionStateModificadoEvent)
+        
+    }
+     NegociacionModificarTipoNegociacion(tipo: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        return ModificarTipoNegociacionHelper(tipo,this.negociacionService,this.negociacionTipoNegociacionModificadoEvent)
+
+    }
+
 
    
    
@@ -341,3 +239,19 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
  
     
 }
+function ModificarEquipoNuevoDeNegociacionHelper(equipoNuevoId: NegociacionDomainEntity, negociacionService: INegociacionDomainService<NegociacionDomainEntity>, negociacionEquipoNuevoModificadoEvent: EquipoNuevoModificadoEventPublisher<NegociacionDomainEntity>): Promise<NegociacionDomainEntity> {
+    throw new Error('Function not implemented.');
+}
+
+function ModificarEquipoSalidaDeNegociacionHelper(equipoSalidaId: NegociacionDomainEntity, negociacionService: INegociacionDomainService<NegociacionDomainEntity>, negociacionEquipoSalidaModificadoEvent: EquipoSalidaModificadoEventPublisher<NegociacionDomainEntity>): Promise<NegociacionDomainEntity> {
+    throw new Error('Function not implemented.');
+}
+
+function ModificarStateDeNegociacionHelper(state: NegociacionDomainEntity, negociacionService: INegociacionDomainService<NegociacionDomainEntity>, negociacionStateModificadoEvent: StateModificadoEventPublisher<import("../../entities").CesionDomainEntity>): Promise<NegociacionDomainEntity> {
+    throw new Error('Function not implemented.');
+}
+
+function ModificarTipoNegociacionHelper(tipo: NegociacionDomainEntity, negociacionService: INegociacionDomainService<NegociacionDomainEntity>, negociacionTipoNegociacionModificadoEvent: TipoDeNegociacionModificadoEventPublisher<NegociacionDomainEntity>): Promise<NegociacionDomainEntity> {
+    throw new Error('Function not implemented.');
+}
+

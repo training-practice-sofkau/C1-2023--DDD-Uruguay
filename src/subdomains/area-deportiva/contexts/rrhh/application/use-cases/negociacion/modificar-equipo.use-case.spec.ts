@@ -1,7 +1,7 @@
-import { ModificarEquipoUseCase } from './modificar-equipo-nuevo.use-case';
+import { ModificarEquipoNuevoUseCase } from './modificar-equipo-nuevo.use-case';
 
 describe('ModificarEquipoUseCase', () => {
   it('should be defined', () => {
-    expect(new ModificarEquipoUseCase()).toBeDefined();
+    expect(new ModificarEquipoNuevoUseCase()).toBeDefined();
   });
 });
