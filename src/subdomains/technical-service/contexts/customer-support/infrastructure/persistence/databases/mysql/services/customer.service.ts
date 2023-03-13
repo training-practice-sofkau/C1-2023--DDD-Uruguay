@@ -19,8 +19,11 @@ export class CustomerMySqlService implements ICustomerDomainService {
      * @return {*}  {Promise<boolean>}
      * @memberof CustomerMySqlService
      */
-    ChangeCustomerPhone(data: CustomerDomainEntityBase): Promise<CustomerDomainEntityBase> {
-        return this.customerRepository.update(data);
+    async ChangeCustomerPhone(data: CustomerDomainEntityBase): Promise<boolean> {
+          
+        if(this.customerRepository.update(data)) return await true;
+
+        return false;
     }
 
 
@@ -31,8 +34,11 @@ export class CustomerMySqlService implements ICustomerDomainService {
      * @return {*}  {Promise<boolean>}
      * @memberof CustomerMySqlService
      */
-    ChangeCustomerEmail(data: CustomerDomainEntityBase): Promise<CustomerDomainEntityBase>  {
-        return this.customerRepository.update(data);
+    async ChangeCustomerEmail(data: CustomerDomainEntityBase): Promise<boolean>  {
+
+        if(this.customerRepository.update(data)) return await true;
+
+        return false;
     }
 
 }

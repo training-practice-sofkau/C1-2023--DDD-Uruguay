@@ -3,8 +3,8 @@ import { ICustomerDomainEntity } from '../../entities/interfaces/invoice/custome
 
 export interface ICustomerDomainService {
 
-    ChangeCustomerPhone( data: CustomerDomainEntityBase ): Promise<ICustomerDomainEntity>;
+    ChangeCustomerPhone( data: CustomerDomainEntityBase ): Promise<boolean>;
 
-    ChangeCustomerEmail( data: CustomerDomainEntityBase ): Promise<ICustomerDomainEntity>;
+    ChangeCustomerEmail( data: CustomerDomainEntityBase ): Promise<boolean>;
 
 }

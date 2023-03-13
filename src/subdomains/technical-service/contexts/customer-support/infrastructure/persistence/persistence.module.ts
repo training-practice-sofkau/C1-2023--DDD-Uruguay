@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { MySqlModule } from "./databases/";
+import { MySqlModule } from "./databases/mysql";
 import { 
     InvoiceService, 
     DeviceService, 

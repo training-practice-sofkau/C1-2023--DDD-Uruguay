@@ -5,7 +5,7 @@ import { IRoleDescriptionChangedResponse, IChangeRoleDescriptionCommand } from '
 import { EmployeeAggregate } from '../../../../domain/aggregates/employee/employee.aggregate';
 import { IEmployeeDomainService } from '../../../../domain/services/employee/employee.domain-service';
 import { EmployeeStatusChangedEventPublisherBase } from '../../../../domain/events/publishers/employee/employee-status-changed.event-publisher';
-import { RoleValueObject, UUIDValueObject } from '../../../../domain/value-objects/';
+import { NoteValueObject, RoleValueObject, UUIDValueObject } from '../../../../domain/value-objects/';
 
 import { IRoleDomainEntity } from '../../../../domain/entities/interfaces/employee/role.domain-entity.interface';
 import { RoleDomainEntityBase } from '../../../../domain/entities/employee/role.domain-entity/role.domain-entity';
@@ -66,7 +66,7 @@ export class ChangeRoleDescriptionUseCase<
     createValueObject (command: Command) : IRoleDomainEntity {
      
         const roleID = new UUIDValueObject(command.roleID);
-        const roleDescription = new RoleValueObject(command.newDescription);
+        const roleDescription = new NoteValueObject(command.newDescription);
 
         return {
             roleID,            
