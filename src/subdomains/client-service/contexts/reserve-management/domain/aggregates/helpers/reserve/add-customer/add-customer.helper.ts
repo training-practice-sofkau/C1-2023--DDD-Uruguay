@@ -4,7 +4,7 @@ import { IAddCustomer } from "../../../../interfaces";
 import { IReserveDomainService } from "../../../../services";
 
 export const AddCustomer = async (
-    customer: IAddCustomer,
+    customer: CustomerDomainEntity,
     reserveService: IReserveDomainService,
     customerAddedEventPublisher: CustomerAddedEventPublisher
 ): Promise<CustomerDomainEntity | null> => {

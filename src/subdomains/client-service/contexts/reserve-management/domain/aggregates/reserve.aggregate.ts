@@ -4,27 +4,21 @@ import {
     PaymentMethodUpdatedEventPublisher,
     StateUpdatedEventPublisher,
     StartDateUpdatedEventPublisher,
-    RoomStateUpdatedEventPublisher,
     RoomAddedEventPublisher,
     ReserveCreatedEventPublisher,
     NumberOfGuestsUpdatedEventPublisher,
     EndDateUpdatedEventPublisher,
-    CustomerPaymentMethodUpdatedEventPublisher,
     CustomerAddedEventPublisher,
     CustomerObtainedEventPublisher,
     RoomObtainedEventPublisher
 } from "../events";
 import { AggregateRootException } from "src/libs/sofka";
 import { 
-    IAddCustomer, 
     IAddRoom, 
     ICreateReserve, 
-    IGetRoom, 
-    IUpdateCustomerPaymentMethod, 
     IUpdateEndDate, 
     IUpdateNumberOfGuests, 
     IUpdatePaymentMethod, 
-    IUpdateRoomState, 
     IUpdateStartDate, 
     IUpdateState 
 } from "../interfaces";
@@ -35,8 +29,6 @@ import {
     UpdateStartDate,
     UpdateEndDate,
     UpdateNumberOfGuests,
-    UpdateCustomerPaymentMethod,
-    UpdateRoomState,
     UpdatePaymentMethod,
     UpdateState,
     GetCustomer,
@@ -53,12 +45,10 @@ export class ReserveAggregate implements
     private readonly roomService?: IRoomDomainService;
 
     private readonly customerAddedEventPublisher?: CustomerAddedEventPublisher;
-    private readonly customerPaymentMethodUpdatedEventPublisher?: CustomerPaymentMethodUpdatedEventPublisher;
     private readonly endDateUpdatedEventPublisher?: EndDateUpdatedEventPublisher;
     private readonly numberOfGuestsUpdatedEventPublisher?: NumberOfGuestsUpdatedEventPublisher;
     private readonly reserveCreatedEventPublisher?: ReserveCreatedEventPublisher;
     private readonly roomAddedEventPublisher?: RoomAddedEventPublisher;
-    private readonly roomStateUpdatedEventPublisher?: RoomStateUpdatedEventPublisher;
     private readonly startDateUpdatedEventPublisher?: StartDateUpdatedEventPublisher;
     private readonly paymentMethodUpdatedEventPublisher?: PaymentMethodUpdatedEventPublisher;
     private readonly stateUpdatedEventPublisher?: StateUpdatedEventPublisher;
@@ -72,12 +62,10 @@ export class ReserveAggregate implements
             roomService,
 
             customerAddedEventPublisher,
-            customerPaymentMethodUpdatedEventPublisher,
             endDateUpdatedEventPublisher,
             numberOfGuestsUpdatedEventPublisher,
             reserveCreatedEventPublisher,
             roomAddedEventPublisher,
-            roomStateUpdatedEventPublisher,
             startDateUpdatedEventPublisher,
             paymentMethodUpdatedEventPublisher,
             stateUpdatedEventPublisher,
@@ -89,12 +77,10 @@ export class ReserveAggregate implements
             roomService?: IRoomDomainService,
 
             customerAddedEventPublisher?: CustomerAddedEventPublisher,
-            customerPaymentMethodUpdatedEventPublisher?: CustomerPaymentMethodUpdatedEventPublisher;
             endDateUpdatedEventPublisher?: EndDateUpdatedEventPublisher;
             numberOfGuestsUpdatedEventPublisher?: NumberOfGuestsUpdatedEventPublisher;
             reserveCreatedEventPublisher?: ReserveCreatedEventPublisher;
             roomAddedEventPublisher?: RoomAddedEventPublisher;
-            roomStateUpdatedEventPublisher?: RoomStateUpdatedEventPublisher;
             startDateUpdatedEventPublisher?: StartDateUpdatedEventPublisher;
             paymentMethodUpdatedEventPublisher?: PaymentMethodUpdatedEventPublisher;
             stateUpdatedEventPublisher?: StateUpdatedEventPublisher;
@@ -107,12 +93,10 @@ export class ReserveAggregate implements
         this.roomService = roomService
 
         this.customerAddedEventPublisher = customerAddedEventPublisher
-        this.customerPaymentMethodUpdatedEventPublisher = customerPaymentMethodUpdatedEventPublisher
         this.endDateUpdatedEventPublisher = endDateUpdatedEventPublisher
         this.numberOfGuestsUpdatedEventPublisher = numberOfGuestsUpdatedEventPublisher
         this.reserveCreatedEventPublisher = reserveCreatedEventPublisher
         this.roomAddedEventPublisher = roomAddedEventPublisher
-        this.roomStateUpdatedEventPublisher = roomStateUpdatedEventPublisher
         this.startDateUpdatedEventPublisher = startDateUpdatedEventPublisher
         this.paymentMethodUpdatedEventPublisher = paymentMethodUpdatedEventPublisher
         this.stateUpdatedEventPublisher = stateUpdatedEventPublisher
@@ -138,7 +122,7 @@ export class ReserveAggregate implements
         return await AddRoom(room, this.reserveService, this.roomAddedEventPublisher)
     }
 
-    async addCustomer(customer: IAddCustomer): Promise<CustomerDomainEntity> {
+    async addCustomer(customer: CustomerDomainEntity): Promise<CustomerDomainEntity> {
         if (!this.reserveService)
             throw new AggregateRootException('reserveService no esta definido')
         if (!this.customerAddedEventPublisher)
@@ -173,25 +157,6 @@ export class ReserveAggregate implements
 
         return await UpdateNumberOfGuests(data, this.reserveService, this.numberOfGuestsUpdatedEventPublisher)
     }
-
-    async updateCustomerPaymentMethod(data: IUpdateCustomerPaymentMethod): Promise<string> {
-        if (!this.reserveService)
-            throw new AggregateRootException('reserveService no esta definido')
-        if (!this.customerPaymentMethodUpdatedEventPublisher)
-            throw new AggregateRootException('customerPaymentMethodUpdatedEventPublisher no esta definido')
-
-        return await UpdateCustomerPaymentMethod(data, this.reserveService, this.customerPaymentMethodUpdatedEventPublisher)
-    }
-
-    async updateRoomState(data: IUpdateRoomState): Promise<boolean> {
-        if (!this.reserveService)
-            throw new AggregateRootException('reserveService no esta definido')
-        if (!this.roomStateUpdatedEventPublisher)
-            throw new AggregateRootException('roomStateUpdatedEventPublisher no esta definido')
-
-        return await UpdateRoomState(data, this.reserveService, this.roomStateUpdatedEventPublisher)
-    }
-
 
     async updatePaymentMethod(data: IUpdatePaymentMethod): Promise<CustomerDomainEntity> {
         if (!this.customerService)
