@@ -10,7 +10,7 @@ export class saleEntityBd extends SaleDomainEntity {
         cascade: ['insert', 'update']
     })
     @JoinColumn()
-    Bill?: BillDomain;
+    Bill?: BillEntityDB;
 
 
     @OneToOne(() => SellerEntityDB, (Seller) => Seller.sale, {

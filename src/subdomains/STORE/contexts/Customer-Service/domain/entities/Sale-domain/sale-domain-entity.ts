@@ -12,7 +12,7 @@ export class SaleDomainEntity implements ISaleEntity{
     IDOrder?: string |  IdOrdertValueObject;
 
 
-
+    
     constructor (_data?: ISaleEntity){
 
         if(_data.IDSale) this.IDSale = _data.IDSale

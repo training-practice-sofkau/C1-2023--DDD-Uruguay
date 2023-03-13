@@ -12,7 +12,6 @@ import { IdmangaValue } from "../../value-objects";
 
 export class BillDomain implements IBillEntity{
     IDBill?: string |  IdbillValue;
-    Date?: Date |  DateValue;
     PaymentMethod?:string |  PaymentMethodValue;
     PaymentAmount?: string |  PaymentAmountValue;
     Total?: number |  TotalValue;
@@ -29,7 +28,6 @@ export class BillDomain implements IBillEntity{
         
         else this.IDBill = uuidv4()      
 
-        if (_data?.Date) this.Date = _data.Date;
 
         if (_data?.PaymentMethod) this.PaymentMethod = _data.PaymentMethod;
     

@@ -9,7 +9,6 @@ import { TotalValue } from "../../../value-objects/Sale/Bill/total-value/total-v
 export interface IBillEntity {
 
 IDBill?: string |   IdbillValue
-Date?: Date |  DateValue
 PaymentMethod?: string |  PaymentMethodValue
 PaymentAmount?: string |  PaymentAmountValue
 Total?: number | TotalValue

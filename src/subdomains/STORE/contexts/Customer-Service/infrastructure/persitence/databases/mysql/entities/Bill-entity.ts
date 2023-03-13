@@ -6,10 +6,7 @@ export class BillEntityDB  extends BillDomain{
 
     @PrimaryGeneratedColumn('uuid')
     IDBill?: string ;
-
-
-    @Column()
-    Date?: Date ;
+  
 
     @Column()
     PaymentMethod?:string 
