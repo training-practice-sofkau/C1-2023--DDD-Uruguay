@@ -1,12 +1,12 @@
-import { ICreateInvoiceCommand } from '../../../../interfaces/commands/invoice/create-invoice.command';
-import { IInvoiceDomainService } from '../../../../services/invoice/invoice.domain-service';
-import { InvoiceCreatedEventPublisherBase } from '../../../../events/publishers/invoice/invoice-created.event-publisher';
+import { InvoiceDomainEntityBase } from '../../../../../entities/invoice/invoice.domain-entity';
+import { InvoiceCreatedEventPublisherBase } from '../../../../../events/publishers';
+import { IInvoiceDomainService } from '../../../../../services/invoice';
 
 export const CreateInvoice = async (
-    invoiceData: ICreateInvoiceCommand,
+    invoiceData: InvoiceDomainEntityBase,
     invoiceService: IInvoiceDomainService,
     invoiceCreatedEventPublisherBase: InvoiceCreatedEventPublisherBase
-): Promise<boolean> => {
+): Promise< InvoiceDomainEntityBase | null > => {
 
     const result = await invoiceService.createInvoice(invoiceData);
     invoiceCreatedEventPublisherBase.response = result;

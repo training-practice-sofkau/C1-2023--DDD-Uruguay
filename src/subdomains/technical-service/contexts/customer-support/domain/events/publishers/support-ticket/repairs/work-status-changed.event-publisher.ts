@@ -3,7 +3,7 @@ export abstract class WorkStatusChangedEventPublisherBase < Response = boolean >
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'WorkStatusChangedEventPublisherBase',
+            'customer-support.work-status-changed',
             JSON.stringify({ data: this.response })
         )
     }

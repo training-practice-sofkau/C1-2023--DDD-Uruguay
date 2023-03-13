@@ -2,6 +2,6 @@ import { UUIDValueObject, NoteValueObject, FullnameValueObject, EmailValueObject
 
 export interface IChangeEmployeeMailCommand {
  
-    employeeID?: string | UUIDValueObject; 
-    employeeNewEmail?: string | EmailValueObject;
+    employeeID?: string; 
+    employeeNewEmail?: string;
 }

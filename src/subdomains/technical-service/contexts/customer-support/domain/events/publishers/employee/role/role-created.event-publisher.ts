@@ -1,9 +1,10 @@
-import { EventPublisherBase } from "../../../../../../../../../libs/sofka/bases";
-export abstract class RoleCreatedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
+import { EventPublisherBase } from "@sofka";
+import { IRoleDomainEntity } from "../../../../entities/interfaces";
+export abstract class RoleCreatedEventPublisherBase < Response = IRoleDomainEntity | null > extends EventPublisherBase<Response>{
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'RoleCreatedEventPublisherBase',
+            'customer-support.role-created',
             JSON.stringify({ data: this.response })
         )
     }

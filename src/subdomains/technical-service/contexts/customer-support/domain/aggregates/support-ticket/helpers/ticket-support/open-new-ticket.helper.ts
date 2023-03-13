@@ -1,12 +1,12 @@
+import { ISupportTicketEntity } from "../../../../entities/interfaces";
 import { NewTicketAddedEventPublisherBase } from "../../../../events/publishers/support-ticket";
-import { IOpenNewTicketCommand } from "../../../../interfaces/commands/support-ticket";
 import { ISupportTicketDomainService } from "../../../../services";
 
 export const OpenNewTicket = async (
-    ticketData: IOpenNewTicketCommand,
+    ticketData: ISupportTicketEntity,
     supportTicketService: ISupportTicketDomainService,
     newTicketAddedEventPublisherBase: NewTicketAddedEventPublisherBase
-): Promise<boolean> => {
+): Promise<ISupportTicketEntity | null > => {
 
     const result = await supportTicketService.OpenNewTicket(ticketData);
     newTicketAddedEventPublisherBase.response = result;

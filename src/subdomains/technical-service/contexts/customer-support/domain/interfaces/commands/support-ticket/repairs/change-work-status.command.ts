@@ -2,6 +2,6 @@ import { UUIDValueObject, TrueFalseValueObject } from "../../../../value-objects
 
 export interface IChangeWorkStatusCommand{
 
-    repairID: string | UUIDValueObject;
-    newStatus: boolean | TrueFalseValueObject;    
+    repairID: string;
+    newStatus: boolean;    
 }

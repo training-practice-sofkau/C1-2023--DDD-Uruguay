@@ -1,12 +1,10 @@
-import { IAddItemToWarrantyCommand } from '../../interfaces/commands/invoice/warranty/add-item-to-warranty.command';
-import { IRemoveItemFromWarrantyCommand } from '../../interfaces/commands/invoice/warranty/remove-item-from-warranty.command';
-import { IChangeWarrantyStatusCommand } from '../../interfaces/commands/invoice/warranty/change-warranty-status.command';
-export interface IWarrantyDomainService {
+import { WarrantyDomainEntityBase } from '../../entities/invoice/warranty.domain-entity';
 
-    AddItemtoWarranty(data: IAddItemToWarrantyCommand): Promise<boolean>;
 
-    RemoveItemFromWarranty(data: IRemoveItemFromWarrantyCommand): Promise<boolean>;
+export interface IWarrantyDomainService {    
 
-    ChangeWarrantyStatus(data: IChangeWarrantyStatusCommand): Promise<boolean>;
+    ChangeWarrantyEndDate(data: WarrantyDomainEntityBase): Promise<boolean>;
+
+    ChangeWarrantyStatus(data: WarrantyDomainEntityBase): Promise<boolean>;
 
 }

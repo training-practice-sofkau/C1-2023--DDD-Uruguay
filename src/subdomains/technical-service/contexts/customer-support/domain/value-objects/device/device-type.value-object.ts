@@ -3,9 +3,7 @@ import { ValueObjectBase } from '../../../../../../../libs/sofka/bases/object-va
 import { StringBiggerThanMaxLength, IsEmptyOrNull } from '../../../../../../../libs/validations';
 
 export class DeviceTypeValueObject extends ValueObjectBase<string>{
-
-    //TODO: este VO puede usar un Enum para definir los tipos de dispositivos
-    // implementar si hay tiempo
+   
 
     constructor(value?: string){
         super(value ? value : null);

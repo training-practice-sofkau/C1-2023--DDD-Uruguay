@@ -1,9 +1,9 @@
+import { RoleDomainEntityBase } from "../../../../../entities/employee/role.domain-entity";
 import { RoleDescriptionChangedEventPublisherBase } from "../../../../../events/publishers/employee";
-import { IChangeRoleDescriptionCommand } from '../../../../../interfaces/commands/employee';
 import { IRoleDomainService } from '../../../../../services/employee/';
 
 export const ChangeRoleDescription = async (
-    data: IChangeRoleDescriptionCommand,
+    data: RoleDomainEntityBase,
     roleService: IRoleDomainService,
     roleDescriptionChangedEventPublisherBase: RoleDescriptionChangedEventPublisherBase
 ): Promise<boolean> => {

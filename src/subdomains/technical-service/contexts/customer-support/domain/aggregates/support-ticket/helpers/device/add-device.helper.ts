@@ -1,12 +1,13 @@
+import { IDeviceDomainEntity } from "../../../../entities/interfaces";
+import { DeviceDomainEntityBase } from "../../../../entities/support-ticket/device.domain-entity/device.domain-entity";
 import { DeviceAddedEventPublisherBase } from "../../../../events/publishers/support-ticket";
-import { IAddDeviceCommand } from "../../../../interfaces/commands/support-ticket";
 import { IDeviceDomainService } from "../../../../services";
 
 export const AddDevice = async (
-    deviceData: IAddDeviceCommand,
+    deviceData: DeviceDomainEntityBase,
     deviceService: IDeviceDomainService,
     deviceAddedEventPublisherBase: DeviceAddedEventPublisherBase
-): Promise<boolean> => {
+): Promise<IDeviceDomainEntity | null> => {
 
     const result = await deviceService.AddDevice(deviceData);
     deviceAddedEventPublisherBase.response = result;

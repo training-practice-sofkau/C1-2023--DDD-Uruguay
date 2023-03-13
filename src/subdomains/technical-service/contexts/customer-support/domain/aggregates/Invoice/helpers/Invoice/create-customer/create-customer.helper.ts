@@ -1,12 +1,13 @@
-import { IInvoiceDomainService } from '../../../../services/invoice/invoice.domain-service';
-import { ICreateCustomerCommand } from '../../../../interfaces/commands/invoice/create-customer.command';
-import { CustomerCreatedEventPublisherBase } from '../../../../events/publishers/invoice/customer-created.event-publisher';
+import { CustomerDomainEntityBase } from "../../../../../entities/invoice/customer.domain-entity";
+import { CustomerCreatedEventPublisherBase } from "../../../../../events";
+import { IInvoiceDomainService } from "../../../../../services";
+
 
 export const CreateCustomer = async (
-    customerData: ICreateCustomerCommand,
+    customerData: CustomerDomainEntityBase,
     invoiceService: IInvoiceDomainService,
     customerCreatedEventPublisherBase: CustomerCreatedEventPublisherBase
-): Promise<boolean> => {
+): Promise<CustomerDomainEntityBase | null> => {
 
     const result = await invoiceService.CreateCustomer(customerData);
     customerCreatedEventPublisherBase.response = result;

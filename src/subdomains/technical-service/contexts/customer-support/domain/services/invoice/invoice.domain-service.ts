@@ -1,21 +1,16 @@
+import { CustomerDomainEntityBase, InvoiceDomainEntityBase } from '../../entities/invoice/';
+import { IWarrantyDomainEntity } from '../../entities/interfaces';
 
-import { UUIDValueObject, NoteValueObject } from '../../value-objects/common';
-import { ICreateCustomerCommand, IAddWarrantyCommand, ICreateInvoiceCommand } from '../../interfaces/commands/invoice';
-import { INotifyCustomerCommand } from '../../interfaces/commands/invoice/notify-customer.command';
 
 export interface IInvoiceDomainService { // <T extends InvoiceDomainEntityBase = InvoiceDomainEntityBase>
 
 
-    createInvoice( invoiceData: ICreateInvoiceCommand ) : Promise < boolean >; //return success (true/false) 
+    createInvoice( invoiceData: InvoiceDomainEntityBase ) : Promise < InvoiceDomainEntityBase | null >; //return success (true/false)        
 
-    CalculateServiceCharge( ticketID: UUIDValueObject ) : Promise < number | null >; //return amount (number) or error (null)
+    AddWarranty( warrantyData: IWarrantyDomainEntity ) : Promise < IWarrantyDomainEntity | null >//return success (true/false) 
 
-    NotifyCustomer( notification: INotifyCustomerCommand ) : Promise < boolean >  //return success (true/false) 
-
-    AddWarranty( warrantyData: IAddWarrantyCommand ) : Promise < boolean >//return success (true/false) 
-
-    MarkAsPaid() : Promise <boolean> //return success (true/false) 
+    MarkAsPaid(invoiceData: InvoiceDomainEntityBase) : Promise <boolean> //return success (true/false) 
     
-    CreateCustomer( customerData : ICreateCustomerCommand ) : Promise < boolean > //return success (true/false) 
+    CreateCustomer( customerData : CustomerDomainEntityBase ) : Promise < CustomerDomainEntityBase | null > //return success (true/false) 
     
 }

@@ -1,14 +1,14 @@
 import { v4 as uuid } from "uuid";
 
-import { UUIDValueObject, DateValueObject, FaultValueObject, TrueFalseValueObject } from '../../../value-objects';
+import { UUIDValueObject, DateValueObject, RepairValueObject, TrueFalseValueObject } from '../../../value-objects';
 import { IRepairsDomainEntity } from '../../interfaces/support-ticket/';
 import { IsBoolean, IsUUID, IsValidDate } from "src/libs/validations";
 
 
 export class RepairsDomainEntityBase implements IRepairsDomainEntity{
-    repairsID: string | UUIDValueObject;
-    repairsDate?: number | Date | DateValueObject;
-    repairs: FaultValueObject[];
+    repairID: string | UUIDValueObject;
+    repairDate?: number | Date | DateValueObject;
+    repairs: RepairValueObject[];
     workFinished?: boolean | TrueFalseValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
@@ -16,10 +16,10 @@ export class RepairsDomainEntityBase implements IRepairsDomainEntity{
 
     constructor(_data?: IRepairsDomainEntity){
 
-        if(_data?.repairsID && IsUUID(_data?.repairsID)) this.repairsID = _data.repairsID;
-        else this.repairsID = uuid();
+        if(_data?.repairID && IsUUID(_data?.repairID)) this.repairID = _data.repairID;
+        else this.repairID = uuid();
 
-        if(_data?.repairsDate && IsValidDate(_data?.repairsDate)) this.repairsDate = _data.repairsDate;
+        if(_data?.repairDate && IsValidDate(_data?.repairDate)) this.repairDate = _data.repairDate;
 
         if (_data?.repairs ) this.repairs = _data.repairs;      
 

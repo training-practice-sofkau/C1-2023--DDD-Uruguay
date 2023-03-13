@@ -1,9 +1,10 @@
+import { RepairsDomainEntityBase } from "../../../../entities/support-ticket/repairs.domain-entity/repairs.domain-entity";
 import {  WorkStatusChangedEventPublisherBase } from "../../../../events/publishers";
 import {  IRepairsDomainService } from "../../../../services";
-import {  IChangeWorkStatusCommand } from '../../../../interfaces';
+
 
 export const ChangeWorkStatus = async (
-    repairData: IChangeWorkStatusCommand,
+    repairData: RepairsDomainEntityBase,
     repairsService: IRepairsDomainService,
     workStatusChangedEventPublisherBase: WorkStatusChangedEventPublisherBase
 ): Promise<boolean> => {

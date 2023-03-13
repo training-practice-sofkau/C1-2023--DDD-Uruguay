@@ -1,10 +1,11 @@
-import { IWarrantyDomainService } from '../../../../services';
-import { IChangeWarrantyStatusCommand } from '../../../../interfaces/commands/invoice/warranty';
-import { WarrantyStatusChangedEventPublisherBase } from '../../../../events/publishers/warranty';
+
+import { WarrantyDomainEntityBase } from '../../../../../entities/invoice/warranty.domain-entity';
+import { WarrantyStatusChangedEventPublisherBase } from '../../../../../events';
+import { IWarrantyDomainService } from '../../../../../services';
 
 
 export const ChangeWarrantyStatus = async (
-    data: IChangeWarrantyStatusCommand,
+    data: WarrantyDomainEntityBase,
     warrantyService: IWarrantyDomainService,
     warrantyStatusChangedEventPublisherBase: WarrantyStatusChangedEventPublisherBase
 ): Promise<boolean> => {

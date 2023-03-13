@@ -2,6 +2,6 @@ import { UUIDValueObject, NoteValueObject } from '../../../../value-objects/comm
 
 export interface IChangeRoleDescriptionCommand {
 
-    roleID?: string | UUIDValueObject;
-    newDescription?: string | NoteValueObject;  
+    roleID?: string;
+    newDescription?: string;  
 }

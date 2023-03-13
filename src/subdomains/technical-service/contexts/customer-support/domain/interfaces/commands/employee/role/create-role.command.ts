@@ -2,7 +2,7 @@ import { UUIDValueObject, NoteValueObject, FullnameValueObject, EmailValueObject
 
 export interface ICreateRoleCommand {
 
-    roleName?: string | FullnameValueObject;
-    roleDescription?: string | NoteValueObject;  
+    roleName?: string;
+    roleDescription?: string;  
     
 }

@@ -1,9 +1,9 @@
-import { EventPublisherBase } from "../../../../../../../../libs/sofka/bases";
-export abstract class TicketClosedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
+import { EventPublisherBase } from "@sofka";
+export abstract class SupportTicketClosedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'TicketClosedEventPublisherBase',
+            'customer-support.ticket-closed',
             JSON.stringify({ data: this.response })
         )
     }

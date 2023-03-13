@@ -1,22 +1,22 @@
-import { AggregateRootException } from '../../../../../../../libs/sofka/exceptions';
+import { AggregateRootException } from '@sofka';
 
 import { UUIDValueObject } from '../../value-objects/common';
 
 import {
-    ItemAddedToWarrantyEventPublisherBase,
-    ItemRemovedFromWarrantyEventPublisherBase,
-    WarrantyStatusChangedEventPublisherBase
-} from '../../events/publishers/invoice/warranty';
-
-import {
+    
+    WarrantyStatusChangedEventPublisherBase,
     CustomerEmailChangedEventPublisherBase,
-    CustomerPhoneChangedEventPublisherBase
-} from '../../events/publishers/invoice/customer';
+    CustomerPhoneChangedEventPublisherBase,
+    CustomerCreatedEventPublisherBase,
+    InvoiceCreatedEventPublisherBase,
+    ServiceChargeCalculatedEventPublisherBase,
+    CustomerNotifiedEventPublisherBase,
+    InvoiceMarkedAsPaidEventPublisherBase,
+    WarrantyAddedEventPublisherBase,
+    WarrantyEndDateChangedEventPublisherBase,
 
-import {
-    IChangeCustomerPhoneCommand,
-    IChangeCustomerEmailCommand
-} from '../../interfaces/commands/invoice/customer';
+} from '../../events/publishers/invoice/';
+
 
 import {
     IInvoiceDomainService,
@@ -25,46 +25,25 @@ import {
 } from '../../services';
 
 import {
-    ICreateInvoiceCommand,
-    IAddWarrantyCommand,
-    ICreateCustomerCommand,
-    INotifyCustomerCommand,
-    IAddItemToWarrantyCommand,
-    IChangeWarrantyStatusCommand,
-    IRemoveItemFromWarrantyCommand
-} from '../../interfaces/commands/invoice';
-
-import {
-    CustomerCreatedEventPublisherBase,
-    InvoiceCreatedEventPublisherBase,
-    ServiceChargeCalculatedEventPublisherBase,
-    CustomerNotifiedEventPublisherBase,
-    InvoiceMarkedAsPaidEventPublisherBase,
-    WarrantyAddedEventPublisherBase,
-} from '../../events/publishers/invoice';
-
-
-import {
     CreateInvoice,
     CreateCustomer,
-    AddWarranty,
-    CalculateServiceCharge,
-    NotifyCustomer,
-    MarkInvoiceAsPaid
-} from './helpers/Invoice';
-
-import {
+    AddWarranty,        
+    MarkInvoiceAsPaid,
     ChangeCustomerEmail,
-    ChangeCustomerPhone,
-} from './helpers/customer';
+    ChangeCustomerPhone,    
+    ChangeWarrantyStatus,     
+    ChangeWarrantyEndDate
+
+} from './helpers';
 
 
 import { 
-    AddItemToWarranty, 
-    ChangeWarrantyStatus, 
-    RemoveItemFromWarranty 
-} from './helpers/warranty';
+    WarrantyDomainEntityBase, 
+    CustomerDomainEntityBase, 
+    InvoiceDomainEntityBase
+} from '../../entities/invoice/';
 
+import { IWarrantyDomainEntity } from '../../entities/interfaces';
 
 
 export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainService, IWarrantyDomainService {
@@ -75,13 +54,11 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
     private readonly invoiceCreatedEventPublisherBase?: InvoiceCreatedEventPublisherBase;
     private readonly customerCreatedEventPublisherBase?: CustomerCreatedEventPublisherBase;
     private readonly warrantyAddedEventPublisherBase?: WarrantyAddedEventPublisherBase;
-    private readonly serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase;
-    private readonly customerNotifiedEventPublisherBase?: CustomerNotifiedEventPublisherBase;
+    private readonly serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase;    
     private readonly invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase;
     private readonly customerEmailChangedEventPublisherBase?: CustomerEmailChangedEventPublisherBase;
-    private readonly customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase;
-    private readonly itemAddedToWarrantyEventPublisherBase?: ItemAddedToWarrantyEventPublisherBase;
-    private readonly itemRemovedFromWarrantyEventPublisherBase?: ItemRemovedFromWarrantyEventPublisherBase;
+    private readonly customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase;    
+    private readonly warrantyEndDateChangedEventPublisherBase?: WarrantyEndDateChangedEventPublisherBase;
     private readonly warrantyStatusChangedEventPublisherBase?: WarrantyStatusChangedEventPublisherBase;
 
 
@@ -97,9 +74,8 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
             customerNotifiedEventPublisherBase,
             invoiceMarkedAsPaidEventPublisherBase,
             customerEmailChangedEventPublisherBase,
-            customerPhoneChangedEventPublisherBase,
-            itemAddedToWarrantyEventPublisherBase,
-            itemRemovedFromWarrantyEventPublisherBase,
+            customerPhoneChangedEventPublisherBase,            
+            warrantyEndDateChangedEventPublisherBase,
             warrantyStatusChangedEventPublisherBase,
 
         }: {
@@ -113,9 +89,8 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
             customerNotifiedEventPublisherBase?: CustomerNotifiedEventPublisherBase,
             invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase,
             customerEmailChangedEventPublisherBase?: CustomerEmailChangedEventPublisherBase,
-            customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase,
-            itemAddedToWarrantyEventPublisherBase?: ItemAddedToWarrantyEventPublisherBase,
-            itemRemovedFromWarrantyEventPublisherBase?: ItemRemovedFromWarrantyEventPublisherBase,
+            customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase,            
+            warrantyEndDateChangedEventPublisherBase?: WarrantyEndDateChangedEventPublisherBase,
             warrantyStatusChangedEventPublisherBase?: WarrantyStatusChangedEventPublisherBase,
         }
     ) {
@@ -126,17 +101,14 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
         this.invoiceCreatedEventPublisherBase = invoiceCreatedEventPublisherBase;
         this.customerCreatedEventPublisherBase = customerCreatedEventPublisherBase;
         this.warrantyAddedEventPublisherBase = warrantyAddedEventPublisherBase;
-        this.serviceChargeCalculatedEventPublisherBase = serviceChargeCalculatedEventPublisherBase;
-        this.customerNotifiedEventPublisherBase = customerNotifiedEventPublisherBase;
+        this.serviceChargeCalculatedEventPublisherBase = serviceChargeCalculatedEventPublisherBase;        
         this.invoiceMarkedAsPaidEventPublisherBase = invoiceMarkedAsPaidEventPublisherBase;
         this.customerEmailChangedEventPublisherBase = customerEmailChangedEventPublisherBase;
-        this.customerPhoneChangedEventPublisherBase = customerPhoneChangedEventPublisherBase;
-        this.itemAddedToWarrantyEventPublisherBase = itemAddedToWarrantyEventPublisherBase;
-        this.itemRemovedFromWarrantyEventPublisherBase = itemRemovedFromWarrantyEventPublisherBase;
+        this.customerPhoneChangedEventPublisherBase = customerPhoneChangedEventPublisherBase;        
+        this.warrantyEndDateChangedEventPublisherBase = warrantyEndDateChangedEventPublisherBase;
         this.warrantyStatusChangedEventPublisherBase = warrantyStatusChangedEventPublisherBase;
     }
-   
-
+    
     //#region INVOICE methods
 
     /**
@@ -146,7 +118,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>} success ( true / false )
      * @memberof InvoiceAggregate
     */
-    async createInvoice(invoiceData: ICreateInvoiceCommand): Promise<boolean> {
+    async createInvoice(invoiceData: InvoiceDomainEntityBase): Promise< InvoiceDomainEntityBase | null > {
 
         if (!this.invoiceService) {
             throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
@@ -165,7 +137,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>} success ( true / false )
      * @memberof InvoiceAggregate
      */
-    async CreateCustomer(customerData: ICreateCustomerCommand): Promise<boolean> {
+    async CreateCustomer(customerData: CustomerDomainEntityBase): Promise<CustomerDomainEntityBase | null> {
 
         if (!this.invoiceService) {
             throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
@@ -184,7 +156,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>} success ( true / false )
      * @memberof InvoiceAggregate
      */
-    async AddWarranty(warrantyData: IAddWarrantyCommand): Promise<boolean> {
+    async AddWarranty(warrantyData: IWarrantyDomainEntity): Promise<IWarrantyDomainEntity | null> {
         if (!this.invoiceService) {
             throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
         }
@@ -195,49 +167,15 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
         return await AddWarranty(warrantyData, this.invoiceService, this.warrantyAddedEventPublisherBase);
     }
 
-    /**
-     * Calculates the charge of the service ( ammount to pay )
-     *
-     * @param {UUIDValueObject} ticketID
-     * @return {*}  {Promise<number>} gets the total amount to pay
-     * @memberof InvoiceAggregate
-     */
-    async CalculateServiceCharge(ticketID: UUIDValueObject): Promise<number> {
-        if (!this.invoiceService) {
-            throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
-        }
-        if (!this.serviceChargeCalculatedEventPublisherBase) {
-            throw new AggregateRootException('InvoiceAggregate: "serviceChargeCalculatedEventPublisherBase" is not defined!');
-        }
-
-        return await CalculateServiceCharge(ticketID, this.invoiceService, this.serviceChargeCalculatedEventPublisherBase);
-    }
-
-    /**
-     * Send a Notification to the costumer abount the pending invoice
-     *
-     * @param {INotifyCustomerCommand} notification
-     * @return {*}  {Promise<boolean>} success ( true / false )
-     * @memberof InvoiceAggregate
-     */
-    async NotifyCustomer(notification: INotifyCustomerCommand): Promise<boolean> {
-        if (!this.invoiceService) {
-            throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
-        }
-        if (!this.customerNotifiedEventPublisherBase) {
-            throw new AggregateRootException('InvoiceAggregate: "customerNotifiedEventPublisherBase" is not defined!');
-        }
-
-        return await NotifyCustomer(notification, this.invoiceService, this.customerNotifiedEventPublisherBase);
-    }
-
+   
     /**
      * Marks the invoice as Paid
      *
      * @return {*}  {Promise<boolean>} success ( true / false )
      * @memberof InvoiceAggregate
      */
-    async MarkAsPaid(): Promise<boolean> {
+    async MarkAsPaid(data: InvoiceDomainEntityBase): Promise<boolean> {
+        
         if (!this.invoiceService) {
             throw new AggregateRootException('InvoiceAggregate: "InvoiceService" is not defined!');
         }
@@ -245,7 +183,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
             throw new AggregateRootException('InvoiceAggregate: "invoiceMarkedAsPaidEventPublisherBase" is not defined!');
         }
 
-        return await MarkInvoiceAsPaid(this.invoiceService, this.invoiceMarkedAsPaidEventPublisherBase);
+        return await MarkInvoiceAsPaid(data, this.invoiceService, this.invoiceMarkedAsPaidEventPublisherBase);
     }
 
     //#endregion
@@ -260,7 +198,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>}
      * @memberof InvoiceAggregate
      */
-    async changeCustomerPhone(data: IChangeCustomerPhoneCommand): Promise<boolean> {
+    async ChangeCustomerPhone(data: CustomerDomainEntityBase): Promise<boolean> {
 
         if (!this.customerService) {
             throw new AggregateRootException('InvoiceAggregate: "CustomerService" is not defined!');
@@ -279,7 +217,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>}
      * @memberof InvoiceAggregate
      */
-    async changeCustomerEmail(data: IChangeCustomerEmailCommand): Promise<boolean> {
+    async ChangeCustomerEmail(data: CustomerDomainEntityBase): Promise<boolean> {
 
         if (!this.customerService) {
             throw new AggregateRootException('InvoiceAggregate: "CustomerService" is not defined!');
@@ -295,27 +233,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
 
 
     //#region WARRANTY methods
-
-
-    /**
-     * Allows to Add an item to the warranty Item List
-     *
-     * @param {IAddItemToWarrantyCommand} data
-     * @return {*}  {Promise<boolean>}
-     * @memberof InvoiceAggregate
-     */
-    async AddItemtoWarranty(data: IAddItemToWarrantyCommand): Promise<boolean> {
-
-        if (!this.warrantyService) {
-            throw new AggregateRootException('InvoiceAggregate: "WarrantyService" is not defined!');
-        }
-        if (!this.itemAddedToWarrantyEventPublisherBase) {
-            throw new AggregateRootException('InvoiceAggregate: "ItemAddedToWarrantyEventPublisherBase" is not defined!');
-        }
-
-        return await AddItemToWarranty(data, this.warrantyService, this.itemAddedToWarrantyEventPublisherBase);
-    }
-
+    
 
     /**
      * Allows to remove an item from a Warranty Item List
@@ -324,16 +242,16 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>}
      * @memberof InvoiceAggregate
      */
-    async RemoveItemFromWarranty(data: IRemoveItemFromWarrantyCommand): Promise<boolean> {
+    async ChangeWarrantyEndDate(data: WarrantyDomainEntityBase): Promise<boolean> {
         
         if (!this.warrantyService) {
             throw new AggregateRootException('InvoiceAggregate: "WarrantyService" is not defined!');
         }
-        if (!this.itemRemovedFromWarrantyEventPublisherBase) {
-            throw new AggregateRootException('InvoiceAggregate: "ItemRemovedFromWarrantyEventPublisherBase" is not defined!');
+        if (!this.warrantyEndDateChangedEventPublisherBase) {
+            throw new AggregateRootException('InvoiceAggregate: "WarrantyEndDateChangedEventPublisherBase" is not defined!');
         }
 
-        return await RemoveItemFromWarranty(data, this.warrantyService, this.itemRemovedFromWarrantyEventPublisherBase);
+        return await ChangeWarrantyEndDate(data, this.warrantyService, this.warrantyEndDateChangedEventPublisherBase);
     }
 
 
@@ -344,7 +262,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
      * @return {*}  {Promise<boolean>}
      * @memberof InvoiceAggregate
      */
-    async ChangeWarrantyStatus(data: IChangeWarrantyStatusCommand): Promise<boolean> {
+    async ChangeWarrantyStatus(data: WarrantyDomainEntityBase): Promise<boolean> {
         
         if (!this.warrantyService) {
             throw new AggregateRootException('InvoiceAggregate: "WarrantyService" is not defined!');

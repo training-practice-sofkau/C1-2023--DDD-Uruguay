@@ -2,7 +2,7 @@ import { DateValueObject, TrueFalseValueObject, UUIDValueObject } from '../../..
 
 export interface ISupportTicketEntity{
 
-    ticketID: string | UUIDValueObject;
+    ticketID?: string | UUIDValueObject;
     dateOpen?: number | Date | DateValueObject;
     deviceID?: string | UUIDValueObject;
     repairsID?: string | UUIDValueObject;

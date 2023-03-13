@@ -1,9 +1,11 @@
-import { EventPublisherBase } from "../../../../../../../../libs/sofka/bases";
-export abstract class WarrantyAddedEventPublisherBase < Response = boolean > extends EventPublisherBase<Response>{
+import { EventPublisherBase } from "@sofka";
+import { IWarrantyDomainEntity } from "../../../entities/interfaces";
+
+export abstract class WarrantyAddedEventPublisherBase < Response = IWarrantyDomainEntity | null > extends EventPublisherBase<Response>{
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'WarrantyAddedEventPublisherBase',
+            'customer-support.warranty-added',
             JSON.stringify({ data: this.response })
         )
     }

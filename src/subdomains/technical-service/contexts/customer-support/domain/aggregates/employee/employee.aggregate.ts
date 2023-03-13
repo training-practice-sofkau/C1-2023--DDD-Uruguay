@@ -1,7 +1,6 @@
 import { AggregateRootException } from 'src/libs/sofka/exceptions';
 
-import {
-    ICreateEmployeeCommand,
+import {    
     IChangeEmployeeMailCommand,
     IChangeEmployeeStatusCommand,
     IChangeRoleDescriptionCommand,
@@ -26,6 +25,9 @@ import {
 
 
 import { ChangeRoleDescription, CreateRole } from './helpers/role-service';
+import { EmployeeDomainEntityBase } from '../../entities/employee/employee.domain-entity';
+import { IRoleDomainEntity } from '../../entities/interfaces';
+import { RoleDomainEntityBase } from '../../entities/employee/role.domain-entity/role.domain-entity';
 
 export class EmployeeAggregate implements IEmployeeDomainService, IRoleDomainService {
 
@@ -76,7 +78,7 @@ export class EmployeeAggregate implements IEmployeeDomainService, IRoleDomainSer
      * @return {*}  {Promise<boolean>}
      * @memberof EmployeeAggregate
      */
-    async CreateEmployee(employeeData: ICreateEmployeeCommand): Promise<boolean> {
+    async CreateEmployee(employeeData: EmployeeDomainEntityBase ): Promise< EmployeeDomainEntityBase | null > { //ICreateEmployeeCommand
 
         if (!this.employeeService) {
             throw new AggregateRootException('InvoiceAggregate: "EmployeeService" is not defined!');
@@ -95,7 +97,7 @@ export class EmployeeAggregate implements IEmployeeDomainService, IRoleDomainSer
      * @return {*}  {Promise<boolean>}
      * @memberof EmployeeAggregate
      */
-    async ChangeEmployeeEmail(data: IChangeEmployeeMailCommand): Promise<boolean> {
+    async ChangeEmployeeEmail(data: EmployeeDomainEntityBase): Promise<boolean> {
 
         if (!this.employeeService) {
             throw new AggregateRootException('InvoiceAggregate: "EmployeeService" is not defined!');
@@ -114,7 +116,7 @@ export class EmployeeAggregate implements IEmployeeDomainService, IRoleDomainSer
      * @return {*}  {Promise<boolean>}
      * @memberof EmployeeAggregate
      */
-    async changeEmployeeStatus(data: IChangeEmployeeStatusCommand): Promise<boolean> {
+    async ChangeEmployeeStatus(data: EmployeeDomainEntityBase): Promise<boolean> {
 
         if (!this.employeeService) {
             throw new AggregateRootException('InvoiceAggregate: "EmployeeService" is not defined!');
@@ -138,7 +140,7 @@ export class EmployeeAggregate implements IEmployeeDomainService, IRoleDomainSer
      * @return {*}  {Promise<boolean>}
      * @memberof EmployeeAggregate
      */
-    async CreateRole(roleData: ICreateRoleCommand): Promise<boolean> {
+    async CreateRole(roleData: RoleDomainEntityBase): Promise<IRoleDomainEntity | null> {
 
         if (!this.roleService) {
             throw new AggregateRootException('InvoiceAggregate: "RoleService" is not defined!');
@@ -159,7 +161,7 @@ export class EmployeeAggregate implements IEmployeeDomainService, IRoleDomainSer
      * @return {*}  {Promise<boolean>}
      * @memberof EmployeeAggregate
      */
-    async ChangeRoleDescription(data: IChangeRoleDescriptionCommand): Promise<boolean> {
+    async ChangeRoleDescription(data: RoleDomainEntityBase): Promise<boolean> {
 
         if (!this.roleService) {
             throw new AggregateRootException('InvoiceAggregate: "RoleService" is not defined!');
