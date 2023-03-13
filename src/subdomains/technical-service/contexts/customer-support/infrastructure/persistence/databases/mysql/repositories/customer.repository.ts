@@ -66,7 +66,9 @@ export class CustomerRepository
      * @return {*}  {Promise<CustomerMySqlEntity>}
      * @memberof CustomerRepository
      */
-    async update(customerID: string, entity: CustomerMySqlEntity): Promise<CustomerMySqlEntity> {
+    async update(entity: CustomerMySqlEntity): Promise<CustomerMySqlEntity> {
+
+        const customerID = entity.customerID as string;
 
         let entityFound = await this.findById(customerID);
 
