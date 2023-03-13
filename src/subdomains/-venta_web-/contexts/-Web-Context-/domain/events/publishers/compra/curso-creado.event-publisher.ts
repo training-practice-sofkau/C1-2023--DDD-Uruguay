@@ -6,7 +6,7 @@ export abstract class CursoCreadoEventPublisher<Response = CursoDomainEntity> ex
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'Se creo un nuevo curso!',
+            'web-context.curso-creado',
             JSON.stringify({ data: this.response })
         )
     }

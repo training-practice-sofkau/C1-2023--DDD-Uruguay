@@ -4,7 +4,7 @@ import {v4 as uuid} from 'uuid';
 
 export class UuidValueObject extends ValueObjectBase<string>{
     
-    //Con el constructor objengo el valor 
+    //Con el constructor obtengo el valor 
     constructor(value? : string){
         super(value ? value : uuid())
     }
@@ -22,13 +22,11 @@ export class UuidValueObject extends ValueObjectBase<string>{
             this.setError(error) // seteo el error si existe
         }
         
-
         if(!this.value){
             const error = {field : 'Id', message : 'El Id no existe!'}
             this.setError(error)
         }
     }
-
 
     
 }

@@ -5,9 +5,16 @@ import { UuidValueObject } from "../../value-objects/common-value-objects/uuid/u
 
 export interface IClienteDomainEntityInterface {
 
-    idCliente : string | UuidValueObject;
-    nombreCliente : string | FullnameValueObject,
-    phoneCliente : string | PhoneValueObject,
-    emailCliente : string | EmailValueObject;
+    idCliente? : string | UuidValueObject;
+    nombreCliente? : string | FullnameValueObject,
+    phoneCliente? : string | PhoneValueObject,
+    emailCliente? : string | EmailValueObject;
 
 }
+
+/*
+ESTA ES LA INTERFAZ DE MI ENTIDAD.
+LA MISMA DECLARA SUS ATRIBUTOS CON DOBLE TIPO DE DATO.
+LOS ATRIBUTOS PUEDEN CONTENER UN CADENA DE TEXTO O UNN OBJETO DE TIPO
+"FullnameValueObject" DEPENDIENDO DEL VALOR QUE SE LE ASIGNE.
+*/

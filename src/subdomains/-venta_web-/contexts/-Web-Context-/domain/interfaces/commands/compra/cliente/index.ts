@@ -1,1 +1,1 @@
-
+export * from './updatePhone.command';

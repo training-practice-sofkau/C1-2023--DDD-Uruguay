@@ -5,9 +5,9 @@ import { UuidValueObject } from "../../value-objects/common-value-objects/uuid/u
 export interface ICursoDomainEntityInterface {
 
 
-    idCurso : string | UuidValueObject;
-    nombreCurso : string | FullnameValueObject,
-    nombreTeacher : string | FullnameValueObject,
-    costoCurso : number | CostoValueObject;
+    idCurso? : string | UuidValueObject;
+    nombreCurso? : string | FullnameValueObject,
+    nombreTeacher? : string | FullnameValueObject,
+    costoCurso? : number | CostoValueObject;
 
 }

@@ -1,11 +1,12 @@
 import { EventPublisherBase } from "src/libs/sofka/bases/event-publisher.base";
+import { CursoDomainEntity } from "../../../../entities";
 
 
-export abstract class UpdateCostoCursoEventPublisher<Response = number> extends EventPublisherBase<Response> {
+export abstract class UpdateCostoCursoEventPublisher<Response = CursoDomainEntity> extends EventPublisherBase<Response> {
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'El costo del curso fue actualizado!',
+            'web-context.update-costo',
             JSON.stringify({ data: this.response })
         )
     }

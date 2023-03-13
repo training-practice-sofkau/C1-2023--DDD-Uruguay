@@ -1,17 +1,17 @@
 import { UuidValueObject } from "../../value-objects/common-value-objects/uuid/uuid.value-object";
-import { IClienteDomainEntityInterface, ICursoDomainEntityInterface, ICuponDomainEntityInterface } from "../interfaces";
-import { ICompraDomainEntity } from "../interfaces/i-compra.domain-entity.interface";
+import { IClienteDomainEntityInterface, ICursoDomainEntityInterface, ICuponDomainEntityInterface, ICompraDomainEntityInterface } from "../interfaces";
+
 import { v4 as uuidv4 } from 'uuid';
 
-export class CompraDomainEntity implements ICompraDomainEntity{
+export class CompraDomainEntity implements ICompraDomainEntityInterface{
 
 
-    idCompra: string | UuidValueObject;
-    clienteCompra: IClienteDomainEntityInterface;
-    cursoCompra: ICursoDomainEntityInterface;
-    cuponCompra: ICuponDomainEntityInterface;
+    idCompra?: string | UuidValueObject;
+    clienteCompra?: IClienteDomainEntityInterface;
+    cursoCompra?: ICursoDomainEntityInterface;
+    cuponCompra?: ICuponDomainEntityInterface;
 
-    constructor( _data? : ICompraDomainEntity){
+    constructor( _data? : ICompraDomainEntityInterface){
         
         if(_data.idCompra) this.idCompra = _data.idCompra
         

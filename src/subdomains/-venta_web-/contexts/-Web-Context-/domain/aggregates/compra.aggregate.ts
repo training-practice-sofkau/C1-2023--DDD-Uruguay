@@ -16,28 +16,35 @@ import { ICursoService } from "../services/curso.service";
 import { UpdatePhoneEventPublisher } from "../events/publishers/compra/cliente/update-phone.event-publisher";
 import { UpdatePorcentajeEventPublisher } from "../events/publishers/compra/cupon/update-porcentaje.event-publisher";
 import { UpdateCostoCursoEventPublisher } from "../events/publishers/compra/curso/update-costo.event-publisher";
-import { ClienteCreadoEventPublisher } from "../events/publishers/compra/clienteCreado.event-publisher";
-import { CompraCreadaEventPublisher } from "../events/publishers/compra/compraCreada.event-publisher";
-import { CursoCreadoEventPublisher } from "../events/publishers/compra/cursoCreado.event-publisher";
+import { ClienteCreadoEventPublisher } from "../events/publishers/compra/cliente-creado.event-publisher";
+import { CompraCreadaEventPublisher } from "../events/publishers/compra/compra-creada.event-publisher";
+import { CursoCreadoEventPublisher } from "../events/publishers/compra/curso-creado.event-publisher";
 import { AggregateRootException } from "src/libs/sofka/exceptions/aggregate-root.exception";
+import { ClienteConseguidoEventPublisher } from "../events/publishers/compra/cliente/cliente-conseguido.event-publisher";
+import { CuponConseguidoEventPublisher } from "../events/publishers/compra/cupon/cupon-conseguido.event-publisher";
+import { CursoConseguidoEventPublisher } from "../events/publishers/compra/curso/curso-conseguido.event-publisher";
+import { CreateClienteHelper } from "./helpers/create-cliente.helper";
+import { EventPublisherBase } from "src/libs";
 
 
 export class CompraAggregate implements IClienteService, ICompraService, ICuponService, ICursoService {
 
-    //CREO INSTANCIAS DE CADA SERVICIO RELACIONADO A MI AGREGADO
+    //DECLARO PROPIEDADES DE CADA SERVICIO RELACIONADO A MI AGREGADO
     private readonly clienteService?: IClienteService;
     private readonly compraService?: ICompraService;
     private readonly cuponService?: ICuponService;
     private readonly cursoService?: ICursoService;
 
 
-    //CREO INSTANCIAS DE LOS PUBLISHERS RELACIONADOS A MI AGREGADO
+    //DECLARO PROPIEDADES DE LOS PUBLISHERS RELACIONADOS A MI AGREGADO
     private readonly updatePhoneEventPublisher?: UpdatePhoneEventPublisher;
     private readonly updatePorcentajeEventPublisher?: UpdatePorcentajeEventPublisher;
     private readonly updateCostoCursoEventPublisher?: UpdateCostoCursoEventPublisher;
     private readonly clienteCreadoEventPublisher?: ClienteCreadoEventPublisher;
     private readonly compraCreadaEventPublisher?: CompraCreadaEventPublisher;
     private readonly cursoCreadoEventPublisher?: CursoCreadoEventPublisher;
+    private readonly clienteConseguidoEventPublisher?: ClienteConseguidoEventPublisher;
+    private readonly cursoConseguidoEventPublisher?: CursoConseguidoEventPublisher;
 
 
     constructor({
@@ -47,13 +54,16 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         compraService,
         cuponService,
         cursoService,
+        
 
         updatePhoneEventPublisher,
         updatePorcentajeEventPublisher,
         updateCostoCursoEventPublisher,
         clienteCreadoEventPublisher,
         compraCreadaEventPublisher,
-        cursoCreadoEventPublisher
+        cursoCreadoEventPublisher,
+        clienteConseguidoEventPublisher,
+        cursoConseguidoEventPublisher
 
     }: {
    
@@ -62,12 +72,16 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         cuponService?: ICuponService;
         cursoService?: ICursoService;
 
+       
+
         updatePhoneEventPublisher?: UpdatePhoneEventPublisher;
         updatePorcentajeEventPublisher?: UpdatePorcentajeEventPublisher;
         updateCostoCursoEventPublisher?: UpdateCostoCursoEventPublisher;
         clienteCreadoEventPublisher?: ClienteCreadoEventPublisher;
         compraCreadaEventPublisher?: CompraCreadaEventPublisher;
         cursoCreadoEventPublisher?: CursoCreadoEventPublisher;
+        clienteConseguidoEventPublisher?: ClienteConseguidoEventPublisher;
+        cursoConseguidoEventPublisher?: CursoConseguidoEventPublisher;
 
     }) {
 
@@ -82,11 +96,15 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         this.clienteCreadoEventPublisher = clienteCreadoEventPublisher;
         this.compraCreadaEventPublisher = compraCreadaEventPublisher;
         this.cursoCreadoEventPublisher = cursoCreadoEventPublisher;
+        this.clienteConseguidoEventPublisher = clienteConseguidoEventPublisher;
+        this.cursoConseguidoEventPublisher = cursoConseguidoEventPublisher;
+
+    
 
     }
-
+ 
+    /*
     //IMPLEMENTO LAS INTERFACES QUE MANEJAN LOS METODOS DE MI AGREGADO
-   
     async createCliente(cliente: ICreateClienteMethod): Promise<ClienteDomainEntity> {
         if (this.compraService && this.clienteCreadoEventPublisher) {
             const result = await this.compraService.createCliente(cliente);
@@ -98,6 +116,17 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
             'Faltan definir datos',
           );
     }
+    */
+
+    
+    createCliente(cliente: ICreateClienteMethod): Promise<ClienteDomainEntity> {
+       return CreateClienteHelper(cliente as ClienteDomainEntity, this.compraService, this.clienteCreadoEventPublisher)
+    }
+    
+
+
+
+
 
     async createCompra(compra: ICreateCompraMethod): Promise<CompraDomainEntity> {
         if (this.compraService && this.compraCreadaEventPublisher) {
@@ -135,7 +164,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
           );
     }
 
-    async updateCosto(data: IUpdateCostoMethod): Promise<number> {
+    async updateCosto(data: IUpdateCostoMethod): Promise<CursoDomainEntity> {
         if (this.cursoService && this.updateCostoCursoEventPublisher) {
             const result = await this.cursoService.updateCosto(data);
             this.updateCostoCursoEventPublisher.response = result;
@@ -147,7 +176,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
           );
     }
 
-    async updatePhone(data: IUpdatePhoneMethod): Promise<number> {
+    async updatePhone(data: IUpdatePhoneMethod ): Promise<ClienteDomainEntity > {
 
         if (this.clienteService && this.updatePhoneEventPublisher) {
             const result = await this.clienteService.updatePhone(data);
@@ -161,19 +190,30 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
     }
     
 
-    /*
-     async updateClientePhone(data: IUpdateClientPhoneMethod): Promise<number> {
-        throw new Error("Method not implemented.");
+    //METODOS PARA OBTENER LAS ENTIDADES 
+    async obtenerCliente(client: string): Promise<ClienteDomainEntity> {
+      
+      if (this.compraService && this.clienteConseguidoEventPublisher) {
+        const result = await this.compraService.obtenerCliente(client);
+        this.clienteConseguidoEventPublisher.response = result;
+        this.clienteConseguidoEventPublisher.publish();
+        return this.clienteConseguidoEventPublisher.response;
+      }
+      throw new AggregateRootException(
+        'Faltan definir datos',
+      );
     }
 
-    async updateCursoCosto(data: IUpdateCostoCursoPhoneMethod): Promise<CursoDomainEntity> {
-        throw new Error("Method not implemented.");
+    async obtnerCurso(course: string): Promise<CursoDomainEntity> {
+      if (this.compraService && this.cursoConseguidoEventPublisher) {
+        const result = await this.compraService.obtnerCurso(course);
+        this.cursoConseguidoEventPublisher.response = result;
+        this.cursoConseguidoEventPublisher.publish();
+        return this.cursoConseguidoEventPublisher.response;
+      }
+      throw new AggregateRootException(
+        'Faltan definir datos',
+      );
     }
-
-    async updatePorcentajeCupon(data: IUpdatePorcentajeCuponMethod): Promise<number> {
-        throw new Error("Method not implemented.");
-    }
-    */
-
 
 }

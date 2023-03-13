@@ -5,7 +5,7 @@ export abstract class UpdatePorcentajeEventPublisher<Response = number> extends 
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'El porcentaje del cupón fue actualizado!',
+            'web-context.update-porcentaje',
             JSON.stringify({ data: this.response })
         )
     }

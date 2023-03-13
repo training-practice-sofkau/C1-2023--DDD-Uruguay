@@ -2,11 +2,11 @@ import { UuidValueObject } from "../../value-objects/common-value-objects/uuid/u
 import { IClienteDomainEntityInterface } from "./i-cliente.domain-entity.interface";
 import { IPlanDomainEntityInterface } from "./i-plan.domain-entity.interface";
 
-export interface IMembershipDomainEntity {
+export interface IMembershipDomainEntityInterface  {
 
-    idMembership : string | UuidValueObject;
-    clienteMembership : IClienteDomainEntityInterface;
-    planMembership : IPlanDomainEntityInterface;
+    idMembership? : string | UuidValueObject;
+    clienteMembership? : IClienteDomainEntityInterface;
+    planMembership? : IPlanDomainEntityInterface;
     
 
 }

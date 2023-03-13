@@ -6,7 +6,7 @@ export abstract class CompraCreadaEventPublisher<Response = CompraDomainEntity> 
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'Se creo una nueva compra!',
+            'web-context.compra-creada',
             JSON.stringify({ data: this.response })
         )
     }

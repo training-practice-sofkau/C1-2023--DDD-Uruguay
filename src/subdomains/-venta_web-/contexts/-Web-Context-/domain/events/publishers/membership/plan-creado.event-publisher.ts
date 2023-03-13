@@ -5,7 +5,7 @@ export abstract class PlanCreadoEventPublisher<Response = PlanDomainEntity> exte
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'Un nuevo Plan fue creado!',
+            'web-context.plan-creado',
             JSON.stringify({ data: this.response })
         )
     }

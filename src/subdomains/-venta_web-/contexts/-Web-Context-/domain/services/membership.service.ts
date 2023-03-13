@@ -15,6 +15,12 @@ export interface IMembershipService{
     createCliente(cliente : ICreateClienteMethod) : Promise <ClienteDomainEntity>;
     createMembership(membership : ICreateMembershipMethod  ) : Promise<MembershipDomainEntity>;
     createPlan(plan : ICreatePlaneMethod) : Promise<PlanDomainEntity>;
+
+
+     //METODOS PARA OBTENER LAS ENTIDADES ASOCIADAS AL AGREGADO
+     obtenerCliente(client : string) : Promise <ClienteDomainEntity>; //SE LE PASA UN ID?
+     obtenerPlan(plane : string) : Promise <PlanDomainEntity>;
+
     //updateClientePhone(data : IUpdateClientPhoneMethod) : Promise<number>;
     //updateCostoPlan(data : IUpdateCostoPlanMethod) : Promise<number>;
     //updateNombrePlan(data  : IUpdateNombrePlanMethod): Promise<string>;

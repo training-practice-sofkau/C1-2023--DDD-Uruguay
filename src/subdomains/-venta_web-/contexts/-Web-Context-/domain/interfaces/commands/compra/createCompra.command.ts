@@ -5,14 +5,10 @@ import { CursoDomainEntity } from "../../../entities/compra/curso.domain-entity"
 
 export interface ICreateCompraMethod {
 
+    idCompra? : string;
+    idCliente? : string;
+    idCupon? : string;
+    idCurso? : string;
 
-    idCompra : string;
-    newCliente : ClienteDomainEntity;
-    newcupon : CuponDomainEntity;
-    newCurso : CursoDomainEntity;
-
-//****************************************** */
-
-    // newCompra : CompraDomainEntity;
-
+ 
 }
