@@ -10,7 +10,7 @@ import { IsUUID } from '../../../../../../../../libs/validations/is-uuid.validat
 export class WarrantyDomainEntityBase implements IWarrantyDomainEntity {
    
 
-    warrantyID: string | UUIDValueObject;
+    warrantyID?: string | UUIDValueObject;
     startDate?: number | Date | DateValueObject;
     endDate?: number | Date | DateValueObject;
     itemsCovered?: string[] | ItemValueObject[];
