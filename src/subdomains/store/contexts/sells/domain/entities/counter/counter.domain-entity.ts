@@ -1,14 +1,13 @@
 import { IdValueObject } from "../../value-objects";
 import { ICounterDomainEntity } from "../interfaces/counter.domain-entity.interface";
 import { v4 as uuid } from 'uuid';
-import { ProductDomainEntity } from "../product";
-import { PosterDomainEntity } from "../poster";
+import { IProductDomainEntity, IPosterDomainEntity } from "../interfaces";
 
 export class CounterDomainEntity implements ICounterDomainEntity{
     
-    counterId: string | IdValueObject;
-    product: ProductDomainEntity;
-    poster: PosterDomainEntity;
+    counterId?: string | IdValueObject
+    product?: IProductDomainEntity
+    poster?: IPosterDomainEntity
 
     constructor(data?: ICounterDomainEntity) {
         if (data.counterId) this.counterId = data.counterId

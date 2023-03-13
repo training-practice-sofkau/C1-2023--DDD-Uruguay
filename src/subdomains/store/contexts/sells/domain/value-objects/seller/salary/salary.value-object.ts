@@ -8,6 +8,7 @@ export class SalaryValueObject extends ValueObjectBase<number>{
     validateData(): void {
         if (!this.hasErrors()) {
             this.validateSalary()
+            this.validatePositive()
         }
     }
 

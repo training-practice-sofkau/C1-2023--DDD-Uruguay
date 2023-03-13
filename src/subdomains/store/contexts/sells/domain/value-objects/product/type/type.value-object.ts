@@ -1,6 +1,6 @@
 import { ValueObjectBase } from "src/libs";
 
-enum DessertType {
+export enum DessertType {
     Icecream = "Icecream",
     IcecreamSandwich = "Icecream Sandwich",
     FrozzenPizza = "Frozzen Pizza"

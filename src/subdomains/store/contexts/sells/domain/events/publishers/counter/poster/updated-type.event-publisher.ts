@@ -1,12 +1,12 @@
 import { EventPublisherBase } from "src/libs";
-import { CounterDomainEntity } from "../../../entities";
+import { PosterDomainEntity } from "../../../../entities";
 
-export abstract class CounterTurnedOnFreezerEventPublisherBase<
-    Response = boolean
+export abstract class PosterUpdatedTypeEventPublisherBase<
+    Response = PosterDomainEntity
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'store.freezer-turned-on',
+            'store.poster-updated-type',
             JSON.stringify({ data: this.response })
         )
     }

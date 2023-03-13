@@ -7,4 +7,6 @@ export interface ICounterDomainService {
     createProduct(poster: ICounterCreateProductCommand): Promise<ProductDomainEntity>
     turnOffFreezer(counterId: string, turnOff: boolean): Promise<boolean>
     turnOnFreezer(counterId: string, turnOff: boolean): Promise<boolean>
+    getPoster(posterId: string): Promise<PosterDomainEntity>
+    getProduct(productId: string): Promise<ProductDomainEntity>
 }

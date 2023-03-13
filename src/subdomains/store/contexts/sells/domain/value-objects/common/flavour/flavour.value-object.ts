@@ -1,6 +1,6 @@
 import { ValueObjectBase } from "src/libs"
 
-enum Flavour {
+export enum Flavour {
     Vanilla = "Vanilla",
     Chocolate = "Chocolate",
     Strawberry = "Strawberry"

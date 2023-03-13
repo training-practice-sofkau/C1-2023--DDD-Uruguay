@@ -1,14 +1,15 @@
-import { IdValueObject, IProductDomainEntity, IProductDomainService, IProductUpdatedPriceResponse, PriceValueObject } from '../../../../domain';
-import { IProductUpdatePriceCommand } from '../../../../domain';
+import { DateValueObject, IdValueObject, IProductDomainEntity, IProductDomainService, PriceValueObject } from '../../../../domain';
 import { ValueObjectErrorHandler, ValueObjectException } from 'src/libs';
 import { IUseCase } from '../../../../../../../../libs/sofka/interface/use-case.interface';
 import { CounterAggregate } from '../../../../domain/aggregates/counter.aggregate';
-import { ProductUpdatedPriceEventPublisherBase } from '../../../../domain/events/publishers/counter/product/updated-price.event-publisher';
 import { ProductDomainEntity } from '../../../../domain/entities/product/product.domain-entity';
+import { IProductUpdateExpirationCommand } from '../../../../domain/interfaces/commands/counter/product/update-expiration.command';
+import { IProductUpdatedExpirationResponse } from '../../../../domain/interfaces/responses/counter/product/updated-expiration.response';
+import { ProductUpdatedExpirationEventPublisherBase } from '../../../../domain/events/publishers/counter/product/updated-expiration.event-publisher';
 
-export class UpdatePriceProductUseCase<
-    Command extends IProductUpdatePriceCommand = IProductUpdatePriceCommand,
-    Response extends IProductUpdatedPriceResponse = IProductUpdatedPriceResponse>
+export class UpdateExpirationProductUseCase<
+    Command extends IProductUpdateExpirationCommand = IProductUpdateExpirationCommand,
+    Response extends IProductUpdatedExpirationResponse = IProductUpdatedExpirationResponse>
 
     extends ValueObjectErrorHandler
     implements IUseCase<Command, Response>{
@@ -17,12 +18,12 @@ export class UpdatePriceProductUseCase<
 
     constructor(
         private readonly productService: IProductDomainService,
-        private readonly productUpdatedPriceEventPublisherBase: ProductUpdatedPriceEventPublisherBase
+        private readonly productUpdatedExpirationEventPublisherBase: ProductUpdatedExpirationEventPublisherBase
     ) {
         super();
         this.counterAggregateRoot = new CounterAggregate({
             productService,
-            productUpdatedPriceEventPublisherBase
+            productUpdatedExpirationEventPublisherBase
         })
     }
 
@@ -40,23 +41,23 @@ export class UpdatePriceProductUseCase<
 
     private createValueObject(command: Command): IProductDomainEntity {
         const productId = new IdValueObject(command.productId)
-        const price = new PriceValueObject(command.newPrice)
+        const expirationDate = new DateValueObject(command.expirationDate)
 
         return {
             productId,
-            price,
+            expirationDate,
         }
     }
 
     private validateValueObject(valueObject: IProductDomainEntity): void {
-        const { productId, price } = valueObject
+        const { productId, expirationDate } = valueObject
 
         if (productId instanceof IdValueObject && productId.hasErrors()) {
             this.setErrors(productId.getErrors())
         }
 
-        if (price instanceof PriceValueObject && price.hasErrors()) {
-            this.setErrors(price.getErrors())
+        if (expirationDate instanceof DateValueObject && expirationDate.hasErrors()) {
+            this.setErrors(expirationDate.getErrors())
         }
 
         if (this.hasErrors())
@@ -69,17 +70,17 @@ export class UpdatePriceProductUseCase<
     private createEntityPrductUpdatedDomain(valueObject: IProductDomainEntity): ProductDomainEntity {
         const {
             productId,
-            price
+            expirationDate
         } = valueObject
         return new ProductDomainEntity({
             productId: productId,
-            price: price
+            expirationDate: expirationDate
         })
     }
 
     private executeProductUpdatedAggregateRoot(
         entity: ProductDomainEntity,
     ): Promise<ProductDomainEntity | null> {
-        return this.counterAggregateRoot.updateProductPrice(entity as unknown as Command)
+        return this.counterAggregateRoot.updateProductExpiration(entity as unknown as Command)
     }
 }
