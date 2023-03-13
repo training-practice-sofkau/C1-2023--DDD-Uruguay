@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { WarrantyMySqlEntity } from "../entities";
@@ -13,24 +13,86 @@ export class WarrantyRepository implements IRepository<WarrantyMySqlEntity>{
     ){}
 
 
-    findAll(): Promise<WarrantyMySqlEntity[]> {
-        throw new Error("Method not implemented.");
-    }
-    findById(id: string): Promise<WarrantyMySqlEntity> {
-        throw new Error("Method not implemented.");
-    }
-    create(entity: WarrantyMySqlEntity): Promise<WarrantyMySqlEntity> {
-        throw new Error("Method not implemented.");
-    }
-    update(id: string, entity: WarrantyMySqlEntity): Promise<WarrantyMySqlEntity> {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
+
+    /**
+     *  Returns all the entities 
+     *
+     * @return {*}  {Promise<WarrantyMySqlEntity[]>}
+     * @memberof WarrantyRepository
+     */
+    async  findAll(): Promise<WarrantyMySqlEntity[]> {
+        return await this.repository.find()
     }
 
-//TODO: implementar metodos
+    /**
+     * Search in the DB a entity with the given ID
+     * gives an exception if not found
+     *
+     * @param {string} id
+     * @return {*}  {Promise<WarrantyMySqlEntity>}
+     * @memberof WarrantyRepository
+     */
+    async findById(warrantyID: string): Promise<WarrantyMySqlEntity> {
 
-    
+        const result = await this.repository.findOneBy({ warrantyID, deletedAt: undefined });
+
+        if (!result) throw new BadRequestException(`Warranty with id: ${warrantyID} not found`);
+
+        return result;
+    }
+
+    /**
+     * Registers a new entity
+     *
+     * @param {WarrantyMySqlEntity} entity
+     * @return {*}  {Promise<WarrantyMySqlEntity>}
+     * @memberof WarrantyRepository
+     */
+    async  create(entity: WarrantyMySqlEntity): Promise<WarrantyMySqlEntity> {
+        return await this.repository.save(entity);
+    }
+
+
+    /**
+     * Updates the information of the entity with the given ID
+     * returns and exception if not found
+     *
+     * @param {string} id
+     * @param {WarrantyMySqlEntity} entity
+     * @return {*}  {Promise<WarrantyMySqlEntity>}
+     * @memberof WarrantyRepository
+     */
+    async update(warrantyID: string, entity: WarrantyMySqlEntity): Promise<WarrantyMySqlEntity> {
+        let entityFound = await this.findById(warrantyID);
+
+        if (!entityFound) throw new BadRequestException(`Warranty with id: ${warrantyID} not found`);
+
+        entity.warrantyID = warrantyID; //ensures the ID is the same as the original
+
+        entityFound = { ...entityFound, ...entity };
+
+        this.repository.save(entityFound);
+
+        return entityFound;
+    }
+
+    /**
+     * Soft deletes the entity with the given ID
+     * is not found returns an exception
+     *
+     * @param {string} id
+     * @return {*}  {Promise<boolean>}
+     * @memberof WarrantyRepository
+     */
+    async  delete(warrantyID: string): Promise<boolean> {
+        
+        const result = await this.findById(warrantyID);
+
+        if (!result) throw new BadRequestException(`Warranty with id: ${warrantyID} not found`);
+
+        result.deletedAt = Date.now();
+
+        return true;
+    }
     
 }
