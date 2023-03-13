@@ -6,15 +6,15 @@ import { RepairsDomainEntityBase } from '../../../../../domain/entities/support-
 export class RepairsMySqlEntity extends RepairsDomainEntityBase{
 
     @PrimaryGeneratedColumn()
-    repairID: string;
+    repairID?: string | UUIDValueObject;
 
     @Column()
-    repairDate?: number;
+    repairDate?: number | Date | DateValueObject;
 
     @Column()
-    repairs: string[];
+    repairs?: string[] | RepairValueObject[];
 
     @Column()
-    workFinished?: boolean;
+    workFinished?: boolean | TrueFalseValueObject;
 
 }

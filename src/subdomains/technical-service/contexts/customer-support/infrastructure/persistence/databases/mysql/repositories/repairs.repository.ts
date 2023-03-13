@@ -65,7 +65,9 @@ export class RepairsRepository implements IRepository<RepairsMySqlEntity>{
      * @return {*}  {Promise<RepairsMySqlEntity>}
      * @memberof RepairsRepository
      */
-    async update(repairID: string, entity: RepairsMySqlEntity): Promise<RepairsMySqlEntity> {
+    async update(entity: RepairsMySqlEntity): Promise<RepairsMySqlEntity> {
+        
+        const repairID = entity.repairID as string;
         
         let entityFound = await this.findById(repairID);
 

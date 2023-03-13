@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { RepairsDomainEntityBase } from 'src/subdomains/technical-service/contexts/customer-support/domain/entities/support-ticket';
+import { RepairsDomainEntityBase } from '../../../../../domain/entities/support-ticket';
 import { IRepairsDomainService } from '../../../../../domain/services';
 import { RepairsRepository } from '../repositories/repairs.repository';
 
@@ -10,18 +10,34 @@ export class RepairsMySqlService implements IRepairsDomainService{
         private readonly repairsRepository: RepairsRepository
     ){}
 
+    /**
+     * Adds new Repair details Entity to DB
+     *
+     * @param {RepairsDomainEntityBase} repairData
+     * @return {*}  {Promise<boolean>}
+     * @memberof RepairsMySqlService
+     */
+    async AddRepair(repairData: RepairsDomainEntityBase): Promise<boolean> {
 
-    
-    AddRepair(repairData: RepairsDomainEntityBase): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        if( this.repairsRepository.create(repairData)) return await true;
+
+        return false;
     }
-    ChangeWorkStatus(repairData: RepairsDomainEntityBase): Promise<boolean> {
-        throw new Error('Method not implemented.');
+
+    /**
+     * Changes the Work status of Repair entity
+     *
+     * @param {RepairsDomainEntityBase} repairData
+     * @return {*}  {Promise<boolean>}
+     * @memberof RepairsMySqlService
+     */
+    async ChangeWorkStatus(repairData: RepairsDomainEntityBase): Promise<boolean> {
+
+        if( this.repairsRepository.create(repairData)) return await true;
+
+        return false;
     }
 
-
-
-//TODO: implementar metodos
-    
+   
     
 }
