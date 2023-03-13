@@ -72,21 +72,21 @@ export class OrderAggregate implements IOrderDomainService {
         return this.getOrderEventPublisherBase.response[0];
     }
 
-    async addBenefited(orderId: string): Promise<BenefitedDomainEntityBase> {
+    async addBenefited(benefited: BenefitedDomainEntityBase): Promise<BenefitedDomainEntityBase> {
         if (!this.orderBenefitedAddedEventPublisherBase)
             throw new AggregateRootException('OrderBenefitedAddedEventPublisherBase is not defined')
 
         return this.orderBenefitedAddedEventPublisherBase.response[0];
     }
 
-    async addKit(orderId: string): Promise<KitDomainEntityBase> {
+    async addKit(kit: KitDomainEntityBase): Promise<KitDomainEntityBase> {
         if (!this.orderKitAddedEventPublisherBase)
             throw new AggregateRootException('OrderKitAddedEventPublisherBase is not defined')
 
         return this.orderKitAddedEventPublisherBase.response[0];
     }
 
-    async addEmployed(orderId: string): Promise<EmployedDomainEntityBase> {
+    async addEmployed(employed: EmployedDomainEntityBase): Promise<EmployedDomainEntityBase> {
         if (!this.orderEmployedAddedEventPublisherBase)
             throw new AggregateRootException('OrderEmployedAddedEventPublisherBase is not defined')
 

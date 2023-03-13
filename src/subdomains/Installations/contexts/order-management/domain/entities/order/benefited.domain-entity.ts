@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { IBenefitedDomainEntity } from "../interfaces";
 import { BenefitedAddressValueObject, BenefitedIdValueObject, BenefitedNameValueObject, BenefitedPhoneValueObject, BenefitedCompanyIdValueObject } from '../../value-objects/order';
-import { CompanyIdValueObject } from '../../value-objects/invoice';
 
 export class BenefitedDomainEntityBase implements IBenefitedDomainEntity {
 
@@ -10,7 +9,7 @@ export class BenefitedDomainEntityBase implements IBenefitedDomainEntity {
     name?: string | BenefitedNameValueObject;
     phone?: string | BenefitedPhoneValueObject;
     address?: string | BenefitedAddressValueObject;
-    companyId?: string | BenefitedCompanyIdValueObject | CompanyIdValueObject;
+    companyId?: string | BenefitedCompanyIdValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

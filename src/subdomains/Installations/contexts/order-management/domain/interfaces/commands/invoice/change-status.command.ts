@@ -1,3 +1,3 @@
-export interface IInvoiceChangeStatus {
+export interface IInvoiceChangeStatusCommand {
     invoiceId: string;
 }

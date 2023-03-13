@@ -6,7 +6,7 @@ export interface IBenefitedDomainEntity {
     name?: string | BenefitedNameValueObject;
     phone?: string | BenefitedPhoneValueObject;
     address?: string | BenefitedAddressValueObject;
-    companyId?: string | BenefitedCompanyIdValueObject | CompanyIdValueObject;
+    companyId?: string | BenefitedCompanyIdValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

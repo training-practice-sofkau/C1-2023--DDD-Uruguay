@@ -7,7 +7,7 @@ export abstract class OrderKitAddedEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.order.kit_added',
+            'order_management.order.kit_added',
             JSON.stringify({ data: this.response })
         )
     }

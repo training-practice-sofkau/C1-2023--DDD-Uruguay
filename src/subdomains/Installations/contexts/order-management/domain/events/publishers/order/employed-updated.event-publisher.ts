@@ -7,7 +7,7 @@ export abstract class OrderEmployedUpdatedEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.order.employed_updated',
+            'order_management.order.employed_updated',
             JSON.stringify({ data: this.response })
         )
     }

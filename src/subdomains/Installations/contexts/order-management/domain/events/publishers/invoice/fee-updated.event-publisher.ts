@@ -7,7 +7,7 @@ export abstract class InvoiceFeeUpdatedEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.invoice.fee_updated',
+            'order_management.invoice.fee_updated',
             JSON.stringify({ data: this.response })
         )
     }

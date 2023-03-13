@@ -4,10 +4,10 @@ import { BenefitedDomainEntityBase, KitDomainEntityBase, EmployedDomainEntityBas
 export interface IOrderDomainService<T extends OrderDomainEntityBase = OrderDomainEntityBase> {
 
     createOrder(order: T): Promise<T>;
-    getOrder(orderId: string): Promise<T>;
-    addBenefited(orderId: string): Promise<BenefitedDomainEntityBase>;
-    addKit(orderId: string): Promise<KitDomainEntityBase>;
-    addEmployed(orderId: string): Promise<EmployedDomainEntityBase>;
+    getOrder(orderId: string): Promise<OrderDomainEntityBase>;
+    addBenefited(benefited: BenefitedDomainEntityBase): Promise<BenefitedDomainEntityBase>;
+    addKit(kit: KitDomainEntityBase): Promise<KitDomainEntityBase>;
+    addEmployed(employed: EmployedDomainEntityBase): Promise<EmployedDomainEntityBase>;
     updateBenefited(orderId: string, newBenefited: BenefitedDomainEntityBase): Promise<BenefitedDomainEntityBase>;
     updateKit(orderId: string, newKit: KitDomainEntityBase): Promise<KitDomainEntityBase>;
     updateEmployed(orderId: string, newEmployed: EmployedDomainEntityBase): Promise<EmployedDomainEntityBase>;

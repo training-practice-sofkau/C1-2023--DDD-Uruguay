@@ -4,6 +4,7 @@ import { CompanyDomainEntityBase, FeeDomainEntityBase } from '../entities/invoic
 import { RegisteredInvoiceEventPublisherBase, GetInvoiceEventPublisherBase } from '../events/publishers';
 import { InvoiceCompanyAddedEventPublisherBase, InvoiceCompanyUpdatedEventPublisherBase, InvoiceFeeAddedEventPublisherBase, InvoiceFeeUpdatedEventPublisherBase, InvoiceStatusChangedEventPublisherBase } from '../events/publishers/invoice';
 import { IInvoiceDomainService } from '../services';
+import { CompanyBankAccountValueObject, CompanyNameValueObject, FeeChargeValueObject, FeeTaxValueObject } from '../value-objects';
 import { CreateInvoice } from './helpers';
 
 export class InvoiceAggregate implements IInvoiceDomainService {
@@ -65,35 +66,50 @@ export class InvoiceAggregate implements IInvoiceDomainService {
         return this.registeredInvoiceEventPublisherBase.response[0];
     }
 
-    async addCompany(invoiceId: string): Promise<CompanyDomainEntityBase> {
+    async addCompany(company: CompanyDomainEntityBase): Promise<CompanyDomainEntityBase> {
         if (!this.invoiceCompanyAddedEventPublisherBase)
             throw new AggregateRootException('InvoiceCompanyAddedEventPublisherBase is not defined')
 
         return this.invoiceCompanyAddedEventPublisherBase.response[0];
     }
     
-    async addFee(invoiceId: string): Promise<FeeDomainEntityBase> {
+    async addFee(fee: FeeDomainEntityBase): Promise<FeeDomainEntityBase> {
         if (!this.invoiceFeeAddedEventPublisherBase)
             throw new AggregateRootException('InvoiceFeeAddedEventPublisherBase is not defined')
 
         return this.invoiceFeeAddedEventPublisherBase.response[0];
     }
 
-    async updateCompany(invoiceId: string, newCompany: CompanyDomainEntityBase): Promise<CompanyDomainEntityBase> {
+
+    async updateCompanyName(domain: InvoiceDomainEntityBase, newCompanyName: CompanyNameValueObject): Promise<CompanyDomainEntityBase> {
         if (!this.invoiceCompanyUpdatedEventPublisherBase)
-            throw new AggregateRootException('InvoiceCompanyUpdatedEventPublisherBase is not defined')
+            throw new AggregateRootException('InvoiceCompanyNameUpdatedEventPublisherBase is not defined')
 
         return this.invoiceCompanyUpdatedEventPublisherBase.response[0];
     }
 
-    async updateFee(invoiceId: string, newFee: FeeDomainEntityBase): Promise<FeeDomainEntityBase> {
+    async updateCompanyBankAccount(domain: InvoiceDomainEntityBase, newCompanyBankAccount: CompanyBankAccountValueObject): Promise<CompanyDomainEntityBase> {
+        if (!this.invoiceCompanyUpdatedEventPublisherBase)
+            throw new AggregateRootException('InvoiceCompanyBankAccountUpdatedEventPublisherBase is not defined')
+
+        return this.invoiceCompanyUpdatedEventPublisherBase.response[0];
+    }
+
+    async updateFeeCharge(domain: InvoiceDomainEntityBase, newFee: FeeChargeValueObject): Promise<FeeDomainEntityBase> {
         if (!this.invoiceFeeUpdatedEventPublisherBase)
-            throw new AggregateRootException('InvoiceFeeUpdatedEventPublisherBase is not defined')
+            throw new AggregateRootException('InvoiceFeeChargeUpdatedEventPublisherBase is not defined')
+
+        return this.invoiceFeeUpdatedEventPublisherBase.response[0];
+    }
+
+    async updateFeeTax(domain: InvoiceDomainEntityBase, newFee: FeeTaxValueObject): Promise<FeeDomainEntityBase> {
+        if (!this.invoiceFeeUpdatedEventPublisherBase)
+            throw new AggregateRootException('InvoiceFeeTaxUpdatedEventPublisherBase is not defined')
 
         return this.invoiceFeeUpdatedEventPublisherBase.response[0];
     }
     
-    async changeStatus(invoiceId: string): Promise<boolean> {
+    async changeStatus(domain: InvoiceDomainEntityBase): Promise<boolean> {
         if (!this.invoiceStatusChangedEventPublisherBase)
             throw new AggregateRootException('InvoiceStatusChangedEventPublisherBase is not defined')
 
