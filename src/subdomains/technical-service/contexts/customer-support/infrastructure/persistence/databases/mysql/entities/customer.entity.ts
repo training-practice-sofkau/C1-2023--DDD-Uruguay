@@ -19,7 +19,7 @@ export class CustomerMySqlEntity extends CustomerDomainEntityBase {
     @Column()
     createdAt?: number;
 
-    @Column()
+    @Column()    
     deletedAt?: number;
 
     @Column()

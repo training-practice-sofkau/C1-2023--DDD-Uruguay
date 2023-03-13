@@ -13,14 +13,17 @@ export class CustomerRepository
         private readonly repository: Repository<CustomerMySqlEntity>
     ) { }
 
+
+    //TODO: chequear si el uso de withDelete esta bien ( ? )
+    
     /**
-     * Returns all the customer entities 
+     * Returns all the entities 
      *
      * @return {*}  {Promise<CustomerMySqlEntity[]>}
      * @memberof CustomerRepository
      */
     async findAll(): Promise<CustomerMySqlEntity[]> {
-        return await this.repository.find()
+        return await this.repository.find({withDeleted: false})
     }
 
 
