@@ -32,23 +32,9 @@ export class CreateClienteUseCase<
         this.compraAggregate = new CompraAggregate({ compraService, clienteCreadoEventPublisher })
     }
 
-    /*
-     ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
-    "await" PARA ESPERAR A QUE SE RESUELVA LA PROMESA
-    ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
-    */
-    async execute(command?: Command): Promise<Response> {
-        const data = await this.executeCompraAggregate(command)
-        return { success: data ? true : false, data } as unknown as Response
-    }
 
-    //METODO PARA EJECUTAR EL METODO DE MI AGREGADO
-    private executeCompraAggregate(cliente: IClienteDomainEntityInterface): Promise<ClienteDomainEntity | null> {
-        return this.compraAggregate.createCliente(cliente as ICreateClienteMethod)
-    }
-
-    //TRANSFORMO LOS STRING DE LA INTERFAZ COMMAND Y CREO LOS OBJETOS DE VALOR PARA PODER VALIDARLOS 
-    private createValueObject(command: Command): IClienteDomainEntityInterface {
+     //TRANSFORMO LOS STRING DE LA INTERFAZ COMMAND Y CREO LOS OBJETOS DE VALOR PARA PODER VALIDARLOS 
+     private createValueObject(command: Command): IClienteDomainEntityInterface {
 
         const nombreCliente = new FullnameValueObject(command.nombreCliente);
         const phoneCliente = new PhoneValueObject(command.phoneCliente);
@@ -57,8 +43,8 @@ export class CreateClienteUseCase<
         return { nombreCliente, phoneCliente, emailCliente }
     }
 
-    //VALIDO LOS OBJETOS DE VALOR, SI HAY ERRORES LOS SETEO Y LOS MUESTRO
-    private validateValueObject(valueObject: IClienteDomainEntityInterface): void {
+     //VALIDO LOS OBJETOS DE VALOR, SI HAY ERRORES LOS SETEO Y LOS MUESTRO
+     private validateValueObject(valueObject: IClienteDomainEntityInterface): void {
         const { nombreCliente, phoneCliente, emailCliente } = valueObject
 
         if (nombreCliente instanceof FullnameValueObject && nombreCliente.hasErrors())
@@ -76,10 +62,17 @@ export class CreateClienteUseCase<
             );
     }
 
+    //CREO LA ENTIDAD CLIENTE A PARTIR DE LOS OBJETOS DE VALOR VALIDADOS
     private createEntity(valueObject: IClienteDomainEntityInterface): ClienteDomainEntity {
         const { nombreCliente, phoneCliente, emailCliente } = valueObject
 
         return new ClienteDomainEntity({ nombreCliente: nombreCliente, phoneCliente: phoneCliente, emailCliente: emailCliente})
+    }
+
+
+    // LUEGO DE CREADA LA ENTIDAD LE PASO EL CLIENTE A EL METODO "CREATECLIENTE" DE MI AGREGADO
+    private executeCompraAggregate(cliente: IClienteDomainEntityInterface): Promise<ClienteDomainEntity | null> {
+        return this.compraAggregate.createCliente(cliente as ICreateClienteMethod)
     }
 
 
@@ -92,6 +85,15 @@ export class CreateClienteUseCase<
         return this.executeCompraAggregate(cliente);
     }
 
+    /*
+     ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
+    "await" PARA ESPERAR A QUE SE RESUELVA LA PROMESA
+    ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
+    */
+    async execute(command?: Command): Promise<Response> {
+        const data = await this.executeCompraAggregate(command)
+        return { success: data ? true : false, data } as unknown as Response
+    }
 
 
 }

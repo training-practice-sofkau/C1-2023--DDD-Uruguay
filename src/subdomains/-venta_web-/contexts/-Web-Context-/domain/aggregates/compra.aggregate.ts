@@ -23,6 +23,8 @@ import { AggregateRootException } from "src/libs/sofka/exceptions/aggregate-root
 import { ClienteConseguidoEventPublisher } from "../events/publishers/compra/cliente/cliente-conseguido.event-publisher";
 import { CuponConseguidoEventPublisher } from "../events/publishers/compra/cupon/cupon-conseguido.event-publisher";
 import { CursoConseguidoEventPublisher } from "../events/publishers/compra/curso/curso-conseguido.event-publisher";
+import { CreateClienteHelper } from "./helpers/create-cliente.helper";
+import { EventPublisherBase } from "src/libs";
 
 
 export class CompraAggregate implements IClienteService, ICompraService, ICuponService, ICursoService {
@@ -52,6 +54,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         compraService,
         cuponService,
         cursoService,
+        
 
         updatePhoneEventPublisher,
         updatePorcentajeEventPublisher,
@@ -68,6 +71,8 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         compraService?: ICompraService;
         cuponService?: ICuponService;
         cursoService?: ICursoService;
+
+       
 
         updatePhoneEventPublisher?: UpdatePhoneEventPublisher;
         updatePorcentajeEventPublisher?: UpdatePorcentajeEventPublisher;
@@ -94,11 +99,12 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         this.clienteConseguidoEventPublisher = clienteConseguidoEventPublisher;
         this.cursoConseguidoEventPublisher = cursoConseguidoEventPublisher;
 
+    
+
     }
  
-
+    /*
     //IMPLEMENTO LAS INTERFACES QUE MANEJAN LOS METODOS DE MI AGREGADO
-   
     async createCliente(cliente: ICreateClienteMethod): Promise<ClienteDomainEntity> {
         if (this.compraService && this.clienteCreadoEventPublisher) {
             const result = await this.compraService.createCliente(cliente);
@@ -110,6 +116,17 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
             'Faltan definir datos',
           );
     }
+    */
+
+    
+    createCliente(cliente: ICreateClienteMethod): Promise<ClienteDomainEntity> {
+       return CreateClienteHelper(cliente as ClienteDomainEntity, this.compraService, this.clienteCreadoEventPublisher)
+    }
+    
+
+
+
+
 
     async createCompra(compra: ICreateCompraMethod): Promise<CompraDomainEntity> {
         if (this.compraService && this.compraCreadaEventPublisher) {
@@ -185,7 +202,6 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
       throw new AggregateRootException(
         'Faltan definir datos',
       );
-
     }
 
     async obtnerCurso(course: string): Promise<CursoDomainEntity> {
@@ -198,7 +214,6 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
       throw new AggregateRootException(
         'Faltan definir datos',
       );
-
     }
 
 }
