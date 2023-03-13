@@ -1,35 +1,102 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CustomerMySqlEntity } from "../entities/customer.entity";
 import { IRepository } from './base/repository.base';
 
 @Injectable()
-export class CustomerRepository 
+export class CustomerRepository
     implements IRepository<CustomerMySqlEntity>{
 
     constructor(
         @InjectRepository(CustomerMySqlEntity)
         private readonly repository: Repository<CustomerMySqlEntity>
-    ){}
+    ) { }
 
-//TODO: implementar metodos
-
+    /**
+     * Returns all the customer entities 
+     *
+     * @return {*}  {Promise<CustomerMySqlEntity[]>}
+     * @memberof CustomerRepository
+     */
     async findAll(): Promise<CustomerMySqlEntity[]> {
         return await this.repository.find()
     }
 
-    findById(id: string): Promise<CustomerMySqlEntity> {
-        throw new Error("Method not implemented.");
+
+    /**
+     * Search in the DB a Customer with the given ID
+     * gives an exception if not found
+     *
+     * @param {string} customerID
+     * @return {*}  {Promise<CustomerMySqlEntity>}
+     * @memberof CustomerRepository
+     */
+    async findById(customerID: string): Promise<CustomerMySqlEntity> {
+
+        const result = await this.repository.findOneBy({ customerID , deletedAt: undefined });
+
+        if (!result) throw new BadRequestException(`Customer with id: ${customerID} not found`);
+
+        return result;
+
     }
-    create(entity: CustomerMySqlEntity): Promise<CustomerMySqlEntity> {
-        throw new Error("Method not implemented.");
+
+    /**
+     * Registers a new entity
+     *
+     * @param {CustomerMySqlEntity} entity
+     * @return {*}  {Promise<CustomerMySqlEntity>}
+     * @memberof CustomerRepository
+     */
+    async create(entity: CustomerMySqlEntity): Promise<CustomerMySqlEntity> {
+        return await this.repository.save(entity);
     }
-    update(id: string, entity: CustomerMySqlEntity): Promise<CustomerMySqlEntity> {
-        throw new Error("Method not implemented.");
+
+    
+    /**
+     * Updates the information of the Customer Entity with the given ID
+     * returns and exception if not found
+     *
+     * @param {string} id
+     * @param {CustomerMySqlEntity} entity
+     * @return {*}  {Promise<CustomerMySqlEntity>}
+     * @memberof CustomerRepository
+     */
+    async update(customerID: string, entity: CustomerMySqlEntity): Promise<CustomerMySqlEntity> {
+
+        let entityFound = await this.findById(customerID);
+
+        if (!entityFound) throw new BadRequestException(`Customer with id: ${customerID} not found`);
+        
+        entity.customerID = customerID; //ensures the ID is the same as the original
+
+        entityFound = {...entityFound, ...entity};
+
+        this.repository.save(entityFound);
+
+        return entityFound;
     }
-    delete(id: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
+
+
+
+    /**
+     * Soft deletes the customer Entity with the given ID
+     * is not found returns an exception
+     *
+     * @param {string} customerID
+     * @return {*}  {Promise<boolean>}
+     * @memberof CustomerRepository
+     */
+    async delete(customerID: string): Promise<boolean> {
+        
+        const result = await this.findById(customerID);
+
+        if (!result) throw new BadRequestException(`Customer with id: ${customerID} not found`);
+
+        result.deletedAt = Date.now();
+
+        return true;
     }
 
 }
