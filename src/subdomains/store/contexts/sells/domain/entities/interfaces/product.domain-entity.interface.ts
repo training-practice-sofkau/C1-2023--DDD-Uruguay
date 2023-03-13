@@ -2,9 +2,9 @@ import { DateValueObject, DessertType, Flavour, FlavourValueObject, IdValueObjec
 
 export interface IProductDomainEntity {
     productId?: string | IdValueObject
-    type: DessertType | ProductTypeValueObject
-    flavour: Flavour | FlavourValueObject
-    price: number | PriceValueObject
-    stock: number | StockValueObject
-    expirationDate: Date | DateValueObject
+    type?: DessertType | ProductTypeValueObject
+    flavour?: Flavour | FlavourValueObject
+    price?: number | PriceValueObject
+    stock?: number | StockValueObject
+    expirationDate?: Date | DateValueObject
 }

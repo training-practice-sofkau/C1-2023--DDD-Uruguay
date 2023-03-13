@@ -4,11 +4,11 @@ import { v4 as uuid } from 'uuid';
 
 export class ProductDomainEntity implements IProductDomainEntity {
     productId?: string | IdValueObject;
-    type: DessertType | ProductTypeValueObject;
-    flavour: Flavour | FlavourValueObject;
-    price: number | PriceValueObject;
-    stock: number | StockValueObject;
-    expirationDate: Date | DateValueObject;
+    type?: DessertType | ProductTypeValueObject;
+    flavour?: Flavour | FlavourValueObject;
+    price?: number | PriceValueObject;
+    stock?: number | StockValueObject;
+    expirationDate?: Date | DateValueObject;
 
     constructor(data?: IProductDomainEntity) {
         if (data.productId) this.productId = data.productId

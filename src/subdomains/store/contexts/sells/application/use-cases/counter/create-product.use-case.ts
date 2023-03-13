@@ -31,7 +31,7 @@ export class CreateProductUseCase<
         const valueObject = this.createValueObject(command)
         this.validateValueObject(valueObject)
         const product = this.createEntityPrductDomain(valueObject)
-        return this.executeProductAggregateRoot(valueObject)
+        return this.executeProductAggregateRoot(product)
     }
 
     createValueObject(command: Command): IProductDomainEntity {
@@ -75,7 +75,7 @@ export class CreateProductUseCase<
         if (expirationDate instanceof DateValueObject && expirationDate.hasErrors())
             this.setErrors(expirationDate.getErrors())
 
-        if (this.hasErrors() === true)
+        if (this.hasErrors())
             throw new ValueObjectException(
                 'Hay errres en validateValueObject',
                 this.getErrors()

@@ -1,4 +1,6 @@
 export * from './counter-created.response';
+export * from './getted-poster.response';
+export * from './getted-product.response';
 export * from './poster';
 export * from './poster-created.response';
 export * from './product';

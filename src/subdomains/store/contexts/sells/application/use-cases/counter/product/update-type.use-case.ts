@@ -1,14 +1,15 @@
-import { IdValueObject, IProductDomainEntity, IProductDomainService, IProductUpdatedPriceResponse, PriceValueObject } from '../../../../domain';
-import { IProductUpdatePriceCommand } from '../../../../domain';
+import { IdValueObject, IProductDomainEntity, IProductDomainService, ProductTypeValueObject } from '../../../../domain';
 import { ValueObjectErrorHandler, ValueObjectException } from 'src/libs';
 import { IUseCase } from '../../../../../../../../libs/sofka/interface/use-case.interface';
 import { CounterAggregate } from '../../../../domain/aggregates/counter.aggregate';
-import { ProductUpdatedPriceEventPublisherBase } from '../../../../domain/events/publishers/counter/product/updated-price.event-publisher';
 import { ProductDomainEntity } from '../../../../domain/entities/product/product.domain-entity';
+import { IProductUpdateTypeCommand } from '../../../../domain/interfaces/commands/counter/product/update-type.command';
+import { IProductUpdatedTypeResponse } from '../../../../domain/interfaces/responses/counter/product/updated-type.response';
+import { ProductUpdatedTypeEventPublisherBase } from '../../../../domain/events/publishers/counter/product/updated-type.event-publisher';
 
-export class UpdatePriceProductUseCase<
-    Command extends IProductUpdatePriceCommand = IProductUpdatePriceCommand,
-    Response extends IProductUpdatedPriceResponse = IProductUpdatedPriceResponse>
+export class UpdateTypeProductUseCase<
+    Command extends IProductUpdateTypeCommand = IProductUpdateTypeCommand,
+    Response extends IProductUpdatedTypeResponse = IProductUpdatedTypeResponse>
 
     extends ValueObjectErrorHandler
     implements IUseCase<Command, Response>{
@@ -17,12 +18,12 @@ export class UpdatePriceProductUseCase<
 
     constructor(
         private readonly productService: IProductDomainService,
-        private readonly productUpdatedPriceEventPublisherBase: ProductUpdatedPriceEventPublisherBase
+        private readonly productUpdatedTypeEventPublisherBase: ProductUpdatedTypeEventPublisherBase
     ) {
         super();
         this.counterAggregateRoot = new CounterAggregate({
             productService,
-            productUpdatedPriceEventPublisherBase
+            productUpdatedTypeEventPublisherBase
         })
     }
 
@@ -40,23 +41,23 @@ export class UpdatePriceProductUseCase<
 
     private createValueObject(command: Command): IProductDomainEntity {
         const productId = new IdValueObject(command.productId)
-        const price = new PriceValueObject(command.newPrice)
+        const type = new ProductTypeValueObject(command.type)
 
         return {
             productId,
-            price,
+            type,
         }
     }
 
     private validateValueObject(valueObject: IProductDomainEntity): void {
-        const { productId, price } = valueObject
+        const { productId, type } = valueObject
 
         if (productId instanceof IdValueObject && productId.hasErrors()) {
             this.setErrors(productId.getErrors())
         }
 
-        if (price instanceof PriceValueObject && price.hasErrors()) {
-            this.setErrors(price.getErrors())
+        if (type instanceof ProductTypeValueObject && type.hasErrors()) {
+            this.setErrors(type.getErrors())
         }
 
         if (this.hasErrors())
@@ -69,17 +70,17 @@ export class UpdatePriceProductUseCase<
     private createEntityPrductUpdatedDomain(valueObject: IProductDomainEntity): ProductDomainEntity {
         const {
             productId,
-            price
+            type
         } = valueObject
         return new ProductDomainEntity({
             productId: productId,
-            price: price
+            type: type
         })
     }
 
     private executeProductUpdatedAggregateRoot(
         entity: ProductDomainEntity,
     ): Promise<ProductDomainEntity | null> {
-        return this.counterAggregateRoot.updateProductPrice(entity as unknown as Command)
+        return this.counterAggregateRoot.updateProductType(entity as unknown as Command)
     }
 }

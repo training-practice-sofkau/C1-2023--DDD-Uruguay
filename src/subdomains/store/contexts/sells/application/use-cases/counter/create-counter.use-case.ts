@@ -1,10 +1,14 @@
 import { IUseCase, ValueObjectErrorHandler } from "src/libs";
-import { CounterAggregate, ICounterCounterCreatedResponse, ICounterCreateCounterCommand, IdValueObject } from "../../../domain";
+import { CounterAggregate, IClientDomainEntity, ICounterCounterCreatedResponse, ICounterCreateCounterCommand, IdValueObject } from "../../../domain";
 import { ICounterDomainService } from '../../../domain/services/counter.domain-service';
 import { CounterCreatedProductEventPublisherBase } from '../../../domain/events/publishers/counter/created-product.event-publisher';
 import { CounterDomainEntity } from '../../../domain/entities/counter/counter.domain-entity';
 import { ICounterDomainEntity } from '../../../domain/entities/interfaces/counter.domain-entity.interface';
 import { CreateProductUseCase } from "./create-product.use-case";
+import { GetProductUseCase } from "./get-product.use-case";
+import { GetPosterUseCase } from "./get-poster.use-case";
+import { GettedPosterEventPublisherBase } from '../../../domain/events/publishers/counter/getted-poster.event-publisher';
+import { GettedProductEventPublisherBase } from '../../../domain/events/publishers/counter/getted-product.event-publisher';
 
 
 export class CreateCounterUseCase<
@@ -17,10 +21,14 @@ export class CreateCounterUseCase<
 
     private readonly counterAggregateRoot: CounterAggregate;
     private readonly createProductUseCase: CreateProductUseCase
+    private readonly getProduct: GetProductUseCase
+    private readonly getPoster: GetPosterUseCase
 
     constructor(
         private readonly counterService: ICounterDomainService,
         private readonly counterCreatedProductEventPublisherBase: CounterCreatedProductEventPublisherBase,
+        private readonly gettedPosterEventPublisherBase: GettedPosterEventPublisherBase,
+        private readonly gettedProductEventPublisherBase: GettedProductEventPublisherBase
     ) {
         super();
         this.counterAggregateRoot = new CounterAggregate({
@@ -36,64 +44,19 @@ export class CreateCounterUseCase<
     }
 
     private async executeCommand(command: Command): Promise<CounterDomainEntity | null> {
-        const ValueObject = this.createValueObject(command);
-        this.validateValueObject(ValueObject);
-        const entity = this.createEntityClientDomain(ValueObject);
-        return this.exectueOrderAggregateRoot(entity)
+        const entity = this.createEntityCounterDomain(command)
+        return this.exectueOrderAggregateRoot(entity as CounterDomainEntity)
     }
 
-    private createValueObject(command: Command): ICounterDomainEntity {
-        const counterId = new IdValueObject(command.counterId);
-        const product = metodoGet.excecute({productId: command.product});
-        const poster = new PhoneObjectValue(command.poster);
+    private async createEntityCounterDomain(command: Command): Promise<CounterDomainEntity> {
 
-        return {
-            counterId,
-            product,
-            poster
-        }
+        const _product = this.getProduct.execute({ productId: command.productId })
+        const _poster = this.getPoster.execute({ posterId: command.posterId })
+
+        return new CounterDomainEntity({ product: (await _product).data.product, poster: (await _poster).data.poster })
     }
 
-    private validateValueObject(
-        valueObject: IClientDomainEntity
-    ): void {
-        const {
-            fullName,
-            phone
-        } = valueObject
-
-        if (fullName instanceof FullNameValueObject && fullName.hasErrors())
-            this.setErrors(fullName.getErrors());
-
-        if (phone instanceof PhoneObjectValue && phone.hasErrors())
-            this.setErrors(phone.getErrors());
-
-        if (this.hasErrors() === true)
-            throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado por AddClientUseCase',
-                this.getErrors(),
-            );
-
-    }
-
-    private createEntityClientDomain(
-        valueObject: IClientDomainEntity
-    ): ClientDomainEntitybase {
-
-        const {
-            fullName,
-            phone
-        } = valueObject
-
-        return new ClientDomainEntitybase({
-            fullName: fullName.valueOf(),
-            phone: phone.valueOf()
-        })
-    }
-
-    private exectueOrderAggregateRoot(
-        entity: ClientDomainEntitybase,
-    ): Promise<ClientDomainEntitybase | null> {
-        return this.orderAggregateRoot.registerClient(entity)
+    private exectueOrderAggregateRoot(entity: ICounterDomainEntity,): Promise<CounterDomainEntity | null> {
+        return this.counterAggregateRoot.createCounter(entity as ICounterCreateCounterCommand)
     }
 }

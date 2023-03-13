@@ -46,7 +46,7 @@ export class CreatePosterUseCase<
         const valueObject = this.createValueObject(command)
         this.validateValueObject(valueObject)
         const poster = this.createEntityPosterDomain(valueObject)
-        return this.executePosterAggregateRoot(valueObject)
+        return this.executePosterAggregateRoot(poster)
     }
 
     createValueObject(command: Command): IPosterDomainEntity {
