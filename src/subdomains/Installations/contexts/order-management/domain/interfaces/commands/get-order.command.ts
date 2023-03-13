@@ -1,3 +1,3 @@
 export interface IGetOrderCommand {
-    orderId: string;
+  orderId: string;
 }

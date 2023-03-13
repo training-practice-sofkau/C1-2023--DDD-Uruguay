@@ -1,6 +1,6 @@
-import { EmployedDomainEntityBase } from "../../../entities/order";
+import { EmployedDomainEntityBase } from '../../../entities/order';
 
-export interface IAddEmployedResponse {
+export interface IcreateEmployedResponse {
   success: boolean;
   data: EmployedDomainEntityBase | null;
 }

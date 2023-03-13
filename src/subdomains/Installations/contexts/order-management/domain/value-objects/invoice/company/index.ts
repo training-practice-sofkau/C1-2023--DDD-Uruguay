@@ -1,3 +1,3 @@
-export * from './bankaccount';
-export * from './id';
-export * from './name';
+export * from "./bankaccount";
+export * from "./id";
+export * from "./name";

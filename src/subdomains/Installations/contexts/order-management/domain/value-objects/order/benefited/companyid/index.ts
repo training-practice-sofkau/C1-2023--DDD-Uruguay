@@ -1,2 +1,1 @@
-
-export * from './benefited-company-id.value-object';
+export * from "./benefited-company-id.value-object";

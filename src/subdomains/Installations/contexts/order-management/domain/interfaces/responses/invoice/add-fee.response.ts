@@ -1,6 +1,6 @@
-import { FeeDomainEntityBase } from "../../../entities/invoice";
+import { FeeDomainEntityBase } from '../../../entities/invoice';
 
-export interface IAddFeeResponse {
+export interface IcreateFeeResponse {
   success: boolean;
   data: FeeDomainEntityBase | null;
 }

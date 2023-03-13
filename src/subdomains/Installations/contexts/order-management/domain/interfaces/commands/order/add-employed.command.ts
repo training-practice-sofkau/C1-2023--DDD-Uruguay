@@ -1,5 +1,5 @@
-export interface IAddEmployedCommand {
-    employedId: string;
-    name: string;
-    phone: string;
+export interface IcreateEmployedCommand {
+  employedId: string;
+  name: string;
+  phone: string;
 }

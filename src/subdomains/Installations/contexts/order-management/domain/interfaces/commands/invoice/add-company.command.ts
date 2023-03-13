@@ -1,5 +1,5 @@
-export interface IAddCompanyCommand {
-    companyId: string;
-    name: string;
-    bankAccount: string;
+export interface IcreateCompanyCommand {
+  companyId: string;
+  name: string;
+  bankAccount: string;
 }

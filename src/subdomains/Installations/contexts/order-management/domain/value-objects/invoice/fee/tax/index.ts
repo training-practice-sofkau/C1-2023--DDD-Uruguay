@@ -1,2 +1,1 @@
-
-export * from './fee-tax.value-object';
+export * from "./fee-tax.value-object";

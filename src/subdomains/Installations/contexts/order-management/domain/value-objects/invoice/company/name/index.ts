@@ -1,2 +1,1 @@
-
-export * from './company-name.value-object';
+export * from "./company-name.value-object";

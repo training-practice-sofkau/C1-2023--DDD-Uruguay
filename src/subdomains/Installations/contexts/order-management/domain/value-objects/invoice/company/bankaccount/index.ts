@@ -1,2 +1,1 @@
-
-export * from './company-bankaccount.value-object';
+export * from "./company-bankaccount.value-object";

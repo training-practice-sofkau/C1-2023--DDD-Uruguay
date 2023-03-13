@@ -1,7 +1,6 @@
-import { InvoiceDomainEntityBase } from '../../../entities';
-import { CompanyNameValueObject } from '../../../value-objects/invoice';
+import { CompanyNameValueObject } from "../../../value-objects/invoice";
 
 export interface IUpdateCompanyNameCommand {
-    invoiceId: string;
-    name: CompanyNameValueObject;
+  invoiceId: string;
+  name: CompanyNameValueObject;
 }
