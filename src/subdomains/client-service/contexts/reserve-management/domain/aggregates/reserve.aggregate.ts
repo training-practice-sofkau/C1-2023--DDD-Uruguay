@@ -10,13 +10,16 @@ import {
     NumberOfGuestsUpdatedEventPublisher,
     EndDateUpdatedEventPublisher,
     CustomerPaymentMethodUpdatedEventPublisher,
-    CustomerAddedEventPublisher
+    CustomerAddedEventPublisher,
+    CustomerObtainedEventPublisher,
+    RoomObtainedEventPublisher
 } from "../events";
 import { AggregateRootException } from "src/libs/sofka";
 import { 
     IAddCustomer, 
     IAddRoom, 
     ICreateReserve, 
+    IGetRoom, 
     IUpdateCustomerPaymentMethod, 
     IUpdateEndDate, 
     IUpdateNumberOfGuests, 
@@ -36,6 +39,8 @@ import {
     UpdateRoomState,
     UpdatePaymentMethod,
     UpdateState,
+    GetCustomer,
+    GetRoom,
 } from "./helpers/";
 
 export class ReserveAggregate implements
@@ -57,6 +62,8 @@ export class ReserveAggregate implements
     private readonly startDateUpdatedEventPublisher?: StartDateUpdatedEventPublisher;
     private readonly paymentMethodUpdatedEventPublisher?: PaymentMethodUpdatedEventPublisher;
     private readonly stateUpdatedEventPublisher?: StateUpdatedEventPublisher;
+    private readonly customerObtainedEventPublisher?: CustomerObtainedEventPublisher;
+    private readonly roomObtainedEventPublisher?: RoomObtainedEventPublisher;
 
     constructor(
         {
@@ -74,6 +81,8 @@ export class ReserveAggregate implements
             startDateUpdatedEventPublisher,
             paymentMethodUpdatedEventPublisher,
             stateUpdatedEventPublisher,
+            customerObtainedEventPublisher,
+            roomObtainedEventPublisher
         }: {
             reserveService?: IReserveDomainService,
             customerService?: ICustomerDomainService,
@@ -89,6 +98,8 @@ export class ReserveAggregate implements
             startDateUpdatedEventPublisher?: StartDateUpdatedEventPublisher;
             paymentMethodUpdatedEventPublisher?: PaymentMethodUpdatedEventPublisher;
             stateUpdatedEventPublisher?: StateUpdatedEventPublisher;
+            customerObtainedEventPublisher?: CustomerObtainedEventPublisher;
+            roomObtainedEventPublisher?: RoomObtainedEventPublisher;
         }
     ) {
         this.reserveService = reserveService
@@ -105,6 +116,8 @@ export class ReserveAggregate implements
         this.startDateUpdatedEventPublisher = startDateUpdatedEventPublisher
         this.paymentMethodUpdatedEventPublisher = paymentMethodUpdatedEventPublisher
         this.stateUpdatedEventPublisher = stateUpdatedEventPublisher
+        this.customerObtainedEventPublisher = customerObtainedEventPublisher
+        this.roomObtainedEventPublisher = roomObtainedEventPublisher
     }
 
     async createReserve(reserve: ICreateReserve): Promise<ReserveDomainEntity> {
@@ -134,7 +147,7 @@ export class ReserveAggregate implements
         return await AddCustomer(customer, this.reserveService, this.customerAddedEventPublisher)
     }
 
-    async updateStartDate(data: IUpdateStartDate): Promise<Date> {
+    async updateStartDate(data: IUpdateStartDate): Promise<ReserveDomainEntity> {
         if (!this.reserveService)
             throw new AggregateRootException('reserveService no esta definido')
         if (!this.startDateUpdatedEventPublisher)
@@ -143,7 +156,7 @@ export class ReserveAggregate implements
         return await UpdateStartDate(data, this.reserveService, this.startDateUpdatedEventPublisher)
     }
 
-    async updateEndDate(data: IUpdateEndDate): Promise<Date> {
+    async updateEndDate(data: IUpdateEndDate): Promise<ReserveDomainEntity> {
         if (!this.reserveService)
             throw new AggregateRootException('reserveService no esta definido')
         if (!this.endDateUpdatedEventPublisher)
@@ -152,7 +165,7 @@ export class ReserveAggregate implements
         return await UpdateEndDate(data, this.reserveService, this.endDateUpdatedEventPublisher)
     }
 
-    async updateNumberOfGuests(data: IUpdateNumberOfGuests): Promise<number> {
+    async updateNumberOfGuests(data: IUpdateNumberOfGuests): Promise<ReserveDomainEntity> {
         if (!this.reserveService)
             throw new AggregateRootException('reserveService no esta definido')
         if (!this.numberOfGuestsUpdatedEventPublisher)
@@ -180,7 +193,7 @@ export class ReserveAggregate implements
     }
 
 
-    async updatePaymentMethod(data: IUpdatePaymentMethod): Promise<string> {
+    async updatePaymentMethod(data: IUpdatePaymentMethod): Promise<CustomerDomainEntity> {
         if (!this.customerService)
             throw new AggregateRootException('customerService no esta definido')
         if (!this.paymentMethodUpdatedEventPublisher)
@@ -189,12 +202,30 @@ export class ReserveAggregate implements
         return await UpdatePaymentMethod(data, this.customerService, this.paymentMethodUpdatedEventPublisher)
     }
 
-    async updateState(data: IUpdateState): Promise<boolean> {
+    async updateState(data: IUpdateState): Promise<RoomDomainEntity> {
         if (!this.roomService)
             throw new AggregateRootException('roomService no esta definido')
         if (!this.stateUpdatedEventPublisher)
             throw new AggregateRootException('stateUpdatedEventPublisher no esta definido')
 
         return await UpdateState(data, this.roomService, this.stateUpdatedEventPublisher)
+    }
+
+    async getCustomer(data: string): Promise<CustomerDomainEntity> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.customerObtainedEventPublisher)
+            throw new AggregateRootException('customerObtainedEventPublisher no esta definido')
+
+        return await GetCustomer(data, this.reserveService, this.customerObtainedEventPublisher)
+    }
+
+    async getRoom(data: string): Promise<RoomDomainEntity> {
+        if (!this.reserveService)
+            throw new AggregateRootException('reserveService no esta definido')
+        if (!this.roomObtainedEventPublisher)
+            throw new AggregateRootException('roomObtainedEventPublisher no esta definido')
+
+        return await GetRoom(data, this.reserveService, this.roomObtainedEventPublisher)
     }
 }

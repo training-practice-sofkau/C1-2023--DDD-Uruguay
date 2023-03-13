@@ -22,4 +22,8 @@ export interface ICheckInDomainService {
     updateGuestPhone(data: IUpdateGuestPhone): Promise<string>
 
     updateRoomKeyAccessLevel(data: IUpdateRoomKeyAccessLevel): Promise<string>
+    
+    getGuest(data: string): Promise<GuestDomainEntity>;
+
+    getRoomKey(data: string): Promise<RoomKeyDomainEntity>;
 }

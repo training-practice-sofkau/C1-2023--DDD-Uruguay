@@ -1,4 +1,4 @@
 export interface IUpdateState {
-    roomId: string;
-    newState: boolean;
+    roomId?: string;
+    state?: boolean;
 }

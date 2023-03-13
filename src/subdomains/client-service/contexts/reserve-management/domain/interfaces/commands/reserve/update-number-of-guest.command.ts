@@ -1,4 +1,4 @@
 export interface IUpdateNumberOfGuests {
-    reserveId: string;
-    newNumberOfGuests: number;
+    reserveId?: string;
+    numberOfGuests?: number;
 }

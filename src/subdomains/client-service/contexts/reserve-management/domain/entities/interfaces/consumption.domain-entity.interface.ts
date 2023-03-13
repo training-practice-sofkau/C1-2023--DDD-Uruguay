@@ -7,9 +7,9 @@ import {
 } from "../../value-objects";
 
 export interface IConsumptionDomainEntity {
-    consumptionId: string | IdValueObject;
-    miniBar: number | MiniBarValueObject;
-    consumptionFood: number | ConsumptionFoodValueObject;
-    laundry: number | LaundryValueObject;
-    extra: number | ExtraValueObject;
+    consumptionId?: string | IdValueObject;
+    miniBar?: number | MiniBarValueObject;
+    consumptionFood?: number | ConsumptionFoodValueObject;
+    laundry?: number | LaundryValueObject;
+    extra?: number | ExtraValueObject;
 }

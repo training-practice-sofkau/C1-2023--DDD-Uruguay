@@ -1,4 +1,4 @@
 export interface IUpdateStartDate {
-    reserveId: string;
-    newDate: Date;
+    reserveId?: string;
+    Date?: Date;
 }

@@ -13,7 +13,9 @@ import {
     InvoiceCostUpdatedEventPublisher,
     ExtraUpdatedEventPublisher,
     MiniBarUpdatedEventPublisher,
-    CostUpdatedEventPublisher
+    CostUpdatedEventPublisher,
+    ConsumptionObtainedEventPublisher,
+    InvoiceObtainedEventPublisher
 } from "../events";
 import {
     IUpdateExtra,
@@ -35,12 +37,14 @@ import {
     AddConsumption,
     AddInvoice,
     CreateCheckOut,
+    GetInvoice,
     UpdateConsumptionExtra,
     UpdateConsumptionMiniBar,
     UpdateCost,
     UpdateExtra,
     UpdateInvoiceCost,
-    UpdateMiniBar
+    UpdateMiniBar,
+    GetConsumption
 } from "./helpers";
 
 export class CheckOutAggregate implements
@@ -61,6 +65,8 @@ export class CheckOutAggregate implements
     private readonly costUpdatedEventPublisher?: CostUpdatedEventPublisher;
     private readonly extraUpdatedEventPublisher?: ExtraUpdatedEventPublisher;
     private readonly miniBarUpdatedEventPublisher?: MiniBarUpdatedEventPublisher;
+    private readonly consumptionObtainedEventPublisher?: ConsumptionObtainedEventPublisher;
+    private readonly invoiceObtainedEventPublisher?: InvoiceObtainedEventPublisher;
 
     constructor(
         {
@@ -77,6 +83,8 @@ export class CheckOutAggregate implements
             costUpdatedEventPublisher,
             extraUpdatedEventPublisher,
             miniBarUpdatedEventPublisher,
+            consumptionObtainedEventPublisher,
+            invoiceObtainedEventPublisher,
         }: {
             checkOutService?: ICheckOutDomainService,
             invoiceService?: IInvoiceDomainService,
@@ -90,7 +98,9 @@ export class CheckOutAggregate implements
             invoiceCostUpdatedEventPublisher?: InvoiceCostUpdatedEventPublisher,
             costUpdatedEventPublisher?: CostUpdatedEventPublisher,
             extraUpdatedEventPublisher?: ExtraUpdatedEventPublisher,
-            miniBarUpdatedEventPublisher?: MiniBarUpdatedEventPublisher
+            miniBarUpdatedEventPublisher?: MiniBarUpdatedEventPublisher,
+            consumptionObtainedEventPublisher?: ConsumptionObtainedEventPublisher,
+            invoiceObtainedEventPublisher?: InvoiceObtainedEventPublisher,
         }
     ) {
         this.checkOutService = checkOutService
@@ -106,6 +116,8 @@ export class CheckOutAggregate implements
         this.costUpdatedEventPublisher = costUpdatedEventPublisher
         this.extraUpdatedEventPublisher = extraUpdatedEventPublisher
         this.miniBarUpdatedEventPublisher = miniBarUpdatedEventPublisher
+        this.consumptionObtainedEventPublisher = consumptionObtainedEventPublisher
+        this.invoiceObtainedEventPublisher = invoiceObtainedEventPublisher
     }
 
 
@@ -165,7 +177,7 @@ export class CheckOutAggregate implements
 
 
 
-    async updateCost(data: IUpdateCost): Promise<number> {
+    async updateCost(data: IUpdateCost): Promise<InvoiceDomainEntity> {
         if (!this.invoiceService)
             throw new AggregateRootException('invoiceService no esta definido')
         if (!this.costUpdatedEventPublisher)
@@ -174,7 +186,7 @@ export class CheckOutAggregate implements
         return await UpdateCost(data, this.invoiceService, this.costUpdatedEventPublisher)
     }
 
-    async updateExtra(data: IUpdateExtra): Promise<number> {
+    async updateExtra(data: IUpdateExtra): Promise<ConsumptionDomainEntity> {
         if (!this.consumptionService)
             throw new AggregateRootException('consumptionService no esta definido')
         if (!this.extraUpdatedEventPublisher)
@@ -183,13 +195,31 @@ export class CheckOutAggregate implements
         return await UpdateExtra(data, this.consumptionService, this.extraUpdatedEventPublisher)
     }
 
-    async updateMiniBar(data: IUpdateMiniBar): Promise<number> {
+    async updateMiniBar(data: IUpdateMiniBar): Promise<ConsumptionDomainEntity> {
         if (!this.consumptionService)
             throw new AggregateRootException('consumptionService no esta definido')
         if (!this.miniBarUpdatedEventPublisher)
             throw new AggregateRootException('miniBarUpdatedEventPublisher no esta definido')
 
         return await UpdateMiniBar(data, this.consumptionService, this.miniBarUpdatedEventPublisher)
+    }
+
+    async getConsumption(data: string): Promise<ConsumptionDomainEntity> {
+        if (!this.checkOutService)
+            throw new AggregateRootException('checkOutService no esta definido')
+        if (!this.consumptionObtainedEventPublisher)
+            throw new AggregateRootException('consumptionObtainedEventPublisher no esta definido')
+
+        return await GetConsumption(data, this.checkOutService, this.consumptionObtainedEventPublisher)
+    }
+
+    async getInvoice(data: string): Promise<InvoiceDomainEntity> {
+        if (!this.checkOutService)
+            throw new AggregateRootException('checkOutService no esta definido')
+        if (!this.invoiceObtainedEventPublisher)
+            throw new AggregateRootException('invoiceObtainedEventPublisher no esta definido')
+
+        return await GetInvoice(data, this.checkOutService, this.invoiceObtainedEventPublisher)
     }
 
 }

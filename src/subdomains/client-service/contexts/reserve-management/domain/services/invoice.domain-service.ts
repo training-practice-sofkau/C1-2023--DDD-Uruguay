@@ -1,5 +1,6 @@
+import { InvoiceDomainEntity } from "../entities";
 import { IUpdateCost } from "../interfaces";
 
 export interface IInvoiceDomainService {
-    updateCost(data: IUpdateCost): Promise<number>
+    updateCost(data: IUpdateCost): Promise<InvoiceDomainEntity>
 }
