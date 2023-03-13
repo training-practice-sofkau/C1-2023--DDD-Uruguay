@@ -2,10 +2,10 @@ import { IdmangaValue, MangaSateValue, NameMangaValue, PriceValue, StockValue } 
 
 export interface IMangaEntity {
 
-    Mangaid: IdmangaValue
-    Name: NameMangaValue
-    state: MangaSateValue
-    Price: PriceValue
-    Stock: StockValue
+    Mangaid?: IdmangaValue
+    Name?: NameMangaValue
+    state?: MangaSateValue
+    Price?: PriceValue
+    Stock?: StockValue
 
 }

@@ -3,6 +3,6 @@ import { UpdateNameClient } from '../interfaces/commands/Order-commands/Client-C
 import { UpdatePhoneClient } from '../interfaces/commands/Order-commands/Client-Command/update-phone-command';
 export interface ClientDomainService  < T extends ClientDomainBase = ClientDomainBase >  {
 
-    UpdateClientName(data: UpdateNameClient):   Promise<T>;
-    UpdateClientPhone(data: UpdatePhoneClient): Promise<T>;
+    UpdateClientName(data: T):   Promise<T>;
+    UpdateClientPhone(data: T): Promise<T>;
 }

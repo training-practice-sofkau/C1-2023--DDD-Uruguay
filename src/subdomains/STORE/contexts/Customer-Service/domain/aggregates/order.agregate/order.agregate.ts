@@ -111,7 +111,7 @@ Publisher events go in this place
     MangaService?: MangaDomainService;
     orderService?: IorderDomainService;
     ClientService?: ClientDomainService;
-    RegisterOrderEventPublisher: OrderAddEventPublisher;
+    RegisterOrderEventPublisher?: OrderAddEventPublisher;
   }) {
     this.NameModifiedEventPublisher = NameModifiedEventPublisher;
     this.PhoneModifiedEventPublisher = PhoneModifiedEventPublisher;
@@ -137,7 +137,7 @@ Publisher events go in this place
    * @param {OrderDomainEntityBase} order - OrderDomainEntityBase: The order to be registered.
    * @returns The response of the event publisher
    */
-  async RegisterOrder(order: IRegisterOrder): Promise<OrderDomainEntityBase> {
+  async RegisterOrder(order: OrderDomainEntityBase): Promise<OrderDomainEntityBase> {
     if (this.orderService && this.RegisterOrderEventPublisher) {
       const result = await this.orderService.RegisterOrder(order);
       this.RegisterOrderEventPublisher.response = result;
@@ -153,8 +153,9 @@ Publisher events go in this place
    * @param {string} ClientId - string
    * @returns The result of the GetClient method of the OrderService
    */
-  async GetClient(data: IGetClient): Promise<ClientDomainBase> {
+  async GetClient(data: string): Promise<ClientDomainBase> {
     if (this.orderService && this.GetClientEventPublisher) {
+      
       const result = await this.orderService.GetClient(data);
 
       this.GetClientEventPublisher.response = result;
@@ -214,7 +215,7 @@ Publisher events go in this place
    * @returns The result of the GetManga method of the OrderService
    */
 
-  async GetManga(data: IGetMangaData): Promise<MangaDomainBase> {
+  async GetManga(data: string): Promise<MangaDomainBase> {
     if (this.orderService && this.GetMangaEventPublisher) {
       const result = await this.orderService.GetManga(data);
 
@@ -233,7 +234,7 @@ Publisher events go in this place
    * It adds a client to the database.
    * @param {string} MangaId - The id of the manga you want to add a client to.
    */
-  async AddClient(data: IAddClient): Promise<ClientDomainBase> {
+  async AddClient(data: ClientDomainBase): Promise<ClientDomainBase> {
     if (this.orderService && this.AddCustomerEventPublisher) {
       const result = await this.orderService.AddClient(data);
 
@@ -296,7 +297,7 @@ Publisher events go in this place
    * It updates the name of the manga.
    * @param {string} name - The name of the manga.
    */
-  async UpdateName(idClient: UpdateNameManga): Promise<MangaDomainBase> {
+  async UpdateName(idClient: MangaDomainBase): Promise<MangaDomainBase> {
     if (this.orderService && this.NameMangaModifiedEventPublisher) {
       const result = await this.MangaService.UpdateName(idClient);
 
@@ -355,7 +356,7 @@ Publisher events go in this place
    * @returns The result of the update of the client name
    */
   async UpdateClientName(
-    idclient: UpdateNameClient,
+    idclient: ClientDomainBase,
   ): Promise<ClientDomainBase> {
     if (this.orderService && this.NameModifiedEventPublisher) {
       const result = await this.ClientService.UpdateClientName(idclient);
@@ -373,7 +374,7 @@ Publisher events go in this place
 
   /* The above code is a sample of a domain event handler. */
   async UpdateClientPhone(
-    idclient: UpdatePhoneClient,
+    idclient: ClientDomainBase,
   ): Promise<ClientDomainBase> {
     if (this.orderService && this.PhoneModifiedEventPublisher) {
       const result = await this.ClientService.UpdateClientPhone(idclient);

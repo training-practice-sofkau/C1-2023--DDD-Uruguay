@@ -1,7 +1,7 @@
 export interface IUpdateTotal {
 
     idBill: string
-    total: string 
+    total: number 
 
 
 }

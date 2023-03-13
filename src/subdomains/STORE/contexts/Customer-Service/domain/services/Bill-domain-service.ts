@@ -5,7 +5,7 @@ import { IGetMangaData } from '../interfaces/commands/Sale-commands/Bill-Comands
 import { IUpdateTotal } from '../interfaces/commands/Sale-commands/Bill-Comands/update-total-command';
 export interface BillDomainService  < T extends BillDomain = BillDomain >  {
 
-    UpdatePaymentMethod(data:UpdatePaymentMethod ):   Promise<T>;
+    UpdatePaymentMethod(data:T ):   Promise<T>;
     UpdateTotal(data:IUpdateTotal): Promise<T>;
     getMangaData(data: IGetMangaData): Promise<MangaDomainBase>;
 

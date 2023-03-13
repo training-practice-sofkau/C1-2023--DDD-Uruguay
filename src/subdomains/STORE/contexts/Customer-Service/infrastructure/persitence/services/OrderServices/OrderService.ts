@@ -5,7 +5,7 @@ import { IorderDomainService } from "../../../../domain/services";
 
 @Injectable()
 export class OrderService implements IorderDomainService {
-  RegisterOrder(data: IRegisterOrder): Promise<OrderDomainEntityBase> {
+  RegisterOrder(data: OrderDomainEntityBase): Promise<OrderDomainEntityBase> {
     throw new Error('Method not implemented.');
   }
   GetClient(data: IGetClient): Promise<ClientDomainBase> {

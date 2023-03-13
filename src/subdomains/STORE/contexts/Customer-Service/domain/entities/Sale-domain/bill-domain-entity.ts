@@ -10,13 +10,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 export class BillDomain implements IBillEntity{
-    IDBill: IdbillValue;
-    Date: DateValue;
-    PaymentMethod: PaymentMethodValue;
-    PaymentAmount: PaymentAmountValue;
-    Total: TotalValue;
-    IdClinet: IdclientValue;
-    IdManga: IdmangaValue;
+    IDBill?: IdbillValue;
+    Date?: DateValue;
+    PaymentMethod?: PaymentMethodValue;
+    PaymentAmount?: PaymentAmountValue;
+    Total?: TotalValue;
+    IdClinet?: IdclientValue;
+    IdManga?: IdmangaValue;
 
 
 

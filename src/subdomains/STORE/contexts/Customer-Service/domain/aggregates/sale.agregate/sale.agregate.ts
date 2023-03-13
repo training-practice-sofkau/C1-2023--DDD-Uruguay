@@ -1,7 +1,9 @@
 import { AggregateRootException } from "src/libs";
 import { SellerDomain, BillDomain, MangaDomainBase, SaleDomainEntity, ClientDomainBase } from "../../entities";
 import { AddedSaleEventPublisher, AddedSellerEventPublisher, ClientObtainedEventPublisher, BillModifiedEventPublisher, SellerModifiedEventPublisher, SalesObtainedEventPublisher, SellerNameModifiedEventPublisher, MangaObtainedEventPublisher, PaymentMethodEventPublisher, TotalModifiedEventPublisher } from "../../events";
-import { IUpdateNameSeller, UpdatePaymentMethod, IUpdateTotal, IGetMangaData, IRegisterSale, IGetClientSale, IAddSaller, IUpdateBill } from "../../interfaces";
+import { BillObtainedEventPublisher } from "../../events/publishers/Sale/Bill/bill-obtained.publish-event";
+import { SellerObtainedEventPublisher } from "../../events/publishers/Sale/Seller/seller-obtained.publish-event";
+import { IUpdateNameSeller, UpdatePaymentMethod, IUpdateTotal, IGetMangaData, IRegisterSale, IGetClientSale, IAddSaller, IUpdateBill, IGetSalesList } from "../../interfaces";
 import { BillDomainService, SellerDomainService, SaleDomainService } from "../../services";
 
 export class SaleAgregate
@@ -10,7 +12,6 @@ export class SaleAgregate
   private readonly billservice: BillDomainService;
   private readonly saleservice: SaleDomainService;
   private readonly sellerService: SellerDomainService;
-
   private readonly AddedSaleEventPublisher: AddedSaleEventPublisher;
   private readonly AddedSellerEventPublisher: AddedSellerEventPublisher;
   private readonly ClientObtainedEventPublisher: ClientObtainedEventPublisher;
@@ -21,6 +22,8 @@ export class SaleAgregate
   private readonly MangaObtainedEventPublisher: MangaObtainedEventPublisher;
   private readonly PaymentMethodEventPublisher: PaymentMethodEventPublisher;
   private readonly TotalModifiedEventPublisher: TotalModifiedEventPublisher;
+  private readonly SellerObtainedEventPublisher: SellerObtainedEventPublisher;
+  private readonly BillObtainedEventPublisher: BillObtainedEventPublisher;
 
   constructor({
     billService,
@@ -36,6 +39,8 @@ export class SaleAgregate
     MangaObtainedEventPublisher,
     PaymentMethodEventPublisher,
     TotalModifiedEventPublisher,
+    SellerObtainedEventPublisher,
+    BillObtainedEventPublisher,
   }: {
     AddedSaleEventPublisher?: AddedSaleEventPublisher;
     AddedSellerEventPublisher?: AddedSellerEventPublisher;
@@ -49,7 +54,9 @@ export class SaleAgregate
     TotalModifiedEventPublisher?: TotalModifiedEventPublisher;
     billService?: BillDomainService;
     sellerService?: SellerDomainService;
-    saleService?: SaleDomainService;
+      saleService?: SaleDomainService;
+      BillObtainedEventPublisher?: BillObtainedEventPublisher
+      SellerObtainedEventPublisher?: SellerObtainedEventPublisher
   }) {
     this.AddedSaleEventPublisher = AddedSaleEventPublisher;
     this.AddedSellerEventPublisher = AddedSellerEventPublisher;
@@ -64,9 +71,34 @@ export class SaleAgregate
     this.billservice = billService;
     this.saleservice = saleService;
     this.sellerService = sellerService;
+    this.SellerObtainedEventPublisher = SellerObtainedEventPublisher;
+    this.BillObtainedEventPublisher = BillObtainedEventPublisher;
+  }
+  async GetBil(data: string): Promise<BillDomain> {
+    if (this.billservice && this.BillObtainedEventPublisher) {
+      const result = await this.saleservice.GetBil(data);
+      this.BillObtainedEventPublisher.response = result;
+      this.BillObtainedEventPublisher.publish();
+      return this.BillObtainedEventPublisher.response;
+    }
+    throw new AggregateRootException(
+      'SaleAgregate "billservice" y/o "BillObtainedEventPublisher" no estan definidos',
+    );
+  }  
+
+  async GetSellers(data: string): Promise<SellerDomain> {
+    if (this.billservice && this.SellerObtainedEventPublisher) {
+      const result = await this.saleservice.GetSellers(data);
+      this.SellerObtainedEventPublisher.response = result;
+      this.SellerObtainedEventPublisher.publish();
+      return this.SellerObtainedEventPublisher.response;
+    }
+    throw new AggregateRootException(
+      'SaleAgregate "billservice" y/o "SellerObtainedEventPublisher" no estan definidos',
+    );
   }
 
-  async UpdateNameSeller(data: IUpdateNameSeller): Promise<SellerDomain> {
+  async UpdateNameSeller(data: SellerDomain): Promise<SellerDomain> {
     if (this.billservice && this.SellerNameModifiedEventPublisher) {
       const result = await this.sellerService.UpdateNameSeller(data);
       this.SellerNameModifiedEventPublisher.response = result;
@@ -78,7 +110,7 @@ export class SaleAgregate
     );
   }
 
-  async UpdatePaymentMethod(data: UpdatePaymentMethod): Promise<BillDomain> {
+  async UpdatePaymentMethod(data: BillDomain): Promise<BillDomain> {
     if (this.billservice && this.PaymentMethodEventPublisher) {
       const result = await this.billservice.UpdatePaymentMethod(data);
       this.PaymentMethodEventPublisher.response = result;
@@ -114,7 +146,7 @@ export class SaleAgregate
     );
   }
 
-  async RegisterSale(sale: IRegisterSale): Promise<SaleDomainEntity> {
+  async RegisterSale(sale: SaleDomainEntity): Promise<SaleDomainEntity> {
     if (this.billservice && this.AddedSaleEventPublisher) {
       const result = await this.saleservice.RegisterSale(sale);
       this.AddedSaleEventPublisher.response = result;
@@ -138,9 +170,9 @@ export class SaleAgregate
     );
   }
 
-  async GetSalesList(): Promise<SaleDomainEntity> {
+  async GetSalesList(data: string  ): Promise<SaleDomainEntity> {
     if (this.billservice && this.SalesObtainedEventPublisher) {
-      const result = await this.saleservice.GetSalesList();
+      const result = await this.saleservice.GetSalesList(data );
       this.SalesObtainedEventPublisher.response = result;
       this.SalesObtainedEventPublisher.publish();
       return this.SalesObtainedEventPublisher.response;
@@ -150,7 +182,7 @@ export class SaleAgregate
     );
   }
 
-  async AddSeller(sellerID: IAddSaller): Promise<SellerDomain> {
+  async AddSeller(sellerID: SellerDomain): Promise<SellerDomain> {
     if (this.billservice && this.AddedSellerEventPublisher) {
       const result = await this.saleservice.AddSeller(sellerID);
       this.AddedSellerEventPublisher.response = result;

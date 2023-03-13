@@ -6,10 +6,10 @@ import { SellerDomain } from "./seller-domain-entity";
 import { v4 as uuidv4 } from 'uuid';
 
 export class SaleDomainEntity implements ISaleEntity{
-    Bill: BillDomain;
-    Seller: SellerDomain;
-    IDSale: IdSaleValueObject;
-    IDOrder: IdOrdertValueObject;
+    Bill?: BillDomain;
+    Seller?: SellerDomain;
+    IDSale?: IdSaleValueObject;
+    IDOrder?: IdOrdertValueObject;
 
 
 
