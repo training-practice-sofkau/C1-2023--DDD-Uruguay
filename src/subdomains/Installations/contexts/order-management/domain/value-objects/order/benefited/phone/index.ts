@@ -1,1 +1,2 @@
-export * from "./benefited-phone.value-object";
+
+export * from './benefited-phone.value-object';

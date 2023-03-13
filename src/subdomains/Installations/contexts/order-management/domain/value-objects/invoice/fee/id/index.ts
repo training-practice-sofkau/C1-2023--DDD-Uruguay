@@ -1,1 +1,2 @@
-export * from "./fee-id.value-object";
+
+export * from './fee-id.value-object';

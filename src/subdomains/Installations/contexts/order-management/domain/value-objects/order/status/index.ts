@@ -1,1 +1,2 @@
-export * from "./order-status.value-object";
+
+export * from './order-status.value-object';

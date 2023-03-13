@@ -1,1 +1,2 @@
-export * from "./invoice-status.value-object";
+
+export * from './invoice-status.value-object';

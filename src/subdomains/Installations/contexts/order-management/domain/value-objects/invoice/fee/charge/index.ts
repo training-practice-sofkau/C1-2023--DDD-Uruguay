@@ -1,1 +1,2 @@
-export * from "./fee-charge.value-object";
+
+export * from './fee-charge.value-object';

@@ -1,1 +1,2 @@
-export * from "./benefited-address.value-object";
+
+export * from './benefited-address.value-object';

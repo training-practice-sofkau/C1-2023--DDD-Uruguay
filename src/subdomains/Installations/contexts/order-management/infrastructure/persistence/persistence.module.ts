@@ -1,6 +1,9 @@
-import { Module } from "@nestjs/common";
+import { Module } from '@nestjs/common';
 
-import { MongoModule, MysqlModule } from "./databases";
+import {
+  MongoModule,
+  MysqlModule,
+} from './databases';
 
 @Module({
   imports: [MysqlModule, MongoModule],

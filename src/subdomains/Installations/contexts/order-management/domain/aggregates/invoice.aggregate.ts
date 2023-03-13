@@ -94,6 +94,15 @@ export class InvoiceAggregate implements IInvoiceDomainService {
     return this.registeredInvoiceEventPublisherBase.response[0];
   }
 
+  async deleteInvoice(invoiceId: string): Promise<boolean> {
+    if (!this.getInvoiceEventPublisherBase)
+      throw new AggregateRootException(
+        "GetInvoiceEventPublisherBase is not defined"
+      );
+
+    return this.registeredInvoiceEventPublisherBase.response[0];
+  }
+
   async createCompany(
     company: CompanyDomainEntityBase
   ): Promise<CompanyDomainEntityBase> {
@@ -162,7 +171,7 @@ export class InvoiceAggregate implements IInvoiceDomainService {
     return this.invoiceFeeUpdatedEventPublisherBase.response[0];
   }
 
-  async changeStatus(domain: InvoiceDomainEntityBase): Promise<boolean> {
+  async changeStatus(invoiceId: string): Promise<boolean> {
     if (!this.invoiceStatusChangedEventPublisherBase)
       throw new AggregateRootException(
         "InvoiceStatusChangedEventPublisherBase is not defined"

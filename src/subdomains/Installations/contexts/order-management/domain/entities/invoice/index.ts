@@ -1,3 +1,4 @@
-export * from "./company.domain-entity";
 
-export * from "./fee.domain-entity";
+export * from './company.domain-entity';
+
+export * from './fee.domain-entity';

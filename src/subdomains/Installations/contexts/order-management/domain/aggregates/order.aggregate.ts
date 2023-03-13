@@ -99,6 +99,15 @@ export class OrderAggregate implements IOrderDomainService {
     return this.getOrderEventPublisherBase.response[0];
   }
 
+  async deleteOrder(orderId: string): Promise<boolean> {
+    if (!this.getOrderEventPublisherBase)
+      throw new AggregateRootException(
+        "GetOrderEventPublisherBase is not defined"
+      );
+
+    return this.registeredOrderEventPublisherBase.response[0];
+  }
+
   async createBenefited(
     benefited: BenefitedDomainEntityBase
   ): Promise<BenefitedDomainEntityBase> {
@@ -166,7 +175,7 @@ export class OrderAggregate implements IOrderDomainService {
     return this.orderEmployedUpdatedEventPublisherBase.response[0];
   }
 
-  async changeStatus(orderId: string): Promise<OrderDomainEntityBase> {
+  async changeStatus(orderId: string): Promise<boolean> {
     if (!this.orderStatusChangedEventPublisherBase)
       throw new AggregateRootException(
         "OrderStatusChangedEventPublisherBase is not defined"

@@ -1,1 +1,2 @@
-export * from "./kit-id.value-object";
+
+export * from './kit-id.value-object';

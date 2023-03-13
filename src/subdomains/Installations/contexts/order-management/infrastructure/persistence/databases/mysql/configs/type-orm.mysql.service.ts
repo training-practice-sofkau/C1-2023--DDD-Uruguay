@@ -20,7 +20,7 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
 
     constructor(private readonly configService: ConfigService) { }
 
-    createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {
+    createTypeOrmOptions(): TypeOrmModuleOptions {
         return {
             type: 'mysql',
             host: this.configService.get<string>('DB_MYSQL_HOST'),

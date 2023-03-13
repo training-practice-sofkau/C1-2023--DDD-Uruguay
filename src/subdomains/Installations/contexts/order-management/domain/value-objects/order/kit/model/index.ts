@@ -1,1 +1,2 @@
-export * from "./kit-model.value-object";
+
+export * from './kit-model.value-object';

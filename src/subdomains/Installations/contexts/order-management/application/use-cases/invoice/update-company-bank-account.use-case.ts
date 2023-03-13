@@ -3,17 +3,21 @@ import {
   IUseCase,
   ValueObjectErrorHandler,
   ValueObjectException,
-} from "../../../../../../../libs/sofka";
-import { InvoiceAggregate } from "../../../domain/aggregates";
-import { CompanyDomainEntityBase } from "../../../domain/entities";
-import { RegisteredInvoiceEventPublisherBase } from "../../../domain/events";
-import { IUpdateCompanyBankAccountCommand } from "../../../domain/interfaces/commands/invoice";
-import { IUpdateCompanyBankAccountResponse } from "../../../domain/interfaces/responses/invoice";
-import { IInvoiceDomainService } from "../../../domain/services";
-import { CompanyBankAccountValueObject } from "../../../domain/value-objects";
-import { GetInvoiceUserCase } from "./";
+} from '../../../../../../../libs/sofka';
+import { InvoiceAggregate } from '../../../domain/aggregates';
+import { CompanyDomainEntityBase } from '../../../domain/entities';
+import { RegisteredInvoiceEventPublisherBase } from '../../../domain/events';
+import {
+  IUpdateCompanyBankAccountCommand,
+} from '../../../domain/interfaces/commands/invoice';
+import {
+  IUpdateCompanyBankAccountResponse,
+} from '../../../domain/interfaces/responses/invoice';
+import { IInvoiceDomainService } from '../../../domain/services';
+import { CompanyBankAccountValueObject } from '../../../domain/value-objects';
+import { GetInvoiceUserCase } from './';
 
-export class UpdateCompanyNameUseCase<
+export class UpdateCompanyBankAccountUseCase<
     Command extends IUpdateCompanyBankAccountCommand = IUpdateCompanyBankAccountCommand,
     Response extends IUpdateCompanyBankAccountResponse = IUpdateCompanyBankAccountResponse
   >
