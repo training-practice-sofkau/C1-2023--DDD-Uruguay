@@ -10,7 +10,7 @@ export class WarrantyRepository implements IRepository<WarrantyMySqlEntity>{
     constructor(
         @InjectRepository(WarrantyMySqlEntity)
         private readonly repository: Repository<WarrantyMySqlEntity>
-    ){}
+    ) { }
 
 
 
@@ -20,7 +20,7 @@ export class WarrantyRepository implements IRepository<WarrantyMySqlEntity>{
      * @return {*}  {Promise<WarrantyMySqlEntity[]>}
      * @memberof WarrantyRepository
      */
-    async  findAll(): Promise<WarrantyMySqlEntity[]> {
+    async findAll(): Promise<WarrantyMySqlEntity[]> {
         return await this.repository.find()
     }
 
@@ -48,7 +48,7 @@ export class WarrantyRepository implements IRepository<WarrantyMySqlEntity>{
      * @return {*}  {Promise<WarrantyMySqlEntity>}
      * @memberof WarrantyRepository
      */
-    async  create(entity: WarrantyMySqlEntity): Promise<WarrantyMySqlEntity> {
+    async create(entity: WarrantyMySqlEntity): Promise<WarrantyMySqlEntity> {
         return await this.repository.save(entity);
     }
 
@@ -62,7 +62,10 @@ export class WarrantyRepository implements IRepository<WarrantyMySqlEntity>{
      * @return {*}  {Promise<WarrantyMySqlEntity>}
      * @memberof WarrantyRepository
      */
-    async update(warrantyID: string, entity: WarrantyMySqlEntity): Promise<WarrantyMySqlEntity> {
+    async update(entity: WarrantyMySqlEntity): Promise<WarrantyMySqlEntity> {
+
+        const warrantyID = entity.warrantyID as string;
+
         let entityFound = await this.findById(warrantyID);
 
         if (!entityFound) throw new BadRequestException(`Warranty with id: ${warrantyID} not found`);
@@ -84,8 +87,8 @@ export class WarrantyRepository implements IRepository<WarrantyMySqlEntity>{
      * @return {*}  {Promise<boolean>}
      * @memberof WarrantyRepository
      */
-    async  delete(warrantyID: string): Promise<boolean> {
-        
+    async delete(warrantyID: string): Promise<boolean> {
+
         const result = await this.findById(warrantyID);
 
         if (!result) throw new BadRequestException(`Warranty with id: ${warrantyID} not found`);
@@ -94,5 +97,5 @@ export class WarrantyRepository implements IRepository<WarrantyMySqlEntity>{
 
         return true;
     }
-    
+
 }

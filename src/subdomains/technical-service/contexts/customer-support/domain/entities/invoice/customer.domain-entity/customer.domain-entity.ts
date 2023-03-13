@@ -8,10 +8,10 @@ import { IsValidFullname, IsUUID, IsEmail, IsPhoneNumber  } from '../../../../..
 
 export class CustomerDomainEntityBase implements ICustomerDomainEntity {    
     
-    customerID: string | UUIDValueObject;
-    customerName: string | FullnameValueObject;
-    customerEmail: string | EmailValueObject;
-    customerPhone: string | PhoneValueObject;    
+    customerID?: string | UUIDValueObject;
+    customerName?: string | FullnameValueObject;
+    customerEmail?: string | EmailValueObject;
+    customerPhone?: string | PhoneValueObject;    
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

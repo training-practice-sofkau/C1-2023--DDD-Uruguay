@@ -9,13 +9,13 @@ import { IssueValueObject } from '../../../../../domain/value-objects/device/iss
 export class DeviceMySqlEntity extends DeviceDomainEntityBase{
 
     @PrimaryGeneratedColumn()
-    deviceID: string | UUIDValueObject;
+    deviceID?: string | UUIDValueObject;
 
     @Column()
-    deviceType: string | DeviceTypeValueObject;
+    deviceType?: string | DeviceTypeValueObject;
 
     @Column()
-    issues: string[] | IssueValueObject[];
+    issues?: string[] | IssueValueObject[];
 
 
 }

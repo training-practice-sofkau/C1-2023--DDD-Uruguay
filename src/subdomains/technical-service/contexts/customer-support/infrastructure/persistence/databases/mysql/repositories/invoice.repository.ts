@@ -60,7 +60,9 @@ export class InvoiceRepository implements IRepository<InvoiceMySqlEntity>{
      * @return {*}  {Promise<InvoiceMySqlEntity>}
      * @memberof InvoiceRepository
      */
-    async update(invoiceID: string, entity: InvoiceMySqlEntity): Promise<InvoiceMySqlEntity> {
+    async update(entity: InvoiceMySqlEntity): Promise<InvoiceMySqlEntity> {
+        
+        const invoiceID = entity.invoiceID as string;
         
         let entityFound = await this.findById(invoiceID);
 

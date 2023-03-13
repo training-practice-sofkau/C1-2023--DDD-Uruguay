@@ -62,8 +62,10 @@ export class DeviceRepository
      * @return {*}  {Promise<DeviceMySqlEntity>}
      * @memberof DeviceRepository
      */
-    async update(deviceID: string, entity: DeviceMySqlEntity): Promise<DeviceMySqlEntity> {
+    async update(entity: DeviceMySqlEntity): Promise<DeviceMySqlEntity> {
 
+        const deviceID = entity.deviceID as string;
+        
         let entityFound = await this.findById(deviceID);
 
         if (!entityFound) throw new BadRequestException(`Device with id: ${deviceID} not found`);

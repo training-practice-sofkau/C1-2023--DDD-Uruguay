@@ -7,9 +7,9 @@ import { IDeviceDomainEntity } from '../../interfaces/support-ticket/';
 
 export class DeviceDomainEntityBase implements IDeviceDomainEntity {
 
-    deviceID: string | UUIDValueObject;
-    deviceType: string | DeviceTypeValueObject;
-    issues: string[] | IssueValueObject[];
+    deviceID?: string | UUIDValueObject;
+    deviceType?: string | DeviceTypeValueObject;
+    issues?: string[] | IssueValueObject[];
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

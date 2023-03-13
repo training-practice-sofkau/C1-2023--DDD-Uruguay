@@ -9,16 +9,16 @@ import { PhoneValueObject } from '../../../../../domain/value-objects/common/pho
 export class CustomerMySqlEntity extends CustomerDomainEntityBase {
 
     @PrimaryGeneratedColumn('uuid')
-    customerID: string | UUIDValueObject;
+    customerID?: string | UUIDValueObject;
 
     @Column()
-    customerName: string | FullnameValueObject;
+    customerName?: string | FullnameValueObject;
 
     @Column()
-    customerEmail: string | EmailValueObject;
+    customerEmail?: string | EmailValueObject;
 
     @Column()
-    customerPhone: string | PhoneValueObject;
+    customerPhone?: string | PhoneValueObject;
 
     @Column()
     createdAt?: number | Date;
