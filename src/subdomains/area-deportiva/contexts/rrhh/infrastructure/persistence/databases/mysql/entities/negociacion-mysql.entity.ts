@@ -3,7 +3,7 @@ import { Column, Entity, OneToOne } from 'typeorm';
 import { NegociacionDomainEntity } from '../../../../../domain/entities/negociacion/negociacion.domain-entity';
 import { TramiteMySqlEntity } from './tramite-mysql.entity';
 
-@Entity('usuario', { schema: 'public' })
+@Entity('negociacion', { schema: 'public' })
 export class NegociacionMySqlEntity extends NegociacionDomainEntity {
   @Column('uuid')
   negociacionId?: string;

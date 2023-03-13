@@ -3,7 +3,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { IEventPublisher } from '@sofka';
 import { lastValueFrom } from 'rxjs';
 import { UsuarioCreadoEventPublisher } from '../../../domain/events';
-import { UsuarioEntity } from '../../persistence/entities/usuario.entity';
+import { UsuarioEntity } from '../../persistence/entities/traspaso.entity';
 
 @Injectable()
 export class UsuarioCreadoPublisher extends UsuarioCreadoEventPublisher<UsuarioEntity> {

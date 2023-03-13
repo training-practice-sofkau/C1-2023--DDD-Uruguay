@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { IUsuarioDomainService } from '@usuarios/domain';
 import { UsuarioPostgresEntity } from '../entities/tramite-mysql.entity';
-import { UsuarioRepository } from '../repositories/usuario.repository';
+import { UsuarioRepository } from '../repositories/empleado.repository';
 
 /**
  * Servicio de dominio para el manejo de usuarios

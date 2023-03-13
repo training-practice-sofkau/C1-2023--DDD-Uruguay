@@ -4,8 +4,16 @@ import { TramiteDomainEntity } from '../../../../../domain/entities/tramite/tram
 import { StaffDeportivoMySqlEntity } from './staff-deportivo-mysql.entity';
 import { NegociacionMySqlEntity } from './negociacion-mysql.entity';
 
-@Entity()
+@Entity('tramite', { schema: 'public' })
 export class TramiteMySqlEntity extends TramiteDomainEntity {
+
+  @Column('uuid', {
+    primary: true,
+    name: 'tramite_id',
+    default: () => 'uuid_generate_v4()',
+  })
+  tramiteId?: string;
+
   @Column('character varying', { name: 'fecha', length: 255 })
   fecha?: string;
 

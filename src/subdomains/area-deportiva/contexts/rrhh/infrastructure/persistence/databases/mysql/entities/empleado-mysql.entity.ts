@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { EmpleadoDomainEntity } from '../../../../../domain/entities/empleado/EmpleadoDomainEntity';
 import { StaffDeportivoMySqlEntity } from './staff-deportivo-mysql.entity';
 
-@Entity()
+@Entity('empleado', { schema: 'public' })
 export class EmpleadoMySqlEntity extends EmpleadoDomainEntity {
   @Column('uuid')
   empleadoId?: string;

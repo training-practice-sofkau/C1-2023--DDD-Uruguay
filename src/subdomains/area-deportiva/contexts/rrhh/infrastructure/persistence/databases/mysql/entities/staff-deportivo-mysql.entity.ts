@@ -4,9 +4,7 @@ import { TramiteMySqlEntity } from './tramite-mysql.entity';
 import { EmpleadoMySqlEntity } from './empleado-mysql.entity';
 
 
-@Entity(
-  //'staff_deportivo', { schema: 'public' }
-  )
+@Entity('staff_deportivo', { schema: 'public' })
 export class StaffDeportivoMySqlEntity extends StaffDeportivoDomainEntity {
   @Column('uuid')
   staffDeportivoId?: string;
