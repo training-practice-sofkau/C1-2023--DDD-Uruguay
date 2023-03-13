@@ -18,7 +18,9 @@ import {
     NombreBebidaCambiadoEventPublisherBase,
     TamanioBebidaCambiadoEventPublisherBase,
     TamanioPostreCambiadoEventPublisherBase,
-    PostreEsParaVeganosCambiadoEventPublisherBase
+    PostreEsParaVeganosCambiadoEventPublisherBase,
+    PedidoObtenidoEventPublisherBase,
+    BebidaObtenidaEventPublisherBase
 } from '../events/publishers/pedido';
 
 import {
@@ -45,11 +47,16 @@ export class PedidoAggregate
         private readonly platoPrincipalService?: IPlatoPrincipalDomainService<PlatoPrincipalDomainEntityBase>;
         private readonly postreService?: IPostreDomainService<PostreDomainEntityBase>;
         private readonly bebidaService?: IBebidaDomainService<BebidaDomainEntityBase>;
+
         private readonly pedidoCreadoEventPublisherBase?: PedidoCreadoEventPublisherBase;
         private readonly entradaCreadaEventPublisherBase?: EntradaCreadaEventPublisherBase;
         private readonly platoPrincipalCreadoEventPublisherBase?: PlatoPrincipalCreadoEventPublisherBase;
         private readonly postreCreadoEventPublisherBase?: PostreCreadoEventPublisherBase;
         private readonly bebidaCreadaEventPublisherBase?: BebidaCreadaEventPublisherBase;
+
+        private readonly pedidoObtenidoEventPublisherBase?: PedidoObtenidoEventPublisherBase;
+        private readonly bebidaObtenidaEventPublisherBase?: BebidaObtenidaEventPublisherBase;
+
         private readonly estadoPedidoCambiadoEventPublisherBase?: EstadoPedidoCambiadoEventPublisherBase;
         private readonly precioPedidoCambiadoEventPublisherBase?: PrecioPedidoCambiadoEventPublisherBase;
         private readonly nombreEntradaCambiadoEventPublisherBase?: NombreEntradaCambiadoEventPublisherBase;
@@ -66,12 +73,22 @@ export class PedidoAggregate
                 pedidoService,
                 entradaService,
                 platoPrincipalService,
+                postreService,
+                bebidaService,
+
                 pedidoCreadoEventPublisherBase,
                 entradaCreadaEventPublisherBase,
                 platoPrincipalCreadoEventPublisherBase,
+                postreCreadoEventPublisherBase,
+                bebidaCreadaEventPublisherBase,
+
+                pedidoObtenidoEventPublisherBase,
+                bebidaObtenidaEventPublisherBase,
+
                 estadoPedidoCambiadoEventPublisherBase,
                 precioPedidoCambiadoEventPublisherBase,
                 nombreEntradaCambiadoEventPublisherBase,
+                nombrePlatoPrincipalCambiadoEventPublisherBase,
                 guarnicionPlatoPrincipalCambiadoEventPublisherBase,
                 nombrePostreCambiadoEventPublisherBase,
                 nombreBebidaCambiadoEventPublisherBase,
@@ -82,12 +99,22 @@ export class PedidoAggregate
                 pedidoService?: IPedidoDomainService<PedidoDomainEntityBase>,
                 entradaService?: IEntradaDomainService<EntradaDomainEntityBase>,
                 platoPrincipalService?: IPlatoPrincipalDomainService<PlatoPrincipalDomainEntityBase>,
+                postreService?: IPostreDomainService<PostreDomainEntityBase>,
+                bebidaService?: IBebidaDomainService<BebidaDomainEntityBase>,
+
                 pedidoCreadoEventPublisherBase?: PedidoCreadoEventPublisherBase,
                 entradaCreadaEventPublisherBase?: EntradaCreadaEventPublisherBase,
                 platoPrincipalCreadoEventPublisherBase?: PlatoPrincipalCreadoEventPublisherBase,
+                postreCreadoEventPublisherBase?: PostreCreadoEventPublisherBase,
+                bebidaCreadaEventPublisherBase?: BebidaCreadaEventPublisherBase,
+
+                pedidoObtenidoEventPublisherBase?: PedidoObtenidoEventPublisherBase,
+                bebidaObtenidaEventPublisherBase?: BebidaObtenidaEventPublisherBase,
+
                 estadoPedidoCambiadoEventPublisherBase?: EstadoPedidoCambiadoEventPublisherBase,
                 precioPedidoCambiadoEventPublisherBase?: PrecioPedidoCambiadoEventPublisherBase,
                 nombreEntradaCambiadoEventPublisherBase?: NombreEntradaCambiadoEventPublisherBase,
+                nombrePlatoPrincipalCambiadoEventPublisherBase?: NombrePlatoPrincipalCambiadoEventPublisherBase,
                 guarnicionPlatoPrincipalCambiadoEventPublisherBase?: GuarnicionPlatoPrincipalCambiadoEventPublisherBase,
                 nombrePostreCambiadoEventPublisherBase?: NombrePostreCambiadoEventPublisherBase,
                 nombreBebidaCambiadoEventPublisherBase?: NombreBebidaCambiadoEventPublisherBase,
@@ -99,12 +126,22 @@ export class PedidoAggregate
             this.pedidoService = pedidoService,
             this.entradaService = entradaService,
             this.platoPrincipalService = platoPrincipalService,
+            this.postreService = postreService,
+            this.bebidaService = bebidaService,
+
             this.pedidoCreadoEventPublisherBase = pedidoCreadoEventPublisherBase,
             this.entradaCreadaEventPublisherBase = entradaCreadaEventPublisherBase,
             this.platoPrincipalCreadoEventPublisherBase = platoPrincipalCreadoEventPublisherBase,
+            this.postreCreadoEventPublisherBase = postreCreadoEventPublisherBase,
+            this.bebidaCreadaEventPublisherBase = bebidaCreadaEventPublisherBase,
+
+            this.pedidoObtenidoEventPublisherBase = pedidoObtenidoEventPublisherBase,
+            this.bebidaObtenidaEventPublisherBase = bebidaObtenidaEventPublisherBase,
+
             this.estadoPedidoCambiadoEventPublisherBase = estadoPedidoCambiadoEventPublisherBase,
             this.precioPedidoCambiadoEventPublisherBase = precioPedidoCambiadoEventPublisherBase,
             this.nombreEntradaCambiadoEventPublisherBase = nombreEntradaCambiadoEventPublisherBase,
+            this.nombrePlatoPrincipalCambiadoEventPublisherBase = nombrePlatoPrincipalCambiadoEventPublisherBase,
             this.guarnicionPlatoPrincipalCambiadoEventPublisherBase = guarnicionPlatoPrincipalCambiadoEventPublisherBase,
             this.nombrePostreCambiadoEventPublisherBase = nombrePostreCambiadoEventPublisherBase,
             this.nombreBebidaCambiadoEventPublisherBase = nombreBebidaCambiadoEventPublisherBase,
@@ -113,7 +150,7 @@ export class PedidoAggregate
             this.postreEsParaVeganosCambiadoEventPublisherBase = postreEsParaVeganosCambiadoEventPublisherBase
 
         }
-    
+        
         async crearPedido(pedido: PedidoDomainEntityBase): Promise<PedidoDomainEntityBase> {
             if(this.pedidoService && this.pedidoCreadoEventPublisherBase) {
                 const result = await this.pedidoService.crearPedido(pedido);
@@ -123,9 +160,21 @@ export class PedidoAggregate
             }
             throw new AggregateRootException(
                 'PedidoAggregate "PedidoService" y/o "pedidoCreadoEventPublisherBase" no están definidos'
-            )
+                )
         }
-
+            
+        async obtenerPedido(pedidoId: string): Promise<PedidoDomainEntityBase> {
+            if(this.pedidoService && this.pedidoObtenidoEventPublisherBase) {
+                const result = await this.pedidoService.obtenerPedido(pedidoId);
+                this.pedidoObtenidoEventPublisherBase.response = result;
+                this.pedidoObtenidoEventPublisherBase.publish();
+                return this.pedidoObtenidoEventPublisherBase.response;
+            }
+            throw new AggregateRootException(
+                'PedidoAggregate "PedidoService" y/o "pedidoObtenidoEventPublisherBase" no están definidos'
+                )
+        }
+        
         async cambiarEstadoPedido(pedidoId: string, nuevoEstado: string): Promise<string> {
             if(this.pedidoService && this.estadoPedidoCambiadoEventPublisherBase) {
                 const result = await this.pedidoService.cambiarEstadoPedido(pedidoId, nuevoEstado);
@@ -138,9 +187,9 @@ export class PedidoAggregate
             )
         }
 
-        async cambiarPrecioPedido(pedidoId: string, nuevoPRecio: number): Promise<number> {
+        async cambiarPrecioPedido(pedidoId: string, nuevoPrecio: number): Promise<number> {
             if(this.pedidoService && this.precioPedidoCambiadoEventPublisherBase) {
-                const result = await this.pedidoService.cambiarPrecioPedido(pedidoId, nuevoPRecio);
+                const result = await this.pedidoService.cambiarPrecioPedido(pedidoId, nuevoPrecio);
                 this.precioPedidoCambiadoEventPublisherBase.response = result;
                 this.precioPedidoCambiadoEventPublisherBase.publish();
                 return this.precioPedidoCambiadoEventPublisherBase.response;
@@ -220,6 +269,18 @@ export class PedidoAggregate
             throw new AggregateRootException(
                 'PedidoAggregate "bebidaService" y/o "bebidaCreadaEventPublisherBase" no están definidos'
             )
+        }
+
+        async obtenerBebida(bebidaId: string): Promise<BebidaDomainEntityBase> {
+            if(this.bebidaService && this.bebidaObtenidaEventPublisherBase) {
+                const result = await this.bebidaService.obtenerBebida(bebidaId);
+                this.bebidaObtenidaEventPublisherBase.response = result;
+                this.bebidaObtenidaEventPublisherBase.publish();
+                return this.bebidaObtenidaEventPublisherBase.response;
+            }
+            throw new AggregateRootException(
+                'PedidoAggregate "bebidaService" y/o "bebidaObtenidaEventPublisherBase" no están definidos'
+                )
         }
 
         async cambiarNombreBebida(bebidaId: string, nuevoNombre: string): Promise<string> {

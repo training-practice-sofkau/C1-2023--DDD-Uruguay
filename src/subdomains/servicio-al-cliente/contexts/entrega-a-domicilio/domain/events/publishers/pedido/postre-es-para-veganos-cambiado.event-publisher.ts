@@ -6,7 +6,7 @@ export abstract class PostreEsParaVeganosCambiadoEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.postre-es-para-veganos-cambiado',
+            'entrega_a_domicilio.postre-es-para-veganos-cambiado',
             JSON.stringify({ data: this.response })
         )
     }

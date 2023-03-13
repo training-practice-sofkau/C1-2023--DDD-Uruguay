@@ -8,7 +8,7 @@ export abstract class RepartidorCreadoEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.repartidor-creado',
+            'entrega_a_domicilio.repartidor-creado',
             JSON.stringify({ data: this.response })
         )
     }

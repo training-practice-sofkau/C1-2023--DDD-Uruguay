@@ -7,5 +7,5 @@
  */
  export interface ICambiarEstadoPedidoCommand {
     pedidoId?: string;
-    estado?: string;
+    nuevoEstado?: string;
 }

@@ -1,12 +1,14 @@
 
 import { EventPublisherBase } from "src/libs";
+import { BebidaDomainEntityBase } from "../../../entities";
 
-export abstract class NombrePlatoPrincipalCambiadoEventPublisherBase<
-    Response = string
+
+export abstract class BebidaObtenidaEventPublisherBase<
+    Response = BebidaDomainEntityBase
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'entrega_a_domicilio.nombre-plato-cambiado',
+            'entrega_a_domicilio.bebida-obtenida',
             JSON.stringify({ data: this.response })
         )
     }

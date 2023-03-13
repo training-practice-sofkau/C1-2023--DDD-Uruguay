@@ -6,7 +6,7 @@ export abstract class TamanioPostreCambiadoEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.tamaño-postre-cambiado',
+            'entrega_a_domicilio.tamaño-postre-cambiado',
             JSON.stringify({ data: this.response })
         )
     }

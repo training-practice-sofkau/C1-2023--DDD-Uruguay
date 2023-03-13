@@ -6,7 +6,7 @@ export abstract class GuarnicionPlatoPrincipalCambiadoEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.guarnicion-plato-principal-cambiado',
+            'entrega_a_domicilio.guarnicion-plato-principal-cambiado',
             JSON.stringify({ data: this.response })
         )
     }

@@ -8,7 +8,7 @@ export abstract class BebidaCreadaEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.bebida-creada',
+            'entrega_a_domicilio.bebida-creada',
             JSON.stringify({ data: this.response })
         )
     }

@@ -8,7 +8,7 @@ export abstract class PlatoPrincipalCreadoEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.plato-principal-creada',
+            'entrega_a_domicilio.plato-principal-creado',
             JSON.stringify({ data: this.response })
         )
     }

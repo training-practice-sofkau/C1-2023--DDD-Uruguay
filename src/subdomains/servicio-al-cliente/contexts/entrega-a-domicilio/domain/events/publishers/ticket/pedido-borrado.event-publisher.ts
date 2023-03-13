@@ -6,7 +6,7 @@ export abstract class PedidoBorradoEventPublisherBase<
 > extends EventPublisherBase<Response> {
     publish<Result = any>(): Promise<Result> {
         return this.emit(
-            'management_system.pedido-borrado',
+            'entrega_a_domicilio.pedido-borrado',
             JSON.stringify({ data: this.response })
         )
     }

@@ -7,5 +7,5 @@
  */
  export interface ICambiarPrecioPedidoCommand {
     pedidoId?: string;
-    precio?: number;
+    nuevoPrecio?: number;
 }
