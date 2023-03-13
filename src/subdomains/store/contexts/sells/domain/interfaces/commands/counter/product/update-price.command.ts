@@ -1,6 +1,4 @@
-import { IdValueObject, PriceValueObject } from "../../../../value-objects"
-
 export interface IProductUpdatePriceCommand{
-    productId: string | IdValueObject
-    newPrice: number | PriceValueObject
+    productId: string
+    newPrice: number
 }

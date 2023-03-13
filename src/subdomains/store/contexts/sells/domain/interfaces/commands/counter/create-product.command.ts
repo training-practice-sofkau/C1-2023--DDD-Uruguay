@@ -1,10 +1,11 @@
-import { DateValueObject, FlavourValueObject, IdValueObject, PriceValueObject, ProductTypeValueObject, StockValueObject } from "../../../value-objects";
+import { Flavour, DessertType } from "../../../value-objects"
+
 
 export interface ICounterCreateProductCommand{
-    productId: string | IdValueObject
-    type: string | ProductTypeValueObject
-    flavour: string | FlavourValueObject
-    price: number | PriceValueObject
-    stock: number | StockValueObject
-    expirationDate: Date | DateValueObject
+    productId?: string
+    type: DessertType
+    flavour: Flavour
+    price: number
+    stock: number
+    expirationDate: Date
 }

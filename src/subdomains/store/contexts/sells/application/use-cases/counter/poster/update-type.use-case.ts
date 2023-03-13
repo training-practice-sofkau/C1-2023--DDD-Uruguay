@@ -1,9 +1,13 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { IPosterUpdateImageCommand, IPosterUpdatedImageResponse, CounterAggregate, IPosterDomainService, PosterUpdatedPriceEventPublisherBase, PosterDomainEntity, IPosterDomainEntity, IdValueObject, PriceValueObject, PosterUpdatedImageEventPublisherBase, ImageValueObject } from "../../../../domain";
+import { CounterAggregate, IPosterDomainService, PosterDomainEntity, IPosterDomainEntity, IdValueObject, PosterTypeValueObject } from "../../../../domain";
+import { PosterUpdatedTypeEventPublisherBase } from "../../../../domain/events/publishers/counter/poster/updated-type.event-publisher";
+import { IPosterUpdateTypeCommand } from "../../../../domain/interfaces/commands/counter/poster/update-type.command";
+import { IPosterUpdatedTypeResponse } from "../../../../domain/interfaces/responses/counter/poster/updated-type.response";
+import { ImgType } from '../../../../domain/value-objects/poster/type/type.value-object';
 
-export class UpdateImageUseCase<
-    Command extends IPosterUpdateImageCommand = IPosterUpdateImageCommand,
-    Response extends IPosterUpdatedImageResponse = IPosterUpdatedImageResponse>
+export class UpdateTypePosterUseCase<
+    Command extends IPosterUpdateTypeCommand = IPosterUpdateTypeCommand,
+    Response extends IPosterUpdatedTypeResponse = IPosterUpdatedTypeResponse>
 
     extends ValueObjectErrorHandler
     implements IUseCase<Command, Response>{
@@ -12,12 +16,12 @@ export class UpdateImageUseCase<
 
     constructor(
         private readonly posterService: IPosterDomainService,
-        private readonly posterUpdatedImageEventPublisherBase: PosterUpdatedImageEventPublisherBase
+        private readonly posterUpdatedTypeEventPublisherBase: PosterUpdatedTypeEventPublisherBase
     ) {
         super();
         this.counterAggregateRoot = new CounterAggregate({
             posterService,
-            posterUpdatedImageEventPublisherBase
+            posterUpdatedTypeEventPublisherBase
         })
     }
 
@@ -35,23 +39,23 @@ export class UpdateImageUseCase<
 
     private createValueObject(command: Command): IPosterDomainEntity {
         const posterId = new IdValueObject(command.posterId)
-        const image = new ImageValueObject(command.image)
+        const type = new PosterTypeValueObject(command.type)
 
         return {
             posterId,
-            image,
+            type,
         }
     }
 
     private validateValueObject(valueObject: IPosterDomainEntity): void {
-        const { posterId, image } = valueObject
+        const { posterId, type } = valueObject
 
         if (posterId instanceof IdValueObject && posterId.hasErrors()) {
             this.setErrors(posterId.getErrors())
         }
 
-        if (image instanceof ImageValueObject && image.hasErrors()) {
-            this.setErrors(image.getErrors())
+        if (type instanceof PosterTypeValueObject && type.hasErrors()) {
+            this.setErrors(type.getErrors())
         }
 
         if (this.hasErrors())
@@ -64,17 +68,17 @@ export class UpdateImageUseCase<
     private createEntityPrductUpdatedDomain(valueObject: IPosterDomainEntity): PosterDomainEntity {
         const {
             posterId,
-            image
+            type
         } = valueObject
         return new PosterDomainEntity({
             posterId: posterId,
-            image: image
+            type: type
         })
     }
 
     private executePosterUpdatedAggregateRoot(
         entity: PosterDomainEntity,
     ): Promise<PosterDomainEntity | null> {
-        return this.counterAggregateRoot.updateImage(entity as unknown as Command)
+        return this.counterAggregateRoot.updatePosterType(entity as unknown as Command)
     }
 }
