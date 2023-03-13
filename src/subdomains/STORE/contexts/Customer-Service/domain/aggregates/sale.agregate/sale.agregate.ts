@@ -122,7 +122,7 @@ export class SaleAgregate
     );
   }
 
-  async UpdateTotal(data: IUpdateTotal): Promise<BillDomain> {
+  async UpdateTotal(data: BillDomain): Promise<BillDomain> {
     if (this.billservice && this.TotalModifiedEventPublisher) {
       const result = await this.billservice.UpdateTotal(data);
       this.TotalModifiedEventPublisher.response = result;

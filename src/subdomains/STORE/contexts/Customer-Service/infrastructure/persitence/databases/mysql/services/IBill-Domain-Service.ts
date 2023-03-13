@@ -2,12 +2,17 @@ import { MangaDomainBase } from 'src/subdomains/Store/contexts/Customer-Service/
 import { IUpdateTotal, IGetMangaData } from 'src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands';
 import { BillDomainService } from '../../../../../domain/services/Bill-domain-service';
 import { BillEntityDB } from '../entities/Bill-entity';
+import { BillRepository } from '../repositories/Bill-repository';
 export class BillMySqlService implements BillDomainService<BillEntityDB> {
+
+    constructor( private readonly BillRepository: BillRepository){}
+
+
     UpdatePaymentMethod(data: BillEntityDB): Promise<BillEntityDB> {
-        throw new Error('Method not implemented.');
+        return this.BillRepository.update(data.IDBill, data)
     }
-    UpdateTotal(data: IUpdateTotal): Promise<BillEntityDB> {
-        throw new Error('Method not implemented.');
+    UpdateTotal(data: BillEntityDB): Promise<BillEntityDB> {
+        return this.BillRepository.update(data.IDBill, data)
     }
     getMangaData(data: IGetMangaData): Promise<MangaDomainBase> {
         throw new Error('Method not implemented.');
