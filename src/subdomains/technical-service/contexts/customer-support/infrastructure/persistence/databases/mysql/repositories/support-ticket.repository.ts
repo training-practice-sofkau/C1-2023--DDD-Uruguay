@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { SupportTicketMySqlEntity } from "../entities";
@@ -13,24 +13,89 @@ export class SupportTicketRepository implements IRepository<SupportTicketMySqlEn
     ){}
 
 
-    findAll(): Promise<SupportTicketMySqlEntity[]> {
-        throw new Error("Method not implemented.");
-    }
-    findById(id: string): Promise<SupportTicketMySqlEntity> {
-        throw new Error("Method not implemented.");
-    }
-    create(entity: SupportTicketMySqlEntity): Promise<SupportTicketMySqlEntity> {
-        throw new Error("Method not implemented.");
-    }
-    update(id: string, entity: SupportTicketMySqlEntity): Promise<SupportTicketMySqlEntity> {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
+
+    /**
+     * Returns all the entities 
+     *
+     * @return {*}  {Promise<SupportTicketMySqlEntity[]>}
+     * @memberof SupportTicketRepository
+     */
+    async findAll(): Promise<SupportTicketMySqlEntity[]> {
+        return await this.repository.find()
     }
 
-//TODO: implementar metodos
 
+    /**
+     * Search in the DB a entity with the given ID
+     * gives an exception if not found
+     *
+     * @param {string} id
+     * @return {*}  {Promise<SupportTicketMySqlEntity>}
+     * @memberof SupportTicketRepository
+     */
+    async findById(ticketID: string): Promise<SupportTicketMySqlEntity> {
+        const result = await this.repository.findOneBy({ ticketID, deletedAt: undefined });
+
+        if (!result) throw new BadRequestException(`Support Ticket with id: ${ticketID} not found`);
+
+        return result;
+    }
+
+
+    /**
+     * Registers a new entity
+     *
+     * @param {SupportTicketMySqlEntity} entity
+     * @return {*}  {Promise<SupportTicketMySqlEntity>}
+     * @memberof SupportTicketRepository
+     */
+    async create(entity: SupportTicketMySqlEntity): Promise<SupportTicketMySqlEntity> {
+        return await this.repository.save(entity);
+    }
+
+
+    /**
+     * Updates the information of the entity with the given ID
+     * returns and exception if not found
+     *
+     * @param {string} id
+     * @param {SupportTicketMySqlEntity} entity
+     * @return {*}  {Promise<SupportTicketMySqlEntity>}
+     * @memberof SupportTicketRepository
+     */
+    async update(ticketID: string, entity: SupportTicketMySqlEntity): Promise<SupportTicketMySqlEntity> {
+
+        let entityFound = await this.findById(ticketID);
+
+        if (!entityFound) throw new BadRequestException(`Support Ticket with id: ${ticketID} not found`);
+
+        entity.ticketID = ticketID; //ensures the ID is the same as the original
+
+        entityFound = { ...entityFound, ...entity };
+
+        this.repository.save(entityFound);
+
+        return entityFound;
+    }
     
+
+    /**
+     * Soft deletes the entity with the given ID
+     * is not found returns an exception
+     *
+     * @param {string} id
+     * @return {*}  {Promise<boolean>}
+     * @memberof SupportTicketRepository
+     */
+    async delete(ticketID: string): Promise<boolean> {
+        
+        const result = await this.findById(ticketID);
+
+        if (!result) throw new BadRequestException(`Support Ticket with id: ${ticketID} not found`);
+
+        result.deletedAt = Date.now();
+
+        return true;
+    }
     
 }
