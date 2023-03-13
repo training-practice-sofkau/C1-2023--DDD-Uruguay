@@ -22,7 +22,7 @@ export class EmployeeRepository
      * @memberof EmployeeRepository
      */
     async findAll(): Promise<EmployeeMySqlEntity[]> {
-        return await this.repository.find({})
+        return await this.repository.find()
     }
     
 
