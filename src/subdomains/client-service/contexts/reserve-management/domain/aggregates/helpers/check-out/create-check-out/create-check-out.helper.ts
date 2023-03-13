@@ -1,10 +1,9 @@
 import { CheckOutDomainEntity } from "../../../../entities";
 import { CheckOutCreatedEventPublisher } from "../../../../events";
-import { ICreateCheckOut } from "../../../../interfaces";
 import { ICheckOutDomainService } from "../../../../services";
 
 export const CreateCheckOut = async (
-    checkOut: ICreateCheckOut,
+    checkOut: CheckOutDomainEntity,
     checkOutService: ICheckOutDomainService,
     checkOutCreatedEventPublisher: CheckOutCreatedEventPublisher
 ): Promise<CheckOutDomainEntity | null> => {
