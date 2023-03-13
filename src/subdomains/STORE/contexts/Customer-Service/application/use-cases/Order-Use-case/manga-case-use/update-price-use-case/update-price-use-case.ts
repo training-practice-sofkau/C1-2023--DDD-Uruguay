@@ -1,11 +1,11 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates/order.agregate";
-import { ClientDomainBase, IClientEntity, IMangaEntity, MangaDomainBase } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
-import { ClientObtainedEventPublisher, MangaModifiedEventPublisher, NameMangaModifiedEventPublisher, NameModifiedEventPublisher, PrinceModifiedEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events";
-import { UpdateNameClient, UpdateNameManga, UpdatePhoneClient, UpdatePriceManga, UpradedNameMangaResponse, UpradedNameResponse, UpradedPhoneResponse, UpradedPriceResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces";
-import { ClientDomainService, MangaDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
-import { ClientNameValue, IdclientValue, IdmangaValue, NameMangaValue, PhoneValue, PriceValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
-import { PhoneModifiedEventPublisher } from '../../../../../domain/events/publishers/order/client/modified-Phone-event-publisher';
+import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates";
+import { MangaDomainBase, IMangaEntity } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
+import { UpdatePriceManga } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands";
+import { UpradedPriceResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/responses/Order-Response";
+import { MangaDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
+import { IdmangaValue, PriceValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
+import { PrinceModifiedEventPublisher } from 'src/subdomains/Store/contexts/Customer-Service/domain/events/publishers/order/';
 
 export class UpdatePriceUseCase<
     Command extends UpdatePriceManga = UpdatePriceManga,
@@ -64,10 +64,10 @@ export class UpdatePriceUseCase<
         } = valueObject
       
       
-        if ( Mangaid.hasErrors())
+        if (Mangaid instanceof IdmangaValue && Mangaid.hasErrors())
         this.setErrors(Mangaid.getErrors());
 
-        if (Price.hasErrors())
+        if (Price instanceof  PriceValue && Price.hasErrors())
             this.setErrors(Price.getErrors());
 
         if (this.hasErrors() === true)

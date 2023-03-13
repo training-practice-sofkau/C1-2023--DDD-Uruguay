@@ -1,6 +1,5 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { IGetClient, IGetManga, MangaObtainedResponse } from "../../../../domain/interfaces";
 import { ClientObtainedResponse } from '../../../../domain/interfaces/responses/Order-Response/client-obtained-response';
 import { ClientDomainService, MangaDomainService } from "../../../../domain/services";
 import { ClientDomainBase } from '../../../../domain/entities/Order-domain/client-domain-entity';
@@ -8,6 +7,8 @@ import { ClientNameValue,  IdmangaValue,  MangaSateValue,  NameMangaValue,  Phon
 import { MangaDomainBase } from '../../../../domain/entities/Order-domain/manga-domain-entity';
 import { MangaObtainedEventPublisher } from '../../../../domain/events/publishers/Sale/Bill/manga-obtained-event-publisher';
 import { MangaModifiedEventPublisher } from '../../../../domain/events/publishers/order/modified-manga-stock-event-publisher';
+import { IGetManga } from "../../../../domain/interfaces/commands";
+import { MangaObtainedResponse } from "../../../../domain/interfaces/responses/Order-Response";
 
 export class GetMangaCaseUse<
     Command extends IGetManga = IGetManga,

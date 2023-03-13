@@ -1,10 +1,10 @@
 import { AggregateRootException } from "src/libs";
-import { SellerDomain, BillDomain, MangaDomainBase, SaleDomainEntity, ClientDomainBase } from "../../entities";
-import { AddedSaleEventPublisher, AddedSellerEventPublisher, ClientObtainedEventPublisher, BillModifiedEventPublisher, SellerModifiedEventPublisher, SalesObtainedEventPublisher, SellerNameModifiedEventPublisher, MangaObtainedEventPublisher, PaymentMethodEventPublisher, TotalModifiedEventPublisher } from "../../events";
-import { BillObtainedEventPublisher } from "../../events/publishers/Sale/Bill/bill-obtained.publish-event";
-import { SellerObtainedEventPublisher } from "../../events/publishers/Sale/Seller/seller-obtained.publish-event";
-import { IUpdateNameSeller, UpdatePaymentMethod, IUpdateTotal, IGetMangaData, IRegisterSale, IGetClientSale, IAddSaller, IUpdateBill, IGetSalesList } from "../../interfaces";
+import { BillDomain, SellerDomain, MangaDomainBase, SaleDomainEntity, ClientDomainBase } from "../../entities";
+import { ClientObtainedEventPublisher, MangaObtainedEventPublisher } from "../../events/publishers/order";
+import { AddedSaleEventPublisher, AddedSellerEventPublisher, BillModifiedEventPublisher, SellerModifiedEventPublisher, SalesObtainedEventPublisher, SellerNameModifiedEventPublisher, PaymentMethodEventPublisher, TotalModifiedEventPublisher, SellerObtainedEventPublisher, BillObtainedEventPublisher } from "../../events/publishers/Sale";
+import { IUpdateTotal, IGetMangaData, IGetClientSale, IUpdateNameSeller, IUpdateBill } from "../../interfaces/commands";
 import { BillDomainService, SellerDomainService, SaleDomainService } from "../../services";
+
 
 export class SaleAgregate
   implements BillDomainService, SellerDomainService, SaleDomainService

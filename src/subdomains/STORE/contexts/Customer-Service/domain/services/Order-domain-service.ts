@@ -1,7 +1,6 @@
 import { OrderDomainEntityBase } from "../entities/Order-domain/Order-domain-entity";
 import { ClientDomainBase } from '../entities/Order-domain/client-domain-entity';
 import { MangaDomainBase } from "../entities/Order-domain/manga-domain-entity";
-import { IRegisterOrder } from '../interfaces/commands/Order-commands/register.order-command';
 import { IGetClient } from "../interfaces/commands/Order-commands/get-client-command";
 import { IUpdateOrder } from "../interfaces/commands/Order-commands/update-order-command";
 import { IDeleteOrder } from '../interfaces/commands/Order-commands/delete-command';

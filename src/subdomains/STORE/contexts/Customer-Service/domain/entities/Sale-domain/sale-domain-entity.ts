@@ -8,8 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 export class SaleDomainEntity implements ISaleEntity{
     Bill?: BillDomain;
     Seller?: SellerDomain;
-    IDSale?: IdSaleValueObject;
-    IDOrder?: IdOrdertValueObject;
+    IDSale?: string |   IdSaleValueObject;
+    IDOrder?: string |  IdOrdertValueObject;
 
 
 

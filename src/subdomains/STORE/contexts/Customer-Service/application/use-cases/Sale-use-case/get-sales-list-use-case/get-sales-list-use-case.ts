@@ -1,9 +1,10 @@
 import { ValueObjectErrorHandler, IUseCase } from "src/libs";
 import { SaleAgregate } from "../../../../domain/aggregates/sale.agregate";
 import { SaleDomainEntity } from "../../../../domain/entities";
-import { IGetSalesList, SalesObtainedResponse } from "../../../../domain/interfaces";
 import { SaleDomainService } from "../../../../domain/services";
 import { SalesObtainedEventPublisher } from '../../../../domain/events/publishers/Sale/sales-obtained-event-publisher';
+import { IGetSalesList } from "../../../../domain/interfaces/commands";
+import { SalesObtainedResponse } from "../../../../domain/interfaces/responses/Sale-Response";
 
 export class GetSalesListUseCase<
     Command extends IGetSalesList = IGetSalesList,

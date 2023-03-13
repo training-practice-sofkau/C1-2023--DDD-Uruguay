@@ -1,18 +1,13 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { ClientDomainService, SaleDomainService } from "../../../../domain/services";
-import { ClientAddEventPublisher } from '../../../../domain/events/publishers/order/added-customer-event-Publisher';
-import { ClientDomainBase, IClientEntity, SaleDomainEntity } from "../../../../domain/entities";
-import { IdclientValue } from '../../../../domain/value-objects/Sale/Bill/idclient-value/idclient-value';
-import { ClientNameValue, IdOrdertValueObject, IdSaleValueObject } from "../../../../domain/value-objects";
-import { PhoneValue } from '../../../../domain/value-objects/Order/Client/phone-value/phone-value';
-import { SalesObtainedEventPublisher } from "../../../../domain/events";
-import { IRegisterSale } from "../../../../domain/interfaces";
-import { SaleAgregate } from "../../../../domain/aggregates/sale.agregate";
-import { GetBillUseCase } from "../get-bill-use-case/get-bill-use-case";
-import { BillObtainedEventPublisher } from "../../../../domain/events/publishers/Sale/Bill/bill-obtained.publish-event";
-import { SellerObtainedEventPublisher } from "../../../../domain/events/publishers/Sale/Seller/seller-obtained.publish-event";
-import { GetSellerUseCase } from "../get-seller-use-case/get-seller-use-case";
+import { SaleAgregate } from "../../../../domain/aggregates";
+import { SaleDomainEntity } from "../../../../domain/entities";
+import { SalesObtainedEventPublisher } from "../../../../domain/events/publishers/Sale";
+import { IRegisterSale } from "../../../../domain/interfaces/commands";
+import { SaleDomainService } from "../../../../domain/services";
+import { IdOrdertValueObject, IdSaleValueObject } from "../../../../domain/value-objects";
+import { GetBillUseCase } from "../get-bill-use-case";
+import { GetSellerUseCase } from "../get-seller-use-case";
+
 
 export class RegisterSaleUseCase<
     Command extends IRegisterSale = IRegisterSale,
@@ -29,9 +24,7 @@ export class RegisterSaleUseCase<
     constructor(
         private readonly saleService: SaleDomainService,
         private readonly SalesObtainedEventPublisher: SalesObtainedEventPublisher,
-        private readonly BillObtainedEventPublisher: BillObtainedEventPublisher,
-        private readonly SellerObtaiedEventPublisher: SellerObtainedEventPublisher
-
+        
     ) {
         super();
         this.SaleAgregate = new SaleAgregate({
@@ -65,10 +58,10 @@ export class RegisterSaleUseCase<
         } = valueObject
       
 
-        if (IDOrder.hasErrors())
+        if (IDOrder instanceof IdOrdertValueObject && IDOrder.hasErrors())
             this.setErrors(IDOrder.getErrors());    
 
-        if (IDSale.hasErrors())
+        if (IDSale instanceof IdSaleValueObject  && IDSale.hasErrors())
             this.setErrors(IDSale.getErrors());
 
         if (this.hasErrors() === true)

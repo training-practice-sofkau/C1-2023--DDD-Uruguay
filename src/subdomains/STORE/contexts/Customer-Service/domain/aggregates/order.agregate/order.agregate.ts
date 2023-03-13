@@ -5,38 +5,10 @@ import {
   ClientDomainBase,
   MangaDomainBase,
 } from '../../entities';
+import { ClientAddEventPublisher, ClientModifiedEventPublisher, ClientObtainedEventPublisher, DeleteOrderEventPublisher, MangaModifiedEventPublisher, MangaObtainedEventPublisher, NameMangaModifiedEventPublisher, NameModifiedEventPublisher, OrderAddEventPublisher, OrderModifiedEventPublisher, PhoneModifiedEventPublisher, PrinceModifiedEventPublisher, StateModifiedEventPublisher } from '../../events/publishers/order';
+import { IUpdateOrder, IDeleteOrder, IUpdateMangaStock, IUpdateClient, UpdateStateManga, UpdatePriceManga } from '../../interfaces/commands';
 
-import {
-  OrderAddEventPublisher,
-  ClientAddEventPublisher,
-  ClientObtainedEventPublisher,
-  DeleteOrderEventPublisher,
-  MangaObtainedEventPublisher,
-  ClientModifiedEventPublisher,
-  MangaModifiedEventPublisher,
-  OrderModifiedEventPublisher,
-  NameMangaModifiedEventPublisher,
-  PrinceModifiedEventPublisher,
-  StateModifiedEventPublisher,
-  NameModifiedEventPublisher,
-  PhoneModifiedEventPublisher,
-} from '../../events';
 
-import {
-  IRegisterOrder,
-  IGetClient,
-  IUpdateOrder,
-  IDeleteOrder,
-  IGetMangaData,
-  IAddClient,
-  IUpdateMangaStock,
-  IUpdateClient,
-  UpdateNameManga,
-  UpdateStateManga,
-  UpdatePriceManga,
-  UpdateNameClient,
-  UpdatePhoneClient,
-} from '../../interfaces';
 
 import {
   IorderDomainService,
@@ -158,7 +130,7 @@ Publisher events go in this place
       
       const result = await this.orderService.GetClient(data);
 
-      this.GetClientEventPublisher.response = result;
+      this.GetClientEventPublisher.response = result
 
       this.GetClientEventPublisher.publish();
 

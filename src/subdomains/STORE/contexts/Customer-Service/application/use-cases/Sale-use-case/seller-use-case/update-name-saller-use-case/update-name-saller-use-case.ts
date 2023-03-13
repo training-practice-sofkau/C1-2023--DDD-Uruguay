@@ -1,11 +1,12 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { SaleAgregate } from "src/subdomains/STORE/contexts/Customer-Service/domain/aggregates/sale.agregate";
-import { BillDomain, IBillEntity, ISellerEntity, SellerDomain } from "src/subdomains/STORE/contexts/Customer-Service/domain/entities";
-import { IUpdateNameSeller, IUpdateTotal, SellerNameUpdatedResponse, TotalUpdatedResponse } from "src/subdomains/STORE/contexts/Customer-Service/domain/interfaces";
-import { BillDomainService, SellerDomainService } from "src/subdomains/STORE/contexts/Customer-Service/domain/services";
-import { IdbillValue, IdsellerValue, NameSellerValue, PaymentMethodValue, TotalValue } from "src/subdomains/STORE/contexts/Customer-Service/domain/value-objects";
-import { TotalModifiedEventPublisher} from "src/subdomains/STORE/contexts/Customer-Service/domain/events/publishers/Sale/Bill/modified-total-event-publisher"
-import { SellerNameModifiedEventPublisher } from "src/subdomains/STORE/contexts/Customer-Service/domain/events/publishers/Sale/Seller/modified-Seller-name-event-publisher"
+import { SaleAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates";
+import { SellerDomain, ISellerEntity } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
+import { SellerNameModifiedEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events/publishers/Sale";
+import { IUpdateNameSeller } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands";
+import { SellerNameUpdatedResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/responses/Sale-Response";
+import { SellerDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
+import { IdsellerValue, NameSellerValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
+
 export class UpdateNameSallerUseCase<
     Command extends   IUpdateNameSeller = IUpdateNameSeller,
     Response extends SellerNameUpdatedResponse = SellerNameUpdatedResponse
@@ -64,10 +65,10 @@ export class UpdateNameSallerUseCase<
         } = valueObject
       
       
-        if ( IdSeller.hasErrors())
+        if ( IdSeller instanceof IdsellerValue && IdSeller.hasErrors())
         this.setErrors(IdSeller.getErrors());
 
-        if (Name.hasErrors())
+        if (Name instanceof NameSellerValue && Name.hasErrors())
             this.setErrors(Name.getErrors());
 
         if (this.hasErrors() === true)

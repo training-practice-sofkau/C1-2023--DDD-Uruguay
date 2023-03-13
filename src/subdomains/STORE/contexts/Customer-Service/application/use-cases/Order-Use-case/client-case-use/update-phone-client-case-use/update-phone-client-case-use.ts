@@ -1,11 +1,11 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates/order.agregate";
+import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates";
 import { ClientDomainBase, IClientEntity } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
-import { ClientObtainedEventPublisher, NameModifiedEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events";
-import { UpdateNameClient, UpdatePhoneClient, UpradedNameResponse, UpradedPhoneResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces";
+import { PhoneModifiedEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events/publishers/order";
+import { UpdatePhoneClient } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands";
+import { UpradedPhoneResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/responses/Order-Response";
 import { ClientDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
-import { ClientNameValue, IdclientValue, PhoneValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
-import { PhoneModifiedEventPublisher } from '../../../../../domain/events/publishers/order/client/modified-Phone-event-publisher';
+import { PhoneValue, IdclientValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
 
 export class UpdatePhoneClientCaseUse<
     Command extends UpdatePhoneClient = UpdatePhoneClient,
@@ -66,10 +66,10 @@ export class UpdatePhoneClientCaseUse<
         } = valueObject
       
       
-        if ( ClientID.hasErrors())
+        if (ClientID instanceof IdclientValue && ClientID.hasErrors())
         this.setErrors(ClientID.getErrors());
 
-        if (Phone.hasErrors())
+        if (Phone instanceof  PhoneValue &&  Phone.hasErrors())
             this.setErrors(Phone.getErrors());
 
         if (this.hasErrors() === true)

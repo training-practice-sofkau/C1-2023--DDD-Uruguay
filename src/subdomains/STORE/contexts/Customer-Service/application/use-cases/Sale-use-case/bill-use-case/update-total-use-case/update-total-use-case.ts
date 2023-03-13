@@ -1,10 +1,11 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
 import { SaleAgregate } from "src/subdomains/STORE/contexts/Customer-Service/domain/aggregates/sale.agregate";
 import { BillDomain, IBillEntity } from "src/subdomains/STORE/contexts/Customer-Service/domain/entities";
-import { IUpdateTotal, TotalUpdatedResponse } from "src/subdomains/STORE/contexts/Customer-Service/domain/interfaces";
 import { BillDomainService } from "src/subdomains/STORE/contexts/Customer-Service/domain/services";
 import { IdbillValue, PaymentMethodValue, TotalValue } from "src/subdomains/STORE/contexts/Customer-Service/domain/value-objects";
 import { TotalModifiedEventPublisher} from "src/subdomains/STORE/contexts/Customer-Service/domain/events/publishers/Sale/Bill/modified-total-event-publisher"
+import { IUpdateTotal } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands";
+import { TotalUpdatedResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/responses/Sale-Response";
 export class UpdateTotalUseCase<
     Command extends IUpdateTotal = IUpdateTotal,
     Response extends TotalUpdatedResponse = TotalUpdatedResponse
@@ -63,10 +64,10 @@ export class UpdateTotalUseCase<
         } = valueObject
       
       
-        if ( IDBill.hasErrors())
+        if ( IDBill instanceof  IdbillValue &&  IDBill.hasErrors())
         this.setErrors(IDBill.getErrors());
 
-        if (PaymentMethod.hasErrors())
+        if (PaymentMethod instanceof  PaymentMethodValue && PaymentMethod.hasErrors())
             this.setErrors(PaymentMethod.getErrors());
 
         if (this.hasErrors() === true)

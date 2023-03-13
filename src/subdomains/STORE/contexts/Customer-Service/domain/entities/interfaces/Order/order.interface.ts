@@ -4,7 +4,7 @@ import { IMangaEntity } from './manga.interface';
 export interface IOrderentity {
 
     
-    orderId?:  IdOrdertValueObject
+    orderId?: string |  IdOrdertValueObject
     client?:  IClientEntity
     Manga?: IMangaEntity
 

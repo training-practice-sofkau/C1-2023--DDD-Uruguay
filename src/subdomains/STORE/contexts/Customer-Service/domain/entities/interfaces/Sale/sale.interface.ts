@@ -8,8 +8,8 @@ export interface ISaleEntity {
 
     Bill?: IBillEntity 
     Seller?:  ISellerEntity
-    IDSale?: IdSaleValueObject
-    IDOrder?: IdOrdertValueObject
+    IDSale?: string |   IdSaleValueObject
+    IDOrder?: string |   IdOrdertValueObject
 
 
 }

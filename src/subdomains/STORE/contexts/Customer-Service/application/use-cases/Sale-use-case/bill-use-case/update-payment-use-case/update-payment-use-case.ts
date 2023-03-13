@@ -1,12 +1,11 @@
+import { PaymentMethodEventPublisher } from './../../../../../domain/events/publishers/Sale/Bill/Payment-method-event-publisher';
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates/order.agregate";
-import { SaleAgregate } from "src/subdomains/STORE/contexts/Customer-Service/domain/aggregates/sale.agregate";
-import { BillDomain, ClientDomainBase, IBillEntity, IClientEntity, IMangaEntity, MangaDomainBase } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
-import { ClientObtainedEventPublisher, MangaModifiedEventPublisher, NameMangaModifiedEventPublisher, NameModifiedEventPublisher, PaymentMethodEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events";
-import { PaymentMethodUpdatedResponse, UpdateNameClient, UpdateNameManga, UpdatePaymentMethod, UpdatePhoneClient, UpradedNameMangaResponse, UpradedNameResponse, UpradedPhoneResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces";
-import { BillDomainService, ClientDomainService, MangaDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
-import { ClientNameValue, IdbillValue, IdclientValue, IdmangaValue, NameMangaValue, PaymentMethodValue, PhoneValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
-import { PhoneModifiedEventPublisher } from '../../../../../domain/events/publishers/order/client/modified-Phone-event-publisher';
+import { SaleAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates";
+import { BillDomain, IBillEntity } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
+import { UpdatePaymentMethod } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands";
+import { PaymentMethodUpdatedResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/responses/Sale-Response";
+import { BillDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
+import { IdbillValue, PaymentMethodValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
 
 export class UpdatePaymentUseCase<
     Command extends UpdatePaymentMethod = UpdatePaymentMethod,
@@ -66,10 +65,10 @@ export class UpdatePaymentUseCase<
         } = valueObject
       
       
-        if ( IDBill.hasErrors())
+        if ( IDBill instanceof IdbillValue && IDBill.hasErrors())
         this.setErrors(IDBill.getErrors());
 
-        if (PaymentMethod.hasErrors())
+        if (PaymentMethod instanceof PaymentMethodValue &&   PaymentMethod.hasErrors())
             this.setErrors(PaymentMethod.getErrors());
 
         if (this.hasErrors() === true)
