@@ -5,6 +5,6 @@ export interface IClientDomainService<
 > {
     getClient(clientId: string): Promise<T | null>;
     registerClient(client: T): Promise<T | null>;
-    updateClientName(clientId: string, nombre: string): Promise<T>;
-    updateClientPhone(clientId: string, nombre: string): Promise<T>;
+    updateClientName(clientId: string, entity: T): Promise<T>;
+    updateClientPhone(clientId: string, entity: T): Promise<T>;
 }

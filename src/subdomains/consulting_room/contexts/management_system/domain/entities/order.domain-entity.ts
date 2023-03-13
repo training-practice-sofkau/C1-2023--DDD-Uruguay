@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
+import { DateTimeValueObject, DescriptionValueObject, OrderIdValueObject } from '../value-objects';
 
-import { IOrderDomainEntity } from './interfaces';
-import { OrderIdValueObject } from '../value-objects';
+import { IClientDomainEntity, IInvoiceDomainEntity, IOrderDomainEntity } from './interfaces';
 
 export class OrderDomainEntityBase implements IOrderDomainEntity {
 

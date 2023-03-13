@@ -1,4 +1,4 @@
-import { IClientDomainEntity } from "../../entities";
+import { IClientDomainEntity, IInvoiceDomainEntity } from "../../entities";
 
 export interface IAddOrderCommand {
     orderId?: string;

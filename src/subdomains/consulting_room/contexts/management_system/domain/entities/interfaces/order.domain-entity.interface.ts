@@ -1,4 +1,5 @@
-import { OrderIdValueObject } from '../../value-objects';
+import { IClientDomainEntity, IInvoiceDomainEntity } from '.';
+import { DateTimeValueObject, DescriptionValueObject, OrderIdValueObject } from '../../value-objects';
 
 export interface IOrderDomainEntity {
     orderId?: string | OrderIdValueObject;

@@ -44,10 +44,10 @@ export class OrderAggregate
 
         return CreateClient(client, this.clientService, this.registeredClientEventPublisherBase)
     }
-    updateClientName(clientId: string, nombre: string): Promise<ClientDomainEntitybase> {
+    updateClientName(clientId: string, entity: ClientDomainEntitybase): Promise<ClientDomainEntitybase> {
         throw new Error('Method not implemented.');
     }
-    updateClientPhone(clientId: string, nombre: string): Promise<ClientDomainEntitybase> {
+    updateClientPhone(clientId: string, entity: ClientDomainEntitybase): Promise<ClientDomainEntitybase> {
         throw new Error('Method not implemented.');
     }
 
