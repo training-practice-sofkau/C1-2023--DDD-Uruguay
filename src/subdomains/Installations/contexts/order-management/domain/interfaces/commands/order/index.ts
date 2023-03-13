@@ -8,4 +8,4 @@ export * from './update-benefited-name.command';
 export * from './update-benefited-phone.command';
 export * from './update-employed-name.command';
 export * from './update-employed-phone.command';
-export * from './update-kit.command';
+export * from './update-kit-model.command';

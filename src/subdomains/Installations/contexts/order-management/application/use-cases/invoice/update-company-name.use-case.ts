@@ -1,4 +1,4 @@
-import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from '../../../../../../../libs/sofka';
+import { ValueObjectErrorHandler, IUseCase, ValueObjectException, AggregateUpdateException } from '../../../../../../../libs/sofka';
 
 import { IInvoiceDomainService } from '../../../domain/services';
 import { RegisteredInvoiceEventPublisherBase } from '../../../domain/events';
@@ -42,8 +42,11 @@ export class UpdateCompanyNameUseCase<
     ): Promise<CompanyDomainEntityBase | null> {
         this.validateObjectValue(command.name);
         const invoice = await this.invoiceGet.execute({ invoiceId: command.invoiceId });
-        invoice.data.company.name = command.name;
-        return invoice.data.company;
+        if (invoice.success) {
+            invoice.data.company.name = command.name;
+            return invoice.data.company;
+        } else throw new AggregateUpdateException('Hay algunos errores en el comando ejecutado por UpdateCompanyNameUserCase');
+
     }
 
     private validateObjectValue(valueObject: CompanyNameValueObject): void {
