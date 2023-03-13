@@ -2,6 +2,7 @@ export * from './duration-updated.response';
 export * from './got-trainer.response';
 export * from './got-training-equipment.response';
 export * from './got-training-field.response';
+export * from './got-training.response';
 export * from './got-workout.response';
 export * from './registered-training.response';
 export * from './trainer-added.response';

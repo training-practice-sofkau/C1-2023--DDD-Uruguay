@@ -1,5 +1,6 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { DurationValueObject, ITrainingDomainService, IUpdatedNameResponse, IUpdateNameCommand, NameValueObject, TrainingAggregate, TrainingDomainEntity, UpdatedDurationEventPublisher, UpdatedNameEventPublisher } from "../../../domain";
+import { DurationValueObject, ITrainingDomainService, IUpdatedNameResponse, IUpdateNameCommand, NameValueObject, TrainingAggregate, TrainingDomainEntity } from "../../../domain";
+import { UpdatedNameEventPublisher } from "../../../domain/events/publishers/training";
 
 export class UpdateNameUseCases<
     Command extends IUpdateNameCommand,

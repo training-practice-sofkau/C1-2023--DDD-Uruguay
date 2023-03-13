@@ -1,5 +1,5 @@
 export interface IAddRivalCommand {
-    rivalId: string,
+    rivalId?: string,
     name: string,
     town: string;
 }

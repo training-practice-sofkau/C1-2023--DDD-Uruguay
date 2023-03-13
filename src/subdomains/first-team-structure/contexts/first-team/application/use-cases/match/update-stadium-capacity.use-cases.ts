@@ -1,6 +1,5 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { IStadiumDomainService, IUpdatedStadiumCapacityResponse, IUpdateStadiumCapacity, MatchAggregate, StadiumDomainEntity, UpdatedStadiumCapacityEventPublisher } from "../../../domain";
-import { CapacityValueObject } from '../../../domain/value-objects/match/stadium/capacity/capacity.value-object';
+import { CapacityValueObject, IStadiumDomainService, IUpdatedStadiumCapacityResponse, IUpdateStadiumCapacity, MatchAggregate, StadiumDomainEntity, UpdatedStadiumCapacityEventPublisher } from "../../../domain";
 
 export class UpdateStadiumCapacityUseCases<
 Command extends IUpdateStadiumCapacity,

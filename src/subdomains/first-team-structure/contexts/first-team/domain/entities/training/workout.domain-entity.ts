@@ -1,6 +1,7 @@
 import { IdValueObject, NameValueObject, TypeValueObject, GoalValueObject } from "../../value-objects";
 import { IWorkoutDomainEntity } from "../interfaces";
 import { v4 as uuidv4 } from 'uuid';
+import { TrainingDomainEntity } from "../training.domain-entity";
 
 /**
  *Workout Entity of Training AR
@@ -11,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
  */
 export class WorkoutDomainEntity implements IWorkoutDomainEntity{
     workoutId?: string | IdValueObject;
+    training: TrainingDomainEntity;
     name: string | NameValueObject;
     type: string | TypeValueObject;
     goal: string | GoalValueObject;
@@ -20,6 +22,8 @@ export class WorkoutDomainEntity implements IWorkoutDomainEntity{
         else this.workoutId = uuidv4();
 
         if(data.name) this.name = data.name
+
+        if(data.training) this.training = data.training
 
         if(data.type) this.type = data.type
 

@@ -1,4 +1,4 @@
-export * from './builders';
+export * from './interfaces';
 
 export * from './match.aggregate';
 

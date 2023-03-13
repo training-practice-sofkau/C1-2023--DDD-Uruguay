@@ -1,7 +1,7 @@
-import { IdValueObject, AgeValueObject, WageValueObject, PositionValueObject, FullNameValueObject, CountryValueObject } from "../../value-objects";
-import { PositionEnum } from "../../value-objects/team/player/position/positions.enum";
-import { IPlayerDomainEntity } from "../interfaces";
+import { IdValueObject, AgeValueObject, WageValueObject, PositionValueObject, FullNameValueObject, CountryValueObject, PositionEnum } from "../../value-objects";
+import { IPlayerDomainEntity, ITeamDomainEntity } from "../interfaces";
 import { v4 as uuidv4 } from 'uuid';
+import { TeamDomainEntity } from '../team.domain-entity';
 
 /**
  *Player Entity of Team AR
@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
  */
 export class PlayerDomainEntity implements IPlayerDomainEntity{
     playerId?: string | IdValueObject;
+    team: TeamDomainEntity;
     age: number | AgeValueObject;
     wage: number | WageValueObject;
     position: PositionEnum | PositionValueObject;
@@ -23,6 +24,8 @@ export class PlayerDomainEntity implements IPlayerDomainEntity{
         else this.playerId = uuidv4();
 
         if(data.age) this.age = data.age
+
+        if(data.team) this.team = data.team
 
         if(data.wage) this.wage = data.wage
 

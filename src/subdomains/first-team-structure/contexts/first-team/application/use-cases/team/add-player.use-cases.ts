@@ -1,9 +1,11 @@
-import { AddedPlayerEventPublisher, AgeValueObject, CountryValueObject, FullNameValueObject, IAddedPlayerResponse, IAddPlayerCommand, ITeamDomainService, PositionValueObject, WageValueObject } from "../../../domain";
+import { AddedPlayerEventPublisher, AgeValueObject, CountryValueObject, FullNameValueObject, IAddedPlayerResponse, IAddPlayerCommand, IGetTeamCommand, IGotTeamReponse, ITeamDomainService, PositionValueObject, WageValueObject } from "../../../domain";
 import { ValueObjectErrorHandler } from '../../../../../../../libs/sofka/bases/value-object-error-handler.base';
 import { IUseCase, ValueObjectException } from "src/libs";
 import { PlayerDomainEntity } from '../../../domain/entities/team/player.domain-entity';
 import { TeamAggregate } from '../../../domain/aggregates/team.aggregate';
 import { IPlayerDomainEntity } from '../../../domain/entities/interfaces/team/player.domain-entity.interface';
+import { TeamDomainEntity } from '../../../domain/entities/team.domain-entity';
+import { GetTeamUseCase } from "./get-team.use-cases";
 
 export class AddPlayerUseCases<
     Command extends IAddPlayerCommand,
@@ -17,6 +19,7 @@ implements IUseCase<Command, Response>
     constructor(
         private readonly teamService: ITeamDomainService,
         private readonly addedPlayerEventPublisher: AddedPlayerEventPublisher,
+        private readonly getTeamUseCase: GetTeamUseCase<IGetTeamCommand, IGotTeamReponse>
     ) {
         super();
         this.teamAggregate = new TeamAggregate({teamService, addedPlayerEventPublisher})
@@ -44,7 +47,13 @@ implements IUseCase<Command, Response>
         const fullName = new FullNameValueObject(command.fullName);
         const country = new CountryValueObject(command.country);
 
-        return {age, wage, position, fullName, country}
+        let team: TeamDomainEntity;
+
+        this.getTeamUseCase.execute({teamId: command.teamId})
+        .then(iTeam => team = iTeam.data)
+        .catch(() => new Error('Entity Not Found'));
+
+        return {team, age, wage, position, fullName, country}
     }
     
     validateValueObject(valueObject: IPlayerDomainEntity): void {
@@ -74,6 +83,7 @@ implements IUseCase<Command, Response>
 
     createEntityPlayerDomain(valueObject: IPlayerDomainEntity): PlayerDomainEntity {
         const {
+            team,
             age,
             wage,
             position,
@@ -82,6 +92,7 @@ implements IUseCase<Command, Response>
         } = valueObject;
 
         return new PlayerDomainEntity({
+            team: team,
             age: age.valueOf(),
             wage: wage.valueOf(),
             position: position.valueOf(),

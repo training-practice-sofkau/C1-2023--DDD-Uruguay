@@ -1,7 +1,12 @@
-export * from './age';
-export * from './country';
-export * from './full-name';
-export * from './id';
-export * from './location';
-export * from './name';
-export * from './town';
+
+export * from './age.value-object';
+
+export * from './country.value-object';
+
+export * from './full-name.value-object';
+
+export * from './id.value-object';
+
+export * from './name.value-object';
+
+export * from './town.value-object';

@@ -1,5 +1,4 @@
-import { DateValueObject, ScoreValueObject } from '../../value-objects';
-import { IdValueObject } from '../../value-objects/shared/id/id.value-object';
+import { DateValueObject, IdValueObject, ScoreValueObject } from '../../value-objects';
 import { RivalDomainEntity, StadiumDomainEntity } from '../match';
 import { ITeamDomainEntity } from './';
 

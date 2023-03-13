@@ -10,7 +10,6 @@ import { ICoachDomainEntity, IPlayerDomainEntity } from "./team";
 export interface ITeamDomainEntity {
     teamId?: string | IdValueObject,
     coach: ICoachDomainEntity,
-    players: Array<IPlayerDomainEntity>,
     name: string | NameValueObject,
     town: string | TownValueObject
 }

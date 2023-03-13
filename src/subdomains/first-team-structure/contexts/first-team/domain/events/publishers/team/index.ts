@@ -1,4 +1,7 @@
 export * from './coach-added.event-publisher';
+export * from './get-coach-by-id.event-publisher';
+export * from './get-player-by-id.event-publisher';
+export * from './get-team-by-id.event-publisher';
 export * from './player-added.event-publisher';
 export * from './player-position-updated.event-publisher';
 export * from './registered-team.event-publisher';

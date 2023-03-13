@@ -1,6 +1,7 @@
-import { ITrainingDomainService, ITrainingEquipmentDomainService, IUpdatedTrainingEquipmentTypeResponse, IUpdateTrainingEquipmentTypeCommand, TrainingAggregate, TrainingEquipmentDomainEntity, TypeValueObject, UpdatedTrainingEquipmentTypeEventPublisher } from "../../../domain";
+import { ITrainingDomainService, ITrainingEquipmentDomainService, IUpdatedTrainingEquipmentTypeResponse, IUpdateTrainingEquipmentTypeCommand, TrainingAggregate, TrainingEquipmentDomainEntity, TypeValueObject } from "../../../domain";
 import { ValueObjectErrorHandler } from '../../../../../../../libs/sofka/bases/value-object-error-handler.base';
 import { IUseCase, ValueObjectException } from "src/libs";
+import { UpdatedTrainingEquipmentTypeEventPublisher } from "../../../domain/events/publishers/training";
 
 export class UpdateTrainingEquipmentTypeUseCases<
     Command extends IUpdateTrainingEquipmentTypeCommand,

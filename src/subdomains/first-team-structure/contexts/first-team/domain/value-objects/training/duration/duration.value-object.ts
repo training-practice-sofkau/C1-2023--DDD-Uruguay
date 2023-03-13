@@ -1,5 +1,5 @@
-import { ValueObjectBase } from '../../../../../../../../libs/sofka/bases/object-value.base';
-import { IErrorValueObject } from '../../../../../../../../libs/sofka/interface/error-object-value.interface';
+import { IErrorValueObject, ValueObjectBase } from "src/libs";
+
 
 export class DurationValueObject extends ValueObjectBase<number>{
     validateData(): void {

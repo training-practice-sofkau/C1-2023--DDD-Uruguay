@@ -1,6 +1,7 @@
-import { GoalValueObject, IUpdatedWorkoutGoalResponse, IUpdateWorkoutGoalCommand, IWorkoutDomainService, TrainingAggregate, UpdatedWorkoutGoalEventPublisher, WorkoutDomainEntity } from "../../../domain";
 import { ValueObjectErrorHandler } from '../../../../../../../libs/sofka/bases/value-object-error-handler.base';
 import { IUseCase, ValueObjectException } from "src/libs";
+import { GoalValueObject, IUpdatedWorkoutGoalResponse, IUpdateWorkoutGoalCommand, IWorkoutDomainService, TrainingAggregate, WorkoutDomainEntity } from '../../../domain';
+import { UpdatedWorkoutGoalEventPublisher } from '../../../domain/events/publishers/training';
 
 export class UpdateWorkoutGoalUseCases<
     Command extends IUpdateWorkoutGoalCommand,

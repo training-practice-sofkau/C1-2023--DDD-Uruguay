@@ -1,1 +1,2 @@
-export * from './wage';
+
+export * from './wage.value-object';
