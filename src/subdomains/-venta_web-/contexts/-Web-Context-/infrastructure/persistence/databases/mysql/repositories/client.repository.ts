@@ -1,37 +1,47 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
 import { IRepository } from './base/repository.base';
-import { ClientMySqlEntity } from '../entities/cliente.entity';
+import {  ClienteMySqlEntity } from '../entities/cliente.entity';
+
+
+
 
 @Injectable()
-export class ClientRepository implements IRepository<ClientMySqlEntity>{
+export class ClienteRepository implements IRepository<ClienteMySqlEntity>{
 
-    constructor(
-        @InjectRepository(ClientMySqlEntity)
-        private readonly repository: Repository<ClientMySqlEntity>
-    ) { }
+    constructor(@InjectRepository(ClienteMySqlEntity) private readonly repository: Repository<ClienteMySqlEntity>) { }
 
-    async findAll(): Promise<ClientMySqlEntity[]> {
+
+    async findAll(): Promise<ClienteMySqlEntity[]> {
         return await this.repository.find();
     }
 
-    async findById(clientId: string): Promise<ClientMySqlEntity> {
 
-        const client = await this.repository.findOneBy({ clientId})
+    async findById(idCliente: string): Promise<ClienteMySqlEntity> {
 
-        if (!client) throw new BadRequestException(`Client with id: ${clientId} not found`)
+        const cliente = await this.repository.findOneBy({idCliente})
 
-        return client;
+        if (!cliente) throw new BadRequestException(`El cliente con el id: ${idCliente} no se encuentra`)
+
+        return cliente;
     }
 
-    async create(entity: ClientMySqlEntity): Promise<ClientMySqlEntity> {
+
+    async create(entity: ClienteMySqlEntity): Promise<ClienteMySqlEntity> {
         return await this.repository.save(entity)
     }
 
-    update(clientId: string, entity: ClientMySqlEntity): Promise<ClientMySqlEntity> {
-        throw new Error('Method not implemented.')
+    async update(idCliente: string, entity: ClienteMySqlEntity): Promise<ClienteMySqlEntity> {
+        const data = await this.repository.findOneBy({idCliente});
+        
+        if (data){
+            const entidadUpdated = {...entity, idCliente};
+
+            return this.repository.save(entidadUpdated)
+        }
+
+        throw new BadRequestException(`El cliente con el id: ${idCliente} no se encuentra`)
     }
 
     /*

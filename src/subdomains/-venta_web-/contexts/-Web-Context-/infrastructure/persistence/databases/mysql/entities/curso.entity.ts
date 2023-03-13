@@ -18,6 +18,8 @@ export class CursoMySqlEntity extends CursoDomainEntity {
     @Column()
     costoCurso: number;
 
+    //RELACIONES
+
     @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.curso )
     compra: CompraMySqlEntity;
 }
