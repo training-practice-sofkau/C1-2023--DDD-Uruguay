@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { DevtoolsModule } from '@nestjs/devtools-integration';
 
 import {
   OrderManagementModule,
@@ -9,12 +8,8 @@ import {
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env.development'
+      envFilePath: 'env/development.env'
     }),
-    DevtoolsModule.register({
-    http: process.env.NODE_ENV !== 'production',
-  }),
     OrderManagementModule
   ],
   controllers: [],

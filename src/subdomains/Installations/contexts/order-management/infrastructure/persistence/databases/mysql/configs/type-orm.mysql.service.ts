@@ -23,11 +23,11 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
     createTypeOrmOptions(): TypeOrmModuleOptions {
         return {
             type: 'mysql',
-            host: this.configService.get<string>('DB_MYSQL_HOST'),
-            port: this.configService.get<number>('DB_MYSQL_PORT'),
-            username: this.configService.get<string>('DB_MYSQL_USER'),
-            password:  this.configService.get<string>('DB_MYSQL_PASSWORD'),
-            database:  this.configService.get<string>('DB_MYSQL_NAME'),
+            host: this.configService.get<string>('MYSQL_DB_HOST'),
+            port: this.configService.get<number>('MYSQL_DB_PORT'),
+            username: this.configService.get<string>('MYSQL_DB_USER'),
+            password:  this.configService.get<string>('MYSQL_DB_PASSWORD'),
+            database:  this.configService.get<string>('MYSQL_DB_NAME'),
             entities: [BenefitedMySqlEntity, CompanyMySqlEntity, EmployedMySqlEntity, FeeMySqlEntity, KitMySqlEntity, InvoiceMySqlEntity, OrderMySqlEntity],
             synchronize: true,
         }
