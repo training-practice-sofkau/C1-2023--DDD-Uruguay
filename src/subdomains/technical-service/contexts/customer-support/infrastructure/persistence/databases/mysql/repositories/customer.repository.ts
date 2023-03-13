@@ -5,7 +5,7 @@ import { CustomerMySqlEntity } from "../entities/customer.entity";
 import { IRepository } from './base/repository.base';
 
 @Injectable()
-export class CustomerRespository 
+export class CustomerRepository 
     implements IRepository<CustomerMySqlEntity>{
 
     constructor(
@@ -13,6 +13,7 @@ export class CustomerRespository
         private readonly repository: Repository<CustomerMySqlEntity>
     ){}
 
+//TODO: implementar metodos
 
     async findAll(): Promise<CustomerMySqlEntity[]> {
         return await this.repository.find()

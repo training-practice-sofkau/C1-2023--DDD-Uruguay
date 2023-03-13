@@ -1,6 +1,20 @@
 import { Module } from "@nestjs/common";
+
 import { TypeOrmModule } from "@nestjs/typeorm";
+
 import { TypeOrmMySqlConfigService } from './configs/type-orm.mysql.service';
+
+import { 
+    RepairsRepository, 
+    InvoiceRepository,
+    RoleRepository,
+    SupportTicketRepository,
+    WarrantyRepository,
+    EmployeeRepository, 
+    DeviceRepository, 
+    CustomerRepository 
+} from './repositories/';
+
 import { 
     RepairsMySqlEntity, 
     DeviceMySqlEntity, 
@@ -12,8 +26,17 @@ import {
     SupportTicketMySqlEntity
 } from './entities/';
 
-import { CustomerMySqlService } from './services/customer.service';
-import { CustomerRespository } from './repositories/customer.repository';
+import { 
+    EmployeeMySqlService,
+    DeviceMySqlService, 
+    CustomerMySqlService,
+    InvoiceMySqlService,
+    RepairsMySqlService,
+    RoleMySqlService,
+    SupportTicketMySqlService,
+    WarrantyMySqlService
+} from './services/';
+
 @Module({
     imports:[
         TypeOrmModule.forRootAsync({
@@ -33,15 +56,41 @@ import { CustomerRespository } from './repositories/customer.repository';
     ],
     providers:[
         CustomerMySqlService,
+        DeviceMySqlService,
+        EmployeeMySqlService,
+        InvoiceMySqlService,
+        RepairsMySqlService,
+        RoleMySqlService,
+        SupportTicketMySqlService,
+        WarrantyMySqlService,
 
-
-        CustomerRespository,
+        CustomerRepository,
+        DeviceRepository,
+        EmployeeRepository,
+        InvoiceRepository,
+        RepairsRepository,
+        RoleRepository,
+        SupportTicketRepository,
+        WarrantyRepository
     ],
     exports:[
         CustomerMySqlService,
+        DeviceMySqlService,
+        EmployeeMySqlService,
+        InvoiceMySqlService,
+        RepairsMySqlService,
+        RoleMySqlService,
+        SupportTicketMySqlService,
+        WarrantyMySqlService,
 
-
-        CustomerRespository,
+        CustomerRepository,
+        DeviceRepository,
+        EmployeeRepository,
+        InvoiceRepository,
+        RepairsRepository,
+        RoleRepository,
+        SupportTicketRepository,
+        WarrantyRepository
     ],
 })
 export class MySqlModule {}
