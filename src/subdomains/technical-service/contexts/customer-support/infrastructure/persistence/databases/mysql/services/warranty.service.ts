@@ -9,15 +9,34 @@ export class WarrantyMySqlService implements IWarrantyDomainService{
     constructor(
         private readonly warrantyRepository: WarrantyRepository
     ){}
-    ChangeWarrantyEndDate(data: WarrantyDomainEntityBase): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
-    ChangeWarrantyStatus(data: WarrantyDomainEntityBase): Promise<boolean> {
-        throw new Error('Method not implemented.');
+
+    /**
+     * Changes Warranty End Date
+     *
+     * @param {WarrantyDomainEntityBase} data
+     * @return {*}  {Promise<boolean>}
+     * @memberof WarrantyMySqlService
+     */
+    async ChangeWarrantyEndDate(data: WarrantyDomainEntityBase): Promise<boolean> {
+         
+        if(this.warrantyRepository.update(data)) return await true;
+
+        return false;
     }
 
 
-//TODO: implementar metodos
-    
+    /**
+     * Changes Warranty Status
+     *
+     * @param {WarrantyDomainEntityBase} data
+     * @return {*}  {Promise<boolean>}
+     * @memberof WarrantyMySqlService
+     */
+    async ChangeWarrantyStatus(data: WarrantyDomainEntityBase): Promise<boolean> {
+
+        if(this.warrantyRepository.update(data)) return await true;
+
+        return false;
+    }
     
 }

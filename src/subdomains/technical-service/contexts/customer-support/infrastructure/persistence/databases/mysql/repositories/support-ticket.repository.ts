@@ -63,8 +63,10 @@ export class SupportTicketRepository implements IRepository<SupportTicketMySqlEn
      * @return {*}  {Promise<SupportTicketMySqlEntity>}
      * @memberof SupportTicketRepository
      */
-    async update(ticketID: string, entity: SupportTicketMySqlEntity): Promise<SupportTicketMySqlEntity> {
+    async update(entity: SupportTicketMySqlEntity): Promise<SupportTicketMySqlEntity> {
 
+        const ticketID = entity.ticketID as string;
+        
         let entityFound = await this.findById(ticketID);
 
         if (!entityFound) throw new BadRequestException(`Support Ticket with id: ${ticketID} not found`);
