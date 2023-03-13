@@ -11,16 +11,31 @@ export class RoleMySqlService implements IRoleDomainService{
         private readonly roleRepository: RoleRepository
     ){}
 
-
-
-    CreateRole(roleData: RoleDomainEntityBase): Promise<IRoleDomainEntity> {
-        throw new Error('Method not implemented.');
+    /**
+     * Adds a new ROle to DB
+     *
+     * @param {RoleDomainEntityBase} roleData
+     * @return {*}  {Promise<IRoleDomainEntity>}
+     * @memberof RoleMySqlService
+     */
+    async CreateRole(roleData: RoleDomainEntityBase): Promise<IRoleDomainEntity> {
+        
+        return await this.roleRepository.create(roleData);
     }
-    ChangeRoleDescription(data: RoleDomainEntityBase): Promise<boolean> {
-        throw new Error('Method not implemented.');
+
+    /**
+     * changes the description of the given role
+     *
+     * @param {RoleDomainEntityBase} data
+     * @return {*}  {Promise<boolean>}
+     * @memberof RoleMySqlService
+     */
+    async ChangeRoleDescription(data: RoleDomainEntityBase): Promise<boolean> {
+          
+        if(this.roleRepository.update(data)) return await true;
+
+        return false;
     }
 
-//TODO: implementar metodos
-    
     
 }

@@ -60,7 +60,10 @@ export class RoleRepository implements IRepository<RoleMySqlEntity>{
      * @return {*}  {Promise<RoleMySqlEntity>}
      * @memberof RoleRepository
      */
-    async update(roleID: string, entity: RoleMySqlEntity): Promise<RoleMySqlEntity> {
+    async update( entity: RoleMySqlEntity): Promise<RoleMySqlEntity> {
+
+        const roleID = entity.roleID as string;
+        
         let entityFound = await this.findById(roleID);
 
         if (!entityFound) throw new BadRequestException(`Role with id: ${roleID} not found`);

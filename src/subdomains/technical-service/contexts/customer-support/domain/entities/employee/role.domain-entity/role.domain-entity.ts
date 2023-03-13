@@ -7,7 +7,7 @@ import { IRoleDomainEntity } from "../../interfaces/employee";
 export class RoleDomainEntityBase implements IRoleDomainEntity {
     roleID?: string | UUIDValueObject;
     roleName?: string | RoleValueObject;
-    roleDescription?: string | RoleValueObject;
+    roleDescription?: string | NoteValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

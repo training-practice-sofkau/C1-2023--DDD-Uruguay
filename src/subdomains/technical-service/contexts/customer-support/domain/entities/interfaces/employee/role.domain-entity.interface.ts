@@ -1,11 +1,10 @@
-import { NoteValueObject, UUIDValueObject } from '../../../value-objects/common';
-import { RoleValueObject } from '../../../value-objects/employee/role.value-object';
+import { RoleValueObject, NoteValueObject, UUIDValueObject } from '../../../value-objects';
 
 export interface IRoleDomainEntity{
 
     roleID?: string | UUIDValueObject;
     roleName?: string | RoleValueObject;
-    roleDescription?: string | RoleValueObject;
+    roleDescription?: string | NoteValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;
