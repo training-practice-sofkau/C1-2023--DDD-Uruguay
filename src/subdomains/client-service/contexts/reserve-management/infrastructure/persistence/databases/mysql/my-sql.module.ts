@@ -1,11 +1,28 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmMySqlConfigService } from './configs/type-orm.mysql.service';
-import { ClientMySqlEntity } from './entities/customer.entity';
-import { InovoiceMySqlEntity } from './entities/room.entity';
-import { OrderMySqlEntity } from './entities/reserve.entity';
-import { ClientMySqlService } from './services/client.service';
-import { ClientRepository } from './repositories/client.repository';
+import {
+    CheckInMySqlEntity,
+    CheckOutMySqlEntity,
+    ConsumptionMySqlEntity,
+    CustomerMySqlEntity,
+    GuestMySqlEntity,
+    InvoiceMySqlEntity,
+    ReserveMySqlEntity,
+    RoomKeyMySqlEntity,
+    RoomMySqlEntity
+} from './entities';
+import {
+    CheckInRepository,
+    CheckOutRepository,
+    ConsumptionRepository,
+    CustomerRepository,
+    GuestRepository,
+    InvoiceRepository,
+    ReserveRepository,
+    RoomKeyRepository,
+    RoomRepository
+} from './repositories';
 
 @Module({
     imports: [
@@ -14,20 +31,60 @@ import { ClientRepository } from './repositories/client.repository';
         }),
 
         TypeOrmModule.forFeature([
-            ClientMySqlEntity,
-            InovoiceMySqlEntity,
-            OrderMySqlEntity,
+            CheckInMySqlEntity,
+            CheckOutMySqlEntity,
+            ConsumptionMySqlEntity,
+            CustomerMySqlEntity,
+            GuestMySqlEntity,
+            InvoiceMySqlEntity,
+            ReserveMySqlEntity,
+            RoomMySqlEntity,
+            RoomKeyMySqlEntity
+
         ])
     ],
     providers: [
-        ClientMySqlService,
+        CheckInMySqlEntity,
+        CheckOutMySqlEntity,
+        ConsumptionMySqlEntity,
+        CustomerMySqlEntity,
+        GuestMySqlEntity,
+        InvoiceMySqlEntity,
+        ReserveMySqlEntity,
+        RoomMySqlEntity,
+        RoomKeyMySqlEntity,
 
-        ClientRepository,
+        CheckInRepository,
+        CheckOutRepository,
+        ConsumptionRepository,
+        CustomerRepository,
+        GuestRepository,
+        InvoiceRepository,
+        ReserveRepository,
+        RoomKeyRepository,
+        RoomRepository,
+
     ],
     exports: [
-        ClientMySqlService,
+        CheckInMySqlEntity,
+        CheckOutMySqlEntity,
+        ConsumptionMySqlEntity,
+        CustomerMySqlEntity,
+        GuestMySqlEntity,
+        InvoiceMySqlEntity,
+        ReserveMySqlEntity,
+        RoomMySqlEntity,
+        RoomKeyMySqlEntity,
 
-        ClientRepository,
+        CheckInRepository,
+        CheckOutRepository,
+        ConsumptionRepository,
+        CustomerRepository,
+        GuestRepository,
+        InvoiceRepository,
+        ReserveRepository,
+        RoomKeyRepository,
+        RoomRepository,
     ]
 })
 export class MySqlModule { }
