@@ -8,12 +8,10 @@ import { Repository } from 'typeorm';
 export class DeviceRepository
     implements IRepository<DeviceMySqlEntity> {
 
-        constructor(
-            @InjectRepository(DeviceMySqlEntity)
-            private readonly repository: Repository<DeviceMySqlEntity>
-        ){}
-
-        //TODO: implementar metodos
+    constructor(
+        @InjectRepository(DeviceMySqlEntity)
+        private readonly repository: Repository<DeviceMySqlEntity>
+    ) { }
 
 
     /**
@@ -36,7 +34,7 @@ export class DeviceRepository
      * @memberof DeviceRepository
      */
     async findById(deviceID: string): Promise<DeviceMySqlEntity> {
-        const result = await this.repository.findOneBy({ deviceID , deletedAt: undefined });
+        const result = await this.repository.findOneBy({ deviceID, deletedAt: undefined });
 
         if (!result) throw new BadRequestException(`Device with id: ${deviceID} not found`);
 
@@ -68,11 +66,11 @@ export class DeviceRepository
 
         let entityFound = await this.findById(deviceID);
 
-        if (!entityFound) throw new BadRequestException(`Customer with id: ${deviceID} not found`);
-        
+        if (!entityFound) throw new BadRequestException(`Device with id: ${deviceID} not found`);
+
         entity.deviceID = deviceID; //ensures the ID is the same as the original
 
-        entityFound = {...entityFound, ...entity};
+        entityFound = { ...entityFound, ...entity };
 
         this.repository.save(entityFound);
 
@@ -89,7 +87,7 @@ export class DeviceRepository
      * @memberof DeviceRepository
      */
     async delete(deviceID: string): Promise<boolean> {
-        
+
         const result = await this.findById(deviceID);
 
         if (!result) throw new BadRequestException(`Device with id: ${deviceID} not found`);
@@ -100,5 +98,5 @@ export class DeviceRepository
     }
 
 
-        
-    }
+
+}
