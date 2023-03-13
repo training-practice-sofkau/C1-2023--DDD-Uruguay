@@ -22,6 +22,10 @@ export class EmployedMySqlService
         return this.employedRepository.findById(employedId);
     }
 
+    deleteEmployed(employedId: string): Promise<boolean> {
+        return this.employedRepository.delete(employedId);
+    }
+
     updateEmployedName(employedId: string, newEmployedName: EmployedMySqlEntity): Promise<EmployedMySqlEntity> {
         return this.employedRepository.update(employedId, newEmployedName);
     }

@@ -22,6 +22,10 @@ export class CompanyMySqlService
         return this.companyRepository.findById(companyId);
     }
 
+    deleteCompany(companyId: string): Promise<boolean> {
+        return this.companyRepository.delete(companyId);
+    }
+
     updateCompanyName(companyId: string, newCompanyName: CompanyMySqlEntity): Promise<CompanyMySqlEntity> {
         return this.companyRepository.update(companyId, newCompanyName);
     }

@@ -1,33 +1,31 @@
 import { Injectable } from '@nestjs/common';
 
-import {
-  IEmployedDomainService,
-} from '../../../../../../domain/services/order';
-import { EmployedMySqlEntity } from '../../entities';
-import { EmployedRepository } from '../../repositories';
+import { IKitDomainService } from '../../../../../../domain/services/order';
+import { KitMySqlEntity } from '../../entities';
+import { KitRepository } from '../../repositories';
 
 @Injectable()
-export class EmployedMySqlService
-    implements IEmployedDomainService<EmployedMySqlEntity> {
+export class KitMySqlService
+    implements IKitDomainService<KitMySqlEntity> {
 
     constructor(
-        private readonly employedRepository: EmployedRepository,
+        private readonly kitRepository: KitRepository,
     ) { }
 
-    createEmployed(employed: EmployedMySqlEntity): Promise<EmployedMySqlEntity> {
-        return this.employedRepository.create(employed);
+    createKit(kit: KitMySqlEntity): Promise<KitMySqlEntity> {
+        return this.kitRepository.create(kit);
     }
 
-    getEmployed(employedId: string): Promise<EmployedMySqlEntity> {
-        return this.employedRepository.findById(employedId);
+    getKit(kitId: string): Promise<KitMySqlEntity> {
+        return this.kitRepository.findById(kitId);
     }
 
-    updateEmployedName(employedId: string, newEmployedName: EmployedMySqlEntity): Promise<EmployedMySqlEntity> {
-        return this.employedRepository.update(employedId, newEmployedName);
+    deleteKit(kitId: string): Promise<boolean> {
+        return this.kitRepository.delete(kitId);
     }
-    
-    updateEmployedPhone(employedId: string, newEmployedPhone: EmployedMySqlEntity): Promise<EmployedMySqlEntity> {
-        return this.employedRepository.update(employedId, newEmployedPhone);
+
+    updateKitModel(kitId: string, newKitModel: KitMySqlEntity): Promise<KitMySqlEntity> {
+        return this.kitRepository.update(kitId, newKitModel);
     }
 
 }

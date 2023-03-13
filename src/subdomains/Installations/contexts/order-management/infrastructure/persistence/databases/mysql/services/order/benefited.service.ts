@@ -22,6 +22,10 @@ export class BenefitedMySqlService
         return this.benefitedRepository.findById(benefitedId);
     }
 
+    deleteBenefited(benefitedId: string): Promise<boolean> {
+        return this.benefitedRepository.delete(benefitedId);
+    }
+
     updateBenefitedAddress(benefitedId: string, newBenefitedAddress: BenefitedMySqlEntity): Promise<BenefitedMySqlEntity> {
         return this.benefitedRepository.update(benefitedId, newBenefitedAddress);
     }

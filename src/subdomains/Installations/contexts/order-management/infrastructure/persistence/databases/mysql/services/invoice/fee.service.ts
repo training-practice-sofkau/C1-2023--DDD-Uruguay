@@ -20,6 +20,10 @@ export class FeeMySqlService
         return this.feeRepository.findById(feeId);
     }
 
+    deleteFee(feeId: string): Promise<boolean> {
+        return this.feeRepository.delete(feeId);
+    }
+
     updateFeeCharge(feeId: string, newFeeCharge: FeeMySqlEntity): Promise<FeeMySqlEntity> {
         return this.feeRepository.update(feeId, newFeeCharge);
     }
