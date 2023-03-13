@@ -14,11 +14,10 @@ export class SaleMySqlServicez
     RegisterSale(data: saleEntityBd): Promise<saleEntityBd> {
       return   this.SaleRepository.create(data)
     }
-   async GetClient(data: IGetClientSale): Promise<ClientDomainBase> {
-        return   this.ClientRepository.findById(data.IDclient)    }
+   async GetClient(data: string): Promise<ClientDomainBase> {
+        return   this.ClientRepository.findById(data)    }
     GetSalesList(data: string): Promise<SaleDomainEntity> {
-        throw new Error('Method not implemented.');
-    }
+        return   this.SaleRepository.findById(data)    }
     AddSeller(data: SellerDomain): Promise<SellerDomain> {
         throw new Error('Method not implemented.');
     }
