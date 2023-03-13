@@ -5,7 +5,7 @@ import { ClientMySqlEntity } from './entities/cliente.entity';
 import { InovoiceMySqlEntity } from './entities/invoice.entity';
 import { OrderMySqlEntity } from './entities/order.entity';
 import { ClientMySqlService } from './services/client.service';
-import { ClientRepository } from './repositories/client.repository';
+import { ClientRepository } from './repositories/cliente.repository';
 
 @Module({
     imports: [

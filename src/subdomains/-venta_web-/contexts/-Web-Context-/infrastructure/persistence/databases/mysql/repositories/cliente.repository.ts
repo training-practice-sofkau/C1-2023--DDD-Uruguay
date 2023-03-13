@@ -19,7 +19,6 @@ export class ClienteRepository implements IRepository<ClienteMySqlEntity>{
 
 
     async findById(idCliente: string): Promise<ClienteMySqlEntity> {
-
         const cliente = await this.repository.findOneBy({idCliente})
 
         if (!cliente) throw new BadRequestException(`El cliente con el id: ${idCliente} no se encuentra`)
@@ -32,6 +31,8 @@ export class ClienteRepository implements IRepository<ClienteMySqlEntity>{
         return await this.repository.save(entity)
     }
 
+
+
     async update(idCliente: string, entity: ClienteMySqlEntity): Promise<ClienteMySqlEntity> {
         const data = await this.repository.findOneBy({idCliente});
         
@@ -40,7 +41,6 @@ export class ClienteRepository implements IRepository<ClienteMySqlEntity>{
 
             return this.repository.save(entidadUpdated)
         }
-
         throw new BadRequestException(`El cliente con el id: ${idCliente} no se encuentra`)
     }
 
