@@ -10,7 +10,7 @@ import { SellerEntityDB } from '../entities/sellerEntityDb';
 
 
 
-export class SaleMySqlServicez
+export class SaleMySqlService
     implements SaleDomainService<saleEntityBd>{
     constructor(private readonly SaleRepository: SaleRepository, private readonly BillRepository: BillRepository, private readonly ClientRepository: ClientRepository, private readonly SellerRepository: SellerRepository) { }
 
