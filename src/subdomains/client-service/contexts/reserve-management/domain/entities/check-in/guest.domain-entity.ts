@@ -17,7 +17,7 @@ export class GuestDomainEntity implements IGuestDomainEntity{
     email: string | EmailValueObject;
 
     constructor(_data?: IGuestDomainEntity) {
-        if(_data.guestId) this.guestId = _data.guestId;
+        if(_data?.guestId) this.guestId = _data.guestId;
         else this.guestId = uuidv4();
 
         if(_data?.fullName) this.fullName = _data.fullName;

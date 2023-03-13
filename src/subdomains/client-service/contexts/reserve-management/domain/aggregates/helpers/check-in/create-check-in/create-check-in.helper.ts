@@ -1,10 +1,9 @@
 import { CheckInDomainEntity } from "../../../../entities";
 import { CheckInCreatedEventPublisher } from "../../../../events";
-import { ICreateCheckIn } from "../../../../interfaces";
 import { ICheckInDomainService } from "../../../../services";
 
 export const CreateCheckIn = async (
-    checkIn: ICreateCheckIn,
+    checkIn: CheckInDomainEntity,
     checkInService: ICheckInDomainService,
     checkInCreatedEventPublisher: CheckInCreatedEventPublisher
 ): Promise<CheckInDomainEntity | null> => {
