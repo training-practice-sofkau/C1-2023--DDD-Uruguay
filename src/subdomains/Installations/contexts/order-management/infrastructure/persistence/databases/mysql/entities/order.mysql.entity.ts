@@ -14,27 +14,27 @@ import {
 
 @Entity()
 export class OrderMySqlEntity extends OrderDomainEntityBase {
-    @PrimaryGeneratedColumn('uuid')
-    orderId: string;
+  @PrimaryGeneratedColumn('uuid')
+  orderId: string;
 
-    @Column()
-    status: boolean;
+  @Column()
+  status: boolean;
 
-    @OneToOne( ()=> KitMySqlEntity, (entity)=> entity )
-    kit: KitMySqlEntity;
+  @OneToOne( ()=> KitMySqlEntity, (entity)=> entity )
+  kit: KitMySqlEntity;
 
-    @OneToOne( ()=> EmployedMySqlEntity, (entity)=> entity )
-    employed: EmployedMySqlEntity;
+  @OneToOne( ()=> EmployedMySqlEntity, (entity)=> entity )
+  employed: EmployedMySqlEntity;
 
-    @OneToOne( ()=> BenefitedMySqlEntity, (entity)=> entity )
-    benefited: BenefitedMySqlEntity;
-        
-    @Column()
-    createdAt: number;
+  @OneToOne( ()=> BenefitedMySqlEntity, (entity)=> entity )
+  benefited: BenefitedMySqlEntity;
+      
+  @Column()
+  createdAt: number;
 
-    @Column()
-    updatedAt: number;
+  @Column()
+  updatedAt: number;
 
-    @Column()
-    deletedAt: number;
+  @Column()
+  deletedAt: number;
 }

@@ -4,18 +4,18 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { EmployedDomainEntityBase } from '../../../../../domain/entities/order';
+import { FeeDomainEntityBase } from '../../../../../../domain/entities/invoice';
 
 @Entity()
-export class EmployedMySqlEntity extends EmployedDomainEntityBase {
+export class FeeMySqlEntity extends FeeDomainEntityBase {
 	@PrimaryGeneratedColumn('uuid')
-	employedId: string;
+	feeId: string;
+	
+	@Column()
+	tax: number;
 
 	@Column()
-	name: string;
-
-	@Column()
-	phone: string;
+	charge: number;
 
 	@Column()
 	createdAt: number;

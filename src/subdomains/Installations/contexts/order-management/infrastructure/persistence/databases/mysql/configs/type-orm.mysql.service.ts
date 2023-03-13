@@ -5,6 +5,16 @@ import {
   TypeOrmOptionsFactory,
 } from '@nestjs/typeorm';
 
+import {
+  BenefitedMySqlEntity,
+  CompanyMySqlEntity,
+  EmployedMySqlEntity,
+  FeeMySqlEntity,
+  InvoiceMySqlEntity,
+  KitMySqlEntity,
+  OrderMySqlEntity,
+} from '../entities';
+
 @Injectable()
 export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
 
@@ -18,7 +28,7 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
             username: this.configService.get<string>('DB_MYSQL_USER'),
             password:  this.configService.get<string>('DB_MYSQL_PASSWORD'),
             database:  this.configService.get<string>('DB_MYSQL_NAME'),
-            entities: [ __dirname + '/../**/*.entity[.ts, .js]' ],
+            entities: [BenefitedMySqlEntity, CompanyMySqlEntity, EmployedMySqlEntity, FeeMySqlEntity, KitMySqlEntity, InvoiceMySqlEntity, OrderMySqlEntity],
             synchronize: true,
         }
     }

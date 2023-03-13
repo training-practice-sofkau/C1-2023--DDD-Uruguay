@@ -6,7 +6,7 @@ import {
 
 import {
   CompanyDomainEntityBase,
-} from '../../../../../domain/entities/invoice';
+} from '../../../../../../domain/entities/invoice';
 
 @Entity()
 export class CompanyMySqlEntity extends CompanyDomainEntityBase {
