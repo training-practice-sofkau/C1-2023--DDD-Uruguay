@@ -1,8 +1,12 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { ICrearStaffDeportivoCommands, IStaffDeportivoCreadoResponse, StaffDeportivoAggregate, IStaffDeportivoDomainService, NombreValueObject, EmpleadoDomainEntity, INombreModificadoResponse, IEmpleadoDomainEntity, IdValueObject } from "../../../domain";
 import { NombreModificadoEventPublisher } from '../../../domain/events/publishers/empleado/nombre-modificado.event-publisher';
 import { IModificarNombreCommands } from '../../../domain/interfaces/commands/empleado/modificar-nombre.commands';
 import { EmpleadoBuscadoEventPublisher } from "../../../domain/events/publishers/staff-deporitvo/empleado-buscado.event-publisher";
+import { StaffDeportivoAggregate } from "../../../domain/aggregates";
+import { EmpleadoDomainEntity, IEmpleadoDomainEntity } from "../../../domain/entities";
+import { INombreModificadoResponse } from "../../../domain/interfaces/responses/empleado";
+import { IStaffDeportivoDomainService } from "../../../domain/services";
+import { IdValueObject, NombreValueObject } from "../../../domain/value-objects";
 
 export class ModificarNombreEmpleadoUseCase 
     extends ValueObjectErrorHandler
@@ -95,6 +99,6 @@ export class ModificarNombreEmpleadoUseCase
     private exectueOrderAggregateRoot(
         entity: EmpleadoDomainEntity,
     ): Promise<EmpleadoDomainEntity | null> {
-        return this.aggregateRoot.modificarNombre(entity)
+        return this.aggregateRoot.modificarNombre(entity.empleadoId.valueOf(),entity)
     }
 }

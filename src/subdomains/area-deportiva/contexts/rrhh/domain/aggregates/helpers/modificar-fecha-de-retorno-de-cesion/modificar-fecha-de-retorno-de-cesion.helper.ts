@@ -13,7 +13,7 @@ export const  ModificarFechaDeRetornoDeCesionHelper = async (
 
     if(!event) throw new AggregateRootException('Evento modificar equipo de salida de cesion indefinido');
 
-    const result = await service.CesionModificarEquipoSalida(entity);
+    const result = await service.CesionModificarEquipoSalida(entity.cesionId.valueOf(),entity);
     event.response = result;
     event.publish();
     return result;

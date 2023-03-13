@@ -1,10 +1,27 @@
 import { Module } from '@nestjs/common';
 import { MySqlModule } from './databases/mysql/mysql.module';
+import { StaffDeportivoMySqlService, EmpleadoMySqlService, TramiteMySqlService, SecretariaMySqlService, ContratoMySqlService, CesionMySqlService, TraspasoMySqlService, NegociacionMySqlService } from './databases';
 
 @Module({
   imports: [MySqlModule],
-  controllers: [],
-  providers: [],
-  exports: [],
+  providers: [
+    StaffDeportivoMySqlService,
+    EmpleadoMySqlService,
+    TramiteMySqlService,
+    SecretariaMySqlService,
+    ContratoMySqlService,
+    CesionMySqlService,
+    TraspasoMySqlService,
+    NegociacionMySqlService,
+  ],
+  exports: [
+    StaffDeportivoMySqlService,
+    EmpleadoMySqlService,
+    TramiteMySqlService,
+    SecretariaMySqlService,
+    ContratoMySqlService,
+    CesionMySqlService,
+    TraspasoMySqlService,
+    NegociacionMySqlService,],
 })
 export class PersistenceModule {}

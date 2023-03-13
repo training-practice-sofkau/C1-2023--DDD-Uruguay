@@ -4,7 +4,9 @@ import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from 'src/lib
 import { ContratoNegociadoEventPublisher } from '../../../domain/events/publishers/secretaria/contrato-negociado.event-publisher';
 import { IContratoDomainService } from '../../../domain/services/secretaria/contrato.domain-service';
 import { IContratoDomainInterface } from '../../../domain/entities/interfaces/contrato/cotrato.domain-interface';
-import { ContratoDomainEntity,StateValueObject, CostoValueObject, FechaValueObject, IdValueObject, SecretariaAggregate } from '../../../domain';
+import { SecretariaAggregate } from '../../../domain/aggregates';
+import { ContratoDomainEntity } from '../../../domain/entities';
+import { FechaValueObject, IdValueObject, CostoValueObject, StateValueObject } from '../../../domain/value-objects';
 
 export class CrearContratoUseCase extends ValueObjectErrorHandler
 implements IUseCase<INegociarContratoCommands, IContratoNegociadoResponse> {

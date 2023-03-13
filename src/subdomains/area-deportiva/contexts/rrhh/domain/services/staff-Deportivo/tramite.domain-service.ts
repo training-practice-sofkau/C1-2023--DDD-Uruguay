@@ -1,9 +1,13 @@
 import { TramiteDomainEntity } from '../../entities/tramite/tramite.entity.interface';
-import { INegociacionDomainService } from './negociacion.domain-service';
-export interface ITramiteDomainService<T extends TramiteDomainEntity = TramiteDomainEntity> extends INegociacionDomainService {
+export interface ITramiteDomainService<T extends TramiteDomainEntity = TramiteDomainEntity>{
 
-    CrearNegociacion(tramite: TramiteDomainEntity):Promise<T>;  
-    ModificarFecha(tramite: TramiteDomainEntity):Promise<T>;
+    CrearNegociacion(tramite: T):Promise<T>;  
+
+    ModificarFecha(tramiteId:string,entity: T):Promise<T>;
+
+    CrearTramite(tramite: T):Promise<T>;
+
+    BuscarTramite(Tramite: string):Promise<T>;
 
     
  }

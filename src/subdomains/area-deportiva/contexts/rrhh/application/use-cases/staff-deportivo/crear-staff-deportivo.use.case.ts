@@ -2,18 +2,18 @@ import { ValueObjectErrorHandler } from '../../../../../../../libs/sofka/bases/v
 import { IUseCase } from '../../../../../../../libs/sofka/interface/use-case.interface';
 import { StaffDeportivoAggregate } from '../../../domain/aggregates/staff-deportivo/staff-deportivo.aggregate';
 import { IStaffDeportivoCreadoResponse } from '../../../domain/interfaces/responses/staff-deportivo/staff-deportivo-creado.response';
-import { ICrearStaffDeportivoCommands } from '../../../domain/interfaces';
 import { IStaffDeportivoDomainService } from '../../../domain/services/staff-Deportivo/staff-deportivo.domain-service';
 import { StaffDeportivoCreadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/staff-depotivo-creado.event-publisher';
 import { StaffDeportivoDomainEntity } from '../../../domain/entities/staff-deportivo/staff-deportivo.entity';
-import { EmpleadoDomainEntity } from '../../../domain/entities/empleado/EmpleadoDomainEntity';
 import { NombreValueObject } from '../../../domain/value-objects/nombre/nombre.value-object';
 import { ValueObjectException } from 'src/libs';
 import { TramiteBuscadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
 import { EmpleadoBuscadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
 import { BuscarTramiteUseCase } from './buscar-tramite.use-case';
 import { BuscarEmpleadoUseCase } from './buscar-empleado.use-case';
-import { IdValueObject } from '../../../domain';
+import { IdValueObject } from '../../../domain/value-objects';
+import { ICrearStaffDeportivoCommands } from '../../../domain/interfaces/commands/staff-deportivo';
+
 
 export class CrearStaffDeportivoUseCase 
     extends ValueObjectErrorHandler

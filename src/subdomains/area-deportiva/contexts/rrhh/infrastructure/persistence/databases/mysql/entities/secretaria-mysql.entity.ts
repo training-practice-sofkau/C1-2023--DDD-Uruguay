@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import { CesionMySqlEntity } from './cesion-mysql.entity';
-import { SecretariaDomainEntity } from 'src/subdomains/area-deportiva/contexts/rrhh/domain';
 import { ContratoMySqlEntity } from './contrato-mysql.entity';
 import { TraspasoMySqlEntity } from './traspaso-mysql.entity';
+import { SecretariaDomainEntity } from 'src/subdomains/area-deportiva/contexts/rrhh/domain/entities';
 
 @Entity('secretaria', { schema: 'public' })
 export class SecretariaMySqlEntity extends SecretariaDomainEntity {

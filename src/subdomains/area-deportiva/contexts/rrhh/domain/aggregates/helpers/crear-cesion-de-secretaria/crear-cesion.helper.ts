@@ -1,12 +1,13 @@
 
-import { ISecretariaDomainService } from '../../../services/secretaria/secretaria.domain-service';
 import { AggregateRootException } from 'src/libs';
 import { CesionDomainEntity } from '../../../entities/cesion/cesion.domain-entity';
-import { CesionNegociadoEventPublisher } from '../../../events';
+
+import { ICesionDomainService } from '../../../services/secretaria/cesion.domain-service';
+import { CesionNegociadoEventPublisher } from '../../../events/publishers';
 
 export const CrearCesionHelper = async (
     entity: CesionDomainEntity,
-    service?: ISecretariaDomainService,
+    service?: ICesionDomainService,
     event?: CesionNegociadoEventPublisher,
 ):Promise<CesionDomainEntity> => { 
     if(!service)

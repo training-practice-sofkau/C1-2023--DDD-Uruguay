@@ -1,13 +1,16 @@
-import { CesionDomainEntity } from '../../entities/cesion/cesion.domain-entity';
+import { CesionDomainEntity } from "../../entities";
 
 export interface ICesionDomainService<T extends CesionDomainEntity = CesionDomainEntity> {
 
-    CesionModificarCosto(costo: CesionDomainEntity):Promise<T>;
-    CesionModificarFechaSalida(fechaSalida: CesionDomainEntity):Promise<T>;
-    CesionModificarFechaRetorno(fechaRetorno: CesionDomainEntity):Promise<T>;
-    CesionModificarEquipoNuevo(equipoNuevoId: CesionDomainEntity):Promise<T>;
-    CesionModificarEquipoSalida(equipoSalidaId: CesionDomainEntity):Promise<T>;
-    CesionModificarState(state: CesionDomainEntity):Promise<T>;
+    NegociarCesion(cesion: T ):Promise< T >;
+    CesionModificarCosto(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarFechaSalida(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarFechaRetorno(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarEquipoNuevo(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarEquipoSalida(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarState(cesionId: string,entity: T ):Promise< T >;
+    
+    BuscarCesion(cesionId: string ):Promise<T>;
     
     
 }

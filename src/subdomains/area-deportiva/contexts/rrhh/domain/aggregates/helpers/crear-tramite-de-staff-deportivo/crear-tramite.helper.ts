@@ -2,10 +2,11 @@ import { TramiteAgregadoEventPublisher } from '../../../events/publishers/staff-
 import { TramiteDomainEntity } from '../../../entities/tramite/tramite.entity.interface';
 import { IStaffDeportivoDomainService } from '../../../services';
 import { AggregateRootException } from 'src/libs';
+import { ITramiteDomainService } from '../../../services/staff-Deportivo/tramite.domain-service';
 
 export const  CrearTramiteHelper = async (
     entity: TramiteDomainEntity,
-    service?: IStaffDeportivoDomainService,
+    service?: ITramiteDomainService,
     event?: TramiteAgregadoEventPublisher,
 ):Promise<TramiteDomainEntity> => { 
     

@@ -26,8 +26,8 @@ export class NegociacionDomainEntity implements INegociacionDomainEntityInterfac
         if (_negociacion.equipoSalidaId)
             this.equipoSalidaId = _negociacion.equipoSalidaId;
 
-        if (_negociacion.equipoEntradaId)
-            this.equipoEntradaId = _negociacion.equipoEntradaId;
+        if (_negociacion.equipoNuevoId)
+            this.equipoEntradaId = _negociacion.equipoNuevoId;
 
         if (_negociacion.tipoNegociacion)
             this.tipoNegociacion = _negociacion.tipoNegociacion;

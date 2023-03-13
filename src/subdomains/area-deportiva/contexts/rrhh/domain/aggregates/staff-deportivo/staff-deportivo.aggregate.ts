@@ -1,20 +1,17 @@
 import { IEmpleadoDomainService } from '../../services/staff-Deportivo/empleado.domain-service';
 import { IStaffDeportivoDomainService } from '../../services/staff-Deportivo/staff-deportivo.domain-service';
 import { StaffDeportivoDomainEntity } from '../../entities/staff-deportivo/staff-deportivo.entity';
-import { ICrearNegociacionCommands, IModificarEquipoNuevoCommands, IModificarEquipoSalidaCommands, IModificarFechaCommands, IModificarStateCommands, IModificarTipoNegociacionCommands} from '../../interfaces';
 import { INegociacionDomainService } from '../../services/staff-Deportivo/negociacion.domain-service';
 import { ITramiteDomainService } from '../../services/staff-Deportivo/tramite.domain-service';
 import { EmpleadoAgregadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-agregado.event-publisher';
 import { StaffDeportivoCreadoEventPublisher } from '../../events/publishers/staff-deporitvo/staff-depotivo-creado.event-publisher';
 import { TramiteAgregadoEventPublisher } from '../../events/publishers/staff-deporitvo/tramite-agregado.event-publisher';
-import { AggregateRootException } from '../../../../../../../libs/sofka/exceptions/aggregate-root.exception';
 import { SalarioEmpleadoModificadoEventPublisher } from '../../events/publishers/staff-deporitvo/salario-empleado-modificado.event-publisher';
 import { EmpleadoDomainEntity } from '../../entities/empleado/EmpleadoDomainEntity';
 import { TramiteDomainEntity } from '../../entities/tramite/tramite.entity.interface';
 import { FechaTramiteModificadaEventPublisher } from '../../events/publishers/staff-deporitvo/fecha-tramite-modificada.event-publisher';
 import { EmpleadoBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
 import { TramiteBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
-import { DocumentoModificadoEventPublisher, NombreModificadoEventPublisher, SalarioModificadoEventPublisher, TipoDeNegociacionModificadoEventPublisher, TipoEmpleadoModificadoEventPublisher } from '../../events';
 import { NegociacionDomainEntity } from '../../entities';
 import { EquipoNuevoModificadoEventPublisher } from '../../events/publishers/negociacion/equipo-nuevo-modificado.event-publisher';
 import { EquipoSalidaModificadoEventPublisher } from '../../events/publishers/negociacion/equipo-salida-modificado.event-publisher';
@@ -29,8 +26,14 @@ import { ModificarTipoEmpleadoHelper } from '../helpers/modificar-tipo-empleado-
 import { ModificarFechaTramiteHelper } from '../helpers/modificar-fecha-de-staff-deportivo/modificar-fecha-de-tramite.helper';
 import { BuscarTramiteHelper } from '../helpers/buscar-tramite-de-staff-deportivo/buscar-tramite.helper';
 import { BuscarEmpleadoHelper } from '../helpers/buscar-empleado-de-staff-deportivo/buscar-empleado.helper';
+import { ModificarTipoNegociacionHelper } from '../helpers/modificar-tipo-de-negociacion-de-negociacion/modificar-tipo-negociacion.helper';
+import { ModificarEquipoNuevoDeNegociacionHelper } from '../helpers/modificar-equipo-nuevo-de-negociacion/modificar-equipo-nuevo-de-negociacion.helper';
+import { ModificarEquipoSalidaDeNegociacionHelper } from '../helpers/modificar-equipo-salida-de-negociacion/modificar-equipo-salida.helper';
+import { ModificarStateDeNegociacionHelper } from '../helpers/modificar-state-de-negociacion/modificar-state-de-negociacion.helper';
+import { NombreModificadoEventPublisher, DocumentoModificadoEventPublisher, TipoEmpleadoModificadoEventPublisher, SalarioModificadoEventPublisher } from '../../events/publishers';
+import { TipoDeNegociacionModificadoEventPublisher } from '../../events/publishers/negociacion';
 
-export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
+export class StaffDeportivoAggregate implements IStaffDeportivoDomainService  , ITramiteDomainService , IEmpleadoDomainService,INegociacionDomainService{
     //Service
     private readonly staffDeportivoService?: IStaffDeportivoDomainService;
 
@@ -160,31 +163,31 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
     }
 
      CrearTramite(tramite: TramiteDomainEntity): Promise<TramiteDomainEntity> {
-       return CrearTramiteHelper(tramite,this.staffDeportivoService,this.tamiteAgregadoEvent)
+       return CrearTramiteHelper(tramite,this.tramiteService,this.tamiteAgregadoEvent)
     }
 
 
      AgregarEmpleado(empleado: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-        return CrearEmpleadoHelper(empleado,this.staffDeportivoService,this.empleadoAgregadoEvent)
+        return CrearEmpleadoHelper(empleado,this.empleadoService,this.empleadoAgregadoEvent)
     }
 
-     modificarNombre(nombre: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-        return ModificarNombreEmpleadoHelper(nombre,this.staffDeportivoService,this.nombremodificadoEvent)
+     modificarNombre(empleadoId:string ,entity: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        return ModificarNombreEmpleadoHelper(empleadoId,entity,this.empleadoService,this.nombremodificadoEvent)
 
     }
 
 
-     modificarSalario(salario: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-        return ModificarSalarioEmpleadoHelper(salario,this.staffDeportivoService,this.salarioModificadoEvent)
+     modificarSalario(empleadoId:string ,entity: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        return ModificarSalarioEmpleadoHelper(empleadoId,entity,this.empleadoService,this.salarioModificadoEvent)
 
     }
-     modificarDocumento(documento: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+     modificarDocumento(empleadoId:string ,entity: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
 
-        return ModificarDocumentoEmpleadoHelper(documento,this.staffDeportivoService,this.documentoModificadoEvent)
+        return ModificarDocumentoEmpleadoHelper(empleadoId,entity,this.empleadoService,this.documentoModificadoEvent)
 
     }
-     modificarTipoEmpleado(tipo: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
-        return ModificarTipoEmpleadoHelper(tipo,this.staffDeportivoService,this.tipoEmpleadoModificadoEvent)
+     modificarTipoEmpleado(empleadoId:string ,entity: EmpleadoDomainEntity): Promise<EmpleadoDomainEntity> {
+        return ModificarTipoEmpleadoHelper(empleadoId,entity,this.empleadoService,this.tipoEmpleadoModificadoEvent)
 
     }
 
@@ -192,43 +195,43 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
         throw new Error('Method not implemented.');
     }
 
-     ModificarFecha(fecha: TramiteDomainEntity): Promise<TramiteDomainEntity> {
-        return ModificarFechaTramiteHelper(fecha,this.tramiteService,this.fechaTamiteModificadoEvent)
+     ModificarFecha(tramiteId:string,entity: TramiteDomainEntity): Promise<TramiteDomainEntity> {
+        return ModificarFechaTramiteHelper(tramiteId,entity,this.tramiteService,this.fechaTamiteModificadoEvent)
 
     }
 
     
-     BuscarTramite(Tramite: TramiteDomainEntity):Promise<TramiteDomainEntity>{
-        return BuscarTramiteHelper(Tramite,this.staffDeportivoService,this.tamiteBuscadoEvent)
+     BuscarTramite(tramiteId: string):Promise<TramiteDomainEntity>{
+        return BuscarTramiteHelper(tramiteId,this.tramiteService,this.tamiteBuscadoEvent)
 
     }
 
-     BuscarEmpleado(empleado: EmpleadoDomainEntity):Promise<EmpleadoDomainEntity>{
-        return BuscarEmpleadoHelper(empleado,this.staffDeportivoService,this.empleadoBuscadoEvent)
+     BuscarEmpleado(empleadoId: string):Promise<EmpleadoDomainEntity>{
+        return BuscarEmpleadoHelper(empleadoId,this.empleadoService,this.empleadoBuscadoEvent)
 
     }
 
-     NegociacionModificarEquipoNuevo(equipoNuevoId: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
-        return ModificarEquipoNuevoDeNegociacionHelper(equipoNuevoId,this.negociacionService,this.negociacionEquipoNuevoModificadoEvent)
+     NegociacionModificarEquipoNuevo(negociacionId:string ,entity: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        return ModificarEquipoNuevoDeNegociacionHelper(negociacionId,entity,this.negociacionService,this.negociacionEquipoNuevoModificadoEvent)
         
     }
     
-     NegociacionModificarEquipoSalida(equipoSalidaId: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
-        return ModificarEquipoSalidaDeNegociacionHelper(equipoSalidaId,this.negociacionService,this.negociacionEquipoSalidaModificadoEvent)
+     NegociacionModificarEquipoSalida(negociacionId:string ,entity: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        return ModificarEquipoSalidaDeNegociacionHelper(negociacionId,entity,this.negociacionService,this.negociacionEquipoSalidaModificadoEvent)
 
     }
-     NegociacionModificarState(state: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
-        return ModificarStateDeNegociacionHelper(state,this.negociacionService,this.negociacionStateModificadoEvent)
+     NegociacionModificarState(negociacionId:string ,entity: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        return ModificarStateDeNegociacionHelper(negociacionId,entity,this.negociacionService,this.negociacionStateModificadoEvent)
         
     }
-     NegociacionModificarTipoNegociacion(tipo: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
-        return ModificarTipoNegociacionHelper(tipo,this.negociacionService,this.negociacionTipoNegociacionModificadoEvent)
+     NegociacionModificarTipoNegociacion(negociacionId:string ,entity: NegociacionDomainEntity): Promise<NegociacionDomainEntity> {
+        return ModificarTipoNegociacionHelper(negociacionId,entity,this.negociacionService,this.negociacionTipoNegociacionModificadoEvent)
 
     }
 
 
    
-   
+}
 
    
 
@@ -238,20 +241,4 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService{
     
  
     
-}
-function ModificarEquipoNuevoDeNegociacionHelper(equipoNuevoId: NegociacionDomainEntity, negociacionService: INegociacionDomainService<NegociacionDomainEntity>, negociacionEquipoNuevoModificadoEvent: EquipoNuevoModificadoEventPublisher<NegociacionDomainEntity>): Promise<NegociacionDomainEntity> {
-    throw new Error('Function not implemented.');
-}
-
-function ModificarEquipoSalidaDeNegociacionHelper(equipoSalidaId: NegociacionDomainEntity, negociacionService: INegociacionDomainService<NegociacionDomainEntity>, negociacionEquipoSalidaModificadoEvent: EquipoSalidaModificadoEventPublisher<NegociacionDomainEntity>): Promise<NegociacionDomainEntity> {
-    throw new Error('Function not implemented.');
-}
-
-function ModificarStateDeNegociacionHelper(state: NegociacionDomainEntity, negociacionService: INegociacionDomainService<NegociacionDomainEntity>, negociacionStateModificadoEvent: StateModificadoEventPublisher<import("../../entities").CesionDomainEntity>): Promise<NegociacionDomainEntity> {
-    throw new Error('Function not implemented.');
-}
-
-function ModificarTipoNegociacionHelper(tipo: NegociacionDomainEntity, negociacionService: INegociacionDomainService<NegociacionDomainEntity>, negociacionTipoNegociacionModificadoEvent: TipoDeNegociacionModificadoEventPublisher<NegociacionDomainEntity>): Promise<NegociacionDomainEntity> {
-    throw new Error('Function not implemented.');
-}
 

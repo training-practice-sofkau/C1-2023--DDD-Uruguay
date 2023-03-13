@@ -20,7 +20,7 @@ implements IUseCase<IBuscarTraspasoCommands, ITraspasoBuscadaResponse> {
 
     //Ejecutar el comando , usando otra funcion para crear lo que necesita el comando 
     async execute(command?: IBuscarTraspasoCommands): Promise<ITraspasoBuscadaResponse> {
-        const data = await this.aggregateRoot.BuscarTraspaso(command)
+        const data = await this.aggregateRoot.BuscarTraspaso(command.traspasoId)
 
         return { success: data ? true : false, data }
     }

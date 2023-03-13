@@ -1,11 +1,11 @@
 import { AggregateRootException } from "src/libs";
 import { TramiteDomainEntity } from "../../../entities";
-import { IStaffDeportivoDomainService } from '../../../services/staff-Deportivo/staff-deportivo.domain-service';
 import { TramiteBuscadoEventPublisher } from '../../../events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
+import { ITramiteDomainService } from '../../../services/staff-Deportivo/tramite.domain-service';
 
 export const BuscarTramiteHelper = async (
-    entity: TramiteDomainEntity,
-    service?: IStaffDeportivoDomainService,
+    tramiteId: string,
+    service?: ITramiteDomainService,
     event?: TramiteBuscadoEventPublisher,
 ):Promise<TramiteDomainEntity> => { 
     
@@ -14,7 +14,7 @@ export const BuscarTramiteHelper = async (
 
     if(!event) throw new AggregateRootException('Evento buscar tramite indefinido');
 
-    const result = await service.BuscarTramite(entity);
+    const result = await service.BuscarTramite(tramiteId);
     event.response = result;
     event.publish();
     return result;

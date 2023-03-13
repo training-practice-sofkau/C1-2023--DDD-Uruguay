@@ -1,13 +1,12 @@
 import { TraspasoDomainEntity } from '../../entities/traspaso/traspaso.domain-entity';
-import { IModificarCostoCommands, IModificarFechaCommands, IModificarStateCommands } from '../../interfaces';
-import { IModificarEquipoCommands } from '../../interfaces/commands/shared/modificar-equipo-nuevo.commands.interface';
-
 export interface ITraspasoDomainService<T extends TraspasoDomainEntity = TraspasoDomainEntity> {
 
-    TraspasoModificarCosto(costo: IModificarCostoCommands):Promise<T>;
-    TraspasoModificarFechaSalida(fechaSalida: IModificarFechaCommands):Promise<T>;
-    TraspasoModificarEquipoNuevo(equipoNuevoId:IModificarEquipoCommands ):Promise<T>;
-    TraspasoModificarEquipoSalida(equipoSalidaId: IModificarEquipoCommands):Promise<T>;
-    TraspasoModificarState(state: IModificarStateCommands):Promise<T>;
     
+    NegociarTraspaso(traspaso: T ):Promise<T>;
+    TraspasoModificarCosto(traspasoId:string,entity: T):Promise<T>;
+    TraspasoModificarFechaSalida(traspasoId:string,entity: T):Promise<T>;
+    TraspasoModificarEquipoNuevo(traspasoId:string,entity:T ):Promise<T>;
+    TraspasoModificarEquipoSalida(traspasoId:string,entity: T):Promise<T>;
+    TraspasoModificarState(traspasoId:string,entity: T):Promise<T>;
+    BuscarTraspaso(traspasoId :  string ):Promise<T>;
 }

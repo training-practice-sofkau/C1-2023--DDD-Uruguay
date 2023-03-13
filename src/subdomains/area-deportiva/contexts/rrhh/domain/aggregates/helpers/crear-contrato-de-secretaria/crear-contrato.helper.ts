@@ -1,11 +1,11 @@
-import { ISecretariaDomainService } from '../../../services/secretaria/secretaria.domain-service';
 import { AggregateRootException } from 'src/libs';
 import { ContratoDomainEntity } from '../../../entities/contrato/contrato.domain-entity';
-import { ContratoNegociadoEventPublisher } from '../../../events';
+import { IContratoDomainService } from '../../../services/secretaria/contrato.domain-service';
+import { ContratoNegociadoEventPublisher } from '../../../events/publishers';
 
 export const CrearContratoHelper = async (
     entity: ContratoDomainEntity,
-    service?: ISecretariaDomainService,
+    service?: IContratoDomainService,
     event?: ContratoNegociadoEventPublisher,
 ):Promise<ContratoDomainEntity> => { 
     if(!service)

@@ -3,6 +3,7 @@ import { IEmpleadoDomainService } from '../../../services/staff-Deportivo/emplea
 import { AggregateRootException } from 'src/libs';
 import { TipoEmpleadoModificadoEventPublisher } from '../../../events/publishers/empleado/tipo-empleado-modificado';
 export const  ModificarTipoEmpleadoHelper = async (
+    empleadoId:string,
     entity: EmpleadoDomainEntity,
     service?: IEmpleadoDomainService,
     event?: TipoEmpleadoModificadoEventPublisher,
@@ -13,7 +14,7 @@ export const  ModificarTipoEmpleadoHelper = async (
 
     if(!event) throw new AggregateRootException('Evento creador de Staff Deportivo indefinido');
 
-    const result = await service.modificarTipoEmpleado(entity);
+    const result = await service.modificarTipoEmpleado(empleadoId,entity);
     event.response = result;
     event.publish();
     return result;

@@ -1,7 +1,13 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { IModificarTipoNegociacionCommands, ITipoNegociacionModificadoResponse, StaffDeportivoAggregate, IStaffDeportivoDomainService, TipoDeNegociacionModificadoEventPublisher, NegociacionDomainEntity, INegociacionDomainEntityInterface, IdValueObject, TipoNegociacionValueObject, IModificarStateCommands, IStateModificadoResponse } from "../../../domain";
+
 import { StateModificadoEventPublisher } from '../../../domain/events/publishers/cesion/state-modificado.event-publisher';
 import { StateValueObject } from '../../../domain/value-objects/state/state.value-object';
+import { StaffDeportivoAggregate } from "../../../domain/aggregates";
+import { NegociacionDomainEntity, INegociacionDomainEntityInterface } from "../../../domain/entities";
+import { IModificarStateCommands } from "../../../domain/interfaces/commands/cesion";
+import { IStateModificadoResponse } from "../../../domain/interfaces/responses/cesion";
+import { IStaffDeportivoDomainService } from "../../../domain/services";
+import { IdValueObject } from "../../../domain/value-objects";
 
 export class ModificarStateUseCase   extends ValueObjectErrorHandler
 implements IUseCase<IModificarStateCommands, IStateModificadoResponse> {
@@ -96,6 +102,6 @@ implements IUseCase<IModificarStateCommands, IStateModificadoResponse> {
     private exectueStaffDeportivoAggregateRoot(
         entity: NegociacionDomainEntity,
     ): Promise<NegociacionDomainEntity | null> {
-        return  this.aggregateRoot.NegociacionModificarState(entity);
+        return  this.aggregateRoot.NegociacionModificarState(entity.negociacionId.valueOf(),entity);
     }
 }

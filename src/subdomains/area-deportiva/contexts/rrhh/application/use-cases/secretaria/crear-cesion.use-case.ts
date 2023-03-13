@@ -1,4 +1,3 @@
-import { CostoValueObject, FechaValueObject, ICesionNegociadoResponse, ITramiteDomainInterface, IdValueObject, SecretariaAggregate, TramiteDomainEntity } from '../../../domain';
 import { INegociarCesionCommands } from '../../../domain/interfaces/commands/secretaria/negociar-cesion.commands.interface';
 import { ICesionDomainService } from '../../../domain/services/secretaria/cesion.domain-service';
 import { CesionNegociadoEventPublisher } from '../../../domain/events/publishers/secretaria/cesion-negociado.event-publisher';
@@ -6,6 +5,9 @@ import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from 'src/lib
 import { CesionDomainEntity } from '../../../domain/entities/cesion/cesion.domain-entity';
 import { ICesionDomainInterface } from '../../../domain/entities/interfaces/cesion/cesion.domain-interface';
 import { StateValueObject } from '../../../domain/value-objects/state/state.value-object';
+import { SecretariaAggregate } from '../../../domain/aggregates';
+import { ICesionNegociadoResponse } from '../../../domain/interfaces/responses/secretaria';
+import { FechaValueObject, IdValueObject, CostoValueObject } from '../../../domain/value-objects';
 
 
 export class CrearCesionUseCase extends ValueObjectErrorHandler

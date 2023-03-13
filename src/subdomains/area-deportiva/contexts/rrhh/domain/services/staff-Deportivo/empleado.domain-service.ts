@@ -2,11 +2,14 @@ import { EmpleadoDomainEntity } from '../../entities/empleado/EmpleadoDomainEnti
 
 export interface IEmpleadoDomainService<T extends EmpleadoDomainEntity = EmpleadoDomainEntity> {
 
-    modificarNombre(nombre: EmpleadoDomainEntity):Promise<T>;
-    modificarSalario(salario: EmpleadoDomainEntity):Promise<T>;
-    modificarDocumento(documento: EmpleadoDomainEntity):Promise<T>;
-    modificarTipoEmpleado(tipo: EmpleadoDomainEntity):Promise<T>;
+    modificarNombre(empleadoId:string ,entity: T):Promise<T>;
+    modificarSalario(empleadoId:string ,entity: T):Promise<T>;
+    modificarDocumento(empleadoId:string ,entity: T):Promise<T>;
+    modificarTipoEmpleado(empleadoId:string ,entity: T):Promise<T>;
 
+    AgregarEmpleado(empleado:T):Promise<T>;
+
+    BuscarEmpleado(empleado: string):Promise<T>;
     
     
 }

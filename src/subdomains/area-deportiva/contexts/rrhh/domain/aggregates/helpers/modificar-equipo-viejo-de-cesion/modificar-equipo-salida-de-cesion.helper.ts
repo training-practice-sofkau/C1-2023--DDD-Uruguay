@@ -4,6 +4,7 @@ import { CesionDomainEntity } from '../../../entities/cesion/cesion.domain-entit
 import { ICesionDomainService } from '../../../services/secretaria/cesion.domain-service';
 import { EquipoSalidaModificadoEventPublisher } from '../../../events/publishers/negociacion/equipo-salida-modificado.event-publisher';
 export const  ModificarEquipoSalidaDeCesionHelper = async (
+    cesionId:string,
     entity: CesionDomainEntity,
     service?: ICesionDomainService,
     event?: EquipoSalidaModificadoEventPublisher,
@@ -14,7 +15,7 @@ export const  ModificarEquipoSalidaDeCesionHelper = async (
 
     if(!event) throw new AggregateRootException('Evento modificar equipo de salida de cesion indefinido');
 
-    const result = await service.CesionModificarEquipoSalida(entity);
+    const result = await service.CesionModificarEquipoSalida(cesionId,entity);
     event.response = result;
     event.publish();
     return result;

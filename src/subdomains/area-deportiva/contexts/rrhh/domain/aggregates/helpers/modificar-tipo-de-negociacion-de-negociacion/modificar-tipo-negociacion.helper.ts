@@ -4,6 +4,7 @@ import { EquipoNuevoModificadoEventPublisher } from "../../../events/publishers/
 import { INegociacionDomainService } from "../../../services";
 
 export const ModificarTipoNegociacionHelper = async (
+    negociacionId:string,
     entity: NegociacionDomainEntity,
     service?: INegociacionDomainService,
     event?: EquipoNuevoModificadoEventPublisher,
@@ -14,7 +15,7 @@ export const ModificarTipoNegociacionHelper = async (
 
     if(!event) throw new AggregateRootException('Evento creador de Staff Deportivo indefinido');
 
-    const result = await service.NegociacionModificarTipoNegociacion(entity);
+    const result = await service.NegociacionModificarTipoNegociacion(negociacionId,entity);
     event.response = result;
     event.publish();
     return result;

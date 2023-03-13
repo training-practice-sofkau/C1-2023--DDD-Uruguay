@@ -1,11 +1,13 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { StaffDeportivoAggregate, IStaffDeportivoDomainService,  IdValueObject } from "../../../domain";
 import { IModificarTipoNegociacionCommands } from '../../../domain/interfaces/commands/negociacion/modificar-tipo-negociacion.commands';
 import { ITipoNegociacionModificadoResponse } from '../../../domain/interfaces/responses/negociacion/tipo-negociacion-modificado.response';
 import { TipoDeNegociacionModificadoEventPublisher } from '../../../domain/events/publishers/negociacion/tipo-de-negociacion-modificado.event-publisher';
 import { NegociacionDomainEntity } from '../../../domain/entities/negociacion/negociacion.domain-entity';
 import { INegociacionDomainEntityInterface } from '../../../domain/entities/interfaces/negociacion/negociacion.domain-entity.interface';
 import { TipoNegociacionValueObject } from '../../../domain/value-objects/tipo-negociacion/tipo-negociacion.value-object';
+import { StaffDeportivoAggregate } from "../../../domain/aggregates";
+import { IStaffDeportivoDomainService } from "../../../domain/services";
+import { IdValueObject } from "../../../domain/value-objects";
 
 
 
@@ -102,7 +104,7 @@ implements IUseCase<IModificarTipoNegociacionCommands, ITipoNegociacionModificad
     private exectueStaffDeportivoAggregateRoot(
         entity: NegociacionDomainEntity,
     ): Promise<NegociacionDomainEntity | null> {
-        return  this.aggregateRoot.NegociacionModificarTipoNegociacion(entity)
+        return  this.aggregateRoot.NegociacionModificarTipoNegociacion(entity.negociacionId.valueOf(),entity)
     }
 }
 

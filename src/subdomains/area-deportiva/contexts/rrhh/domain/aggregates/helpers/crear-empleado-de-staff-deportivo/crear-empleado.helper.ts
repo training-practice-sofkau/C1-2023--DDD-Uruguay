@@ -1,11 +1,11 @@
 import { AggregateRootException } from 'src/libs';
 import { EmpleadoDomainEntity } from '../../../entities/empleado/EmpleadoDomainEntity';
 import { EmpleadoAgregadoEventPublisher } from '../../../events/publishers/staff-deporitvo/empleado-agregado.event-publisher';
-import { IStaffDeportivoDomainService } from '../../../services';
+import { IEmpleadoDomainService } from '../../../services/staff-Deportivo/empleado.domain-service';
 
 export const CrearEmpleadoHelper = async (
     entity: EmpleadoDomainEntity,
-    service?: IStaffDeportivoDomainService,
+    service?: IEmpleadoDomainService,
     event?: EmpleadoAgregadoEventPublisher,
 ):Promise<EmpleadoDomainEntity> => { 
     

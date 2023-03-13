@@ -2,10 +2,11 @@ import { ISecretariaDomainService } from '../../../services/secretaria/secretari
 import { AggregateRootException } from 'src/libs';
 import { TraspasoDomainEntity } from '../../../entities';
 import { TraspasoNegociadoEventPublisher } from '../../../events/publishers/secretaria/traspaso-negociado.event-publisher';
+import { ITraspasoDomainService } from '../../../services/secretaria/traspaso.domain-service';
 
 export const CrearTraspasoHelper = async (
     entity: TraspasoDomainEntity,
-    service?: ISecretariaDomainService,
+    service?: ITraspasoDomainService,
     event?: TraspasoNegociadoEventPublisher,
 ):Promise<TraspasoDomainEntity> => { 
     if(!service)

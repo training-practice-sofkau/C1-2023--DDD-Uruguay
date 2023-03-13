@@ -1,5 +1,5 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import {  FechaValueObject, StaffDeportivoAggregate } from "../../../domain";
+
 import { ITramiteDomainService } from '../../../domain/services/staff-Deportivo/tramite.domain-service';
 import { TramiteAgregadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/tramite-agregado.event-publisher';
 import { ICrearTramiteCommands } from '../../../domain/interfaces/commands/staff-deportivo/crear-tramite.commands';
@@ -12,6 +12,8 @@ import { TerminosACumplirValueObject } from '../../../domain/value-objects/termi
 import { StateValueObject } from '../../../domain/value-objects/state/state.value-object';
 import { INegociacionDomainEntityInterface } from '../../../domain/entities/interfaces/negociacion/negociacion.domain-entity.interface';
 import { TipoNegociacionValueObject } from '../../../domain/value-objects/tipo-negociacion/tipo-negociacion.value-object';
+import { StaffDeportivoAggregate } from "../../../domain/aggregates";
+import { FechaValueObject } from "../../../domain/value-objects";
 
 export class AgregarTramiteUseCase extends ValueObjectErrorHandler
     implements IUseCase<ICrearTramiteCommands, ITramiteCreadoResponse> {

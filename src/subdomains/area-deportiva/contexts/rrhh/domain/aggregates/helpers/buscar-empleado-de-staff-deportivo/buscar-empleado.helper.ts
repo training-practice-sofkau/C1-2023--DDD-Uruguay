@@ -2,10 +2,11 @@ import { IStaffDeportivoDomainService } from '../../../services/staff-Deportivo/
 import { EmpleadoBuscadoEventPublisher } from '../../../events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
 import { AggregateRootException } from 'src/libs';
 import { EmpleadoDomainEntity } from '../../../entities';
+import { IEmpleadoDomainService } from '../../../services/staff-Deportivo/empleado.domain-service';
 
 export const BuscarEmpleadoHelper = async (
-    entity: EmpleadoDomainEntity,
-    service?: IStaffDeportivoDomainService,
+    empleadoId: string,
+    service?: IEmpleadoDomainService,
     event?: EmpleadoBuscadoEventPublisher,
 ):Promise<EmpleadoDomainEntity> => { 
     
@@ -14,7 +15,7 @@ export const BuscarEmpleadoHelper = async (
 
     if(!event) throw new AggregateRootException('Evento creador de Staff Deportivo indefinido');
 
-    const result = await service.BuscarEmpleado(entity);
+    const result = await service.BuscarEmpleado(empleadoId);
     event.response = result;
     event.publish();
     return result;
