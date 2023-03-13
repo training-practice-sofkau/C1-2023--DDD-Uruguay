@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { OrderManagementModule } from './subdomains/Installations/contexts/order-management/infrastructure';
 
 @Module({
-  imports: [],
+  imports: [OrderManagementModule],
   controllers: [],
   providers: [],
 })
