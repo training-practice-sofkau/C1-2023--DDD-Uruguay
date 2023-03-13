@@ -29,14 +29,14 @@ import { EventPublisherBase } from "src/libs";
 
 export class CompraAggregate implements IClienteService, ICompraService, ICuponService, ICursoService {
 
-    //CREO INSTANCIAS DE CADA SERVICIO RELACIONADO A MI AGREGADO
+    //DECLARO PROPIEDADES DE CADA SERVICIO RELACIONADO A MI AGREGADO
     private readonly clienteService?: IClienteService;
     private readonly compraService?: ICompraService;
     private readonly cuponService?: ICuponService;
     private readonly cursoService?: ICursoService;
 
 
-    //CREO INSTANCIAS DE LOS PUBLISHERS RELACIONADOS A MI AGREGADO
+    //DECLARO PROPIEDADES DE LOS PUBLISHERS RELACIONADOS A MI AGREGADO
     private readonly updatePhoneEventPublisher?: UpdatePhoneEventPublisher;
     private readonly updatePorcentajeEventPublisher?: UpdatePorcentajeEventPublisher;
     private readonly updateCostoCursoEventPublisher?: UpdateCostoCursoEventPublisher;
