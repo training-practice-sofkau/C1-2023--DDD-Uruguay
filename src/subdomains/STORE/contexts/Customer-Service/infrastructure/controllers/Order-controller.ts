@@ -1,5 +1,5 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { RegisterOrderCaseUse, AddCustomerCaseUse } from '../../application';
+import { Controller, Post, Body, Get } from '@nestjs/common';
+import { RegisterOrderCaseUse, AddCustomerCaseUse, GetMangaCaseUse } from '../../application';
 import { IAddClient } from '../../domain/interfaces/commands';
 import {
   IClientAddEventPublisher,
@@ -14,8 +14,8 @@ export class OrderController {
     private readonly orderService: OrderService,
     private readonly ClientService: ClientService,
     private readonly AddCustomerEventPublisher: IClientAddEventPublisher,
-
     private readonly registerOrderEventPublisher: IOrderAddEventPublisher,
+    
   ) {}
 
   @Post('create-order')
@@ -35,5 +35,6 @@ export class OrderController {
     );
     return useCase.execute(command);
   }
+
   
 }
