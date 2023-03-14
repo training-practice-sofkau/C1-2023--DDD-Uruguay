@@ -1,13 +1,13 @@
-import { EventPublisherBase } from "src/libs";
+import { EventPublisherBase } from 'src/libs';
 
-import { OrderDomainEntityBase } from "../../entities";
+import { OrderDomainEntityBase } from '../../entities';
 
-export abstract class GetOrderEventPublisherBase<
+export abstract class GettedOrderEventPublisherBase<
   Response = OrderDomainEntityBase
 > extends EventPublisherBase<Response> {
   publish<Result = any>(): Promise<Result> {
     return this.emit(
-      "order_management.order.order_get",
+      "order_management.order.order_getted",
       JSON.stringify({ data: this.response })
     );
   }

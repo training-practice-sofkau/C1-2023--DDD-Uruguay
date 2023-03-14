@@ -2,12 +2,12 @@ import { EventPublisherBase } from 'src/libs';
 
 import { InvoiceDomainEntityBase } from '../../entities';
 
-export abstract class CreatedInvoiceEventPublisherBase<
+export abstract class DeletedInvoiceEventPublisherBase<
   Response = InvoiceDomainEntityBase
 > extends EventPublisherBase<Response> {
   publish<Result = any>(): Promise<Result> {
     return this.emit(
-      "order_management.created_invoice",
+      "invoice_management.invoice.invoice_deleted",
       JSON.stringify({ data: this.response })
     );
   }

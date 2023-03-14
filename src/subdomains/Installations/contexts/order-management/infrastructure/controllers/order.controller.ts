@@ -21,14 +21,14 @@ import {
 export class OrderController {
     constructor(
         private readonly orderService: OrderService,
-        private readonly createdOrderEventPublisherBase: CreatedOrderPublisher,
+        private readonly createdOrderEventPublisher: CreatedOrderPublisher,
     ) {}
 
     @Post('/create-order')
     async createOrder(@Body() command: CreateOrderCommand) {
         const useCase = new CreateOrderUseCase(
             this.orderService,
-            this.createdOrderEventPublisherBase,
+            this.createdOrderEventPublisher,
         );
         return await useCase.execute(command);
     }
@@ -37,7 +37,7 @@ export class OrderController {
     async getOrder(@Body() command: GetOrderCommand) {
         const useCase = new GetOrderUserCase(
             this.orderService,
-            this.createdOrderEventPublisherBase,
+            this.createdOrderEventPublisher,
         );
         return await useCase.execute(command);
     }
