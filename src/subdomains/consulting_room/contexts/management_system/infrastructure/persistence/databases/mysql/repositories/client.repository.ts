@@ -1,45 +1,63 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
-import { IRepository } from './base/repository.base';
-import { ClientMySqlEntity } from '../entities/client.entity';
+import { BadRequestException, Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { IsNull, Repository } from "typeorm";
+import { ClientMySqlEntity } from "../entities/client.entity";
+import { IRepository } from "./base";
 
 @Injectable()
 export class ClientRepository
-    implements IRepository<ClientMySqlEntity>{
+  implements IRepository<ClientMySqlEntity>
+{
+  constructor(
+    @InjectRepository(ClientMySqlEntity)
+    private readonly repository: Repository<ClientMySqlEntity>,
+  ) { }
 
-    constructor(
-        @InjectRepository(ClientMySqlEntity)
-        private readonly repository: Repository<ClientMySqlEntity>
-    ) { }
+  async findAll(): Promise<ClientMySqlEntity[]> {
+    return await this.repository.find();
+  }
 
-    async findAll(): Promise<ClientMySqlEntity[]> {
-        return await this.repository.find();
+  async findById(
+    clientId: string,
+  ): Promise<ClientMySqlEntity> {
+    const entity = await this.repository.findOneBy({ clientId });
+    if (entity) return entity;
+    throw new BadRequestException(
+      `El ID "${clientId}" no existe en base de datos`,
+    );
+  }
+
+  async create(
+    entity: ClientMySqlEntity,
+  ): Promise<ClientMySqlEntity | null> {
+    return await this.repository.save(entity);
+  }
+
+  async update(
+    clientId: string,
+    entity: ClientMySqlEntity,
+  ): Promise<ClientMySqlEntity> {
+    let entityToUpdate = await this.repository.findOneBy({ clientId });
+    if (entityToUpdate) {
+      entityToUpdate = {
+        ...entityToUpdate,
+        ...entity,
+      } as ClientMySqlEntity;
+      return await this.repository.save(entityToUpdate);
     }
+    throw new BadRequestException(
+      `El ID "${clientId}" no existe en base de datos`,
+    );
+  }
 
-    async findById(clientId: string): Promise<ClientMySqlEntity> {
-
-        const client = await this.repository.findOneBy({ clientId, deletedAt: undefined })
-
-        if (!client) throw new BadRequestException(`Client with id: ${clientId} not found`)
-
-        return client;
+  async delete(clientId: string): Promise<boolean> {
+    const entityToDelete = await this.repository.findOneBy({ clientId });
+    if (entityToDelete) {
+      const response = await this.repository.save(entityToDelete);
+      return response ? true : false;
     }
-
-    async create(entity: ClientMySqlEntity): Promise<ClientMySqlEntity> {
-        return await this.repository.save(entity)
-    }
-
-    update(clientId: string, entity: ClientMySqlEntity): Promise<ClientMySqlEntity> {
-        throw new Error('Method not implemented.')
-    }
-
-    async delete(clientId: string): Promise<boolean> {
-        const client = await this.repository.findOneBy({ clientId, deletedAt: undefined });
-        if (!client) throw new BadRequestException(`Client with id: ${clientId} not found`)
-
-        return true
-    }
-
+    throw new BadRequestException(
+      `El ID "${clientId}" no existe en base de datos`,
+    );
+  }
 }

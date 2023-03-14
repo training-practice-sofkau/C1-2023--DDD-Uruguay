@@ -1,6 +1,5 @@
 import { AmountObjectValue, DateTimeValueObject, InvoiceIdObjectValue } from "../../value-objects";
 
-
 export interface IInvoiceDomainEntity {
     invoiceId?: string | InvoiceIdObjectValue;
     amount?: number | AmountObjectValue;

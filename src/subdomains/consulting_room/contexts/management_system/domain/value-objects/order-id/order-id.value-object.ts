@@ -4,7 +4,7 @@ import { IsUUID } from '@validations';
 import { v4 as uuid } from 'uuid';
 
 
-export class OrderIdValueObject extends ValueObjectBase<string>{
+export class OrderIdObjectValue extends ValueObjectBase<string>{
     constructor(value?: string) {
         super(value ? value : uuid());
     }

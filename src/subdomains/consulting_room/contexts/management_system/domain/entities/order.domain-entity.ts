@@ -1,11 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
-import { DateTimeValueObject, DescriptionValueObject, OrderIdValueObject } from '../value-objects';
+import { DateTimeValueObject, DescriptionValueObject, OrderIdObjectValue } from '../value-objects';
 
-import { IClientDomainEntity, IInvoiceDomainEntity, IOrderDomainEntity } from './interfaces';
+import {
+    IClientDomainEntity,
+    IInvoiceDomainEntity,
+    IOrderDomainEntity,
+} from './interfaces';
 
-export class OrderDomainEntityBase implements IOrderDomainEntity {
 
-    orderId?: string | OrderIdValueObject;
+export class OrderDomainEntityBase
+    implements IOrderDomainEntity {
+
+    orderId?: string | OrderIdObjectValue;
     date?: number | DateTimeValueObject;
     description?: string | DescriptionValueObject;
     client: IClientDomainEntity;
@@ -14,9 +20,10 @@ export class OrderDomainEntityBase implements IOrderDomainEntity {
     updatedAt?: number | Date;
     deletedAt?: number | Date;
 
-    constructor( _data?: IOrderDomainEntity ){
-        
-        if(_data.orderId) this.orderId = _data.orderId
+    constructor(_data?: IOrderDomainEntity) {
+
+        if (_data?.orderId)
+            this.orderId = _data.orderId;
         else this.orderId = uuidv4();
 
         if (_data?.description) this.description = _data.description;
@@ -30,4 +37,7 @@ export class OrderDomainEntityBase implements IOrderDomainEntity {
         this.createdAt = new Date();
     }
 
-}   
+
+}
+
+

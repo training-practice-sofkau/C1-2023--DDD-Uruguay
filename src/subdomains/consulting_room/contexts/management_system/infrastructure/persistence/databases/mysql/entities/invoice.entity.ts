@@ -1,20 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm"
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { InvoiceDomainEntitybase } from '../../../../../domain/entities/invoice.domain-entity';
-import { OrderMySqlEntity } from './order.entity';
+import { OrderMySqlEntity } from "./order.entity";
 
-@Entity()
-export class InovoiceMySqlEntity extends InvoiceDomainEntitybase {
+@Entity('invoice', { schema: 'public' })
+export class InvoiceMySqlEntity extends InvoiceDomainEntitybase {
+  @PrimaryGeneratedColumn('uuid')
+  invoiceId?: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    invoiceId: string;
+  @Column()
+  amount: number;
 
-    @Column()
-    amount: number;
-
-    @Column()
-    date: number;
-
-    @OneToOne( ()=> OrderMySqlEntity, (order)=> order.invoice)
-    order: OrderMySqlEntity
+  @Column()
+  date: number;
+  
+  @OneToOne(() => OrderMySqlEntity, (order) => order.invoice)
+  order: OrderMySqlEntity;
 }

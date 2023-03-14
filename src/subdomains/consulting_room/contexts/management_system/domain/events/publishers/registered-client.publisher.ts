@@ -7,7 +7,7 @@ export abstract class RegisteredClientEventPublisherBase<
 {
   publish<Result = any>(): Promise<Result> {
     return this.emit(
-      'management-system.registered-client',
+      'consultory-system.registered-client',
       JSON.stringify({ data: this.response })
     )
   }

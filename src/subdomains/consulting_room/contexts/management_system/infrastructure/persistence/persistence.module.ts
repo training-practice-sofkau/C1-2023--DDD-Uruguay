@@ -1,10 +1,11 @@
-import { Module } from "@nestjs/common";
+import { Module } from '@nestjs/common';
 import { MySqlModule } from './databases/mysql/my-sql.module';
-import { ClientService } from './services/client.service';
+import { ClientService, OrderService, InvoiceService } from './services';
+
 
 @Module({
     imports: [MySqlModule],
-    providers: [ClientService],
-    exports: [ClientService]
+    providers: [ClientService, OrderService, InvoiceService],
+    exports: [ClientService, OrderService, InvoiceService],
 })
 export class PersistenceModule { }

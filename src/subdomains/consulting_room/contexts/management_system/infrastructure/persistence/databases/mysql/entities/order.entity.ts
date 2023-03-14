@@ -1,13 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne } from "typeorm"
+import { Column, Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 import { OrderDomainEntityBase } from '../../../../../domain/entities/order.domain-entity';
 import { ClientMySqlEntity } from './client.entity';
-import { InovoiceMySqlEntity } from "./invoice.entity";
+import { InvoiceMySqlEntity } from './invoice.entity';
 
-@Entity()
+@Entity('order', { schema: 'public' })
 export class OrderMySqlEntity extends OrderDomainEntityBase {
     @PrimaryGeneratedColumn('uuid')
-    id: string;
+    orderId?: string;
 
     @Column()
     description: string;
@@ -23,12 +23,11 @@ export class OrderMySqlEntity extends OrderDomainEntityBase {
     @JoinColumn()
     client: ClientMySqlEntity;
 
-
-    @OneToOne(() => InovoiceMySqlEntity, (invoice) => invoice.order,
+    @OneToOne(() => InvoiceMySqlEntity, (invoice) => invoice.order,
         {
             cascade: ['insert', 'update'],
         },
     )
     @JoinColumn()
-    invoice: InovoiceMySqlEntity
+    invoice: InvoiceMySqlEntity;
 }

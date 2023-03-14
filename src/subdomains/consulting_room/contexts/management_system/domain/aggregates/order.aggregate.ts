@@ -33,6 +33,9 @@ export class OrderAggregate
         this.registeredOrderEventPublisherBase = registeredOrderEventPublisherBase;
         this.registeredClientEventPublisherBase = registeredClientEventPublisherBase;
     }
+    deleteOrder(orderId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
     getClient(clientId: string): Promise<ClientDomainEntitybase> {
         throw new Error('Method not implemented.');
     }
@@ -65,7 +68,7 @@ export class OrderAggregate
         throw new Error('Method not implemented.');
     }
 
-    updateDescription(orderId: string, newDescription: string): Promise<string> {
+    updateDescription(orderId: string, entity: OrderDomainEntityBase): Promise<OrderDomainEntityBase> {
         throw new Error('Method not implemented.');
     }
 }

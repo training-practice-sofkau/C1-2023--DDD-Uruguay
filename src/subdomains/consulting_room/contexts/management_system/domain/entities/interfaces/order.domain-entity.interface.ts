@@ -1,12 +1,13 @@
-import { IClientDomainEntity, IInvoiceDomainEntity } from '.';
-import { DateTimeValueObject, DescriptionValueObject, OrderIdValueObject } from '../../value-objects';
+import { IClientDomainEntity, IInvoiceDomainEntity } from ".";
+import { DateTimeValueObject, DescriptionValueObject, OrderIdObjectValue } from "../../value-objects";
+
 
 export interface IOrderDomainEntity {
-    orderId?: string | OrderIdValueObject;
+    orderId?: string | OrderIdObjectValue;
     date?: number | DateTimeValueObject;
     description?: string | DescriptionValueObject;
     client: IClientDomainEntity;
-    invoice:  IInvoiceDomainEntity;
+    invoice: IInvoiceDomainEntity;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

@@ -1,11 +1,14 @@
-import { Controller, Module } from "@nestjs/common";
-import { OrderController } from "./controllers/order.controller";
+/* eslint-disable prettier/prettier */
+import { Module } from "@nestjs/common";
 import { PersistenceModule } from './persistence/persistence.module';
+import { MessagingModule } from './messaging/messaging.module';
+import { OrderController } from "./controllers/order.controller";
 
 @Module({
-    imports:[PersistenceModule],
-    controllers:[OrderController],
-    providers:[],
-    exports:[]
-})
-export class ConsultoryModule{}
+    imports: [PersistenceModule, MessagingModule],
+    controllers: [OrderController],
+    providers: [],
+    exports: [],
+  })
+  export class ConsultoryModule {}
+   

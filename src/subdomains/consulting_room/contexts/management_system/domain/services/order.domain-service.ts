@@ -1,17 +1,39 @@
-import { OrderDomainEntityBase } from '../entities/order.domain-entity';
+import { OrderDomainEntityBase } from '../entities';
 
 /**
- * 
+ *
  *
  * @export
  * @interface IOrderDomainService
  * @template T
  */
 export interface IOrderDomainService<
-    T extends OrderDomainEntityBase = OrderDomainEntityBase
+    T extends OrderDomainEntityBase = OrderDomainEntityBase,
 > {
+    /**
+     *  find Order By Id
+     *  
+     * @param {string} orderId
+     * @return {*}  {(Promise<T | null>)}
+     * @memberof IOrderDomainService
+     */
+    getOrder(orderId: string): Promise<T | null>;
 
-    createOrder(order: T): Promise<T>;
-    getOrder(orderId: string): Promise<T>;
-    updateDescription(orderId: string, newDescription: string): Promise<string>;
+    /**
+     *  create order 
+     *
+     * @param {T} order
+     * @return {*}  {(Promise<T | null>)}
+     * @memberof IOrderDomainService
+     */
+    createOrder(order: T): Promise<T | null>;
+
+    /**
+     *
+     *
+     * @param {string} orderId
+     * @return {*}  {Promise<boolean>}
+     * @memberof IOrderDomainService
+     */
+    deleteOrder(orderId: string): Promise<boolean>;
 }
