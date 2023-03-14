@@ -1,9 +1,9 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IRepository } from './interfaces/repository.interface';
 import { ContratoMySqlEntity } from '../entities/contrato-mysql.entity';
-
+@Injectable()
 export class ContratoRepository
   implements IRepository<ContratoMySqlEntity>
 {
@@ -12,8 +12,8 @@ export class ContratoRepository
     private readonly contratoRepository: Repository<ContratoMySqlEntity>,
   ) {}
 
-  findAll(): Promise<ContratoMySqlEntity[]> {
-    return this.contratoRepository.find();
+  async findAll(): Promise<ContratoMySqlEntity[]> {
+    return await this.contratoRepository.find();
   }
 
   async findById(
@@ -28,10 +28,10 @@ export class ContratoRepository
     );
   }
 
-  create(
+  async create(
     entity: ContratoMySqlEntity,
   ): Promise<ContratoMySqlEntity> {
-    return this.contratoRepository.save(entity);
+    return await this.contratoRepository.save(entity);
   }
 
   async update(
@@ -67,3 +67,7 @@ export class ContratoRepository
   }
   
 }
+function Intectable(): (target: typeof ContratoRepository) => void | typeof ContratoRepository {
+  throw new Error('Function not implemented.');
+}
+

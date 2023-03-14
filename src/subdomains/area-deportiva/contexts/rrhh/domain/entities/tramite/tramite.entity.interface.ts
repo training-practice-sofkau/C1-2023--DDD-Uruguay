@@ -13,15 +13,15 @@ export class TramiteDomainEntity implements ITramiteDomainInterface{
 
     constructor(_tramite?: ITramiteDomainInterface) {
 
-        if (_tramite.tramiteId)
+        if (_tramite?.tramiteId)
             this.tramiteId = _tramite.tramiteId;
         else
             this.tramiteId = uuidv4();
 
-        if (_tramite.negociacion)
+        if (_tramite?.negociacion)
             this.negociacion = _tramite.negociacion;
 
-        if (_tramite.fecha)
+        if (_tramite?.fecha)
             this.fecha = _tramite.fecha;
 
     }

@@ -1,9 +1,10 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IRepository } from './interfaces/repository.interface';
 import { StaffDeportivoMySqlEntity } from '../entities/staff-deportivo-mysql.entity';
 
+@Injectable()
 export class StaffDeportivoRepository
   implements IRepository<StaffDeportivoMySqlEntity>
 {
@@ -12,8 +13,8 @@ export class StaffDeportivoRepository
     private readonly staffDeportivoRepository: Repository<StaffDeportivoMySqlEntity>,
   ) {}
 
-  findAll(): Promise<StaffDeportivoMySqlEntity[]> {
-    return this.staffDeportivoRepository.find();
+  async findAll(): Promise<StaffDeportivoMySqlEntity[]> {
+    return await this.staffDeportivoRepository.find();
   }
 
   async findById(
@@ -28,10 +29,10 @@ export class StaffDeportivoRepository
     );
   }
 
-  create(
+  async create(
     entity: StaffDeportivoMySqlEntity,
   ): Promise<StaffDeportivoMySqlEntity> {
-    return this.staffDeportivoRepository.save(entity);
+    return await this.staffDeportivoRepository.save(entity);
   }
 
   async update(
@@ -67,3 +68,5 @@ export class StaffDeportivoRepository
   }
   
 }
+
+

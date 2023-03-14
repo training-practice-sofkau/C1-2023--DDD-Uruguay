@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CesionMySqlEntity } from './cesion-mysql.entity';
 import { ContratoMySqlEntity } from './contrato-mysql.entity';
 import { TraspasoMySqlEntity } from './traspaso-mysql.entity';
@@ -6,11 +6,7 @@ import { SecretariaDomainEntity } from 'src/subdomains/area-deportiva/contexts/r
 
 @Entity('secretaria', { schema: 'public' })
 export class SecretariaMySqlEntity extends SecretariaDomainEntity {
-  @Column('uuid', {
-    primary: true,
-    name: 'secretaria_id',
-    default: () => 'uuid_generate_v4()',
-  })
+  @PrimaryGeneratedColumn('uuid')
   secretariaId?: string;
 
   @Column()

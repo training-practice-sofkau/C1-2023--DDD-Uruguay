@@ -1,9 +1,9 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IRepository } from './interfaces/repository.interface';
 import { TraspasoMySqlEntity } from '../entities/traspaso-mysql.entity';
-
+@Injectable()
 export class TraspasoRepository
   implements IRepository<TraspasoMySqlEntity>
 {
@@ -12,8 +12,8 @@ export class TraspasoRepository
     private readonly traspasoRepository: Repository<TraspasoMySqlEntity>,
   ) {}
 
-  findAll(): Promise<TraspasoMySqlEntity[]> {
-    return this.traspasoRepository.find();
+  async findAll(): Promise<TraspasoMySqlEntity[]> {
+    return await this.traspasoRepository.find();
   }
 
   async findById(
@@ -28,10 +28,10 @@ export class TraspasoRepository
     );
   }
 
-  create(
+  async create(
     entity: TraspasoMySqlEntity,
   ): Promise<TraspasoMySqlEntity> {
-    return this.traspasoRepository.save(entity);
+    return await this.traspasoRepository.save(entity);
   }
 
   async update(
@@ -67,3 +67,7 @@ export class TraspasoRepository
   }
   
 }
+function Intectable(): (target: typeof TraspasoRepository) => void | typeof TraspasoRepository {
+  throw new Error('Function not implemented.');
+}
+

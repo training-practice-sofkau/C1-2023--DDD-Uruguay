@@ -18,24 +18,24 @@ export class TraspasoDomainEntity implements ITraspasoDomainInterface {
     
     constructor(_traspaso?: ITraspasoDomainInterface) {
 
-        if (_traspaso.traspasoId)
+        if (_traspaso?.traspasoId)
             this.traspasoId = _traspaso.traspasoId;
         else
             this.traspasoId = uuidv4();
 
-        if (_traspaso.empleadoId)
+        if (_traspaso?.empleadoId)
             this.empleadoId = _traspaso.empleadoId;
 
-        if (_traspaso.equipoNuevoId)
+        if (_traspaso?.equipoNuevoId)
             this.equipoNuevoId = _traspaso.equipoNuevoId;
 
-        if (_traspaso.costo)
+        if (_traspaso?.costo)
             this.costo = _traspaso.costo;
 
-        if (_traspaso.state)
+        if (_traspaso?.state)
             this.state = _traspaso.state;
 
-        if (_traspaso.fechaSalida)
+        if (_traspaso?.fechaSalida)
             this.fechaSalida = _traspaso.fechaSalida;
     }
   

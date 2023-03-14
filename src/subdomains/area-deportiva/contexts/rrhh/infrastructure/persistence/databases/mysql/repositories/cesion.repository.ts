@@ -1,9 +1,10 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IRepository } from './interfaces/repository.interface';
 import { CesionMySqlEntity } from '../entities/cesion-mysql.entity';
 
+@Injectable()
 export class CesionRepository
   implements IRepository<CesionMySqlEntity>
 {
@@ -12,8 +13,8 @@ export class CesionRepository
     private readonly cesionRepository: Repository<CesionMySqlEntity>,
   ) {}
 
-  findAll(): Promise<CesionMySqlEntity[]> {
-    return this.cesionRepository.find();
+  async findAll(): Promise<CesionMySqlEntity[]> {
+    return await this.cesionRepository.find();
   }
 
   async findById(
@@ -26,10 +27,10 @@ export class CesionRepository
     );
   }
 
-  create(
+  async create(
     entity: CesionMySqlEntity,
   ): Promise<CesionMySqlEntity> {
-    return this.cesionRepository.save(entity);
+    return await this.cesionRepository.save(entity);
   }
 
   async update(
@@ -65,3 +66,7 @@ export class CesionRepository
   }
   
 }
+function Intectable(): (target: typeof CesionRepository) => void | typeof CesionRepository {
+  throw new Error('Function not implemented.');
+}
+

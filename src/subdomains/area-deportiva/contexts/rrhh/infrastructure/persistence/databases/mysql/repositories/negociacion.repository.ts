@@ -1,9 +1,10 @@
 import { NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IRepository } from './interfaces/repository.interface';
 import { NegociacionMySqlEntity } from '../entities/negociacion-mysql.entity';
-
+@Injectable()
 export class NegociacionRepository
   implements IRepository<NegociacionMySqlEntity>
 {
@@ -12,8 +13,8 @@ export class NegociacionRepository
     private readonly negociacionRepository: Repository<NegociacionMySqlEntity>,
   ) {}
 
-  findAll(): Promise<NegociacionMySqlEntity[]> {
-    return this.negociacionRepository.find();
+  async findAll(): Promise<NegociacionMySqlEntity[]> {
+    return await this.negociacionRepository.find();
   }
 
   async findById(
@@ -28,10 +29,10 @@ export class NegociacionRepository
     );
   }
 
-  create(
+  async create(
     entity: NegociacionMySqlEntity,
   ): Promise<NegociacionMySqlEntity> {
-    return this.negociacionRepository.save(entity);
+    return await this.negociacionRepository.save(entity);
   }
 
   async update(
@@ -67,3 +68,7 @@ export class NegociacionRepository
   }
   
 }
+function Intectable(): (target: typeof NegociacionRepository) => void | typeof NegociacionRepository {
+  throw new Error('Function not implemented.');
+}
+

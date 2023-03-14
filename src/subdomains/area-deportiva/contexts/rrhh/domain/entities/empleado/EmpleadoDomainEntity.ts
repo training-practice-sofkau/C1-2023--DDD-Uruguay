@@ -23,27 +23,27 @@ export class EmpleadoDomainEntity implements IEmpleadoDomainEntity {
 
     constructor(_empleado?: IEmpleadoDomainEntity) {
 
-        if (_empleado.empleadoId)
+        if (_empleado?.empleadoId)
             this.empleadoId = _empleado.empleadoId;
         else
             this.empleadoId = uuidv4();
 
-        if (_empleado.nombre)
+        if (_empleado?.nombre)
             this.nombre = _empleado.nombre;
 
-        if (_empleado.documento)
+        if (_empleado?.documento)
             this.documento = _empleado.documento;
 
-        if (_empleado.tipoEmpleado)
+        if (_empleado?.tipoEmpleado)
             this.tipoEmpleado = _empleado.tipoEmpleado;
 
-        if (_empleado.nacionalidad)
+        if (_empleado?.nacionalidad)
             this.nacionalidad = _empleado.nacionalidad;
 
-        if (_empleado.edad)
+        if (_empleado?.edad)
             this.edad = _empleado.edad;
 
-        if (_empleado.salario)
+        if (_empleado?.salario)
             this.salario = _empleado.salario;
 
 

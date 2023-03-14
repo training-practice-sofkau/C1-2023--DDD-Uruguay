@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TramiteMySqlEntity } from './tramite-mysql.entity';
 import { EmpleadoMySqlEntity } from './empleado-mysql.entity';
 import { StaffDeportivoDomainEntity } from 'src/subdomains/area-deportiva/contexts/rrhh/domain/entities';
@@ -6,7 +6,7 @@ import { StaffDeportivoDomainEntity } from 'src/subdomains/area-deportiva/contex
 
 @Entity('staff_deportivo', { schema: 'public' })
 export class StaffDeportivoMySqlEntity extends StaffDeportivoDomainEntity {
-  @Column('uuid')
+  @PrimaryGeneratedColumn('uuid')
   staffDeportivoId?: string;
 
   @OneToOne(() => TramiteMySqlEntity, (tramite) => tramite.staff_deportivo,

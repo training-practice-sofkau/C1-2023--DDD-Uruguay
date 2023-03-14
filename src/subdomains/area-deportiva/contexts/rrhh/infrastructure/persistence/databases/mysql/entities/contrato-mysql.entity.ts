@@ -1,21 +1,17 @@
-import { Column, Entity, OneToOne } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { ContratoDomainEntity } from '../../../../../domain/entities/contrato/contrato.domain-entity';
 import { SecretariaMySqlEntity } from './secretaria-mysql.entity';
 
 @Entity('contrato', { schema: 'public' })
 export class ContratoMySqlEntity extends ContratoDomainEntity {
-  @Column('uuid', {
-    primary: true,
-    name: 'contrato_id',
-    default: () => 'uuid_generate_v4()',
-  })
+  @PrimaryGeneratedColumn('uuid')
   contratoId?: string;
 
   @Column()
   empleadoId?: string;
 
-  @Column('character varying', { name: 'fechaFinalizacion', length: 255 })
+  @Column()
   fechaFinalizacion?: string;
 
   @Column()

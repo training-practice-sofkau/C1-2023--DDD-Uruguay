@@ -1,9 +1,9 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IRepository } from './interfaces/repository.interface';
 import { SecretariaMySqlEntity } from '../entities/secretaria-mysql.entity';
-
+@Injectable()
 export class SecretariaRepository
   implements IRepository<SecretariaMySqlEntity>
 {
@@ -12,8 +12,8 @@ export class SecretariaRepository
     private readonly secretariaRepository: Repository<SecretariaMySqlEntity>,
   ) {}
 
-  findAll(): Promise<SecretariaMySqlEntity[]> {
-    return this.secretariaRepository.find();
+  async findAll(): Promise<SecretariaMySqlEntity[]> {
+    return await this.secretariaRepository.find();
   }
 
   async findById(
@@ -28,10 +28,10 @@ export class SecretariaRepository
     );
   }
 
-  create(
+  async create(
     entity: SecretariaMySqlEntity,
   ): Promise<SecretariaMySqlEntity> {
-    return this.secretariaRepository.save(entity);
+    return await this.secretariaRepository.save(entity);
   }
 
   async update(
@@ -67,3 +67,7 @@ export class SecretariaRepository
   }
   
 }
+function Intectable(): (target: typeof SecretariaRepository) => void | typeof SecretariaRepository {
+  throw new Error('Function not implemented.');
+}
+

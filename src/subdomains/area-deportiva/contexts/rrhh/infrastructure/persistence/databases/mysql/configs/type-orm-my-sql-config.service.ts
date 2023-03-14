@@ -1,25 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import { StaffDeportivoMySqlEntity, EmpleadoMySqlEntity, TramiteMySqlEntity, NegociacionMySqlEntity, SecretariaMySqlEntity, ContratoMySqlEntity, TraspasoMySqlEntity, CesionMySqlEntity } from '../entities';
 
 @Injectable()
 export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
 
   constructor(private readonly configService: ConfigService) {}
 
-  createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {
+  createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> {
     return {
       type: 'mysql',
-      host: this.configService.get<string>('DB_HOST'),
-      port: this.configService.get<number>('DB_PORT'),
-      username: this.configService.get<string>('DB_USER'),
-      password: this.configService.get<string>('DB_PASSWORD'),
-      database: this.configService.get<string>('DB_NAME'),
+      name: connectionName,
+      host: 'localhost',//this.configService.get<string>('DB_HOST'),
+      port: 3306,//this.configService.get<number>('DB_PORT'),
+      username: 'cristian',//this.configService.get<string>('DB_USER'),
+      password: '',//this.configService.get<string>('DB_PASSWORD'),
+      database: 'area_deportivo_ddd',//this.configService.get<string>('DB_NAME'),
       entities: [
-        //__dirname + '/../**/*.entity{.ts,.js}'
+        StaffDeportivoMySqlEntity,
+        EmpleadoMySqlEntity,
+        TramiteMySqlEntity,
+        NegociacionMySqlEntity,
+        SecretariaMySqlEntity,
+        ContratoMySqlEntity,
+        TraspasoMySqlEntity,
+        CesionMySqlEntity,
       ],
       synchronize: true,
-      //logging: true,
+      logging: true,
+      
     };
   }
 }

@@ -1,23 +1,23 @@
-import { Column, Entity, OneToOne } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { NegociacionDomainEntity } from '../../../../../domain/entities/negociacion/negociacion.domain-entity';
 import { TramiteMySqlEntity } from './tramite-mysql.entity';
 
 @Entity('negociacion', { schema: 'public' })
 export class NegociacionMySqlEntity extends NegociacionDomainEntity {
-  @Column('uuid')
+  @PrimaryGeneratedColumn('uuid')
   negociacionId?: string;
 
-  @Column('uuid')
+  @Column()
   equipoSalidaId?: string;
 
-  @Column('uuid')
+  @Column()
   equipoEntradaId?: string;
 
-  @Column('character varying', { name: 'tipoNegociacion', length: 255 })
+  @Column()
   tipoNegociacion?: string;
 
-  @Column('character varying', { name: 'terminoACumplir', length: 128 })
+  @Column()
   terminoACumplir?: string;
 
   @Column()

@@ -13,7 +13,9 @@ import { StaffDeportivoMySqlService, EmpleadoMySqlService, TramiteMySqlService, 
     CesionMySqlService,
     TraspasoMySqlService,
     NegociacionMySqlService,
-  ],
+
+    
+],
   exports: [
     StaffDeportivoMySqlService,
     EmpleadoMySqlService,
@@ -22,6 +24,8 @@ import { StaffDeportivoMySqlService, EmpleadoMySqlService, TramiteMySqlService, 
     ContratoMySqlService,
     CesionMySqlService,
     TraspasoMySqlService,
-    NegociacionMySqlService,],
+    NegociacionMySqlService,
+
+  ],
 })
 export class PersistenceModule {}

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ContratoMySqlEntity } from '../entities/contrato-mysql.entity';
 import { ContratoRepository } from '../repositories/contrato.repository';
 import { IContratoDomainService } from 'src/subdomains/area-deportiva/contexts/rrhh/domain/services';

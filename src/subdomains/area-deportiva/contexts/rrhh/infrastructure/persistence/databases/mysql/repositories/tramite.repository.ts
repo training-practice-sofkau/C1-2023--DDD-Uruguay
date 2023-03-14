@@ -1,10 +1,9 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IRepository } from './interfaces/repository.interface';
-import { EmpleadoMySqlEntity } from '../entities/empleado-mysql.entity';
 import { TramiteMySqlEntity } from '../entities/tramite-mysql.entity';
-
+@Injectable()
 export class TramiteRepository
   implements IRepository<TramiteMySqlEntity>
 {
@@ -13,8 +12,8 @@ export class TramiteRepository
     private readonly tramiteRepository: Repository<TramiteMySqlEntity>,
   ) {}
 
-  findAll(): Promise<TramiteMySqlEntity[]> {
-    return this.tramiteRepository.find();
+  async findAll(): Promise<TramiteMySqlEntity[]> {
+    return await this.tramiteRepository.find();
   }
 
   async findById(
@@ -29,10 +28,10 @@ export class TramiteRepository
     );
   }
 
-  create(
+  async create(
     entity: TramiteMySqlEntity,
   ): Promise<TramiteMySqlEntity> {
-    return this.tramiteRepository.save(entity);
+    return await this.tramiteRepository.save(entity);
   }
 
   async update(
@@ -68,3 +67,5 @@ export class TramiteRepository
   }
   
 }
+
+

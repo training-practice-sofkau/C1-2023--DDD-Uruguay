@@ -1,13 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmMySqlConfigService } from './configs/type-orm-my-sql-config.service';
-import { StaffDeportivoMySqlEntity } from './entities/staff-deportivo-mysql.entity';
-import { EmpleadoMySqlEntity } from './entities/empleado-mysql.entity';
-import { TramiteMySqlEntity } from './entities/tramite-mysql.entity';
-import { NegociacionMySqlEntity } from './entities/negociacion-mysql.entity';
-import { SecretariaMySqlEntity } from './entities/secretaria-mysql.entity';
-import { ContratoMySqlEntity } from './entities/contrato-mysql.entity';
-import { TraspasoMySqlEntity } from './entities/traspaso-mysql.entity';
-import { CesionMySqlEntity } from './entities/cesion-mysql.entity';
 import { StaffDeportivoRepository } from './repositories/staff-deportivo.repository';
 import { EmpleadoRepository } from './repositories/empleado.repository';
 import { TramiteRepository } from './repositories/tramite.repository';
@@ -25,12 +17,12 @@ import { ContratoMySqlService } from './services/contrato.service';
 import { CesionMySqlService } from './services/cesion.service';
 import { TraspasoMySqlService } from './services/traspaso.service';
 import { NegociacionMySqlService } from './services/negociacion.service';
+import { StaffDeportivoMySqlEntity, EmpleadoMySqlEntity, TramiteMySqlEntity, NegociacionMySqlEntity, SecretariaMySqlEntity, ContratoMySqlEntity, TraspasoMySqlEntity, CesionMySqlEntity } from './entities';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useClass: TypeOrmMySqlConfigService,
-      
+      useClass: TypeOrmMySqlConfigService
     }),
     TypeOrmModule.forFeature([
       StaffDeportivoMySqlEntity,
@@ -45,30 +37,8 @@ import { NegociacionMySqlService } from './services/negociacion.service';
   ],
   controllers: [],
   providers: [
+    
     TypeOrmMySqlConfigService,
-
-    StaffDeportivoMySqlService,
-    EmpleadoMySqlService,
-    TramiteMySqlService,
-    SecretariaMySqlService,
-    ContratoMySqlService,
-    CesionMySqlService,
-    TraspasoMySqlService,
-    NegociacionMySqlService,
-
-
-    StaffDeportivoRepository,
-    EmpleadoRepository,
-    TramiteRepository,
-    NegociacionRepository,
-    SecretariaRepository,
-    ContratoRepository,
-    CesionRepository,
-    TraspasoRepository,
-  ],
-  exports: [
-    //services
-TypeOrmMySqlConfigService,
     
     StaffDeportivoMySqlService,
     EmpleadoMySqlService,
@@ -79,14 +49,33 @@ TypeOrmMySqlConfigService,
     TraspasoMySqlService,
     NegociacionMySqlService,
 
+    StaffDeportivoRepository,
+    EmpleadoRepository,
+    TramiteRepository,
+    SecretariaRepository,
+    ContratoRepository,
+    CesionRepository,
+    NegociacionRepository,
+    TraspasoRepository
+  ],
+  exports: [
+    StaffDeportivoMySqlService,
+    EmpleadoMySqlService,
+    TramiteMySqlService,
+    SecretariaMySqlService,
+    ContratoMySqlService,
+    CesionMySqlService,
+    TraspasoMySqlService,
+    NegociacionMySqlService,
 
     StaffDeportivoRepository,
     EmpleadoRepository,
     TramiteRepository,
-    NegociacionRepository,
     SecretariaRepository,
     ContratoRepository,
     CesionRepository,
-    TraspasoRepository,],
+    NegociacionRepository,
+    TraspasoRepository
+    ],
 })
 export class MySqlModule {}

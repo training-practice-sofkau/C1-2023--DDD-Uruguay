@@ -1,22 +1,22 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { EmpleadoDomainEntity } from '../../../../../domain/entities/empleado/EmpleadoDomainEntity';
 import { StaffDeportivoMySqlEntity } from './staff-deportivo-mysql.entity';
 
 @Entity('empleado', { schema: 'public' })
 export class EmpleadoMySqlEntity extends EmpleadoDomainEntity {
-  @Column('uuid')
+  @PrimaryGeneratedColumn('uuid')
   empleadoId?: string;
 
-  @Column('character varying', { name: 'nombre', length: 255 })
+  @Column()
   nombre?: string;
 
-  @Column('character varying', { name: 'documento', length: 255 })
+  @Column()
   documento?: string;
 
-  @Column('character varying', { name: 'tipoEmpleado', length: 255 })
+  @Column()
   tipoEmpleado?: string;
 
-  @Column('character varying', { name: 'nacionalidad', length: 255 })
+  @Column()
   nacionalidad?: string;
 
   @Column()
