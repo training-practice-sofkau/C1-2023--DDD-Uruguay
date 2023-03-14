@@ -1,13 +1,8 @@
 import { IPaymentMethodEventPublisher } from './../messaging/publisher/Sale/Bill/Payment-method-messaging-publisher';
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
-
 import { Body, Controller, Get, Put } from '@nestjs/common';
-import { GetBillUseCase, GetClientCaseUse, UpdatePaymentUseCase, UpdateTotalUseCase } from '../../application';
+import { GetBillUseCase,  UpdatePaymentUseCase, UpdateTotalUseCase } from '../../application';
 import { IupdatePaymentMethod } from '../utils/commands/sale/IupdatePaymentMethod';
 import { BillService } from '../persitence/services/SaleServices/BillService';
-import { BillMySqlService } from '../persitence/databases/mysql/services/IBill-Domain-Service';
 import { SaleService } from '../persitence/services/SaleServices/SaleService';
 import { IBillObtainedEventPublisher } from '../messaging/publisher/Sale/IBillObtainedEventPublisher';
 import { IGetBill } from '../utils/commands/sale/IGetBill';
