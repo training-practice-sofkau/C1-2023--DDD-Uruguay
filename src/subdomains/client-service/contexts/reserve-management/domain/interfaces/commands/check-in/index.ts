@@ -5,6 +5,3 @@ export * from './get-guest.command';
 export * from './get-room-key.command';
 export * from './guest';
 export * from './room-key';
-export * from './update-guest-email.command';
-export * from './update-guest-phone.command';
-export * from './update-room-key-access-level.command';
