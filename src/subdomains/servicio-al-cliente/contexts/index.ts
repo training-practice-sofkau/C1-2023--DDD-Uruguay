@@ -1,1 +1,1 @@
-export * from './__CONTEXTO__1__';
+export * from './entrega-a-domicilio';

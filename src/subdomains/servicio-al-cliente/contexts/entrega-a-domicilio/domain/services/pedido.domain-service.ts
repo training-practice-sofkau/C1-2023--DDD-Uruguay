@@ -17,7 +17,7 @@ export interface IPedidoDomainService<PedidoAggregate> {
     crearPedido(pedido: PedidoAggregate): Promise<PedidoAggregate>;
     obtenerPedido(pedidoId: string): Promise<PedidoDomainEntityBase>;
     cambiarEstadoPedido(pedidoId: string, nuevoEstado: string): Promise<string>;
-    cambiarPrecioPedido(pedidoId: string, nuevoPRecio: number): Promise<number>;
+    cambiarPrecioPedido(pedidoId: string, nuevoPrecio: number): Promise<number>;
     
     crearEntrada(entrada: EntradaDomainEntityBase): Promise<EntradaDomainEntityBase>;
     cambiarNombreEntrada(entradaId: string, nuevoNombre: string): Promise<string>;

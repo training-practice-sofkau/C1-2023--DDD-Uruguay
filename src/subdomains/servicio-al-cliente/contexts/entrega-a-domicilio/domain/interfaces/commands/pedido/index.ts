@@ -1,4 +1,3 @@
-export * from './bebida';
 
 
 
@@ -20,8 +19,5 @@ export * from './crear-plato-principal.command';
 export * from './crear-postre.command';
 export * from './crear-bebida.command';
 export * from './crear-entrada.command';
-export * from './entrada';
 export * from './obtener-bebida.command';
 export * from './obtener-pedido.command';
-export * from './plato-principal';
-export * from './postre';

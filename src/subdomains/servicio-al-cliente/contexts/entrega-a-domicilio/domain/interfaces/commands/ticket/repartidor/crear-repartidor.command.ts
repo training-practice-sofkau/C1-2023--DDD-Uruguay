@@ -6,7 +6,7 @@
  * @interface ICrearRepartidorCommand
  */
 export interface ICrearRepartidorCommand {
-    repartidrId?: string;
+    repartidorId?: string;
     nombre?: string;
     vehiculo?: string;
     createdAt?: number | Date;

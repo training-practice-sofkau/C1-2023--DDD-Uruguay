@@ -16,13 +16,14 @@ import { IPedidoCreadoResponse } from "../../../domain/interfaces/responses/pedi
 import { IPedidoDomainService } from "../../../domain/services";
 
 import {
-    EsParaVeganosValueObject,
     EstadoValueObject,
-    GuarnicionValueObject,
     PrecioValueObject,
     TamanioValueObject,
     NombreValueObject
 } from "../../../domain/value-objects/pedido";
+
+import { GuarnicionValueObject } from "../../../domain/value-objects/pedido/plato-principal";
+import { EsParaVeganosValueObject } from "../../../domain/value-objects/pedido/postre";
 
 
 export class CrearPedidoUseCase<

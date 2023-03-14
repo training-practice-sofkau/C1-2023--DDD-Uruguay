@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import {TicketIdValueObject } from '../../value-objects';
+import { TicketIdValueObject } from '../../value-objects/ticket';
 import { IPedidoDomainEntity } from '../interfaces/pedido';
 import { IClienteDomainEntity, IRepartidorDomainEntity, ITicketDomainEntity } from "../interfaces/ticket";
 

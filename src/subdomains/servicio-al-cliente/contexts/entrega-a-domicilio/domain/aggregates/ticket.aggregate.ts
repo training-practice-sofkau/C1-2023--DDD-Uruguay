@@ -84,7 +84,7 @@ export class TicketAggregate
             )
         }
 
-        async agregarPedido(ticketId: string, pedidoId: string): Promise<PedidoDomainEntityBase> {
+        async agregarPedido(ticketId: string, pedidoId: string): Promise<TicketDomainEntityBase> {
             if(this.ticketService && this.pedidoAgregadoEventPublisherBase) {
                 const result = await this.ticketService.agregarPedido(ticketId, pedidoId);
                 this.pedidoAgregadoEventPublisherBase.response = result;
@@ -96,7 +96,7 @@ export class TicketAggregate
             )
         }
 
-        async borrarPedido(ticketId: string, pedidoId: string): Promise<void> {
+        async borrarPedido(ticketId: string, pedidoId: string): Promise<TicketDomainEntityBase> {
             if(this.ticketService && this.pedidoBorradoEventPublisherBase) {
                 const result = await this.ticketService.borrarPedido(ticketId, pedidoId);
                 this.pedidoBorradoEventPublisherBase.response = result;

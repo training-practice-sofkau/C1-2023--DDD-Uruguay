@@ -7,7 +7,7 @@ import { NombreValueObject, RepartidorIdValueObject, VehiculoValueObject } from 
  * @class IRepartidorDomainEntity
  */
  export interface IRepartidorDomainEntity {
-    repartidrId?: string | RepartidorIdValueObject;
+    repartidorId?: string | RepartidorIdValueObject;
     nombre?: string | NombreValueObject;
     vehiculo?: string | VehiculoValueObject;
     createdAt?: number | Date;

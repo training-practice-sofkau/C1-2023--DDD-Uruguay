@@ -1,5 +1,4 @@
-import { ClienteIdValueObject } from "../../../value-objects";
-import { DireccionValueObject, NombreValueObject } from "../../../value-objects/ticket/cliente";
+import { ClienteIdValueObject, DireccionValueObject, NombreValueObject } from "../../../value-objects/ticket/cliente";
 
 /**
  *Interfaz para la entidad Cliente

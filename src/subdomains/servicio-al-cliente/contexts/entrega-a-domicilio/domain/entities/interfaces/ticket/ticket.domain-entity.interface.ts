@@ -1,4 +1,4 @@
-import { TicketIdValueObject } from "../../../value-objects";
+import { TicketIdValueObject } from "../../../value-objects/ticket";
 import { IPedidoDomainEntity } from "../pedido";
 import { IClienteDomainEntity, IRepartidorDomainEntity } from './';
 

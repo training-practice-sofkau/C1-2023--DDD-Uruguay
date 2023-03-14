@@ -1,4 +1,4 @@
-import { EsDireccion } from '../../../../../../../../../libs/validations';
+import { EsDireccion } from 'src/libs/validations/es-direccion.validations';
 import { ValueObjectBase } from '../../../../../../../../../libs/sofka/bases';
 import { IErrorValueObject } from '../../../../../../../../../libs/sofka/interface';
 

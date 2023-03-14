@@ -1,1 +1,1 @@
-export * from './__SUBDOMINIO__';
+export * from './servicio-al-cliente';

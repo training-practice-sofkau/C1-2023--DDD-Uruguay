@@ -11,14 +11,14 @@ import { IRepartidorDomainEntity } from '../interfaces/ticket';
  * @implements {IRepartidorDomainEntity}
  */
 export class RepartidorDomainEntityBase implements IRepartidorDomainEntity {
-    repartidrId?: string | RepartidorIdValueObject;
+    repartidorId?: string | RepartidorIdValueObject;
     nombre?: string | NombreValueObject;
     vehiculo?: string | VehiculoValueObject;
     createdAt?: number | Date;
 
     constructor(_data?: IRepartidorDomainEntity) {
-        if(_data.repartidrId) this.repartidrId = _data.repartidrId;
-        else this.repartidrId = uuid();
+        if(_data.repartidorId) this.repartidorId = _data.repartidorId;
+        else this.repartidorId = uuid();
 
         if(_data.nombre) this.nombre = _data.nombre;
 
