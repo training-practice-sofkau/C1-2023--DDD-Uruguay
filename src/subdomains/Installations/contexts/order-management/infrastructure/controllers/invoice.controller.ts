@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import {
   CreateInvoiceUseCase,
@@ -18,7 +19,8 @@ import {
   GetInvoiceCommand,
 } from '../utils/commands';
 
-@Controller('invoice')
+@ApiTags('invoice')
+@Controller('api/invoice')
   export class InvoiceController {
       constructor(
           private readonly invoiceService: InvoiceService,

@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import {
   CreateOrderUseCase,
@@ -18,7 +19,8 @@ import {
   GetOrderCommand,
 } from '../utils/commands';
 
-@Controller('order')
+@ApiTags('order')
+@Controller('api/order')
 export class OrderController {
     constructor(
         private readonly orderService: OrderService,

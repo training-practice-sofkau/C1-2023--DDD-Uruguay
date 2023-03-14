@@ -5,6 +5,8 @@ import { Transport } from '@nestjs/microservices/enums';
 import {
   CreatedInvoicePublisher,
   CreatedOrderPublisher,
+  GettedInvoicePublisher,
+  GettedOrderPublisher,
 } from './publisher';
 import {
   CreatedInvoiceController,
@@ -46,7 +48,7 @@ import {
         ]),
     ],
     controllers: [CreatedInvoiceController, CreatedOrderController],
-    providers: [CreatedInvoicePublisher, CreatedOrderPublisher],
-    exports: [CreatedInvoicePublisher, CreatedOrderPublisher]
+    providers: [CreatedInvoicePublisher, CreatedOrderPublisher, GettedInvoicePublisher, GettedOrderPublisher],
+    exports: [CreatedInvoicePublisher, CreatedOrderPublisher, GettedInvoicePublisher, GettedOrderPublisher]
 })
 export class MessagingModule { }
