@@ -69,7 +69,7 @@ export class AddDeviceUseCase<
     createValueObject(command: Command): IDeviceDomainEntity {
 
         const deviceType = new DeviceTypeValueObject(command.deviceType);
-        const issues = command.issues;
+        const issues = new IssueValueObject(command.issues);
 
         return {
             deviceType,

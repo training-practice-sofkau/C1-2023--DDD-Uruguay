@@ -1,16 +1,12 @@
 import { AggregateRootException } from '@sofka';
 
-import { UUIDValueObject } from '../../value-objects/common';
-
 import {
     
     WarrantyStatusChangedEventPublisherBase,
     CustomerEmailChangedEventPublisherBase,
     CustomerPhoneChangedEventPublisherBase,
     CustomerCreatedEventPublisherBase,
-    InvoiceCreatedEventPublisherBase,
-    ServiceChargeCalculatedEventPublisherBase,
-    CustomerNotifiedEventPublisherBase,
+    InvoiceCreatedEventPublisherBase,   
     InvoiceMarkedAsPaidEventPublisherBase,
     WarrantyAddedEventPublisherBase,
     WarrantyEndDateChangedEventPublisherBase,
@@ -53,8 +49,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
     private readonly warrantyService?: IWarrantyDomainService;
     private readonly invoiceCreatedEventPublisherBase?: InvoiceCreatedEventPublisherBase;
     private readonly customerCreatedEventPublisherBase?: CustomerCreatedEventPublisherBase;
-    private readonly warrantyAddedEventPublisherBase?: WarrantyAddedEventPublisherBase;
-    private readonly serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase;    
+    private readonly warrantyAddedEventPublisherBase?: WarrantyAddedEventPublisherBase; 
     private readonly invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase;
     private readonly customerEmailChangedEventPublisherBase?: CustomerEmailChangedEventPublisherBase;
     private readonly customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase;    
@@ -69,9 +64,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
             warrantyService,
             invoiceCreatedEventPublisherBase,
             customerCreatedEventPublisherBase,
-            warrantyAddedEventPublisherBase,
-            serviceChargeCalculatedEventPublisherBase,
-            customerNotifiedEventPublisherBase,
+            warrantyAddedEventPublisherBase,            
             invoiceMarkedAsPaidEventPublisherBase,
             customerEmailChangedEventPublisherBase,
             customerPhoneChangedEventPublisherBase,            
@@ -84,9 +77,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
             warrantyService?: IWarrantyDomainService,
             invoiceCreatedEventPublisherBase?: InvoiceCreatedEventPublisherBase,
             customerCreatedEventPublisherBase?: CustomerCreatedEventPublisherBase,
-            warrantyAddedEventPublisherBase?: WarrantyAddedEventPublisherBase,
-            serviceChargeCalculatedEventPublisherBase?: ServiceChargeCalculatedEventPublisherBase,
-            customerNotifiedEventPublisherBase?: CustomerNotifiedEventPublisherBase,
+            warrantyAddedEventPublisherBase?: WarrantyAddedEventPublisherBase, 
             invoiceMarkedAsPaidEventPublisherBase?: InvoiceMarkedAsPaidEventPublisherBase,
             customerEmailChangedEventPublisherBase?: CustomerEmailChangedEventPublisherBase,
             customerPhoneChangedEventPublisherBase?: CustomerPhoneChangedEventPublisherBase,            
@@ -100,8 +91,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICustomerDomainS
         this.warrantyService = warrantyService;
         this.invoiceCreatedEventPublisherBase = invoiceCreatedEventPublisherBase;
         this.customerCreatedEventPublisherBase = customerCreatedEventPublisherBase;
-        this.warrantyAddedEventPublisherBase = warrantyAddedEventPublisherBase;
-        this.serviceChargeCalculatedEventPublisherBase = serviceChargeCalculatedEventPublisherBase;        
+        this.warrantyAddedEventPublisherBase = warrantyAddedEventPublisherBase; 
         this.invoiceMarkedAsPaidEventPublisherBase = invoiceMarkedAsPaidEventPublisherBase;
         this.customerEmailChangedEventPublisherBase = customerEmailChangedEventPublisherBase;
         this.customerPhoneChangedEventPublisherBase = customerPhoneChangedEventPublisherBase;        

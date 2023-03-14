@@ -5,7 +5,7 @@ import { ISupportTicketEntity as ISupportTicketDomainEntity } from '../interface
 import { IsBoolean, IsUUID, IsValidDate } from '../../../../../../../libs/validations';
 
 export class SupportTicketDomainEntityBase implements ISupportTicketDomainEntity{
-    ticketID: string | UUIDValueObject;
+    ticketID?: string | UUIDValueObject;
     dateOpen?: number | Date | DateValueObject;
     deviceID?: string | UUIDValueObject;
     repairsID?: string | UUIDValueObject;

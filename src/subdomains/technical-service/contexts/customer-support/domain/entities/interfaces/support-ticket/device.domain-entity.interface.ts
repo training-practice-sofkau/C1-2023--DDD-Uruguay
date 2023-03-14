@@ -5,7 +5,7 @@ export interface IDeviceDomainEntity {
 
     deviceID?: string | UUIDValueObject;
     deviceType?: string | DeviceTypeValueObject;
-    issues?: string[] | IssueValueObject[];
+    issues?: string | IssueValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;

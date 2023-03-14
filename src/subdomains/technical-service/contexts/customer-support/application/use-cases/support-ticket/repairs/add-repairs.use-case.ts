@@ -66,7 +66,7 @@ export class AddRepairDetailsUseCase<
     createValueObject(command: Command): IRepairsDomainEntity {
         
         const repairID = new UUIDValueObject(command.repairID);
-        const repairs = command.repairToAdd;         
+        const repairs = new RepairValueObject(command.repairToAdd);         
 
         return {
             repairID,

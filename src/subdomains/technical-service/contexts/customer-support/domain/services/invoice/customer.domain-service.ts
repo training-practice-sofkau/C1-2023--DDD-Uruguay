@@ -1,5 +1,5 @@
 import { CustomerDomainEntityBase } from '../../entities/invoice/customer.domain-entity';
-import { IChangeCustomerPhoneCommand, IChangeCustomerEmailCommand} from '../../interfaces/commands/invoice/customer';
+import { ICustomerDomainEntity } from '../../entities/interfaces/invoice/customer.domain-entity.interface';
 
 export interface ICustomerDomainService {
 

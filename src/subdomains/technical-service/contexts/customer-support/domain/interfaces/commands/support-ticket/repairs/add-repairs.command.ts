@@ -4,5 +4,5 @@ import { RepairValueObject } from '../../../../value-objects/repair/repair.value
 export interface IAddRepairsCommand{
 
     repairID: string ;
-    repairToAdd: string[];
+    repairToAdd: string;
 }

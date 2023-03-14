@@ -61,7 +61,7 @@ export class CreateRoleUseCase<
     createValueObject(command: Command): IRoleDomainEntity {
 
         const roleName = new RoleValueObject(command.roleName);
-        const roleDescription = new RoleValueObject(command.roleDescription);
+        const roleDescription = new NoteValueObject(command.roleDescription);
 
         return {
             roleName,

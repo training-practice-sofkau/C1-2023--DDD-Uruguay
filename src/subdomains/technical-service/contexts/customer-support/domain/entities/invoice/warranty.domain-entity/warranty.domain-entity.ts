@@ -1,7 +1,6 @@
 import { v4 as uuid } from "uuid";
 
 import { UUIDValueObject, DateValueObject, } from "../../../value-objects/common";
-import { ItemValueObject } from "../../../value-objects/warranty/item.value-object";
 import { WarrantyStatusValueObject } from "../../../value-objects/warranty/warranty-status.value-object";
 import { IWarrantyDomainEntity } from '../../interfaces/invoice/warranty.domain-entity.interface';
 import { IsUUID } from '../../../../../../../../libs/validations/is-uuid.validation';
@@ -10,10 +9,9 @@ import { IsUUID } from '../../../../../../../../libs/validations/is-uuid.validat
 export class WarrantyDomainEntityBase implements IWarrantyDomainEntity {
    
 
-    warrantyID: string | UUIDValueObject;
+    warrantyID?: string | UUIDValueObject;
     startDate?: number | Date | DateValueObject;
-    endDate?: number | Date | DateValueObject;
-    itemsCovered?: string[] | ItemValueObject[];
+    endDate?: number | Date | DateValueObject;    
     warrantyStatus?: string | WarrantyStatusValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
@@ -26,9 +24,7 @@ export class WarrantyDomainEntityBase implements IWarrantyDomainEntity {
 
         if(_data?.startDate) this.startDate = _data.startDate;
         
-        if(_data?.endDate) this.endDate = _data.endDate;
-
-        if(_data?.itemsCovered) this.itemsCovered = _data.itemsCovered;
+        if(_data?.endDate) this.endDate = _data.endDate;       
 
         if(_data?.warrantyStatus) this.warrantyStatus = _data.warrantyStatus;
 
