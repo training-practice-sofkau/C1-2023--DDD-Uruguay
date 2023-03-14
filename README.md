@@ -75,3 +75,9 @@ For this third delivery of the project, 12 use cases (minimum) were implemented 
 
 * Model & BigPicture Updated
 
+
+## Fourth Delivery:
+
+For this fourth deployment, all the services, repositories and entities corresponding to the infrastructure layer have been implemented, as requested.
+
+Some minor changes have been made to the model to simplify the implementation.
