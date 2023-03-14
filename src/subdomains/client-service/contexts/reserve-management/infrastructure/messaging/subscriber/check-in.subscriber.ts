@@ -2,7 +2,7 @@ import { Controller } from "@nestjs/common";
 import { Ctx, EventPattern, KafkaContext, Payload } from "@nestjs/microservices";
 
 @Controller()
-export class CheckINControllerSuscriber{
+export class CheckInControllerSuscriber{
 
     /**
      * EventPattern se utiliza para definir un patrón de evento de Kafka
