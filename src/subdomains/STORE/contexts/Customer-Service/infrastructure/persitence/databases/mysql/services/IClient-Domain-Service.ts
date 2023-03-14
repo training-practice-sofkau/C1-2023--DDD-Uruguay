@@ -2,6 +2,7 @@ import { ClientDomainBase } from 'src/subdomains/Store/contexts/Customer-Service
 import { ClientDomainService } from '../../../../../domain/services/Client-domain-service';
 import { ClientEntityDB } from '../entities/Client-entity-db';
 import { ClientRepository } from '../repositories/Client-Repository';
+
 export class ClientMySqlService implements ClientDomainService<ClientEntityDB> {
 
 constructor(private readonly ClientRepository: ClientRepository){}

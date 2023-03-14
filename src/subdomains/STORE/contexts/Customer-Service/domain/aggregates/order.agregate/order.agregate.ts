@@ -197,6 +197,7 @@ Publisher events go in this place
    */
   async AddClient(data: ClientDomainBase): Promise<ClientDomainBase> {
     if (this.orderService && this.AddCustomerEventPublisher) {
+
       const result = await this.orderService.AddClient(data);
 
       this.AddCustomerEventPublisher.response = result;
