@@ -1,6 +1,6 @@
-export abstract class OrderManagementAddedKitOrderSubscriber {
+export abstract class OrderManagementCreatedKitOrderSubscriber {
   async handle(event: any) {
-    console.log("OrderManagementAddedKitOrderSubscriber", event);
+    console.log("OrderManagementCreatedKitOrderSubscriber", event);
     console.log("The action add process must be executed");
   }
 }

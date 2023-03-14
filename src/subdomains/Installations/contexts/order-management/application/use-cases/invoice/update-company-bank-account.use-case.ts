@@ -6,7 +6,7 @@ import {
 } from '../../../../../../../libs/sofka';
 import { InvoiceAggregate } from '../../../domain/aggregates';
 import { CompanyDomainEntityBase } from '../../../domain/entities';
-import { RegisteredInvoiceEventPublisherBase } from '../../../domain/events';
+import { CreatedInvoiceEventPublisherBase } from '../../../domain/events';
 import {
   IUpdateCompanyBankAccountCommand,
 } from '../../../domain/interfaces/commands/invoice';
@@ -29,12 +29,12 @@ export class UpdateCompanyBankAccountUseCase<
   constructor(
     private readonly invoiceService: IInvoiceDomainService,
     private readonly invoiceGet: GetInvoiceUserCase,
-    private readonly registeredInvoiceEventPublisherBase: RegisteredInvoiceEventPublisherBase
+    private readonly createdInvoiceEventPublisherBase: CreatedInvoiceEventPublisherBase
   ) {
     super();
     this.invoiceAggregateRoot = new InvoiceAggregate({
       invoiceService,
-      registeredInvoiceEventPublisherBase,
+      createdInvoiceEventPublisherBase,
     });
   }
 

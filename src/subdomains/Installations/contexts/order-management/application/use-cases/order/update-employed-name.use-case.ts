@@ -3,15 +3,19 @@ import {
   IUseCase,
   ValueObjectErrorHandler,
   ValueObjectException,
-} from "../../../../../../../libs/sofka";
-import { OrderAggregate } from "../../../domain/aggregates";
-import { FeeDomainEntityBase } from "../../../domain/entities";
-import { RegisteredOrderEventPublisherBase } from "../../../domain/events";
-import { IUpdateEmployedNameCommand } from "../../../domain/interfaces/commands/order";
-import { IUpdateEmployedNameResponse } from "../../../domain/interfaces/responses/order";
-import { IOrderDomainService } from "../../../domain/services";
-import { EmployedNameValueObject } from "../../../domain/value-objects";
-import { GetOrderUserCase } from "./";
+} from '../../../../../../../libs/sofka';
+import { OrderAggregate } from '../../../domain/aggregates';
+import { FeeDomainEntityBase } from '../../../domain/entities';
+import { CreatedOrderEventPublisherBase } from '../../../domain/events';
+import {
+  IUpdateEmployedNameCommand,
+} from '../../../domain/interfaces/commands/order';
+import {
+  IUpdateEmployedNameResponse,
+} from '../../../domain/interfaces/responses/order';
+import { IOrderDomainService } from '../../../domain/services';
+import { EmployedNameValueObject } from '../../../domain/value-objects';
+import { GetOrderUserCase } from './';
 
 export class UpdateEmployedNameUseCase<
     Command extends IUpdateEmployedNameCommand = IUpdateEmployedNameCommand,
@@ -25,12 +29,12 @@ export class UpdateEmployedNameUseCase<
   constructor(
     private readonly orderService: IOrderDomainService,
     private readonly orderGet: GetOrderUserCase,
-    private readonly registeredOrderEventPublisherBase: RegisteredOrderEventPublisherBase
+    private readonly createdOrderEventPublisherBase: CreatedOrderEventPublisherBase
   ) {
     super();
     this.orderAggregateRoot = new OrderAggregate({
       orderService,
-      registeredOrderEventPublisherBase,
+      createdOrderEventPublisherBase,
     });
   }
 

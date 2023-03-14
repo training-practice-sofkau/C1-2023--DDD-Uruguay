@@ -1,6 +1,6 @@
-export abstract class OrderManagementAddedBenefitedOrderSubscriber {
+export abstract class OrderManagementCreatedBenefitedOrderSubscriber {
   async handle(event: any) {
-    console.log("OrderManagementAddedBenefitedOrderSubscriber", event);
+    console.log("OrderManagementCreatedBenefitedOrderSubscriber", event);
     console.log("The action add process must be executed");
   }
 }

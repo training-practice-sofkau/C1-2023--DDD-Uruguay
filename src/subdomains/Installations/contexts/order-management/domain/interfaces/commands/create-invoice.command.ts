@@ -1,7 +1,7 @@
 import {
   ICompanyDomainEntity,
   IFeeDomainEntity,
-} from "../../entities/interfaces";
+} from '../../entities/interfaces';
 
 export interface ICreateInvoiceCommand {
   invoiceId?: string;

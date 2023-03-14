@@ -1,6 +1,6 @@
-export abstract class OrderManagementRegisteredInvoiceSubscriber {
+export abstract class OrderManagementCreatedInvoiceSubscriber {
   async handle(event: any) {
-    console.log("OrderManagementRegisteredInvoiceSubscriber", event);
+    console.log("OrderManagementCreatedInvoiceSubscriber", event);
     console.log("The action registration process must be executed");
   }
 }

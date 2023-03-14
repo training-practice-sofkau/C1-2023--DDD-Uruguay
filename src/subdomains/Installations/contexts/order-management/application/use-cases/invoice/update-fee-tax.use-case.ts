@@ -6,7 +6,7 @@ import {
 } from "../../../../../../../libs/sofka";
 import { InvoiceAggregate } from "../../../domain/aggregates";
 import { FeeDomainEntityBase } from "../../../domain/entities";
-import { RegisteredInvoiceEventPublisherBase } from "../../../domain/events";
+import { CreatedInvoiceEventPublisherBase } from "../../../domain/events";
 import { IUpdateFeeTaxCommand } from "../../../domain/interfaces/commands/invoice";
 import { IUpdateFeeTaxResponse } from "../../../domain/interfaces/responses/invoice";
 import { IInvoiceDomainService } from "../../../domain/services";
@@ -25,12 +25,12 @@ export class UpdateFeeTaxUseCase<
   constructor(
     private readonly invoiceService: IInvoiceDomainService,
     private readonly invoiceGet: GetInvoiceUserCase,
-    private readonly registeredInvoiceEventPublisherBase: RegisteredInvoiceEventPublisherBase
+    private readonly createdInvoiceEventPublisherBase: CreatedInvoiceEventPublisherBase
   ) {
     super();
     this.invoiceAggregateRoot = new InvoiceAggregate({
       invoiceService,
-      registeredInvoiceEventPublisherBase,
+      createdInvoiceEventPublisherBase,
     });
   }
 

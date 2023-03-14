@@ -2,7 +2,7 @@ import {
   IBenefitedDomainEntity,
   IEmployedDomainEntity,
   IKitDomainEntity,
-} from "../../entities/interfaces";
+} from '../../entities/interfaces';
 
 export interface ICreateOrderCommand {
   orderId?: string;
