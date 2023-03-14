@@ -25,48 +25,55 @@ import { BillRepository } from './repositories/Bill-repository';
 import { SellerRepository } from './repositories/Seller-repository';
 
 @Module({
-    imports: [
-      TypeOrmModule.forRootAsync({
-        useClass: TypeOrmMysqlConfigService,
-      }),
-      TypeOrmModule.forFeature([
-        ClientEntityDB,
-        MangaEntityDb,
-        OrderEntityDb,
-        saleEntityBd,
-        SellerEntityDB,
-        BillEntityDB
+  imports: [
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmMysqlConfigService,
+    }),
+    TypeOrmModule.forFeature([
+      ClientEntityDB,
+      MangaEntityDb,
+      OrderEntityDb,
+      saleEntityBd,
+      SellerEntityDB,
+      BillEntityDB
 
-      ]),
-    ],
-    controllers: [],
-    providers: [
-      TypeOrmMysqlConfigService,
-      ClientMySqlService,
-      ClientRepository,
-      MangaRepository,
-      MangaMySqlService,
-      OrdertMySqlService,
-      OrderRepository,
-      SaleRepository,
-      SaleMySqlService,
-      BillRepository,
-      BillMySqlService,
-      SellerRepository,
-      SellerMySqlService
-      
-    ],
-  exports: [ClientMySqlService,
+    ]),
+  ],
+  controllers: [],
+  providers: [
+   
+    ClientRepository,
+    MangaRepository,   
+    OrderRepository,
+    SaleRepository,    
+    BillRepository,
+    SellerRepository,
+
+
+    MangaMySqlService,  
+    TypeOrmMysqlConfigService,
+    ClientMySqlService,
+    OrdertMySqlService,
+    SaleMySqlService,
+    BillMySqlService,
+    SellerMySqlService
+
+  ],
+  exports: [
     ClientRepository,
     MangaRepository,
-     MangaMySqlService,
-     OrdertMySqlService,
     OrderRepository,
-      SaleRepository,
-      SaleMySqlService,
-      BillRepository,
-      BillMySqlService,
-      SellerRepository,
-      SellerMySqlService],
-  })
-export class MysqlModule {}
+    SaleRepository,
+    BillRepository,
+    SellerRepository,
+
+
+    MangaMySqlService,
+    TypeOrmMysqlConfigService,
+    ClientMySqlService,
+    OrdertMySqlService,
+    SaleMySqlService,
+    BillMySqlService,
+    SellerMySqlService],
+})
+export class MysqlModule { }

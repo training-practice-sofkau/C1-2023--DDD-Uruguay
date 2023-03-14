@@ -1,6 +1,9 @@
-import {  BillDomain } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
-import { PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import { BillDomain } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
+import { PrimaryGeneratedColumn, Column, OneToOne, Entity } from "typeorm";
 import { saleEntityBd } from "./Sale-entity";
+
+@Entity()
+
 
 export class BillEntityDB  extends BillDomain{
 

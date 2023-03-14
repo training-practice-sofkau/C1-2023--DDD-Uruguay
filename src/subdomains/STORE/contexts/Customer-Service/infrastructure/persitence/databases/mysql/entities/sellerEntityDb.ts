@@ -1,6 +1,10 @@
-import { Column, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { SellerDomain } from '../../../../../domain/entities/Sale-domain/seller-domain-entity';
 import { saleEntityBd } from './Sale-entity';
+
+
+@Entity()
+
 export class SellerEntityDB  extends SellerDomain{
 
     @PrimaryGeneratedColumn('uuid')
