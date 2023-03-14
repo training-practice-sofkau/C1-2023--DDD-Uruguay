@@ -1,8 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
 
-import { ClienteDomainEntity, MembershipDomainEntity, PlanDomainEntity } from "src/subdomains";
+
 import { ClienteMySqlEntity } from "./cliente.entity";
 import { PlanMySqlEntity } from "./plan.entity";
+import { MembershipDomainEntity } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 
 @Entity()
 export class MembershipMySqlEntity extends MembershipDomainEntity {
@@ -10,17 +11,19 @@ export class MembershipMySqlEntity extends MembershipDomainEntity {
     @PrimaryGeneratedColumn('uuid')
     idMembership: string;
 
-    @JoinColumn()
-    clienteMembership: ClienteMySqlEntity;
-
-    @JoinColumn()
-    planMembership: PlanDomainEntity;
 
     //RELACIONES
-
-    @OneToOne( ()=> ClienteMySqlEntity, (cliente)=> cliente.membership )
+    
+    @JoinColumn()
+    @OneToOne( forwardRef => ClienteMySqlEntity, (cliente)=> cliente.membership, {cascade:["insert", "update"]}  )
     cliente: ClienteMySqlEntity;
+    
 
-    @OneToOne( ()=> PlanMySqlEntity, (plan)=> plan.membership )
+    @JoinColumn()
+    @OneToOne( ()=> PlanMySqlEntity, (plan)=> plan.membership, {cascade:["insert", "update"]}  )
     plan: PlanMySqlEntity;
+
+
+    
+
 }

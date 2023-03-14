@@ -1,7 +1,10 @@
 import { IUseCase, ValueObjectErrorHandler } from "src/libs";
-import { ICreateMembershipMethod, IMembershipDomainEntityInterface, IMembershipService, IMembresiaCreadaResponse, MembershipAggregate, MembershipCreadaEventPublisher, MembershipDomainEntity } from "../../../domain";
 import { ObtenerClienteUseCase } from "./obtener-cliente.use-case";
 import { ObtenerPlanUseCase } from "./obtener-plan.use-case";
+import { MembershipAggregate, IMembershipService, IMembershipDomainEntityInterface, MembershipDomainEntity } from "../../../domain";
+import { MembershipCreadaEventPublisher } from "../../../domain/events/publishers/membership";
+import { ICreateMembershipMethod } from "../../../domain/interfaces/commands/membership";
+import { IMembresiaCreadaResponse } from "../../../domain/interfaces/responses/membership";
 
 export class CreateMembershipUseCase<
 

@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
 
-import { ClienteDomainEntity } from "src/subdomains";
+
 import { MembershipMySqlEntity } from "./membership.entity";
+import { ClienteDomainEntity } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 
 @Entity()
 export class PlanMySqlEntity extends ClienteDomainEntity {
@@ -23,7 +24,7 @@ export class PlanMySqlEntity extends ClienteDomainEntity {
     costoPlan: number;
 
     //RELACIONES
-
-    @OneToOne( ()=> MembershipMySqlEntity, (menbership)=> menbership.plan )
+    @JoinColumn()
+    @OneToOne( ()=> MembershipMySqlEntity, (menbership)=> menbership.plan, {cascade:["insert", "update"]} )
     membership: MembershipMySqlEntity;
 }

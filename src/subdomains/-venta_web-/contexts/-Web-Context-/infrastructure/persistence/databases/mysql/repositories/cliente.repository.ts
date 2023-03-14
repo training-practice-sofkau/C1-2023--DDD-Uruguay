@@ -1,8 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IRepository } from './base/repository.base';
 import {  ClienteMySqlEntity } from '../entities/cliente.entity';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 
 
@@ -12,7 +13,7 @@ export class ClienteRepository implements IRepository<ClienteMySqlEntity>{
 
     constructor(@InjectRepository(ClienteMySqlEntity) private readonly repository: Repository<ClienteMySqlEntity>) { }
 
-
+    
     async findAll(): Promise<ClienteMySqlEntity[]> {
         return await this.repository.find();
     }
@@ -30,7 +31,6 @@ export class ClienteRepository implements IRepository<ClienteMySqlEntity>{
     async create(entity: ClienteMySqlEntity): Promise<ClienteMySqlEntity> {
         return await this.repository.save(entity)
     }
-
 
 
     async update(idCliente: string, entity: ClienteMySqlEntity): Promise<ClienteMySqlEntity> {
@@ -54,3 +54,5 @@ export class ClienteRepository implements IRepository<ClienteMySqlEntity>{
     */
 
 }
+
+
