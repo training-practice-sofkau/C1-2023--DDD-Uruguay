@@ -19,7 +19,7 @@ export class CustomerDomainEntity implements ICustomerDomainEntity{
     deletedAt?: number | Date;
 
     constructor(_data?: ICustomerDomainEntity) {
-        if(_data.customerId) this.customerId = _data.customerId;
+        if(_data?.customerId) this.customerId = _data.customerId;
         else this.customerId = uuidv4();
 
         if(_data?.fullName) this.fullName = _data.fullName;

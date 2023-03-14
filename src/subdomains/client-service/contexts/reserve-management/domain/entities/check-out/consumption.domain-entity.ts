@@ -17,7 +17,7 @@ export class ConsumptionDomainEntity implements IConsumptionDomainEntity{
     extra: number | ExtraValueObject;
 
     constructor(_data?: IConsumptionDomainEntity) {
-        if(_data.consumptionId) this.consumptionId = _data.consumptionId;
+        if(_data?.consumptionId) this.consumptionId = _data.consumptionId;
         else this.consumptionId = uuidv4();
 
         if(_data?.miniBar) this.miniBar = _data.miniBar;

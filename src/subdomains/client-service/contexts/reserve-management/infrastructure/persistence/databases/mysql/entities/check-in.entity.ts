@@ -6,6 +6,7 @@ import { GuestMySqlEntity, RoomKeyMySqlEntity } from '.';
 
 @Entity()
 export class CheckInMySqlEntity extends CheckInDomainEntity {
+    
     @PrimaryGeneratedColumn('uuid')
     checkInId: string;
 

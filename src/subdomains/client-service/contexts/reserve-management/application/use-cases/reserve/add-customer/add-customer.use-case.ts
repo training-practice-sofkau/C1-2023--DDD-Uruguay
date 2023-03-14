@@ -97,7 +97,7 @@ export class AddCustomerUseCase<
         })
     }
 
-    private exectueReserveAggregate(customer: ICustomerDomainEntity): Promise<CustomerDomainEntity | null> {
-        return this.reserveAggregate.addCustomer(customer as IAddCustomer)
+    private exectueReserveAggregate(customer: CustomerDomainEntity): Promise<CustomerDomainEntity | null> {
+        return this.reserveAggregate.addCustomer(customer)
     }
 }

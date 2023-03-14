@@ -15,10 +15,10 @@ export class CheckInDomainEntity implements ICheckInDomainEntity{
     deletedAt?: number | Date;
 
     constructor(_data?: ICheckInDomainEntity) {
-        if(_data.checkInId) this.checkInId = _data.checkInId;
+        if(_data?.checkInId) this.checkInId = _data.checkInId;
         else this.checkInId = uuidv4();
 
-        if(_data.reserveId) this.reserveId = _data.reserveId;
+        if(_data?.reserveId) this.reserveId = _data.reserveId;
 
         if(_data?.startDate) this.startDate = _data.startDate;
 
