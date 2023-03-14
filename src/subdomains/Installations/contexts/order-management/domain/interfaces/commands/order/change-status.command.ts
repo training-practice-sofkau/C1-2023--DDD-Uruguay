@@ -1,3 +1,3 @@
 export interface IOrderChangeStatusCommand {
-    orderId: string;
+  orderId: string;
 }

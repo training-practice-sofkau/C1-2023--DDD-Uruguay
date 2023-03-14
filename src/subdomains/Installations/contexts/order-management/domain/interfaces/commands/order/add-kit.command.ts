@@ -1,4 +1,4 @@
-export interface IAddKitCommand {
-    kitId: string;
-    model: string;
+export interface IcreateKitCommand {
+  kitId: string;
+  model: string;
 }

@@ -1,5 +1,5 @@
-export interface IAddFeeCommand {
-    feeId: string;
-    tax: number;
-    charge: number;
+export interface IcreateFeeCommand {
+  feeId: string;
+  tax: number;
+  charge: number;
 }

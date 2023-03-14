@@ -1,97 +1,86 @@
-import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from '../../../../../../../libs/sofka';
-
-import { IOrderDomainService } from '../../../domain/services';
-import { RegisteredOrderEventPublisherBase } from '../../../domain/events';
-import { KitDomainEntityBase  } from '../../../domain/entities';
-import { IKitDomainEntity } from '../../../domain/entities/interfaces';
 import {
-    KitModelValueObject,
-} from '../../../domain/value-objects';
+  IUseCase,
+  ValueObjectErrorHandler,
+  ValueObjectException,
+} from '../../../../../../../libs/sofka';
 import { OrderAggregate } from '../../../domain/aggregates';
-import { IAddKitCommand } from '../../../domain/interfaces/commands/order';
-import { IAddKitResponse } from '../../../domain/interfaces/responses/order';
+import { KitDomainEntityBase } from '../../../domain/entities';
+import { IKitDomainEntity } from '../../../domain/entities/interfaces';
+import { RegisteredOrderEventPublisherBase } from '../../../domain/events';
+import { IcreateKitCommand } from '../../../domain/interfaces/commands/order';
+import { IcreateKitResponse } from '../../../domain/interfaces/responses/order';
+import { IOrderDomainService } from '../../../domain/services';
+import { KitModelValueObject } from '../../../domain/value-objects';
 
-export class AddKitUseCase<
-    Command extends IAddKitCommand = IAddKitCommand,
-    Response extends IAddKitResponse = IAddKitResponse
->
-    extends ValueObjectErrorHandler
-    implements IUseCase<Command, Response>
+export class createKitUseCase<
+    Command extends IcreateKitCommand = IcreateKitCommand,
+    Response extends IcreateKitResponse = IcreateKitResponse
+  >
+  extends ValueObjectErrorHandler
+  implements IUseCase<Command, Response>
 {
+  private readonly orderAggregateRoot: OrderAggregate;
 
-    private readonly orderAggregateRoot: OrderAggregate;
+  constructor(
+    private readonly orderService: IOrderDomainService,
+    private readonly registeredOrderEventPublisherBase: RegisteredOrderEventPublisherBase
+  ) {
+    super();
+    this.orderAggregateRoot = new OrderAggregate({
+      orderService,
+      registeredOrderEventPublisherBase,
+    });
+  }
 
-    constructor(
-        private readonly orderService: IOrderDomainService,
-        private readonly registeredOrderEventPublisherBase: RegisteredOrderEventPublisherBase,
-    ) {
-        super();
-        this.orderAggregateRoot = new OrderAggregate({
-            orderService,
-            registeredOrderEventPublisherBase
-        })
-    }
+  async execute(command?: Command): Promise<Response> {
+    const data = await this.executeCommand(command);
 
-    async execute(command?: Command): Promise<Response> {
-        const data = await this.executeCommand(command);
+    return { success: data ? true : false, data } as unknown as Response;
+  }
 
-        return { success: data ? true : false, data } as unknown as Response
-    }
+  private async executeCommand(
+    command: Command
+  ): Promise<KitDomainEntityBase | null> {
+    const ValueObject = this.createValueObject(command);
+    this.validateValueObject(ValueObject);
+    const entity = this.createEntityKitDomain(ValueObject);
+    return this.executeOrderAggregateRoot(entity);
+  }
 
-    private async executeCommand(
-        command: Command
-    ): Promise<KitDomainEntityBase | null> {
-        const ValueObject = this.createValueObject(command);
-        this.validateValueObject(ValueObject);
-        const entity = this.createEntityKitDomain(ValueObject);
-        return this.executeOrderAggregateRoot(entity);
-    }
+  private createValueObject(command: Command): IKitDomainEntity {
+    const model = new KitModelValueObject(command.model);
 
-    private createValueObject(
-        command: Command
-    ): IKitDomainEntity {
+    return {
+      model,
+    };
+  }
 
-        const model = new KitModelValueObject(command.model);
+  private validateValueObject(valueObject: IKitDomainEntity): void {
+    const { model } = valueObject;
 
-        return {
-            model
-        }
-    }
+    if (model instanceof KitModelValueObject && model.hasErrors())
+      this.setErrors(model.getErrors());
 
-    private validateValueObject(
-        valueObject: IKitDomainEntity
-    ): void {
-        const {
-            model,
-        } = valueObject
+    if (this.hasErrors() === true)
+      throw new ValueObjectException(
+        "Hay algunos errores en el comando ejecutado por createKitUserCase",
+        this.getErrors()
+      );
+  }
 
-        if (model instanceof KitModelValueObject && model.hasErrors())
-            this.setErrors(model.getErrors());
+  private createEntityKitDomain(
+    valueObject: IKitDomainEntity
+  ): KitDomainEntityBase {
+    const { model } = valueObject;
 
-        if (this.hasErrors() === true)
-            throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado por AddKitUserCase',
-                this.getErrors(),
-            );
+    return new KitDomainEntityBase({
+      model: model.valueOf(),
+    });
+  }
 
-    }
-
-    private createEntityKitDomain(
-        valueObject: IKitDomainEntity
-    ): KitDomainEntityBase {
-
-        const {
-            model
-        } = valueObject
-
-        return new KitDomainEntityBase({
-            model: model.valueOf()
-        })
-    }
-
-    private executeOrderAggregateRoot(
-        entity: KitDomainEntityBase,
-    ): Promise<KitDomainEntityBase | null> {
-        return this.orderAggregateRoot.addKit(entity)
-    }
+  private executeOrderAggregateRoot(
+    entity: KitDomainEntityBase
+  ): Promise<KitDomainEntityBase | null> {
+    return this.orderAggregateRoot.createKit(entity);
+  }
 }

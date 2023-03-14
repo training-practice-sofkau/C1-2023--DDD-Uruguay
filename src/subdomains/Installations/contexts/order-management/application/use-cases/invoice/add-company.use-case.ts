@@ -1,107 +1,102 @@
-import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from '../../../../../../../libs/sofka';
-
-import { IInvoiceDomainService } from '../../../domain/services';
-import { RegisteredInvoiceEventPublisherBase } from '../../../domain/events';
-import { CompanyDomainEntityBase  } from '../../../domain/entities';
-import { ICompanyDomainEntity } from '../../../domain/entities/interfaces';
 import {
-
-    CompanyNameValueObject,
-    CompanyBankAccountValueObject,
-} from '../../../domain/value-objects';
+  IUseCase,
+  ValueObjectErrorHandler,
+  ValueObjectException,
+} from '../../../../../../../libs/sofka';
 import { InvoiceAggregate } from '../../../domain/aggregates';
-import { IAddCompanyCommand } from '../../../domain/interfaces/commands/invoice';
-import { IAddCompanyResponse } from '../../../domain/interfaces/responses/invoice';
+import { CompanyDomainEntityBase } from '../../../domain/entities';
+import { ICompanyDomainEntity } from '../../../domain/entities/interfaces';
+import { RegisteredInvoiceEventPublisherBase } from '../../../domain/events';
+import {
+  IcreateCompanyCommand,
+} from '../../../domain/interfaces/commands/invoice';
+import {
+  IcreateCompanyResponse,
+} from '../../../domain/interfaces/responses/invoice';
+import { IInvoiceDomainService } from '../../../domain/services';
+import {
+  CompanyBankAccountValueObject,
+  CompanyNameValueObject,
+} from '../../../domain/value-objects';
 
-export class AddCompanyUseCase<
-    Command extends IAddCompanyCommand = IAddCompanyCommand,
-    Response extends IAddCompanyResponse = IAddCompanyResponse
->
-    extends ValueObjectErrorHandler
-    implements IUseCase<Command, Response>
+export class createCompanyUseCase<
+    Command extends IcreateCompanyCommand = IcreateCompanyCommand,
+    Response extends IcreateCompanyResponse = IcreateCompanyResponse
+  >
+  extends ValueObjectErrorHandler
+  implements IUseCase<Command, Response>
 {
+  private readonly invoiceAggregateRoot: InvoiceAggregate;
 
-    private readonly invoiceAggregateRoot: InvoiceAggregate;
+  constructor(
+    private readonly invoiceService: IInvoiceDomainService,
+    private readonly registeredInvoiceEventPublisherBase: RegisteredInvoiceEventPublisherBase
+  ) {
+    super();
+    this.invoiceAggregateRoot = new InvoiceAggregate({
+      invoiceService,
+      registeredInvoiceEventPublisherBase,
+    });
+  }
 
-    constructor(
-        private readonly invoiceService: IInvoiceDomainService,
-        private readonly registeredInvoiceEventPublisherBase: RegisteredInvoiceEventPublisherBase,
-    ) {
-        super();
-        this.invoiceAggregateRoot = new InvoiceAggregate({
-            invoiceService,
-            registeredInvoiceEventPublisherBase
-        })
-    }
+  async execute(command?: Command): Promise<Response> {
+    const data = await this.executeCommand(command);
 
-    async execute(command?: Command): Promise<Response> {
-        const data = await this.executeCommand(command);
+    return { success: data ? true : false, data } as unknown as Response;
+  }
 
-        return { success: data ? true : false, data } as unknown as Response
-    }
+  private async executeCommand(
+    command: Command
+  ): Promise<CompanyDomainEntityBase | null> {
+    const ValueObject = this.createValueObject(command);
+    this.validateValueObject(ValueObject);
+    const entity = this.createEntityCompanyDomain(ValueObject);
+    return this.executeInvoiceAggregateRoot(entity);
+  }
 
-    private async executeCommand(
-        command: Command
-    ): Promise<CompanyDomainEntityBase | null> {
-        const ValueObject = this.createValueObject(command);
-        this.validateValueObject(ValueObject);
-        const entity = this.createEntityCompanyDomain(ValueObject);
-        return this.executeInvoiceAggregateRoot(entity);
-    }
+  private createValueObject(command: Command): ICompanyDomainEntity {
+    const name = new CompanyNameValueObject(command.name);
+    const bankAccount = new CompanyBankAccountValueObject(command.bankAccount);
 
-    private createValueObject(
-        command: Command
-    ): ICompanyDomainEntity {
+    return {
+      name,
+      bankAccount,
+    };
+  }
 
-        const name = new CompanyNameValueObject(command.name);
-        const bankAccount = new CompanyBankAccountValueObject(command.bankAccount);
+  private validateValueObject(valueObject: ICompanyDomainEntity): void {
+    const { name, bankAccount } = valueObject;
 
-        return {
-            name,
-            bankAccount
-        }
-    }
+    if (name instanceof CompanyNameValueObject && name.hasErrors())
+      this.setErrors(name.getErrors());
 
-    private validateValueObject(
-        valueObject: ICompanyDomainEntity
-    ): void {
-        const {
-            name,
-            bankAccount
-        } = valueObject
+    if (
+      bankAccount instanceof CompanyBankAccountValueObject &&
+      bankAccount.hasErrors()
+    )
+      this.setErrors(bankAccount.getErrors());
 
-        if (name instanceof CompanyNameValueObject && name.hasErrors())
-            this.setErrors(name.getErrors());
+    if (this.hasErrors() === true)
+      throw new ValueObjectException(
+        "Hay algunos errores en el comando ejecutado por createCompanyUserCase",
+        this.getErrors()
+      );
+  }
 
-        if (bankAccount instanceof CompanyBankAccountValueObject && bankAccount.hasErrors())
-            this.setErrors(bankAccount.getErrors());
+  private createEntityCompanyDomain(
+    valueObject: ICompanyDomainEntity
+  ): CompanyDomainEntityBase {
+    const { name, bankAccount } = valueObject;
 
-        if (this.hasErrors() === true)
-            throw new ValueObjectException(
-                'Hay algunos errores en el comando ejecutado por AddCompanyUserCase',
-                this.getErrors(),
-            );
+    return new CompanyDomainEntityBase({
+      name: name.valueOf(),
+      bankAccount: bankAccount.valueOf(),
+    });
+  }
 
-    }
-
-    private createEntityCompanyDomain(
-        valueObject: ICompanyDomainEntity
-    ): CompanyDomainEntityBase {
-
-        const {
-            name,
-            bankAccount
-        } = valueObject
-
-        return new CompanyDomainEntityBase({
-            name: name.valueOf(),
-            bankAccount: bankAccount.valueOf()
-        })
-    }
-
-    private executeInvoiceAggregateRoot(
-        entity: CompanyDomainEntityBase,
-    ): Promise<CompanyDomainEntityBase | null> {
-        return this.invoiceAggregateRoot.addCompany(entity)
-    }
+  private executeInvoiceAggregateRoot(
+    entity: CompanyDomainEntityBase
+  ): Promise<CompanyDomainEntityBase | null> {
+    return this.invoiceAggregateRoot.createCompany(entity);
+  }
 }

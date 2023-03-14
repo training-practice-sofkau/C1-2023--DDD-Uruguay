@@ -1,6 +1,6 @@
-import { CompanyDomainEntityBase } from "../../../entities/invoice";
+import { CompanyDomainEntityBase } from '../../../entities/invoice';
 
-export interface IAddCompanyResponse {
+export interface IcreateCompanyResponse {
   success: boolean;
   data: CompanyDomainEntityBase | null;
 }

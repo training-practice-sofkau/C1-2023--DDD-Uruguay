@@ -1,8 +1,18 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+
+import {
+  OrderManagementModule,
+} from './subdomains/Installations/contexts/order-management/infrastructure';
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: 'env/development.env'
+    }),
+    OrderManagementModule
+  ],
   controllers: [],
-  providers: [],
+  providers: []
 })
 export class AppModule {}

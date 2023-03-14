@@ -1,6 +1,6 @@
-import { KitDomainEntityBase } from "../../../entities/order";
+import { KitDomainEntityBase } from '../../../entities/order';
 
-export interface IAddKitResponse {
+export interface IcreateKitResponse {
   success: boolean;
   data: KitDomainEntityBase | null;
 }
