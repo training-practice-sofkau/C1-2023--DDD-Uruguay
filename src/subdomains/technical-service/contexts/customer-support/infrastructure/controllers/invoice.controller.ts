@@ -18,8 +18,8 @@ import {
     CreateInvoiceCommand 
 } from "../utils/commands";
 
-@Controller('employee')
-export class EmployeeController {
+@Controller('invoice')
+export class InvoiceController {
 
     constructor(
         private readonly invoiceService: InvoiceService,
