@@ -9,7 +9,7 @@ export class CounterDomainEntity implements ICounterDomainEntity{
     product?: IProductDomainEntity
     poster?: IPosterDomainEntity
 
-    constructor(data?: ICounterDomainEntity) {
+    constructor(data: ICounterDomainEntity = {}) {
         if (data.counterId) this.counterId = data.counterId
         else this.counterId = uuid()
         if (data.poster) this.poster = data.poster

@@ -1,2 +1,2 @@
 export * from './counter';
-export * from './ticket';
+//export * from './ticket';
