@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ClientsModule, Transport } from "@nestjs/microservices";
+
 import { 
   CustomerCreatedPublisher, 
   CustomerEmailChangedPublisher, 
@@ -38,7 +39,7 @@ import {
     imports:[
         ClientsModule.register([
         {
-          name: 'TECHNICAL_SERVICE',
+          name: 'TECHNICAL-SERVICE_CONTEXT',
           transport: Transport.KAFKA,
           options: {
             client: {              

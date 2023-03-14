@@ -12,7 +12,7 @@ import { PhoneValueObject, EmailValueObject, FullnameValueObject } from '../../.
 import { ValueObjectException, IUseCase, ValueObjectErrorHandler } from '@sofka';
 
 
-export class CreateCustomerUserCase<
+export class CreateCustomerUseCase<
     Command extends ICreateCustomerCommand = ICreateCustomerCommand,
     Response extends ICustomerCreatedResponse = ICustomerCreatedResponse
 > extends ValueObjectErrorHandler implements IUseCase<Command, Response>{
