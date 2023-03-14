@@ -1,5 +1,5 @@
 import { UpdatePhoneClientCaseUse } from './../../application/use-cases/Order-Use-case/client-case-use/update-phone-client-case-use/update-phone-client-case-use';
-import { Controller, Post, Body, Patch, Put, Get } from '@nestjs/common';
+import { Controller, Post, Body, Patch, Put, Get, Param } from '@nestjs/common';
 import { AddCustomerCaseUse, UpdateNameClientCaseUse } from '../../application';
 import { IAddClient, UpdateNameClient } from '../../domain/interfaces/commands';
 import {
@@ -58,11 +58,11 @@ export class ClientController {
     return useCase.execute(command);
   }
 
-  @Get()
-  getClient(@Body() command: IGetClientCommand) {
-    const useCase = new  GetClientCaseUse (this.ClientService,  this.IClientObtainedEventPublisher)
-    return useCase.execute(command)
+//   @Get(':id')
+// getClient(@Param('id')id: string,@Body() command: IGetClientCommand) {
+//     const useCase = new  GetClientCaseUse (this.ClientService,  this.IClientObtainedEventPublisher)
+//     return useCase.execute(command)
     
-  }
+//   }
 
 }

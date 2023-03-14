@@ -16,7 +16,7 @@ import { IUpdateMangaStockCommand } from '../utils/commands/order/IUpdateMangaSt
 import { IUpdateStateManga } from '../utils/commands/order/IUpdateStateManga';
 
 @Controller('manga')
-export class OrderController {
+export class mangaController {
   constructor(
     private readonly mangaService: MangaService,
     private readonly getMangaEventPublisher: IMangaObtainedEventPublisher,
