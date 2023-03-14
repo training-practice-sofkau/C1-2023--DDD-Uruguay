@@ -1,7 +1,7 @@
 import { IsDate, IsString, IsUUID } from "class-validator";
 import { ICreateCheckOut } from "../../../../domain";
 
-export class ICreateCheckOutCommand implements ICreateCheckOut {
+export class CreateCheckOutCommand implements ICreateCheckOut {
 
     @IsUUID()
     checkOutId: string;

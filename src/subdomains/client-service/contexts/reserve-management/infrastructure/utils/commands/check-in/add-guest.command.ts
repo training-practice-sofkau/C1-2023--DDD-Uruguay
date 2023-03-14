@@ -2,7 +2,7 @@ import { IsNumber, IsString, IsUUID } from "class-validator";
 import { IAddGuest } from "../../../../domain";
 
 
-export class IAddGuestCommand implements IAddGuest {
+export class AddGuestCommand implements IAddGuest {
 
     @IsUUID()
     guestId: string;

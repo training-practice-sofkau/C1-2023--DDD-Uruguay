@@ -1,5 +1,5 @@
 import { IsUUID } from "class-validator";
-import { IGetCustomer } from "../../../domain";
+import { IGetCustomer } from "../../../../domain";
 
 export class GetCustomerCommand implements IGetCustomer {
 

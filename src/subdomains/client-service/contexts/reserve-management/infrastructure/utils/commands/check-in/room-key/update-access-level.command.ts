@@ -1,7 +1,7 @@
 import { IsString, IsUUID } from "class-validator";
 import { IUpdateAccessLevel } from "../../../../../domain";
 
-export class IUpdateAccessLevelCommand implements IUpdateAccessLevel {
+export class UpdateAccessLevelCommand implements IUpdateAccessLevel {
 
     @IsUUID()
     roomKeyId?: string;

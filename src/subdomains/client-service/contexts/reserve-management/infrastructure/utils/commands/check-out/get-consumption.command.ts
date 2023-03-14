@@ -1,7 +1,7 @@
 import { IsUUID } from "class-validator";
 import { IGetConsumption } from "../../../../domain";
 
-export class IGetConsumptionCommand implements IGetConsumption{
+export class GetConsumptionCommand implements IGetConsumption{
 
     @IsUUID()
     consumptionId: string

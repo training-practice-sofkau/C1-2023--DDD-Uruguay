@@ -1,7 +1,7 @@
 import { IsDate, IsNumber, IsUUID } from "class-validator";
 import { IAddInvoice } from "../../../../domain";
 
-export class IAddInvoiceCommand implements IAddInvoice {
+export class AddInvoiceCommand implements IAddInvoice {
 
     @IsUUID()
     invoiceId: string;

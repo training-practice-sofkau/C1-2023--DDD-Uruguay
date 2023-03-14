@@ -1,7 +1,7 @@
 import { IsUUID } from "class-validator";
 import { IGetInvoice } from "../../../../domain";
 
-export class IGetInvoiceCommand implements IGetInvoice{
+export class GetInvoiceCommand implements IGetInvoice{
 
     @IsUUID()
     invoiceId: string

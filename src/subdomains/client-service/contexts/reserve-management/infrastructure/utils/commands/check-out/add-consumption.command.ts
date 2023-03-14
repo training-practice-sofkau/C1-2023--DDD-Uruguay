@@ -1,7 +1,7 @@
 import { IsNumber, IsUUID } from "class-validator";
 import { IAddConsumption } from "../../../../domain";
 
-export class IAddConsumptionCommand implements IAddConsumption {
+export class AddConsumptionCommand implements IAddConsumption {
 
     @IsUUID()
     consumptionId: string;

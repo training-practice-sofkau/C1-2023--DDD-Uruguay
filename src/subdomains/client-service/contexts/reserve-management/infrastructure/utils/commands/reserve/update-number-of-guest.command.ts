@@ -1,7 +1,7 @@
-import { IUpdateNumberOfGuests } from "../../../domain";
+import { IUpdateNumberOfGuests } from "../../../../domain";
 import { IsNumber, IsUUID } from "class-validator";
 
-export class IUpdateNumberOfGuestsCommand implements IUpdateNumberOfGuests {
+export class UpdateNumberOfGuestsCommand implements IUpdateNumberOfGuests {
 
     @IsUUID()
     reserveId?: string;

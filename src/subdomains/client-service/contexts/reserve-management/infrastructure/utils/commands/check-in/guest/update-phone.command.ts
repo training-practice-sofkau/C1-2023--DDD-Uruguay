@@ -1,7 +1,7 @@
 import { IsString, IsUUID } from "class-validator";
 import { IUpdatePhone } from "../../../../../domain";
 
-export class IUpdatePhoneCommand implements IUpdatePhone {
+export class UpdatePhoneCommand implements IUpdatePhone {
 
     @IsUUID()
     guestId: string;

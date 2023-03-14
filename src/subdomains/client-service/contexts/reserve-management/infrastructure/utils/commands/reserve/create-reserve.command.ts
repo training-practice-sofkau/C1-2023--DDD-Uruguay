@@ -1,5 +1,5 @@
 import { IsDate, IsNumber, IsUUID } from "class-validator";
-import { ICreateReserve } from "../../../domain";
+import { ICreateReserve } from "../../../../domain";
 
 
 export class CreateReserveCommand implements ICreateReserve{

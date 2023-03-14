@@ -1,7 +1,7 @@
 import { IsDate, IsUUID } from "class-validator";
-import { IUpdateEndDate } from "../../../domain";
+import { IUpdateEndDate } from "../../../../domain";
 
-export class IUpdateEndDateCommand implements IUpdateEndDate {
+export class UpdateEndDateCommand implements IUpdateEndDate {
 
     @IsUUID()
     reserveId?: string;

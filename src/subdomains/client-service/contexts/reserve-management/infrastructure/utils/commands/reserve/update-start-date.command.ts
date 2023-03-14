@@ -1,7 +1,7 @@
 import { IsDate, IsUUID } from "class-validator";
-import { IUpdateStartDate } from "../../../domain";
+import { IUpdateStartDate } from "../../../../domain";
 
-export class IUpdateStartDateCommand implements IUpdateStartDate {
+export class UpdateStartDateCommand implements IUpdateStartDate {
 
     @IsUUID()
     reserveId?: string;

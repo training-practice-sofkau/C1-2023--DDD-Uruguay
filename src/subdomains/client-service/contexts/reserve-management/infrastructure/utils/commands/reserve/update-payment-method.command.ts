@@ -1,7 +1,7 @@
 import { IsString, IsUUID } from "class-validator";
-import { IUpdatePaymentMethod } from "../../../domain";
+import { IUpdatePaymentMethod } from "../../../../domain";
 
-export class IUpdatePaymentMethodCommand implements IUpdatePaymentMethod {
+export class UpdatePaymentMethodCommand implements IUpdatePaymentMethod {
 
     @IsUUID()
     customerId?: string;

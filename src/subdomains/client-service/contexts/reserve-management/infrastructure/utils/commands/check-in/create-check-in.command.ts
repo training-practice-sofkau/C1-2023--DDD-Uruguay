@@ -1,7 +1,7 @@
 import { IsString, IsUUID, IsDate } from 'class-validator';
 import { ICreateCheckIn } from "../../../../domain";
 
-export class ICreateCheckInCommand implements ICreateCheckIn {
+export class CreateCheckInCommand implements ICreateCheckIn {
 
     @IsUUID()
     checkInId: string;

@@ -2,7 +2,7 @@ import { IsNumber, IsUUID } from "class-validator";
 import { IUpdateMiniBar } from "../../../../../domain";
 
 
-export class IUpdateMiniBarCommand implements IUpdateMiniBar {
+export class UpdateMiniBarCommand implements IUpdateMiniBar {
 
     @IsUUID()
     consumptionId: string;
