@@ -1,5 +1,5 @@
 import { Flavour, ImgType, PosterDomainEntity } from "src";
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, OneToMany } from "typeorm"
 import { CounterMySqlEntity } from './counter.entity';
 
 
@@ -25,6 +25,6 @@ export class PosterMySqlEntity extends PosterDomainEntity {
     @Column()
     image: string
 
-    @OneToOne(() => CounterMySqlEntity, (counter) => counter.poster)
+    @OneToMany(() => CounterMySqlEntity, (counter) => counter.poster)
     counter?: CounterMySqlEntity
 }

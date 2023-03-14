@@ -11,12 +11,12 @@ export class ProductDomainEntity implements IProductDomainEntity {
     expirationDate?: Date | DateValueObject;
 
     constructor(data?: IProductDomainEntity) {
-        if (data.productId) this.productId = data.productId
+        if (data?.productId) this.productId = data.productId
         else this.productId = uuid()
-        if (data.flavour) this.flavour = data.flavour
-        if (data.price) this.price = data.price
-        if (data.stock) this.stock = data.stock
-        if (data.type) this.type = data.type
-        if (data.expirationDate) this.expirationDate = data.expirationDate
+        if (data?.flavour) this.flavour = data.flavour
+        if (data?.price) this.price = data.price
+        if (data?.stock) this.stock = data.stock
+        if (data?.type) this.type = data.type
+        if (data?.expirationDate) this.expirationDate = data.expirationDate
     }
 }

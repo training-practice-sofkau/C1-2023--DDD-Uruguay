@@ -1,14 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { PosterMySqlEntity, ProductMySqlEntity, CounterMySqlEntity } from "../..";
+import { CounterMySqlEntity, PosterMySqlEntity, ProductMySqlEntity } from "../entities";
 
 @Injectable()
 export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
 
     constructor(private readonly configService: ConfigService) { }
+    
 
-    createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {
+    async createTypeOrmOptions(connectionName?: string): Promise<TypeOrmModuleOptions> {
         //const dbHost = this.configService.get<string>('DB_HOST')
         //const dbPort = this.configService.get<number>('DB_PORT')
         //const dbUser = this.configService.get<string>('DB_USER')
@@ -23,7 +24,6 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
         // console.log(`Connecting to MySQL database at ${dbHost}:${dbPort} as user ${dbUser} on database ${dbName}`);
 
         return {
-            name: connectionName,
             type: 'mysql',
             host: "localhost",
             port: 3306,
@@ -36,6 +36,8 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
                 CounterMySqlEntity
             ],
             synchronize: true,
+            logging: true
         }
     }
+    
 }

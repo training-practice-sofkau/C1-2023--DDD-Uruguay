@@ -1,5 +1,5 @@
 import { DessertType, Flavour, ProductDomainEntity } from "src";
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, OneToMany } from "typeorm"
 import { CounterMySqlEntity } from './counter.entity';
 
 
@@ -25,6 +25,6 @@ export class ProductMySqlEntity extends ProductDomainEntity {
     @Column()
     expirationDate: Date
 
-    @OneToOne(() => CounterMySqlEntity, (counter) => counter.product)
+    @OneToMany(() => CounterMySqlEntity, (counter) => counter.product)
     counter?: CounterMySqlEntity
 }
