@@ -1,13 +1,12 @@
-import { Body, Controller, Get, Post, Param } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { StaffDeportivoService } from '../persistence/services/staff-deportivo.service';
-import { EmpleadoAgregadoEventPublisher } from '../../domain/events/publishers/staff-deporitvo/empleado-agregado.event-publisher';
 import { StaffDeportivoCreadoEventPublisher } from '../../domain/events/publishers/staff-deporitvo/staff-depotivo-creado.event-publisher';
 import { CrearStaffDeportivoUseCase } from '../../application/use-cases/staff-deportivo/crear-staff-deportivo.use.case';
 import { CrearStaffDeportivoCommand } from '../utils/commands/staffDeportivo/crear-staff-deportivo.commands';
 import { EmpleadoBuscadoEventPublisher, TramiteBuscadoEventPublisher } from '../../domain/events/publishers';
 
-@Controller('order')
-export class OrderController {
+@Controller('staffDeportivo')
+export class StaffDeportivoController {
     constructor(
         private readonly staffDeportivoService: StaffDeportivoService,
         private readonly staffDeportivoCreadoEventPublisher: StaffDeportivoCreadoEventPublisher,
