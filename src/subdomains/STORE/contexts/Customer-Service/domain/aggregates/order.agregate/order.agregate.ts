@@ -297,10 +297,12 @@ Publisher events go in this place
    * @param {UpdateNameClient} idclient - UpdateNameClient
    * @returns The result of the update of the client name
    */
-  async UpdateClientName(
-    idclient: ClientDomainBase,
-  ): Promise<ClientDomainBase> {
-    if (this.orderService && this.NameModifiedEventPublisher) {
+  async UpdateClientName(    idclient: ClientDomainBase,  ): Promise<ClientDomainBase> {
+    if(this.NameModifiedEventPublisher) 
+    throw new AggregateRootException(
+      'aca esta tu error',
+    );
+    if (this.ClientService && this.NameModifiedEventPublisher) {
       const result = await this.ClientService.UpdateClientName(idclient);
 
       this.NameModifiedEventPublisher.response = result;

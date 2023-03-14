@@ -2,7 +2,7 @@ import { UpdateNameClient } from '../../../../domain/interfaces/commands/Order-c
 import { IsString, IsUUID } from 'class-validator';
 export class IUpdateNameClient implements UpdateNameClient {
     @IsUUID()
-    clientId: string;
+    ClientID: string;
     @IsString()
     newName: string;
 }

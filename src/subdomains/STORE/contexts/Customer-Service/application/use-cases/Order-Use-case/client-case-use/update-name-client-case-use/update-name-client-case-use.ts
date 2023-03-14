@@ -49,7 +49,7 @@ export class UpdateNameClientCaseUse<
     ): IClientEntity {
 
         const  Name = new ClientNameValue(command.newName)
-        const ClientID = new IdclientValue(command.clientId)
+        const ClientID = new IdclientValue(command.ClientID)
 
         return {
           Name,

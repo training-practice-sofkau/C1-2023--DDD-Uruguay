@@ -4,7 +4,7 @@ import { AddCustomerCaseUse, UpdateNameClientCaseUse } from '../../application';
 import { IAddClient, UpdateNameClient } from '../../domain/interfaces/commands';
 import {
   IClientAddEventPublisher,
-  IClientObtainedEventPublisher,
+  IClientOrderObtainedEventPublisher,
   INameModifiedEventPublisher,
   IOrderAddEventPublisher,
   IPhoneModifiedEventPublisher,
@@ -21,11 +21,11 @@ import { GetClientCaseUse } from '../../application/use-cases/Order-Use-case/get
 export class ClientController {
   constructor(
     private readonly ClientService: ClientService,
-    private readonly NameModifiedEventPublisher: INameModifiedEventPublisher,
+    private readonly ModifiedClientEventPublisher: INameModifiedEventPublisher,
     private readonly IPhoneModifiedEventPublisher: IPhoneModifiedEventPublisher,
     private readonly AddCustomerEventPublisher: IClientAddEventPublisher,
     private readonly orderService: OrderService,
-    private readonly IClientObtainedEventPublisher: IClientObtainedEventPublisher,
+    private readonly IClientOrderObtainedEventPublisher: IClientOrderObtainedEventPublisher,
 
 
   ) {}
@@ -34,7 +34,7 @@ export class ClientController {
   updateClientName(@Body() command: IUpdateNameClient) {
     const useCase = new UpdateNameClientCaseUse(
       this.ClientService,
-      this.NameModifiedEventPublisher,
+      this.ModifiedClientEventPublisher,
     );
     useCase.execute(command);
   }
@@ -58,11 +58,13 @@ export class ClientController {
     return useCase.execute(command);
   }
 
-//   @Get(':id')
-// getClient(@Param('id')id: string,@Body() command: IGetClientCommand) {
-//     const useCase = new  GetClientCaseUse (this.ClientService,  this.IClientObtainedEventPublisher)
-//     return useCase.execute(command)
-    
-//   }
 
+  @Get(':id')
+  getClient(@Param('id') id: string ) {
+    const command =  new IGetClientCommand
+    command.ClientID = id; // Asignar el valor del id al objeto 
+    
+    const useCase = new GetClientCaseUse(this.orderService, this.IClientOrderObtainedEventPublisher);
+    return useCase.execute(command);
+  }
 }

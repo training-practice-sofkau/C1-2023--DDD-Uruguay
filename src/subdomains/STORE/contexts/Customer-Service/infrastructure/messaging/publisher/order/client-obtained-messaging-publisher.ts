@@ -5,7 +5,7 @@ import { IEventPublisher } from "src/libs";
 import { OrderDomainEntityBase } from "../../../../domain/entities";
 import { ClientObtainedEventPublisher } from "../../../../domain/events/publishers/order";
 
-export class IClientObtainedEventPublisher extends ClientObtainedEventPublisher{
+export class IClientOrderObtainedEventPublisher extends ClientObtainedEventPublisher{
 
 
     constructor(@Inject('MANGA_STORE_CONTEXT') private readonly proxy: ClientProxy){
