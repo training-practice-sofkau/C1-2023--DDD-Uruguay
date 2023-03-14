@@ -8,7 +8,7 @@ import { IsBoolean, IsUUID, IsValidDate } from "src/libs/validations";
 export class RepairsDomainEntityBase implements IRepairsDomainEntity{
     repairID?: string | UUIDValueObject;
     repairDate?: number | Date | DateValueObject;
-    repairs?: string[] | RepairValueObject[];
+    repairs?: string | RepairValueObject;
     workFinished?: boolean | TrueFalseValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;

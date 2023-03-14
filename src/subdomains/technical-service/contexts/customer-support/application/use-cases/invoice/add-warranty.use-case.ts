@@ -6,7 +6,6 @@ import { IWarrantyDomainService } from '../../../domain/services/invoice/warrant
 import { WarrantyAddedEventPublisherBase } from '../../../domain/events/publishers/invoice/warranty-added.event-publisher';
 import { IWarrantyDomainEntity } from '../../../domain/entities/interfaces/invoice/warranty.domain-entity.interface';
 import { DateValueObject } from '../../../domain/value-objects/common/date/date.value-object';
-import { ItemValueObject } from '../../../domain/value-objects/warranty/item.value-object';
 import { WarrantyStatusValueObject } from '../../../domain/value-objects/warranty/warranty-status.value-object';
 import { WarrantyDomainEntityBase } from '../../../domain/entities/invoice/warranty.domain-entity/warranty.domain-entity';
 
@@ -66,14 +65,12 @@ export class AddWarrantyUseCase<
     createValueObject(command: Command): IWarrantyDomainEntity {
 
         const startDate = new DateValueObject(command.startDate);
-        const endDate = new DateValueObject(command.endDate);
-        const itemsCovered = command.itemsCovered;
+        const endDate = new DateValueObject(command.endDate);       
         const warrantyStatus = command.warrantyStatus;
 
         return {
             startDate,
-            endDate,
-            itemsCovered,
+            endDate,           
             warrantyStatus,
         }
     }
@@ -88,8 +85,7 @@ export class AddWarrantyUseCase<
     validateValueObject(VO: IWarrantyDomainEntity) {
         const {
             startDate,
-            endDate,
-            itemsCovered,
+            endDate,           
             warrantyStatus,
         } = VO;
 
@@ -100,10 +96,7 @@ export class AddWarrantyUseCase<
         // validate end date
         if (endDate instanceof DateValueObject && endDate.hasErrors())
             this.setErrors(endDate.getErrors());
-
-        // validate items
-        if (itemsCovered instanceof ItemValueObject && itemsCovered.hasErrors())
-            this.setErrors(itemsCovered.getErrors());
+        
         // validate warranty
         if (warrantyStatus instanceof WarrantyStatusValueObject && warrantyStatus.hasErrors())
             this.setErrors(warrantyStatus.getErrors());
@@ -127,15 +120,13 @@ export class AddWarrantyUseCase<
 
         const {
             startDate,
-            endDate,
-            itemsCovered,
+            endDate,           
             warrantyStatus,
         } = VO;
 
         return new WarrantyDomainEntityBase({
             startDate: startDate.valueOf(),
-            endDate: endDate.valueOf(),
-            itemsCovered: itemsCovered,
+            endDate: endDate.valueOf(),            
             warrantyStatus: warrantyStatus
         })
         

@@ -4,6 +4,11 @@ import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { CustomerMySqlEntity } from '../entities/customer.entity';
 import { DeviceMySqlEntity } from '../entities/device.entity';
 import { EmployeeMySqlEntity } from '../entities/employee.entity';
+import { InvoiceMySqlEntity } from '../entities/invoice.entity';
+import { RoleMySqlEntity } from '../entities/role.entity';
+import { RepairsMySqlEntity } from '../entities/repairs.entity';
+import { SupportTicketMySqlEntity } from '../entities/support-ticket.entity';
+import { WarrantyMySqlEntity } from '../entities/warranty.entity';
 
 
 @Injectable()
@@ -23,6 +28,11 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
                 CustomerMySqlEntity, 
                 DeviceMySqlEntity, 
                 EmployeeMySqlEntity,
+                InvoiceMySqlEntity,
+                RoleMySqlEntity,
+                RepairsMySqlEntity,
+                SupportTicketMySqlEntity,
+                WarrantyMySqlEntity
             ],
             synchronize: true,
         }

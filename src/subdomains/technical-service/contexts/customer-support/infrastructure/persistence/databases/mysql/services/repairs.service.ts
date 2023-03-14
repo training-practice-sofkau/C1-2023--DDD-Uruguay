@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { RepairsDomainEntityBase } from '../../../../../domain/entities/support-ticket';
 import { IRepairsDomainService } from '../../../../../domain/services';
 import { RepairsRepository } from '../repositories/repairs.repository';
+import { RepairsMySqlEntity } from '../entities/repairs.entity';
 
 @Injectable()
 export class RepairsMySqlService implements IRepairsDomainService{
@@ -19,7 +20,7 @@ export class RepairsMySqlService implements IRepairsDomainService{
      */
     async AddRepair(repairData: RepairsDomainEntityBase): Promise<boolean> {
 
-        if( this.repairsRepository.create(repairData)) return await true;
+        if( this.repairsRepository.create(repairData  as RepairsMySqlEntity)) return await true;
 
         return false;
     }
@@ -33,7 +34,7 @@ export class RepairsMySqlService implements IRepairsDomainService{
      */
     async ChangeWorkStatus(repairData: RepairsDomainEntityBase): Promise<boolean> {
 
-        if( this.repairsRepository.create(repairData)) return await true;
+        if( this.repairsRepository.create(repairData as RepairsMySqlEntity)) return await true;
 
         return false;
     }

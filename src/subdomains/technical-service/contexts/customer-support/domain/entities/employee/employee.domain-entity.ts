@@ -24,7 +24,7 @@ export class EmployeeDomainEntityBase implements IEmployeeDomainEntity{
 
         if(_data?.employeeEmail && IsEmail(_data?.employeeEmail)) this.employeeEmail = _data.employeeEmail;
 
-        if(_data.employeeRoleId) this.employeeRoleId = _data.employeeRoleId;
+        if(_data?.employeeRoleId) this.employeeRoleId = _data.employeeRoleId;
 
         this.employeeIsActive = true;
         

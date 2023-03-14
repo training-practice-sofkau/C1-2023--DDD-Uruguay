@@ -8,7 +8,7 @@ import { IssueValueObject } from '../../../../../domain/value-objects/device/iss
 @Entity('device')
 export class DeviceMySqlEntity extends DeviceDomainEntityBase{
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     deviceID?: string; // | UUIDValueObject;
 
     @Column()

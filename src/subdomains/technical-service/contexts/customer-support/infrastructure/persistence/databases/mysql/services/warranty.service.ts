@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { WarrantyDomainEntityBase } from '../../../../../domain/entities/invoice';
 import { IWarrantyDomainService } from '../../../../../domain/services';
 import { WarrantyRepository } from '../repositories/warranty.repository';
+import { WarrantyMySqlEntity } from '../entities/warranty.entity';
 
 @Injectable()
 export class WarrantyMySqlService implements IWarrantyDomainService{
@@ -19,7 +20,7 @@ export class WarrantyMySqlService implements IWarrantyDomainService{
      */
     async ChangeWarrantyEndDate(data: WarrantyDomainEntityBase): Promise<boolean> {
          
-        if(this.warrantyRepository.update(data)) return await true;
+        if(this.warrantyRepository.update(data as WarrantyMySqlEntity)) return await true;
 
         return false;
     }
@@ -34,7 +35,7 @@ export class WarrantyMySqlService implements IWarrantyDomainService{
      */
     async ChangeWarrantyStatus(data: WarrantyDomainEntityBase): Promise<boolean> {
 
-        if(this.warrantyRepository.update(data)) return await true;
+        if(this.warrantyRepository.update(data as WarrantyMySqlEntity)) return await true;
 
         return false;
     }

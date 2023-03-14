@@ -2,19 +2,19 @@ import { DateValueObject, RepairValueObject, TrueFalseValueObject, UUIDValueObje
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { RepairsDomainEntityBase } from '../../../../../domain/entities/support-ticket/repairs.domain-entity/repairs.domain-entity';
 
-@Entity()
+@Entity('repairs')
 export class RepairsMySqlEntity extends RepairsDomainEntityBase{
 
-    @PrimaryGeneratedColumn()
-    repairID?: string | UUIDValueObject;
+    @PrimaryGeneratedColumn('uuid')
+    repairID?: string; // | UUIDValueObject;
 
     @Column()
-    repairDate?: number | Date | DateValueObject;
+    repairDate?: number; // | Date | DateValueObject;
 
     @Column()
-    repairs?: string[] | RepairValueObject[];
+    repairs?: string ; //| RepairValueObject[];
 
-    @Column()
-    workFinished?: boolean | TrueFalseValueObject;
+    @Column({default:false})
+    workFinished?: boolean ; // | TrueFalseValueObject;
 
 }

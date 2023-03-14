@@ -2,15 +2,15 @@ import { NoteValueObject, RoleValueObject, UUIDValueObject } from "../../../../.
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { RoleDomainEntityBase } from '../../../../../domain/entities/employee/role.domain-entity/role.domain-entity';
 
-@Entity()
+@Entity('role')
 export class RoleMySqlEntity extends RoleDomainEntityBase{
 
-    @PrimaryGeneratedColumn()
-    roleID?: string | UUIDValueObject;
+    @PrimaryGeneratedColumn('uuid')
+    roleID?: string ;//| UUIDValueObject;
 
     @Column()
-    roleName?: string | RoleValueObject;
+    roleName?: string ;//| RoleValueObject;
 
     @Column()
-    roleDescription?: string | NoteValueObject;
+    roleDescription?: string ;// | NoteValueObject;
 }

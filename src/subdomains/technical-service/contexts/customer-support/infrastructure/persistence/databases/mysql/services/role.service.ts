@@ -3,6 +3,7 @@ import { RoleDomainEntityBase } from '../../../../../domain/entities/employee/ro
 import { IRoleDomainEntity } from '../../../../../domain/entities/interfaces';
 import { IRoleDomainService } from '../../../../../domain/services';
 import { RoleRepository } from '../repositories/role.repository';
+import { RoleMySqlEntity } from '../entities/role.entity';
 
 @Injectable()
 export class RoleMySqlService implements IRoleDomainService{
@@ -20,7 +21,7 @@ export class RoleMySqlService implements IRoleDomainService{
      */
     async CreateRole(roleData: RoleDomainEntityBase): Promise<IRoleDomainEntity> {
         
-        return await this.roleRepository.create(roleData);
+        return await this.roleRepository.create(roleData as RoleMySqlEntity);
     }
 
     /**
@@ -32,7 +33,7 @@ export class RoleMySqlService implements IRoleDomainService{
      */
     async ChangeRoleDescription(data: RoleDomainEntityBase): Promise<boolean> {
           
-        if(this.roleRepository.update(data)) return await true;
+        if(this.roleRepository.update(data as RoleMySqlEntity)) return await true;
 
         return false;
     }

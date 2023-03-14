@@ -4,6 +4,8 @@ import { InvoiceDomainEntityBase, CustomerDomainEntityBase } from "../../../../.
 import { IInvoiceDomainService } from "../../../../../domain/services";
 import { WarrantyRepository, CustomerRepository, InvoiceRepository } from '../repositories/';
 import { CustomerMySqlEntity } from '../entities/customer.entity';
+import { InvoiceMySqlEntity } from '../entities/invoice.entity';
+import { WarrantyMySqlEntity } from '../entities/warranty.entity';
 
 @Injectable()
 export class InvoiceMySqlService implements IInvoiceDomainService{
@@ -25,7 +27,7 @@ export class InvoiceMySqlService implements IInvoiceDomainService{
      */
     async createInvoice(invoiceData: InvoiceDomainEntityBase): Promise<InvoiceDomainEntityBase> {
         
-        return await this.invoiceRepository.create(invoiceData);
+        return await this.invoiceRepository.create(invoiceData as InvoiceMySqlEntity);
     }
 
 
@@ -38,7 +40,7 @@ export class InvoiceMySqlService implements IInvoiceDomainService{
      * @memberof InvoiceMySqlService
      */
     async AddWarranty(warrantyData: IWarrantyDomainEntity): Promise<IWarrantyDomainEntity> {
-        return await this.warrantyRepository.create(warrantyData);
+        return await this.warrantyRepository.create(warrantyData as WarrantyMySqlEntity);
     }
 
 
@@ -52,7 +54,7 @@ export class InvoiceMySqlService implements IInvoiceDomainService{
      */
     async MarkAsPaid(invoiceData: InvoiceDomainEntityBase): Promise<boolean> {
         
-        if(this.invoiceRepository.update(invoiceData)) return await true;
+        if(this.invoiceRepository.update(invoiceData as InvoiceMySqlEntity)) return await true;
 
         return false;
         

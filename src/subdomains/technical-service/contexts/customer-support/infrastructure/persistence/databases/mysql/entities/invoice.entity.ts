@@ -3,36 +3,36 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { InvoiceDomainEntityBase } from '../../../../../domain/entities/invoice/';
 import { AmountValueObject, TrueFalseValueObject, DateValueObject, UUIDValueObject } from '../../../../../domain/value-objects';
 
-@Entity()
+@Entity('invoice')
 export class InvoiceMySqlEntity extends InvoiceDomainEntityBase {
 
-    @PrimaryGeneratedColumn()
-    invoiceID?: string | UUIDValueObject;
+    @PrimaryGeneratedColumn('uuid')
+    invoiceID?: string; //| UUIDValueObject;
 
     @Column()
-    dateEmitted?:number | Date | DateValueObject;
+    dateEmitted?:number; // | Date | DateValueObject;
 
     @Column()
-    ticketID?: string | UUIDValueObject;
+    ticketID?: string ;//| UUIDValueObject;
 
     @Column()
-    customerID?: string | UUIDValueObject;
+    customerID?: string; //| UUIDValueObject;
 
     @Column()
-    invoiceAmount?: number | AmountValueObject;
+    invoiceAmount?: number;// | AmountValueObject;
 
     @Column()
-    warrantyID?: string | UUIDValueObject;
+    warrantyID?: string;// | UUIDValueObject;
+
+    @Column({default: false})
+    isPaid?: boolean ;//| TrueFalseValueObject;
 
     @Column()
-    isPaid?: boolean | TrueFalseValueObject;
+    createdAt?: number; // | Date;
 
     @Column()
-    createdAt?: number | Date;
+    updatedAt?: number; // | Date;    
 
     @Column()
-    updatedAt?: number | Date;    
-
-    @Column()
-    deletedAt?: number | Date;
+    deletedAt?: number; // | Date;
 }
