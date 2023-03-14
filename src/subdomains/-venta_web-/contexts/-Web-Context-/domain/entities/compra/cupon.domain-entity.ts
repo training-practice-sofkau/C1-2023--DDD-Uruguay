@@ -12,7 +12,7 @@ export class CuponDomainEntity implements ICuponDomainEntityInterface{
 
     constructor( _data? : ICuponDomainEntityInterface ){
         
-        if(_data.idCupon) this.idCupon = _data.idCupon
+        if(_data?.idCupon) this.idCupon = _data.idCupon
         
         else this.idCupon = uuidv4();
 

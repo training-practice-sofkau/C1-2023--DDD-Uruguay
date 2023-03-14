@@ -12,7 +12,7 @@ export class MembershipDomainEntity implements IMembershipDomainEntityInterface{
     
     constructor( _data? : IMembershipDomainEntityInterface ){
         
-        if(_data.idMembership) this.idMembership = _data.idMembership
+        if(_data?.idMembership) this.idMembership = _data.idMembership
         
         else this.idMembership = uuidv4();
 

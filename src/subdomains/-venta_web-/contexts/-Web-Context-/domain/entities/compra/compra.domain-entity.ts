@@ -13,7 +13,7 @@ export class CompraDomainEntity implements ICompraDomainEntityInterface{
 
     constructor( _data? : ICompraDomainEntityInterface){
         
-        if(_data.idCompra) this.idCompra = _data.idCompra
+        if(_data?.idCompra) this.idCompra = _data.idCompra
         
         else this.idCompra = uuidv4();
 

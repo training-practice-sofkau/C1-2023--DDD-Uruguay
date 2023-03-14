@@ -1,6 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
-
-
 import { ClienteMySqlEntity } from "./cliente.entity";
 import { CursoMySqlEntity } from "./curso.entity";
 import { CuponMySqlEntity } from "./cupon.entity";
@@ -12,7 +10,6 @@ export class CompraMySqlEntity extends CompraDomainEntity {
     @PrimaryGeneratedColumn('uuid')
     idCompra: string;
 
-    
 
     //RELACIONES
 
@@ -29,13 +26,3 @@ export class CompraMySqlEntity extends CompraDomainEntity {
     cupon: CuponMySqlEntity;
 }
 
-/*
-  @JoinColumn()
-    clienteCompra: ClienteMySqlEntity;
-
-    @JoinColumn()
-    cursoCompra: CursoMySqlEntity;
-
-    @JoinColumn()
-    cuponCompra: CuponMySqlEntity;
-*/

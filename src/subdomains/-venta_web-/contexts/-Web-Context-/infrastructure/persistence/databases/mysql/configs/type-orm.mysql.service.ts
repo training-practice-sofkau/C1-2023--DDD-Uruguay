@@ -14,7 +14,7 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
             host: 'localhost',
             port: 3306,
             username: 'root',
-            password:  'SYSTEM',
+            password:  '12345',
             database:  'ddd_bf_sofka',
             entities: [
                 ClienteMySqlEntity,
