@@ -3,15 +3,19 @@ import {
   IUseCase,
   ValueObjectErrorHandler,
   ValueObjectException,
-} from "../../../../../../../libs/sofka";
-import { InvoiceAggregate } from "../../../domain/aggregates";
-import { CompanyDomainEntityBase } from "../../../domain/entities";
-import { CreatedInvoiceEventPublisherBase } from "../../../domain/events";
-import { IUpdateCompanyNameCommand } from "../../../domain/interfaces/commands/invoice";
-import { IUpdateCompanyNameResponse } from "../../../domain/interfaces/responses/invoice";
-import { IInvoiceDomainService } from "../../../domain/services";
-import { CompanyNameValueObject } from "../../../domain/value-objects";
-import { GetInvoiceUserCase } from "./";
+} from '../../../../../../../libs/sofka';
+import { InvoiceAggregate } from '../../../domain/aggregates';
+import { CompanyDomainEntityBase } from '../../../domain/entities';
+import { CreatedInvoiceEventPublisherBase } from '../../../domain/events';
+import {
+  IUpdateCompanyNameCommand,
+} from '../../../domain/interfaces/commands/invoice';
+import {
+  IUpdateCompanyNameResponse,
+} from '../../../domain/interfaces/responses/invoice';
+import { IInvoiceDomainService } from '../../../domain/services';
+import { CompanyNameValueObject } from '../../../domain/value-objects';
+import { GetInvoiceUserCase } from './';
 
 export class UpdateCompanyNameUseCase<
     Command extends IUpdateCompanyNameCommand = IUpdateCompanyNameCommand,
@@ -45,7 +49,7 @@ export class UpdateCompanyNameUseCase<
   ): Promise<CompanyDomainEntityBase | null> {
     this.validateObjectValue(command.name);
     const invoice = await this.invoiceGet.execute({
-      invoiceId: command.invoiceId,
+      invoiceId: command.companyId,
     });
     if (invoice.success) {
       invoice.data.company.name = command.name;

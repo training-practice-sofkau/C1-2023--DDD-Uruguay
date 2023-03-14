@@ -1,6 +1,6 @@
-import { BenefitedCompanyIdValueObject } from "../../../value-objects/order";
+import { BenefitedCompanyIdValueObject } from '../../../value-objects/order';
 
 export interface IUpdateBenefitedCompanyIdCommand {
-  orderId: string;
+  benefitedId: string;
   companyId: BenefitedCompanyIdValueObject;
 }

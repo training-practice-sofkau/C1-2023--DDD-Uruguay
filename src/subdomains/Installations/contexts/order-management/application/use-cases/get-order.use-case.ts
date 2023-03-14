@@ -2,23 +2,23 @@ import {
   IUseCase,
   ValueObjectErrorHandler,
   ValueObjectException,
-} from '../../../../../../../libs/sofka';
-import { OrderAggregate } from '../../../domain/aggregates';
+} from '../../../../../../libs/sofka';
+import { OrderAggregate } from '../../domain/aggregates';
 import {
   BenefitedDomainEntityBase,
   EmployedDomainEntityBase,
   KitDomainEntityBase,
   OrderDomainEntityBase,
-} from '../../../domain/entities';
-import { IOrderDomainEntity } from '../../../domain/entities/interfaces';
-import { CreatedOrderEventPublisherBase } from '../../../domain/events';
-import { IGetOrderCommand } from '../../../domain/interfaces/commands';
-import { IGetOrderResponse } from '../../../domain/interfaces/responses';
-import { IOrderDomainService } from '../../../domain/services';
+} from '../../domain/entities';
+import { IOrderDomainEntity } from '../../domain/entities/interfaces';
+import { CreatedOrderEventPublisherBase } from '../../domain/events';
+import { IGetOrderCommand } from '../../domain/interfaces/commands';
+import { IGetOrderResponse } from '../../domain/interfaces/responses';
+import { IOrderDomainService } from '../../domain/services';
 import {
   OrderIdValueObject,
   OrderStatusValueObject,
-} from '../../../domain/value-objects';
+} from '../../domain/value-objects';
 import {
   BenefitedAddressValueObject,
   BenefitedCompanyIdValueObject,
@@ -30,7 +30,7 @@ import {
   EmployedPhoneValueObject,
   KitIdValueObject,
   KitModelValueObject,
-} from '../../../domain/value-objects/order';
+} from '../../domain/value-objects/order';
 
 export class GetOrderUserCase<
     Command extends IGetOrderCommand = IGetOrderCommand,

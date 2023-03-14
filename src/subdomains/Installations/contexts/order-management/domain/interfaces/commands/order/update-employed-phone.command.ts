@@ -1,6 +1,6 @@
-import { EmployedPhoneValueObject } from "../../../value-objects/order";
+import { EmployedPhoneValueObject } from '../../../value-objects/order';
 
 export interface IUpdateEmployedPhoneCommand {
-  orderId: string;
+  employedId: string;
   phone: EmployedPhoneValueObject;
 }

@@ -3,15 +3,19 @@ import {
   IUseCase,
   ValueObjectErrorHandler,
   ValueObjectException,
-} from "../../../../../../../libs/sofka";
-import { InvoiceAggregate } from "../../../domain/aggregates";
-import { FeeDomainEntityBase } from "../../../domain/entities";
-import { CreatedInvoiceEventPublisherBase } from "../../../domain/events";
-import { IUpdateFeeTaxCommand } from "../../../domain/interfaces/commands/invoice";
-import { IUpdateFeeTaxResponse } from "../../../domain/interfaces/responses/invoice";
-import { IInvoiceDomainService } from "../../../domain/services";
-import { FeeTaxValueObject } from "../../../domain/value-objects";
-import { GetInvoiceUserCase } from "./";
+} from '../../../../../../../libs/sofka';
+import { InvoiceAggregate } from '../../../domain/aggregates';
+import { FeeDomainEntityBase } from '../../../domain/entities';
+import { CreatedInvoiceEventPublisherBase } from '../../../domain/events';
+import {
+  IUpdateFeeTaxCommand,
+} from '../../../domain/interfaces/commands/invoice';
+import {
+  IUpdateFeeTaxResponse,
+} from '../../../domain/interfaces/responses/invoice';
+import { IInvoiceDomainService } from '../../../domain/services';
+import { FeeTaxValueObject } from '../../../domain/value-objects';
+import { GetInvoiceUserCase } from './';
 
 export class UpdateFeeTaxUseCase<
     Command extends IUpdateFeeTaxCommand = IUpdateFeeTaxCommand,

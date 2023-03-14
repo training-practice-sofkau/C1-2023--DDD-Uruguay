@@ -1,6 +1,6 @@
-import { BenefitedPhoneValueObject } from "../../../value-objects/order";
+import { BenefitedPhoneValueObject } from '../../../value-objects/order';
 
 export interface IUpdateBenefitedPhoneCommand {
-  orderId: string;
+  benefitedId: string;
   phone: BenefitedPhoneValueObject;
 }

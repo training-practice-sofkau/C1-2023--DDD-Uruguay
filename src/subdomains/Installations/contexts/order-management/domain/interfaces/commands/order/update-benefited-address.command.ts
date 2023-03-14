@@ -1,6 +1,6 @@
-import { BenefitedAddressValueObject } from "../../../value-objects/order";
+import { BenefitedAddressValueObject } from '../../../value-objects/order';
 
 export interface IUpdateBenefitedAddressCommand {
-  orderId: string;
+  benefitedId: string;
   address: BenefitedAddressValueObject;
 }

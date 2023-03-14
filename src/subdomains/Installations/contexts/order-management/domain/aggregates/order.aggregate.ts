@@ -6,8 +6,8 @@ import {
   KitDomainEntityBase,
 } from '../entities/order';
 import {
-  GetOrderEventPublisherBase,
   CreatedOrderEventPublisherBase,
+  GetOrderEventPublisherBase,
 } from '../events';
 import {
   OrderBenefitedCreatedEventPublisherBase,
@@ -119,6 +119,24 @@ export class OrderAggregate implements IOrderDomainService {
     return this.orderBenefitedCreatedEventPublisherBase.response[0];
   }
 
+  async getBenefited(benefitedId: string): Promise<BenefitedDomainEntityBase> {
+    if (!this.orderBenefitedCreatedEventPublisherBase)
+      throw new AggregateRootException(
+        "GetInvoiceEventPublisherBase is not defined"
+      );
+
+    return this.orderBenefitedCreatedEventPublisherBase.response[0];
+  }
+
+  async deleteBenefited(benefitedId: string): Promise<boolean> {
+    if (!this.orderBenefitedCreatedEventPublisherBase)
+      throw new AggregateRootException(
+        "GetInvoiceEventPublisherBase is not defined"
+      );
+
+    return this.orderBenefitedCreatedEventPublisherBase.response[0];
+  }
+
   async createKit(kit: KitDomainEntityBase): Promise<KitDomainEntityBase> {
     if (!this.orderKitCreatedEventPublisherBase)
       throw new AggregateRootException(
@@ -126,6 +144,24 @@ export class OrderAggregate implements IOrderDomainService {
       );
 
     return this.orderKitCreatedEventPublisherBase.response[0];
+  }
+
+  async getKit(kitId: string): Promise<BenefitedDomainEntityBase> {
+    if (!this.orderBenefitedCreatedEventPublisherBase)
+      throw new AggregateRootException(
+        "GetInvoiceEventPublisherBase is not defined"
+      );
+
+    return this.orderBenefitedCreatedEventPublisherBase.response[0];
+  }
+
+  async deleteKit(kitId: string): Promise<boolean> {
+    if (!this.orderBenefitedCreatedEventPublisherBase)
+      throw new AggregateRootException(
+        "GetInvoiceEventPublisherBase is not defined"
+      );
+
+    return this.orderBenefitedCreatedEventPublisherBase.response[0];
   }
 
   async createEmployed(
@@ -137,6 +173,24 @@ export class OrderAggregate implements IOrderDomainService {
       );
 
     return this.orderEmployedCreatedEventPublisherBase.response[0];
+  }
+
+  async getEmployed(employedId: string): Promise<EmployedDomainEntityBase> {
+    if (!this.orderBenefitedCreatedEventPublisherBase)
+      throw new AggregateRootException(
+        "GetInvoiceEventPublisherBase is not defined"
+      );
+
+    return this.orderBenefitedCreatedEventPublisherBase.response[0];
+  }
+
+  async deleteEmployed(employedId: string): Promise<boolean> {
+    if (!this.orderBenefitedCreatedEventPublisherBase)
+      throw new AggregateRootException(
+        "GetInvoiceEventPublisherBase is not defined"
+      );
+
+    return this.orderBenefitedCreatedEventPublisherBase.response[0];
   }
 
   async updateBenefited(

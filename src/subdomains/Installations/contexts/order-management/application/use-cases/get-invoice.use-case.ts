@@ -2,22 +2,22 @@ import {
   IUseCase,
   ValueObjectErrorHandler,
   ValueObjectException,
-} from '../../../../../../../libs/sofka';
-import { InvoiceAggregate } from '../../../domain/aggregates';
+} from '../../../../../../libs/sofka';
+import { InvoiceAggregate } from '../../domain/aggregates';
 import {
   CompanyDomainEntityBase,
   FeeDomainEntityBase,
   InvoiceDomainEntityBase,
-} from '../../../domain/entities/';
-import { IInvoiceDomainEntity } from '../../../domain/entities/interfaces/';
-import { CreatedInvoiceEventPublisherBase } from '../../../domain/events';
-import { IGetInvoiceCommand } from '../../../domain/interfaces/commands';
-import { IGetInvoiceResponse } from '../../../domain/interfaces/responses';
-import { IInvoiceDomainService } from '../../../domain/services';
+} from '../../domain/entities/';
+import { IInvoiceDomainEntity } from '../../domain/entities/interfaces/';
+import { CreatedInvoiceEventPublisherBase } from '../../domain/events';
+import { IGetInvoiceCommand } from '../../domain/interfaces/commands';
+import { IGetInvoiceResponse } from '../../domain/interfaces/responses';
+import { IInvoiceDomainService } from '../../domain/services';
 import {
   InvoiceIdValueObject,
   InvoiceStatusValueObject,
-} from '../../../domain/value-objects';
+} from '../../domain/value-objects';
 import {
   CompanyBankAccountValueObject,
   CompanyIdValueObject,
@@ -25,7 +25,7 @@ import {
   FeeChargeValueObject,
   FeeIdValueObject,
   FeeTaxValueObject,
-} from '../../../domain/value-objects/invoice';
+} from '../../domain/value-objects/invoice';
 
 export class GetInvoiceUserCase<
     Command extends IGetInvoiceCommand = IGetInvoiceCommand,
