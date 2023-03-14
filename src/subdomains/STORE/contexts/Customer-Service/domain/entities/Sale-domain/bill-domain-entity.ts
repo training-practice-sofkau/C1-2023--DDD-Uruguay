@@ -24,7 +24,7 @@ export class BillDomain implements IBillEntity{
 
     constructor (_data?: IBillEntity){
 
-        if(_data.IDBill) this.IDBill = _data.IDBill
+        if(_data?.IDBill) this.IDBill = _data.IDBill
         
         else this.IDBill = uuidv4()      
 

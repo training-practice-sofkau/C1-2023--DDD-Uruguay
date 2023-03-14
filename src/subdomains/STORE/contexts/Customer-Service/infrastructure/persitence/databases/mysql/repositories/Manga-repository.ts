@@ -23,7 +23,7 @@ export class MangaRepository
      async   create(entity: MangaEntityDb): Promise<MangaEntityDb> {
      return this.repository.create(entity)    }
 
-   async  update(Mangaid: string, newManga: MangaEntityDb): Promise<MangaEntityDb> {
+  async update(Mangaid: string, newManga: MangaEntityDb): Promise<MangaEntityDb> {
         const Manga = await this.repository.findOneBy({ Mangaid });
         if (Manga) {
           const newEntity = {

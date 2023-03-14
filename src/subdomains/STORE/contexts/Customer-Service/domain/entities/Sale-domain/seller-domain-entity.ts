@@ -10,7 +10,7 @@ export class SellerDomain  implements ISellerEntity{
 
     constructor (_data?: ISellerEntity){
 
-        if(_data.IdSeller) this.IdSeller = _data.IdSeller
+        if(_data?.IdSeller) this.IdSeller = _data.IdSeller
         
         else this.IdSeller = uuidv4()      
 

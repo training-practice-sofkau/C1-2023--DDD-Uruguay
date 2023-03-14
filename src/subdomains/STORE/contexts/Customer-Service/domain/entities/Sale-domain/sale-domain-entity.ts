@@ -15,9 +15,7 @@ export class SaleDomainEntity implements ISaleEntity{
     
     constructor (_data?: ISaleEntity){
 
-        if(_data.IDSale) this.IDSale = _data.IDSale
-        
-        else this.IDSale = uuidv4()      
+           
 
         if (_data?.Seller) this.Seller = _data.Seller;
 

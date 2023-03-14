@@ -214,7 +214,7 @@ Publisher events go in this place
    * It updates the stock of a manga.
    * @param {string} MangaId - The id of the manga you want to update.
    */
-  async UpdateMangaStock(data: IUpdateMangaStock): Promise<MangaDomainBase> {
+  async UpdateMangaStock(data: MangaDomainBase): Promise<MangaDomainBase> {
     if (this.orderService && this.ModifiedMangaStockingEventPublisher) {
       const result = await this.orderService.UpdateMangaStock(data);
 

@@ -19,6 +19,10 @@ import { OrdertMySqlService } from './services/IOrder-Domain-Service';
 import { SaleMySqlService } from './services/ISale-Domain-Service';
 import { BillMySqlService } from './services/IBill-Domain-Service';
 import { SellerMySqlService } from './services/ISeller-Domain-Service';
+import { OrderRepository } from './repositories/Order-Repository';
+import { SaleRepository } from './repositories/Sale-Repository';
+import { BillRepository } from './repositories/Bill-repository';
+import { SellerRepository } from './repositories/Seller-repository';
 
 @Module({
     imports: [
@@ -43,24 +47,26 @@ import { SellerMySqlService } from './services/ISeller-Domain-Service';
       MangaRepository,
       MangaMySqlService,
       OrdertMySqlService,
-      OrderEntityDb,
-      saleEntityBd,
+      OrderRepository,
+      SaleRepository,
       SaleMySqlService,
-      BillEntityDB,
+      BillRepository,
       BillMySqlService,
-      SellerEntityDB,
+      SellerRepository,
       SellerMySqlService
       
     ],
-    exports: [ClientMySqlService, ClientRepository,   MangaRepository,
-      MangaMySqlService,
-      OrdertMySqlService,
-      OrderEntityDb,
-      saleEntityBd,
+  exports: [ClientMySqlService,
+    ClientRepository,
+    MangaRepository,
+     MangaMySqlService,
+     OrdertMySqlService,
+    OrderRepository,
+      SaleRepository,
       SaleMySqlService,
-      BillEntityDB,
+      BillRepository,
       BillMySqlService,
-      SellerEntityDB,
+      SellerRepository,
       SellerMySqlService],
   })
 export class MysqlModule {}

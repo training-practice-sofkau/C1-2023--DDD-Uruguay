@@ -17,7 +17,7 @@ export class OrdertMySqlService implements IorderDomainService<OrderEntityDb> {
     RegisterOrder(data: OrderEntityDb): Promise<OrderEntityDb> {
         return this.OrderRepository.create(data)
     }
-    GetClient(data: string): Promise<ClientDomainBase> {
+    GetClient(data: string): Promise<ClientEntityDB> {
         return this.ClientRepository.findById(data)
     }
    
@@ -27,17 +27,15 @@ export class OrdertMySqlService implements IorderDomainService<OrderEntityDb> {
         return DeleteUster;
         
     }
-    GetManga(data: string): Promise<MangaDomainBase> {
+    GetManga(data: string): Promise<MangaEntityDb> {
         return this.MangaRepository.findById(data)
     }
-    AddClient(data: ClientEntityDB): Promise<ClientDomainBase> {
+    AddClient(data: ClientEntityDB): Promise<ClientEntityDB> {
         return this.ClientRepository.create(data)
     }
-    UpdateMangaStock(data: IUpdateMangaStock): Promise<MangaDomainBase> {
-        const newStockManga = new MangaEntityDb
-        newStockManga.Stock = data.MangaStock
-
-        return this.MangaRepository.update(data.MangaId, newStockManga)
+    UpdateMangaStock(data: MangaEntityDb): Promise<MangaEntityDb> {
+      
+        return this.MangaRepository.update(data.Mangaid, data)
         }
 
 }

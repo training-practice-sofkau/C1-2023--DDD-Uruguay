@@ -98,7 +98,7 @@ export class SaleAgregate
     );
   }
 
-  async UpdateNameSeller(data: string): Promise<SellerDomain> {
+  async UpdateNameSeller(data: SellerDomain): Promise<SellerDomain> {
     if (this.billservice && this.SellerNameModifiedEventPublisher) {
       const result = await this.sellerService.UpdateNameSeller(data);
       this.SellerNameModifiedEventPublisher.response = result;
@@ -194,7 +194,7 @@ export class SaleAgregate
     );
   }
 
-  async UpdateSeller(data: IUpdateNameSeller): Promise<SellerDomain> {
+  async UpdateSeller(data: SellerDomain): Promise<SellerDomain> {
     if (this.billservice && this.SellerModifiedEventPublisher) {
       const result = await this.saleservice.UpdateSeller(data);
       this.SellerModifiedEventPublisher.response = result;

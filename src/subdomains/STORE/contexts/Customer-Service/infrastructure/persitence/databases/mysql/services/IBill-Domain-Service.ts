@@ -1,3 +1,4 @@
+import { MangaEntityDb } from './../entities/Manga-entity-db';
 import { MangaDomainBase } from 'src/subdomains/Store/contexts/Customer-Service/domain/entities';
 import { IUpdateTotal, IGetMangaData } from 'src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands';
 import { BillDomainService } from '../../../../../domain/services/Bill-domain-service';
@@ -15,7 +16,7 @@ export class BillMySqlService implements BillDomainService<BillEntityDB> {
     UpdateTotal(data: BillEntityDB): Promise<BillEntityDB> {
         return this.BillRepository.update(data.IDBill, data)
     }
-     getMangaData(data: string): Promise<MangaDomainBase> {
+     getMangaData(data: string): Promise<MangaEntityDb> {
         return  this.MangaRepository.findById(data)
     }
 }

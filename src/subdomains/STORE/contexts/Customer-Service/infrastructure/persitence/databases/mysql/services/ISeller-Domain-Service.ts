@@ -6,7 +6,9 @@ export class SellerMySqlService
 
         constructor( private readonly SellerRepository: SellerRepository) { }
 
-    UpdateNameSeller(data: string): Promise<SellerEntityDB> {
-        return this.SellerRepository.findById(data)
+    UpdateNameSeller(data: SellerEntityDB): Promise<SellerEntityDB> {
+
+
+        return this.SellerRepository.update(data.IdSeller, data)
     }
 }

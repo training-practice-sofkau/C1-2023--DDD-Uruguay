@@ -11,7 +11,7 @@ export class ClientDomainBase  implements IClientEntity {
     
     constructor (_data?: IClientEntity){
 
-        if(_data.ClientID) this.ClientID = _data.ClientID
+        if(_data?.ClientID) this.ClientID = _data.ClientID
         
         else this.ClientID = uuidv4()      
 

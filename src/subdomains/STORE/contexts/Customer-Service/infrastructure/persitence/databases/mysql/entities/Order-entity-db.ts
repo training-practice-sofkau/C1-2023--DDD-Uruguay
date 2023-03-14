@@ -7,7 +7,7 @@ import { OrderDomainEntityBase } from '../../../../../domain/entities/Order-doma
 @Entity()
 export class OrderEntityDb extends OrderDomainEntityBase {
   @PrimaryGeneratedColumn('uuid')
-    orderId: string;
+  orderId: string;
 
  
   @OneToOne(() => ClientEntityDB, (client) => client.order, {

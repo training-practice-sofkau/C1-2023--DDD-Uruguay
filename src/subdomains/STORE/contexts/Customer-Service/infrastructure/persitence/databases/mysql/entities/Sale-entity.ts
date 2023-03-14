@@ -17,7 +17,7 @@ export class saleEntityBd extends SaleDomainEntity {
         cascade: ['insert', 'update']
     })
     @JoinColumn()
-    Seller?: SellerDomain;
+    Seller?: SellerEntityDB;
 
     @PrimaryGeneratedColumn('uuid')
     IDSale?: string

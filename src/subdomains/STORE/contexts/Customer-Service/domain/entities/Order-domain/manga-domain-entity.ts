@@ -13,7 +13,7 @@ export class MangaDomainBase implements IMangaEntity {
 
     constructor (_data?: IMangaEntity){
 
-        if(_data.Mangaid) this.Mangaid = _data.Mangaid
+        if(_data?.Mangaid) this.Mangaid = _data.Mangaid
         
         else this.Mangaid = uuidv4()      
 

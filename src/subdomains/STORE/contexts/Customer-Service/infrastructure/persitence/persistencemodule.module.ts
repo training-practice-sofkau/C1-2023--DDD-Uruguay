@@ -9,6 +9,6 @@ import { BillService, ClientService, MangaService, OrderService, SaleService, Se
 @Module({
     imports: [MysqlModule],
     exports: [ClientService, OrderService, BillService, SellerService,MangaService,SaleService],
-    providers: [ClientService, OrderService, BillService, SellerService,MangaService,SaleService],
+    providers: [ ClientService, OrderService, BillService, SellerService,MangaService,SaleService],
 })
 export class PersistenceModuleModule {}

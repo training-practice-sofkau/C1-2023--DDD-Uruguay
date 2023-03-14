@@ -12,7 +12,7 @@ export class OrderDomainEntityBase implements IOrderentity {
     
     constructor (_data?: IOrderentity){
 
-        if(_data.orderId) this.orderId = _data.orderId
+        if(_data?.orderId) this.orderId = _data.orderId
         
         else this.orderId = uuidv4()      
 
