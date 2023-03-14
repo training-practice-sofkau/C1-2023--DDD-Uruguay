@@ -1,11 +1,11 @@
 import { IsString,IsUUID } from 'class-validator';
-import { IModificarSalarioCommands } from 'src/subdomains/area-deportiva/contexts/rrhh/domain/interfaces/commands/empleado';
+import { IModificarSalarioEmpleadoCommands } from 'src/subdomains/area-deportiva/contexts/rrhh/domain/interfaces/commands/staff-deportivo';
 
-export class ModificarSalarioEmpleadoCommand implements IModificarSalarioCommands {
+export class ModificarSalarioEmpleadoCommand implements IModificarSalarioEmpleadoCommands {
 
     @IsUUID()
-    empleadoId: string;
+    empleadoId?: string;
 
     @IsString()
-    salario: string;
+    salario?: number;
 }

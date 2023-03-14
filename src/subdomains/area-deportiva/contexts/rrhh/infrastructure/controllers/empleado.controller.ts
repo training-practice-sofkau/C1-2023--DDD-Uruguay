@@ -11,6 +11,8 @@ import { ModificarNombreEmpleadoCommand } from '../utils/commands/staffDeportivo
 import { ModificarTipoEmpleadoCommand } from '../utils/commands/staffDeportivo/empleado/modificar-tipo-empleado.commands';
 import { ModificarDocumentoEmpleadoCommand } from '../utils/commands/staffDeportivo/empleado/modificar-documento-empleado.commands';
 import { ModificarSalarioEmpleadoCommand } from '../utils/commands/staffDeportivo/empleado/modificar-salario-empleado.commands';
+import { ModificarNombreEmpleadoUseCase } from '../../application/use-cases/staff-deportivo/modificar-nombre-empleado.case-use';
+import { ModificarDocumentoEmpleadoUseCase, ModificarSalarioEmpleadoUseCase, ModificarTipoEmpleadoUseCase } from '../../application';
 
 @Controller('empleado')
 export class EmpleadoController {
@@ -36,35 +38,35 @@ export class EmpleadoController {
 
     @Post('/modificar-agregar')
     async modificarNombreEmpleado(@Body() command: ModificarNombreEmpleadoCommand) {
-        const useCase = new CrearEmpleadoUseCase(
+        const useCase = new ModificarNombreEmpleadoUseCase(
             this.empleadoService,
-            this.emppleadoAgregadoEventPublisher,
+            this.nombremodificadoEvent,
         );
         return await useCase.execute(command);
     }
     @Post('/modificar-documento')
     async modificarDocumentoEmpleado(@Body() command: ModificarDocumentoEmpleadoCommand) {
-        const useCase = new CrearEmpleadoUseCase(
+        const useCase = new ModificarDocumentoEmpleadoUseCase(
             this.empleadoService,
-            this.emppleadoAgregadoEventPublisher,
+            this.documentoModificadoEvent,
         );
         return await useCase.execute(command);
     }
     
     @Post('/modificar-tipo')
     async modificarTipoEmpleado(@Body() command: ModificarTipoEmpleadoCommand) {
-        const useCase = new CrearEmpleadoUseCase(
+        const useCase = new ModificarTipoEmpleadoUseCase(
             this.empleadoService,
-            this.emppleadoAgregadoEventPublisher,
+            this.tipoEmpleadoModificadoEvent,
         );
         return await useCase.execute(command);
     }
 
     @Post('/modificar-salario')
     async modificarSalarioEmpleado(@Body() command: ModificarSalarioEmpleadoCommand) {
-        const useCase = new CrearEmpleadoUseCase(
+        const useCase = new ModificarSalarioEmpleadoUseCase(
             this.empleadoService,
-            this.emppleadoAgregadoEventPublisher,
+            this.salarioModificadoEvent,
         );
         return await useCase.execute(command);
     }

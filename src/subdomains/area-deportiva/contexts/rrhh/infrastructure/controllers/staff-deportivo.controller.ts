@@ -14,8 +14,8 @@ export class StaffDeportivoController {
         private readonly empleadoBuscadoEvent : EmpleadoBuscadoEventPublisher,
     ) {}
 
-    @Post('/add-client')
-    async addClient(@Body() command: CrearStaffDeportivoCommand) {
+    @Post('/crear')
+    async crearStaffDeportivo(@Body() command: CrearStaffDeportivoCommand) {
         const useCase = new CrearStaffDeportivoUseCase(
             this.staffDeportivoService,
             this.staffDeportivoCreadoEventPublisher,
