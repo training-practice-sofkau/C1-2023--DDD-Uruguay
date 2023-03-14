@@ -10,7 +10,8 @@ import {
 } from '../../application/use-cases';
 import {
   CreatedOrderPublisher,
-} from '../messaging/publisher/created-order.publisher';
+  GettedOrderPublisher,
+} from '../messaging/publisher';
 import { OrderService } from '../persistence/services';
 import {
   CreateOrderCommand,
@@ -22,6 +23,7 @@ export class OrderController {
     constructor(
         private readonly orderService: OrderService,
         private readonly createdOrderEventPublisher: CreatedOrderPublisher,
+        private readonly gettedOrderEventPublisher: GettedOrderPublisher
     ) {}
 
     @Post('/create-order')
@@ -37,7 +39,7 @@ export class OrderController {
     async getOrder(@Body() command: GetOrderCommand) {
         const useCase = new GetOrderUserCase(
             this.orderService,
-            this.createdOrderEventPublisher,
+            this.gettedOrderEventPublisher,
         );
         return await useCase.execute(command);
     }

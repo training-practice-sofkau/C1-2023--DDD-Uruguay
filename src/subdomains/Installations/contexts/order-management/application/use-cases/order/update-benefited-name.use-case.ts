@@ -47,10 +47,13 @@ export class UpdateBenefitedNameUseCase<
   private async executeCommand(
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
-    this.validateObjectValue(command.name);
+    let name: BenefitedNameValueObject;
+    if (typeof command.name != "string"){
+      name = this.validateObjectValue(command.name);
+    } else name = new BenefitedNameValueObject(command.name.toString());
     const order = await this.orderAggregateRoot.getBenefited(command.benefitedId);
     if (order) {
-      order.name = command.name;
+      order.name = name;
       return order;
     } else
       throw new AggregateUpdateException(
@@ -58,7 +61,7 @@ export class UpdateBenefitedNameUseCase<
       );
   }
 
-  private validateObjectValue(valueObject: BenefitedNameValueObject): void {
+  private validateObjectValue(valueObject: BenefitedNameValueObject): BenefitedNameValueObject {
     if (
       valueObject instanceof BenefitedNameValueObject &&
       valueObject.hasErrors()
@@ -70,5 +73,7 @@ export class UpdateBenefitedNameUseCase<
         "Hay algunos errores en el comando ejecutado por UpdateBenefitedNameUserCase",
         this.getErrors()
       );
+    
+    return valueObject;
   }
 }

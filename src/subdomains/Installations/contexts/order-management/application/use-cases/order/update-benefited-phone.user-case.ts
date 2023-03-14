@@ -47,10 +47,13 @@ export class UpdateBenefitedPhoneUseCase<
   private async executeCommand(
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
-    this.validateObjectValue(command.phone);
+    let phone: BenefitedPhoneValueObject;
+    if (typeof command.phone != "string"){
+      phone = this.validateObjectValue(command.phone);
+    } else phone = new BenefitedPhoneValueObject(command.phone.toString());
     const order = await this.orderAggregateRoot.getBenefited(command.benefitedId);
     if (order) {
-      order.phone = command.phone;
+      order.phone = phone;
       return order;
     } else
       throw new AggregateUpdateException(
@@ -58,7 +61,7 @@ export class UpdateBenefitedPhoneUseCase<
       );
   }
 
-  private validateObjectValue(valueObject: BenefitedPhoneValueObject): void {
+  private validateObjectValue(valueObject: BenefitedPhoneValueObject): BenefitedPhoneValueObject {
     if (
       valueObject instanceof BenefitedPhoneValueObject &&
       valueObject.hasErrors()
@@ -70,5 +73,7 @@ export class UpdateBenefitedPhoneUseCase<
         "Hay algunos errores en el comando ejecutado por UpdateBenefitedPhoneUserCase",
         this.getErrors()
       );
+    
+    return valueObject;
   }
 }

@@ -47,10 +47,13 @@ export class UpdateEmployedNameUseCase<
   private async executeCommand(
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
-    this.validateObjectValue(command.name);
+    let name: EmployedNameValueObject;
+    if (typeof command.name != "string"){
+      name = this.validateObjectValue(command.name);
+    } else name = new EmployedNameValueObject(command.name.toString());
     const order = await this.orderAggregateRoot.getEmployed(command.employedId);
     if (order) {
-      order.name = command.name;
+      order.name = name;
       return order;
     } else
       throw new AggregateUpdateException(
@@ -58,7 +61,7 @@ export class UpdateEmployedNameUseCase<
       );
   }
 
-  private validateObjectValue(valueObject: EmployedNameValueObject): void {
+  private validateObjectValue(valueObject: EmployedNameValueObject): EmployedNameValueObject {
     if (
       valueObject instanceof EmployedNameValueObject &&
       valueObject.hasErrors()
@@ -70,5 +73,7 @@ export class UpdateEmployedNameUseCase<
         "Hay algunos errores en el comando ejecutado por UpdateEmployedNameUserCase",
         this.getErrors()
       );
+
+    return valueObject;
   }
 }

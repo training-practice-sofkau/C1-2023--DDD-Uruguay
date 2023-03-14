@@ -47,10 +47,13 @@ export class UpdateFeeTaxUseCase<
   private async executeCommand(
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
-    this.validateObjectValue(command.tax);
+    let tax: FeeTaxValueObject;
+    if (typeof command.tax != "string"){
+      tax = this.validateObjectValue(command.tax);
+    } else tax = new FeeTaxValueObject(+command.tax);
     const invoice = await this.invoiceAggregateRoot.getFee(command.feeId);
     if (invoice) {
-      invoice.tax = command.tax;
+      invoice.tax = tax;
       return invoice;
     } else
       throw new AggregateUpdateException(
@@ -58,7 +61,7 @@ export class UpdateFeeTaxUseCase<
       );
   }
 
-  private validateObjectValue(valueObject: FeeTaxValueObject): void {
+  private validateObjectValue(valueObject: FeeTaxValueObject): FeeTaxValueObject {
     if (valueObject instanceof FeeTaxValueObject && valueObject.hasErrors())
       this.setErrors(valueObject.getErrors());
 
@@ -67,5 +70,7 @@ export class UpdateFeeTaxUseCase<
         "Hay algunos errores en el comando ejecutado por UpdateFeeTaxUserCase",
         this.getErrors()
       );
+    
+    return valueObject;
   }
 }

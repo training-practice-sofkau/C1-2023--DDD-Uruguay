@@ -47,10 +47,13 @@ export class UpdateBenefitedAddressUseCase<
   private async executeCommand(
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
-    this.validateObjectValue(command.address);
+    let address: BenefitedAddressValueObject;
+    if (typeof command.address != "string"){
+      address = this.validateObjectValue(command.address);
+    } else address = new BenefitedAddressValueObject(command.address.toString());
     const order = await this.orderAggregateRoot.getBenefited(command.benefitedId);
     if (order) {
-      order.address = command.address;
+      order.address = address;
       return order;
     } else
       throw new AggregateUpdateException(
@@ -58,7 +61,7 @@ export class UpdateBenefitedAddressUseCase<
       );
   }
 
-  private validateObjectValue(valueObject: BenefitedAddressValueObject): void {
+  private validateObjectValue(valueObject: BenefitedAddressValueObject): BenefitedAddressValueObject {
     if (
       valueObject instanceof BenefitedAddressValueObject &&
       valueObject.hasErrors()
@@ -70,5 +73,7 @@ export class UpdateBenefitedAddressUseCase<
         "Hay algunos errores en el comando ejecutado por UpdateBenefitedAddressUserCase",
         this.getErrors()
       );
+    
+    return valueObject;
   }
 }

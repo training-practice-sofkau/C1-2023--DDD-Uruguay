@@ -45,10 +45,13 @@ export class UpdateCompanyBankAccountUseCase<
   private async executeCommand(
     command: Command
   ): Promise<CompanyDomainEntityBase | null> {
-    this.validateObjectValue(command.bankAccount);
+    let bankAccount: CompanyBankAccountValueObject;
+    if (typeof command.bankAccount != "string"){
+      bankAccount = this.validateObjectValue(command.bankAccount);
+    } else bankAccount = new CompanyBankAccountValueObject(command.bankAccount.toString());
     const invoice = await this.invoiceAggregateRoot.getCompany(command.companyId);
     if (invoice) {
-      invoice.bankAccount = command.bankAccount;
+      invoice.bankAccount = bankAccount;
       return invoice;
     } else
       throw new AggregateUpdateException(
@@ -58,7 +61,7 @@ export class UpdateCompanyBankAccountUseCase<
 
   private validateObjectValue(
     valueObject: CompanyBankAccountValueObject
-  ): void {
+  ): CompanyBankAccountValueObject {
     if (
       valueObject instanceof CompanyBankAccountValueObject &&
       valueObject.hasErrors()
@@ -70,5 +73,7 @@ export class UpdateCompanyBankAccountUseCase<
         "Hay algunos errores en el comando ejecutado por UpdateCompanyBankAccountUserCase",
         this.getErrors()
       );
+    
+    return valueObject;
   }
 }

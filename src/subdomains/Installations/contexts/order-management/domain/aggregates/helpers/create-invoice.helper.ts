@@ -1,6 +1,6 @@
-import { InvoiceDomainEntityBase } from "../../entities";
-import { CreatedInvoiceEventPublisherBase } from "../../events";
-import { IInvoiceDomainService } from "../../services";
+import { InvoiceDomainEntityBase } from '../../entities';
+import { CreatedInvoiceEventPublisherBase } from '../../events';
+import { IInvoiceDomainService } from '../../services';
 
 export const CreateInvoice = async (
   invoice: InvoiceDomainEntityBase,

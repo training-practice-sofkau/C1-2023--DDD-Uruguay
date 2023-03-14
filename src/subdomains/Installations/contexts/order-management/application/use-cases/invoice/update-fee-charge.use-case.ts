@@ -47,10 +47,13 @@ export class UpdateFeeChargeUseCase<
   private async executeCommand(
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
-    this.validateObjectValue(command.charge);
+    let charge: FeeChargeValueObject;
+    if (typeof command.charge != "string"){
+      charge = this.validateObjectValue(command.charge);
+    } else charge = new FeeChargeValueObject(+command.charge);
     const invoice = await this.invoiceAggregateRoot.getFee(command.feeId);
     if (invoice) {
-      invoice.charge = command.charge;
+      invoice.charge = charge;
       return invoice;
     } else
       throw new AggregateUpdateException(
@@ -58,7 +61,7 @@ export class UpdateFeeChargeUseCase<
       );
   }
 
-  private validateObjectValue(valueObject: FeeChargeValueObject): void {
+  private validateObjectValue(valueObject: FeeChargeValueObject): FeeChargeValueObject {
     if (valueObject instanceof FeeChargeValueObject && valueObject.hasErrors())
       this.setErrors(valueObject.getErrors());
 
@@ -67,5 +70,7 @@ export class UpdateFeeChargeUseCase<
         "Hay algunos errores en el comando ejecutado por UpdateFeeChargeUserCase",
         this.getErrors()
       );
+    
+    return valueObject;
   }
 }

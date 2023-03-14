@@ -47,10 +47,13 @@ export class UpdateKitModelUseCase<
   private async executeCommand(
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
-    this.validateObjectValue(command.model);
+    let model: KitModelValueObject;
+    if (typeof command.model != "string"){
+      model = this.validateObjectValue(command.model);
+    } else model = new KitModelValueObject(command.model.toString());
     const order = await this.orderAggregateRoot.getKit(command.kitId);
     if (order) {
-      order.model = command.model;
+      order.model = model;
       return order;
     } else
       throw new AggregateUpdateException(
@@ -58,7 +61,7 @@ export class UpdateKitModelUseCase<
       );
   }
 
-  private validateObjectValue(valueObject: KitModelValueObject): void {
+  private validateObjectValue(valueObject: KitModelValueObject): KitModelValueObject {
     if (valueObject instanceof KitModelValueObject && valueObject.hasErrors())
       this.setErrors(valueObject.getErrors());
 
@@ -67,5 +70,7 @@ export class UpdateKitModelUseCase<
         "Hay algunos errores en el comando ejecutado por UpdateKitModelUserCase",
         this.getErrors()
       );
+
+    return valueObject;
   }
 }
