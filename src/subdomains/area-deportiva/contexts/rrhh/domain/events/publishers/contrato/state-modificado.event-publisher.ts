@@ -1,7 +1,7 @@
 import { EventPublisherBase } from "src/libs";
 import { ContratoDomainEntity } from '../../../entities/contrato/contrato.domain-entity';
 
-export abstract class StateModificadoEventPublisher
+export abstract class StateContratoModificadoEventPublisher
 <Response = ContratoDomainEntity>
     extends EventPublisherBase<Response>{
         
