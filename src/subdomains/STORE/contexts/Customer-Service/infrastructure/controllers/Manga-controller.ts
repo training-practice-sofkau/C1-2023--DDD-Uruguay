@@ -15,7 +15,7 @@ import { IupdateMangaPrice } from '../utils/commands/order/IupdateMangaPrice';
 import { IUpdateMangaStockCommand } from '../utils/commands/order/IUpdateMangaStock';
 import { IUpdateStateManga } from '../utils/commands/order/IUpdateStateManga';
 
-@Controller('order')
+@Controller('manga')
 export class OrderController {
   constructor(
     private readonly mangaService: MangaService,
@@ -29,7 +29,7 @@ export class OrderController {
 
 
 
-  @Get('GetManga')
+  @Get()
   getManga(@Body() command: IGetManga) {
     const useCase = new  GetMangaCaseUse (this.mangaService,  this.getMangaEventPublisher)
     return useCase.execute(command)

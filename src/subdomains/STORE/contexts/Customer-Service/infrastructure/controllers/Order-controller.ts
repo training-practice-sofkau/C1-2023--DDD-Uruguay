@@ -6,14 +6,14 @@ import {
   IOrderAddEventPublisher,
 } from '../messaging/publisher/order';
 import { ClientService, OrderService } from '../persitence';
+import { IaddClientCOmmand } from '../utils/commands/order/IaddClientCOmmand';
 import { IRegisterOrderCommand } from '../utils/commands/order/Iregister-order-comand';
 
 @Controller('order')
 export class OrderController {
   constructor(
     private readonly orderService: OrderService,
-    private readonly ClientService: ClientService,
-    private readonly AddCustomerEventPublisher: IClientAddEventPublisher,
+
     private readonly registerOrderEventPublisher: IOrderAddEventPublisher,
     
   ) {}
@@ -27,14 +27,6 @@ export class OrderController {
     return await useCase.execute(command);
   }
 
-  @Post('create-Customer')
-  createCustomer(@Body() command: IAddClient) {
-    const useCase = new AddCustomerCaseUse(
-      this.orderService,
-      this.AddCustomerEventPublisher,
-    );
-    return useCase.execute(command);
-  }
 
   
 }

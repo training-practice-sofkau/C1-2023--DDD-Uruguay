@@ -1,13 +1,21 @@
 import { UpdatePhoneClientCaseUse } from './../../application/use-cases/Order-Use-case/client-case-use/update-phone-client-case-use/update-phone-client-case-use';
-import { Controller, Post, Body, Patch } from '@nestjs/common';
-import { UpdateNameClientCaseUse } from '../../application';
+import { Controller, Post, Body, Patch, Put, Get } from '@nestjs/common';
+import { AddCustomerCaseUse, UpdateNameClientCaseUse } from '../../application';
 import { IAddClient, UpdateNameClient } from '../../domain/interfaces/commands';
 import {
+  IClientAddEventPublisher,
+  IClientObtainedEventPublisher,
   INameModifiedEventPublisher,
   IOrderAddEventPublisher,
   IPhoneModifiedEventPublisher,
 } from '../messaging/publisher/order';
 import { ClientService } from '../persitence/services/OrderServices/ClientService';
+import { IupdatePhoneClient } from '../utils/commands/order/IupdatePhoneClient';
+import { IUpdateNameClient } from '../utils/commands/order/IUpdateNameClient';
+import { IaddClientCOmmand } from '../utils/commands/order/IaddClientCOmmand';
+import { OrderService } from '../persitence';
+import { IGetClientCommand } from '../utils/commands/order/IGet-Client-Command';
+import { GetClientCaseUse } from '../../application/use-cases/Order-Use-case/get-client-case-use/get-client-case-use';
 
 @Controller('Client')
 export class ClientController {
@@ -15,30 +23,46 @@ export class ClientController {
     private readonly ClientService: ClientService,
     private readonly NameModifiedEventPublisher: INameModifiedEventPublisher,
     private readonly IPhoneModifiedEventPublisher: IPhoneModifiedEventPublisher,
+    private readonly AddCustomerEventPublisher: IClientAddEventPublisher,
+    private readonly orderService: OrderService,
+    private readonly IClientObtainedEventPublisher: IClientObtainedEventPublisher,
 
-    private readonly registerOrderEventPublisher: IOrderAddEventPublisher,
+
   ) {}
 
-  @Patch('update-client-name')
-    updateClient(@Body()  command: UpdateNameClient) {
-        const useCase = new  UpdateNameClientCaseUse(this.ClientService,  this.NameModifiedEventPublisher)
-         useCase.execute(command);
-      }
-
-
-
-      @Patch('update-client-phone')
-      updateClientPhone(@Body()  command: UpdatePhone) {
-          const useCase = new  UpdatePhoneClientCaseUse(this.ClientService,  this.IPhoneModifiedEventPublisher)
-           useCase.execute(command);
-        }   
-
+  @Put('update-client-name')
+  updateClientName(@Body() command: IUpdateNameClient) {
+    const useCase = new UpdateNameClientCaseUse(
+      this.ClientService,
+      this.NameModifiedEventPublisher,
+    );
+    useCase.execute(command);
   }
- 
-  
+
+  @Put('update-client-phone')
+  updateClientPhone(@Body() command: IupdatePhoneClient) {
+    const useCase = new UpdatePhoneClientCaseUse(
+      this.ClientService,
+      this.IPhoneModifiedEventPublisher,
+    );
+    useCase.execute(command);
+  }
 
 
+  @Post('create-Customer')
+  createCustomer(@Body() command: IaddClientCOmmand) {
+    const useCase = new AddCustomerCaseUse(
+      this.orderService,
+      this.AddCustomerEventPublisher,
+    );
+    return useCase.execute(command);
+  }
 
+  @Get()
+  getClient(@Body() command: IGetClientCommand) {
+    const useCase = new  GetClientCaseUse (this.ClientService,  this.IClientObtainedEventPublisher)
+    return useCase.execute(command)
+    
+  }
 
-
-
+}
