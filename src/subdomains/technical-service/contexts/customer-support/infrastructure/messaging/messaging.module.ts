@@ -83,7 +83,24 @@ import {
         WorkStatusChangedPublisher
     ],
     exports:[
-
+      CustomerCreatedPublisher,
+      CustomerEmailChangedPublisher,
+      CustomerPhoneChangedPublisher,
+      DeviceAddedPublisher,
+      EmployeeCreatedPublisher,
+      EmployeeEmailChangedPublisher,
+      EmployeeStatusChangedPublisher,
+      InvoiceCreatedPublisher,
+      InvoiceMarkedAsPaidPublisher,
+      NewSupportTicketAddedPublisher,
+      SupportTicketClosedPublisher,
+      RepairsAddedPublisher,
+      RoleCreatedPublisher, 
+      RoleDescriptionChangedPublisher, 
+      WarrantyAddedPublisher, 
+      WarrantyEndDateChangedPublisher, 
+      WarrantyStatusChangedPublisher,
+      WorkStatusChangedPublisher
     ],
 })
 export class MessagingModule {}

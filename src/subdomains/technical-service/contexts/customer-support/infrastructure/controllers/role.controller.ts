@@ -9,8 +9,8 @@ import { CreateRoleUseCase, ChangeRoleDescriptionUseCase } from "../../applicati
 import { CreateRoleCommand, ChangeRoleDescriptionCommand } from "../utils/commands";
 
 
-@Controller('repairs')
-export class RepairsController {
+@Controller('role')
+export class RoleController {
 
     constructor(
         private readonly roleService: RoleService,
