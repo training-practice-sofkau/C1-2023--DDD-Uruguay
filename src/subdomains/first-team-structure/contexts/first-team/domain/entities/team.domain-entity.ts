@@ -14,7 +14,6 @@ import { v4 as uuidv4 } from 'uuid';
 export class TeamDomainEntity implements ITeamDomainEntity{
     teamId?: string | IdValueObject;
     coach: CoachDomainEntity;
-    players: PlayerDomainEntity[];
     name: string | NameValueObject;
     town: string | TownValueObject;
 
@@ -23,8 +22,6 @@ export class TeamDomainEntity implements ITeamDomainEntity{
         else this.teamId = uuidv4();
 
         if(data.coach) this.coach = data.coach
-
-        if(data.players) this.players = data.players
 
         if(data.name) this.name = data.name
 

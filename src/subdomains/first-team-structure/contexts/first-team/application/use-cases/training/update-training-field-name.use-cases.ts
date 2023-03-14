@@ -1,6 +1,7 @@
-import { ITrainingDomainService, ITrainingFieldDomainService, IUpdatedTrainingFieldNameResponse, IUpdateTrainingFieldNameCommand, NameValueObject, TrainingAggregate, TrainingFieldDomainEntity, UpdatedTrainingFieldNameEventPublisher } from "../../../domain";
+import { ITrainingDomainService, ITrainingFieldDomainService, IUpdatedTrainingFieldNameResponse, IUpdateTrainingFieldNameCommand, NameValueObject, TrainingAggregate, TrainingFieldDomainEntity } from "../../../domain";
 import { ValueObjectErrorHandler } from '../../../../../../../libs/sofka/bases/value-object-error-handler.base';
 import { IUseCase, ValueObjectException } from "src/libs";
+import { UpdatedTrainingFieldNameEventPublisher } from "../../../domain/events/publishers/training";
 
 export class UpdateTrainingFieldNameUseCases<
     Command extends IUpdateTrainingFieldNameCommand,

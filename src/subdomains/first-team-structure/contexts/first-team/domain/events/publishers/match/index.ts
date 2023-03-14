@@ -1,4 +1,7 @@
 export * from './date-updated.event-publisher';
+export * from './get-match-by-id.event-publisher';
+export * from './get-rival-by-id.event-publisher';
+export * from './get-stadium-by-id.event-publisher';
 export * from './registered-match.event-publisher';
 export * from './rival-added.event-publisher';
 export * from './rival-town-updated.event-publisher';

@@ -1,4 +1,4 @@
-import { IGetPlayersCommand, IPlayerDomainEntity, IRegisteredTeamResponse, IRegisterTeamCommand, ITeamDomainEntity, ITeamDomainService, NameValueObject, RegisteredTeamEventPublisher, TeamAggregate, TeamDomainEntity, TownValueObject } from "../../../domain";
+import { IGetPlayersCommand, IRegisteredTeamResponse, IRegisterTeamCommand, ITeamDomainEntity, ITeamDomainService, NameValueObject, RegisteredTeamEventPublisher, TeamAggregate, TeamDomainEntity, TownValueObject } from "../../../domain";
 import { ValueObjectErrorHandler } from '../../../../../../../libs/sofka/bases/value-object-error-handler.base';
 import { IUseCase, ValueObjectException } from "src/libs";
 import { ICoachDomainEntity } from '../../../domain/entities/interfaces/team/coach.domain-entity.interface';
@@ -44,16 +44,13 @@ implements IUseCase<Command, Response>
     
     createValueObject(command: Command): ITeamDomainEntity {
         let coach: ICoachDomainEntity;
-        let players: IPlayerDomainEntity[];
         let name = new NameValueObject(command.name)
         let town = new TownValueObject(command.town);
         
         this.getCoach.execute({coachId: command.coachId})
         .then((iCoach) => coach = iCoach.data);
-        this.getPlayers.execute({playersId: command.playersIds})
-        .then((iPlayers) => players = iPlayers.data);
 
-        return {coach, players, name, town}
+        return {coach, name, town}
     }
     
     validateValueObject(valueObject: ITeamDomainEntity): void {
@@ -75,14 +72,12 @@ implements IUseCase<Command, Response>
     createEntityTeamDomain(valueObject: ITeamDomainEntity): TeamDomainEntity {
         const {
             coach,
-            players,
             name,
             town,
         } = valueObject;
 
         return new TeamDomainEntity({
             coach,
-            players,
             name,
             town,
         })

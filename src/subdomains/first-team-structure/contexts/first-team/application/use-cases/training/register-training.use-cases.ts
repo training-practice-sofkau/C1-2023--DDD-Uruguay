@@ -1,4 +1,4 @@
-import { DurationValueObject, IGetTeamCommand, IGetTrainerCommand, IGetWorkoutsCommand, IGotTeamReponse, IGotTrainerResponse, IRegisteredTrainingResponse, IRegisterTrainingCommand, ITrainerDomainEntity, ITrainingDomainEntity, ITrainingDomainService, ITrainingEquipmentDomainEntity, ITrainingFieldDomainEntity, IWorkoutDomainEntity, NameValueObject, RegisteredTrainingEventPublisher } from "../../../domain";
+import { DurationValueObject, IGetTeamCommand, IGetTrainerCommand, IGetWorkoutsCommand, IGotTeamReponse, IGotTrainerResponse, IRegisteredTrainingResponse, IRegisterTrainingCommand, ITrainerDomainEntity, ITrainingDomainEntity, ITrainingDomainService, ITrainingEquipmentDomainEntity, ITrainingFieldDomainEntity, IWorkoutDomainEntity, NameValueObject } from "../../../domain";
 import { ValueObjectErrorHandler } from '../../../../../../../libs/sofka/bases/value-object-error-handler.base';
 import { IUseCase, ValueObjectException } from "src/libs";
 import { TrainingAggregate } from '../../../domain/aggregates/training.aggregate';
@@ -14,6 +14,7 @@ import { IGotTrainingEquipmentsResponse } from '../../../domain/interfaces/respo
 import { GetTrainerUseCase } from './get-trainer.use-cases';
 import { GetWorkoutUseCase } from "./get-workout.use-cases";
 import { IGotWorkoutsResponse } from '../../../domain/interfaces/responses/training/got-workout.response';
+import { RegisteredTrainingEventPublisher } from "../../../domain/events/publishers/training";
 
 export class RegisterTrainingUseCases<
     Command extends IRegisterTrainingCommand,
@@ -65,14 +66,10 @@ implements IUseCase<Command, Response>
         .then((iTeam) => team = iTeam.data);
         this.getTrainingField.execute({trainingFieldId: command.trainingField})
         .then((iTrainingField) => trainingField = iTrainingField.data);
-        this.getTrainingEquipments.execute({trainingEquipmentsId: command.trainingEquipmentsIds})
-        .then((iTrainingEquipment) => trainingEquipments = iTrainingEquipment.data);
         this.getTrainer.execute({trainerId: command.trainerId})
         .then((iTrainer) => trainer = iTrainer.data);
-        this.getWorkouts.execute({workoutId: command.workoutsIds})
-        .then((iWorkouts) => workouts = iWorkouts.data);
 
-        return {team, trainingField, trainingEquipments, trainer, workouts, name, duration}
+        return {team, trainingField, trainer, name, duration}
     }
     
     validateValueObject(valueObject: ITrainingDomainEntity): void {
@@ -95,21 +92,17 @@ implements IUseCase<Command, Response>
         const {
             duration,
             team,
-            trainingEquipments,
             trainingField,
             name,
             trainer,
-            workouts
         } = valueObject;
 
         return new TrainingDomainEntity({
             duration,
             team,
-            trainingEquipments,
             trainingField,
             name,
             trainer,
-            workouts
         })
     }
 

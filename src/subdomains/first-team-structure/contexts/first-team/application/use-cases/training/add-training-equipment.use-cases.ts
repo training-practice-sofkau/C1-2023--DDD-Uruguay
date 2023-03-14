@@ -1,5 +1,9 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { AddedTrainingEquipmentEventPublisher, IAddedTrainingEquipmentResponse, IAddTrainingEquipmentCommand, ITrainingDomainService, ITrainingEquipmentDomainEntity, NameValueObject, TrainingAggregate, TrainingEquipmentDomainEntity, TypeValueObject } from "../../../domain";
+import { IAddedTrainingEquipmentResponse, IAddTrainingEquipmentCommand, ITrainingDomainService, ITrainingEquipmentDomainEntity, NameValueObject, TrainingAggregate, TrainingDomainEntity, TrainingEquipmentDomainEntity, TypeValueObject } from "../../../domain";
+import { AddedTrainingEquipmentEventPublisher } from "../../../domain/events/publishers/training";
+import { IGetTrainingCommand } from "../../../domain/interfaces/commands/training/get-training.command";
+import { IGotTrainingResponse } from "../../../domain/interfaces/responses/training/got-training.response";
+import { GetTrainingUseCase } from "./get-training.use-cases";
 
 export class AddTrainingEquipmentUseCases<
     Command extends IAddTrainingEquipmentCommand,
@@ -13,6 +17,7 @@ implements IUseCase<Command, Response>
     constructor(
         private readonly trainingService: ITrainingDomainService,
         private readonly addedTrainingEquipmentEventPublisher: AddedTrainingEquipmentEventPublisher,
+        private readonly getTrainingUseCase: GetTrainingUseCase<IGetTrainingCommand, IGotTrainingResponse>
     ) {
         super();
         this.trainingAggregate = new TrainingAggregate({trainingService, addedTrainingEquipmentEventPublisher})
@@ -37,7 +42,12 @@ implements IUseCase<Command, Response>
         const name = new NameValueObject(command.name);
         const type = new TypeValueObject(command.type);
 
-        return {name, type}
+        let training: TrainingDomainEntity;
+
+        this.getTrainingUseCase.execute({trainingId: command.trainingId})
+        .then(iTraining => training = iTraining.data)
+
+        return {name, type, training}
     }
     
     validateValueObject(valueObject: ITrainingEquipmentDomainEntity): void {
@@ -59,10 +69,12 @@ implements IUseCase<Command, Response>
     createEntityTrainingEquipmentDomain(valueObject: ITrainingEquipmentDomainEntity): TrainingEquipmentDomainEntity {
         const {
             name,
-            type
+            type,
+            training
         } = valueObject;
 
         return new TrainingEquipmentDomainEntity({
+            training: training,
             name: name.valueOf(),
             type: type.valueOf()
         })

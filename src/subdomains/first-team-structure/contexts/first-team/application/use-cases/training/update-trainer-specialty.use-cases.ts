@@ -1,5 +1,6 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { ITrainerDomainService, ITrainingDomainService, IUpdatedTrainerSpecialtyResponse, IUpdateTrainerSpecialtyCommand, SpecialtyValueObject, TrainerDomainEntity, TrainingAggregate, TrainingDomainEntity, UpdatedTrainerSpecialtyEventPublisher } from "../../../domain";
+import { ITrainerDomainService, ITrainingDomainService, IUpdatedTrainerSpecialtyResponse, IUpdateTrainerSpecialtyCommand, SpecialtyValueObject, TrainerDomainEntity, TrainingAggregate, TrainingDomainEntity } from "../../../domain";
+import { UpdatedTrainerSpecialtyEventPublisher } from "../../../domain/events/publishers/training";
 
 export class UpdateTrainerSpecialtyUseCases<
     Command extends IUpdateTrainerSpecialtyCommand,

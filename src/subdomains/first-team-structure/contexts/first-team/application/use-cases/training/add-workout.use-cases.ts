@@ -1,5 +1,9 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { AddedWorkoutEventPublisher, GoalValueObject, IAddedWorkoutResponse, IAddWorkoutCommand, ITrainingDomainService, IWorkoutDomainEntity, NameValueObject, TrainingAggregate, TypeValueObject, WorkoutDomainEntity } from "../../../domain";
+import { GoalValueObject, IAddedWorkoutResponse, IAddWorkoutCommand, ITrainingDomainService, IWorkoutDomainEntity, NameValueObject, TrainingAggregate, TrainingDomainEntity, TypeValueObject, WorkoutDomainEntity } from "../../../domain";
+import { AddedWorkoutEventPublisher } from "../../../domain/events/publishers/training";
+import { IGetTrainingCommand } from "../../../domain/interfaces/commands/training/get-training.command";
+import { IGotTrainingResponse } from "../../../domain/interfaces/responses/training/got-training.response";
+import { GetTrainingUseCase } from "./get-training.use-cases";
 
 export class AddWorkoutUseCases<
     Command extends IAddWorkoutCommand,
@@ -13,6 +17,7 @@ implements IUseCase<Command, Response>
     constructor(
         private readonly trainingService: ITrainingDomainService,
         private readonly addedWorkoutEventPublisher: AddedWorkoutEventPublisher,
+        private readonly getTrainingUseCase: GetTrainingUseCase<IGetTrainingCommand, IGotTrainingResponse>
     ) {
         super();
         this.trainingAggregate = new TrainingAggregate({trainingService, addedWorkoutEventPublisher})
@@ -38,7 +43,12 @@ implements IUseCase<Command, Response>
         const type = new TypeValueObject(command.type);
         const goal = new GoalValueObject(command.goal);
 
-        return {name, type, goal}
+        let training: TrainingDomainEntity;
+
+        this.getTrainingUseCase.execute({trainingId: command.trainingId})
+        .then(iTraining => training = iTraining.data)
+
+        return {name, type, goal, training}
     }
     
     validateValueObject(valueObject: IWorkoutDomainEntity): void {
@@ -64,10 +74,12 @@ implements IUseCase<Command, Response>
         const {
             name,
             type,
-            goal
+            goal,
+            training
         } = valueObject;
 
         return new WorkoutDomainEntity({
+            training: training,
             name: name.valueOf(),
             type: type.valueOf(),
             goal: goal.valueOf()

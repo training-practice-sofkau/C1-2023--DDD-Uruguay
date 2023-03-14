@@ -5,6 +5,7 @@ export * from './add-workout.command';
 export * from './get-trainer.command';
 export * from './get-training-equipment.command';
 export * from './get-training-field.command';
+export * from './get-training.command';
 export * from './get-workout.command';
 export * from './register-training.command';
 export * from './update-duration.command';

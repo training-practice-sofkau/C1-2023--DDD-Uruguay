@@ -18,11 +18,9 @@ export class TrainingDomainEntity implements ITrainingDomainEntity{
     trainingId?: string | IdValueObject;
     duration: number | DurationValueObject;
     team: TeamDomainEntity;
-    trainingEquipments: TrainingEquipmentDomainEntity[];
     trainingField: TrainingFieldDomainEntity;
     name: string | NameValueObject;
     trainer: TrainerDomainEntity;
-    workouts: WorkoutDomainEntity[];
 
     constructor(data: ITrainingDomainEntity) {
         if(data.trainingId) this.trainingId = data.trainingId
@@ -32,14 +30,10 @@ export class TrainingDomainEntity implements ITrainingDomainEntity{
 
         if(data.team) this.team = data.team
 
-        if(data.trainingEquipments) this.trainingEquipments = data.trainingEquipments
-
         if(data.trainingField) this.trainingField = data.trainingField
 
         if(data.name) this.name = data.name
 
         if(data.trainer) this.trainer = data.trainer
-        
-        if(data.workouts) this.workouts = data.workouts
     }
 }

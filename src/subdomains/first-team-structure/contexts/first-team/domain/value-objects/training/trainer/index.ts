@@ -1,1 +1,2 @@
-export * from './specialty';
+
+export * from './specialty.value-object';

@@ -51,6 +51,7 @@ implements IUseCase<Command, Response>
 
         if(town instanceof TownValueObject && town.hasErrors()) this.setErrors(town.getErrors());
 
+        console.log(this.getErrors())
         if(this.hasErrors() === true) throw new ValueObjectException(
             'AddRivalUseCase got some errors',
             this.getErrors(),

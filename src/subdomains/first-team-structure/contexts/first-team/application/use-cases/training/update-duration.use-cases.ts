@@ -1,5 +1,6 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { DurationValueObject, ITrainingDomainService, IUpdatedDurationResponse, IUpdateDurationCommand, TrainingAggregate, TrainingDomainEntity, UpdatedDurationEventPublisher } from "../../../domain";
+import { DurationValueObject, ITrainingDomainService, IUpdatedDurationResponse, IUpdateDurationCommand, TrainingAggregate, TrainingDomainEntity } from "../../../domain";
+import { UpdatedDurationEventPublisher } from "../../../domain/events/publishers/training";
 
 export class UpdateDurationUseCases<
     Command extends IUpdateDurationCommand,

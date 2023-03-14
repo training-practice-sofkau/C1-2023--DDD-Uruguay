@@ -1,6 +1,7 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from 'src/libs';
-import { AddedTrainingFieldEventPublisher, AgeValueObject, CountryValueObject, FullNameValueObject, IAddedTrainerResponse, IAddTrainerCommand, ITrainerDomainEntity, ITrainingDomainService, SpecialtyValueObject, TrainerDomainEntity } from '../../../domain';
+import { AgeValueObject, CountryValueObject, FullNameValueObject, IAddedTrainerResponse, IAddTrainerCommand, ITrainerDomainEntity, ITrainingDomainService, SpecialtyValueObject, TrainerDomainEntity } from '../../../domain';
 import { TrainingAggregate } from '../../../domain/aggregates/training.aggregate';
+import { AddedTrainingFieldEventPublisher } from '../../../domain/events/publishers/training';
 
 export class AddTrainerUseCases<
     Command extends IAddTrainerCommand,

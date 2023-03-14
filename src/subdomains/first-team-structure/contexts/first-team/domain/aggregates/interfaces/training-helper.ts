@@ -1,4 +1,4 @@
-import { AddedTrainerEventPublisher, AddedTrainingEquipmentEventPublisher, AddedTrainingFieldEventPublisher, AddedWorkoutEventPublisher, RegisteredTrainingEventPublisher, UpdatedDurationEventPublisher, UpdatedNameEventPublisher, UpdatedTrainerSpecialtyEventPublisher, UpdatedTrainingEquipmentTypeEventPublisher, UpdatedTrainingFieldNameEventPublisher, UpdatedWorkoutGoalEventPublisher } from "../../events";
+import { AddedTrainerEventPublisher, AddedTrainingEquipmentEventPublisher, AddedTrainingFieldEventPublisher, AddedWorkoutEventPublisher, RegisteredTrainingEventPublisher, UpdatedDurationEventPublisher, UpdatedNameEventPublisher, UpdatedTrainerSpecialtyEventPublisher, UpdatedTrainingEquipmentTypeEventPublisher, UpdatedTrainingFieldNameEventPublisher, UpdatedWorkoutGoalEventPublisher } from "../../events/publishers/training";
 import { ITrainerDomainService, ITrainingDomainService, ITrainingEquipmentDomainService, ITrainingFieldDomainService, IWorkoutDomainService } from "../../services";
 
 export interface TrainingAggregateHelper {

@@ -1,5 +1,5 @@
-import { PositionValueObject } from "../../../value-objects";
-import { PositionEnum } from "../../../value-objects/team/player/position/positions.enum";
+import { PositionEnum, PositionValueObject } from "../../../value-objects";
+
 
 export interface IUpdatePlayerPositionCommand {
     playerId: string,
