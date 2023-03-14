@@ -9,7 +9,7 @@ import {
 import {
   CreatedInvoiceController,
   CreatedOrderController,
-} from './subscribers';
+} from './subscriber';
 
 /**
  * name: el nombre del cliente.

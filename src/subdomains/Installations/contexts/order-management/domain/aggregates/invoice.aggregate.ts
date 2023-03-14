@@ -20,12 +20,6 @@ import {
   IFeeDomainService,
   IInvoiceDomainService,
 } from '../services';
-import {
-  CompanyBankAccountValueObject,
-  CompanyNameValueObject,
-  FeeChargeValueObject,
-  FeeTaxValueObject,
-} from '../value-objects';
 import { CreateInvoice } from './helpers';
 
 export class InvoiceAggregate implements IInvoiceDomainService, ICompanyDomainService, IFeeDomainService {
@@ -173,7 +167,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICompanyDomainSe
 
   async updateCompanyName(
     companyId: string,
-    newCompanyName: CompanyNameValueObject
+    newCompanyName: CompanyDomainEntityBase
   ): Promise<CompanyDomainEntityBase> {
     if (!this.invoiceCompanyUpdatedEventPublisherBase)
       throw new AggregateRootException(
@@ -185,7 +179,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICompanyDomainSe
 
   async updateCompanyBankAccount(
     companyId: string,
-    newCompanyBankAccount: CompanyBankAccountValueObject
+    newCompanyBankAccount: CompanyDomainEntityBase
   ): Promise<CompanyDomainEntityBase> {
     if (!this.invoiceCompanyUpdatedEventPublisherBase)
       throw new AggregateRootException(
@@ -197,7 +191,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICompanyDomainSe
 
   async updateFeeCharge(
     feeId: string,
-    newFee: FeeChargeValueObject
+    newFee: FeeDomainEntityBase
   ): Promise<FeeDomainEntityBase> {
     if (!this.invoiceFeeUpdatedEventPublisherBase)
       throw new AggregateRootException(
@@ -209,7 +203,7 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICompanyDomainSe
 
   async updateFeeTax(
     feeId: string,
-    newFee: FeeTaxValueObject
+    newFee: FeeDomainEntityBase
   ): Promise<FeeDomainEntityBase> {
     if (!this.invoiceFeeUpdatedEventPublisherBase)
       throw new AggregateRootException(
@@ -228,3 +222,5 @@ export class InvoiceAggregate implements IInvoiceDomainService, ICompanyDomainSe
     return this.invoiceStatusChangedEventPublisherBase.response[0];
   }
 }
+
+//TODO

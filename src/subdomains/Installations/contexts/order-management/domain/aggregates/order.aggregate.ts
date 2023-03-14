@@ -18,11 +18,19 @@ import {
   OrderKitUpdatedEventPublisherBase,
   OrderStatusChangedEventPublisherBase,
 } from '../events/publishers/order';
-import { IOrderDomainService } from '../services';
+import {
+  IBenefitedDomainService,
+  IEmployedDomainService,
+  IKitDomainService,
+  IOrderDomainService,
+} from '../services';
 import { CreateOrder } from './helpers';
 
-export class OrderAggregate implements IOrderDomainService {
+export class OrderAggregate implements IOrderDomainService, IEmployedDomainService, IBenefitedDomainService, IKitDomainService {
   private readonly orderService?: IOrderDomainService;
+  private readonly employedService?: IEmployedDomainService;
+  private readonly benefitedService?: IBenefitedDomainService;
+  private readonly kitService?: IKitDomainService;
   private readonly createdOrderEventPublisherBase?: CreatedOrderEventPublisherBase;
   private readonly getOrderEventPublisherBase?: GetOrderEventPublisherBase;
   private readonly orderBenefitedCreatedEventPublisherBase?: OrderBenefitedCreatedEventPublisherBase;
@@ -35,6 +43,9 @@ export class OrderAggregate implements IOrderDomainService {
 
   constructor({
     orderService,
+    employedService,
+    benefitedService,
+    kitService,
     createdOrderEventPublisherBase,
     getOrderEventPublisherBase,
     orderBenefitedCreatedEventPublisherBase,
@@ -46,6 +57,9 @@ export class OrderAggregate implements IOrderDomainService {
     orderStatusChangedEventPublisherBase,
   }: {
     orderService?: IOrderDomainService;
+    employedService?: IEmployedDomainService;
+    benefitedService?: IBenefitedDomainService;
+    kitService?: IKitDomainService;
     createdOrderEventPublisherBase?: CreatedOrderEventPublisherBase;
     getOrderEventPublisherBase?: GetOrderEventPublisherBase;
     orderBenefitedCreatedEventPublisherBase?: OrderBenefitedCreatedEventPublisherBase;
@@ -57,6 +71,9 @@ export class OrderAggregate implements IOrderDomainService {
     orderStatusChangedEventPublisherBase?: OrderStatusChangedEventPublisherBase;
   }) {
     this.orderService = orderService;
+    this.employedService = employedService;
+    this.benefitedService = benefitedService;
+    this.kitService = kitService;
     this.createdOrderEventPublisherBase = createdOrderEventPublisherBase;
     this.getOrderEventPublisherBase = getOrderEventPublisherBase;
     this.orderBenefitedCreatedEventPublisherBase =
@@ -146,7 +163,7 @@ export class OrderAggregate implements IOrderDomainService {
     return this.orderKitCreatedEventPublisherBase.response[0];
   }
 
-  async getKit(kitId: string): Promise<BenefitedDomainEntityBase> {
+  async getKit(kitId: string): Promise<KitDomainEntityBase> {
     if (!this.orderBenefitedCreatedEventPublisherBase)
       throw new AggregateRootException(
         "GetInvoiceEventPublisherBase is not defined"
@@ -193,42 +210,6 @@ export class OrderAggregate implements IOrderDomainService {
     return this.orderBenefitedCreatedEventPublisherBase.response[0];
   }
 
-  async updateBenefited(
-    orderId: string,
-    newBenefited: BenefitedDomainEntityBase
-  ): Promise<BenefitedDomainEntityBase> {
-    if (!this.orderBenefitedUpdatedEventPublisherBase)
-      throw new AggregateRootException(
-        "OrderBenefitedUpdatedEventPublisherBase is not defined"
-      );
-
-    return this.orderBenefitedUpdatedEventPublisherBase.response[0];
-  }
-
-  async updateKit(
-    orderId: string,
-    newKit: KitDomainEntityBase
-  ): Promise<KitDomainEntityBase> {
-    if (!this.orderKitUpdatedEventPublisherBase)
-      throw new AggregateRootException(
-        "OrderKitUpdatedEventPublisherBase is not defined"
-      );
-
-    return this.orderKitUpdatedEventPublisherBase.response[0];
-  }
-
-  async updateEmployed(
-    orderId: string,
-    newEmployed: EmployedDomainEntityBase
-  ): Promise<EmployedDomainEntityBase> {
-    if (!this.orderEmployedUpdatedEventPublisherBase)
-      throw new AggregateRootException(
-        "OrderEmployedUpdatedEventPublisherBase is not defined"
-      );
-
-    return this.orderEmployedUpdatedEventPublisherBase.response[0];
-  }
-
   async changeStatus(orderId: string): Promise<boolean> {
     if (!this.orderStatusChangedEventPublisherBase)
       throw new AggregateRootException(
@@ -237,4 +218,63 @@ export class OrderAggregate implements IOrderDomainService {
 
     return this.orderStatusChangedEventPublisherBase.response[0];
   }
+
+  async updateEmployedName(employedId: string, newEmployedName: EmployedDomainEntityBase): Promise<EmployedDomainEntityBase> {
+    if (!this.orderStatusChangedEventPublisherBase)
+      throw new AggregateRootException(
+        "OrderStatusChangedEventPublisherBase is not defined"
+      );
+
+    return this.orderStatusChangedEventPublisherBase.response[0];
+  }
+  async updateEmployedPhone(employedId: string, newEmployedPhone: EmployedDomainEntityBase): Promise<EmployedDomainEntityBase> {
+    if (!this.orderStatusChangedEventPublisherBase)
+      throw new AggregateRootException(
+        "OrderStatusChangedEventPublisherBase is not defined"
+      );
+
+    return this.orderStatusChangedEventPublisherBase.response[0];
+  }
+  async updateBenefitedAddress(benefitedId: string, newBenefitedAddress: BenefitedDomainEntityBase): Promise<BenefitedDomainEntityBase> {
+    if (!this.orderStatusChangedEventPublisherBase)
+      throw new AggregateRootException(
+        "OrderStatusChangedEventPublisherBase is not defined"
+      );
+
+    return this.orderStatusChangedEventPublisherBase.response[0];
+  }
+  async updateBenefitedCompanyId(benefitedId: string, newBenefitedCompanyId: BenefitedDomainEntityBase): Promise<BenefitedDomainEntityBase> {
+    if (!this.orderStatusChangedEventPublisherBase)
+      throw new AggregateRootException(
+        "OrderStatusChangedEventPublisherBase is not defined"
+      );
+
+    return this.orderStatusChangedEventPublisherBase.response[0];
+  }
+  async updateBenefitedName(benefitedId: string, newBenefitedName: BenefitedDomainEntityBase): Promise<BenefitedDomainEntityBase> {
+    if (!this.orderStatusChangedEventPublisherBase)
+      throw new AggregateRootException(
+        "OrderStatusChangedEventPublisherBase is not defined"
+      );
+
+    return this.orderStatusChangedEventPublisherBase.response[0];
+  }
+  async updateBenefitedPhone(benefitedId: string, newBenefitedPhone: BenefitedDomainEntityBase): Promise<BenefitedDomainEntityBase> {
+    if (!this.orderStatusChangedEventPublisherBase)
+      throw new AggregateRootException(
+        "OrderStatusChangedEventPublisherBase is not defined"
+      );
+
+    return this.orderStatusChangedEventPublisherBase.response[0];
+  }
+  async updateKitModel(kitId: string, newKitModel: KitDomainEntityBase): Promise<KitDomainEntityBase> {
+    if (!this.orderStatusChangedEventPublisherBase)
+      throw new AggregateRootException(
+        "OrderStatusChangedEventPublisherBase is not defined"
+      );
+
+    return this.orderStatusChangedEventPublisherBase.response[0];
+  }
 }
+
+//TODO

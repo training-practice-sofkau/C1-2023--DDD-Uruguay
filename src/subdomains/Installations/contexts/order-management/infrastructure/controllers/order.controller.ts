@@ -4,12 +4,18 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { CreateOrderUseCase } from '../../application/use-cases';
+import {
+  CreateOrderUseCase,
+  GetOrderUserCase,
+} from '../../application/use-cases';
 import {
   CreatedOrderPublisher,
 } from '../messaging/publisher/created-order.publisher';
 import { OrderService } from '../persistence/services';
-import { CreateOrderCommand } from '../utils/commands';
+import {
+  CreateOrderCommand,
+  GetOrderCommand,
+} from '../utils/commands';
 
 @Controller('order')
 export class OrderController {
@@ -18,8 +24,8 @@ export class OrderController {
         private readonly createdOrderEventPublisherBase: CreatedOrderPublisher,
     ) {}
 
-    @Post('/add-order')
-    async addOrder(@Body() command: CreateOrderCommand) {
+    @Post('/create-order')
+    async createOrder(@Body() command: CreateOrderCommand) {
         const useCase = new CreateOrderUseCase(
             this.orderService,
             this.createdOrderEventPublisherBase,
@@ -27,5 +33,13 @@ export class OrderController {
         return await useCase.execute(command);
     }
 
+    @Post('/get-order')
+    async getOrder(@Body() command: GetOrderCommand) {
+        const useCase = new GetOrderUserCase(
+            this.orderService,
+            this.createdOrderEventPublisherBase,
+        );
+        return await useCase.execute(command);
+    }
   
 }

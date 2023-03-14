@@ -15,7 +15,6 @@ import {
 } from '../../../domain/interfaces/responses/invoice';
 import { IInvoiceDomainService } from '../../../domain/services';
 import { CompanyBankAccountValueObject } from '../../../domain/value-objects';
-import { GetInvoiceUserCase } from './';
 
 export class UpdateCompanyBankAccountUseCase<
     Command extends IUpdateCompanyBankAccountCommand = IUpdateCompanyBankAccountCommand,
@@ -28,7 +27,6 @@ export class UpdateCompanyBankAccountUseCase<
 
   constructor(
     private readonly invoiceService: IInvoiceDomainService,
-    private readonly invoiceGet: GetInvoiceUserCase,
     private readonly createdInvoiceEventPublisherBase: CreatedInvoiceEventPublisherBase
   ) {
     super();
@@ -48,12 +46,10 @@ export class UpdateCompanyBankAccountUseCase<
     command: Command
   ): Promise<CompanyDomainEntityBase | null> {
     this.validateObjectValue(command.bankAccount);
-    const invoice = await this.invoiceGet.execute({
-      invoiceId: command.invoiceId,
-    });
-    if (invoice.success) {
-      invoice.data.company.bankAccount = command.bankAccount;
-      return invoice.data.company;
+    const invoice = await this.invoiceAggregateRoot.getCompany(command.companyId);
+    if (invoice) {
+      invoice.bankAccount = command.bankAccount;
+      return invoice;
     } else
       throw new AggregateUpdateException(
         "Hay algunos errores en el comando ejecutado por UpdateCompanyBankAccountUserCase"

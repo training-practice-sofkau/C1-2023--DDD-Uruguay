@@ -1,6 +1,4 @@
-import { CompanyDomainEntityBase } from '../../../entities';
-
-export interface IGetCompanyResponse {
+export interface IDeleteCompanyResponse {
   success: boolean;
-  data: CompanyDomainEntityBase | null;
+  data: boolean;
 }

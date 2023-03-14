@@ -1,3 +1,4 @@
+import { GetInvoiceUserCase } from '../';
 import {
   AggregateUpdateException,
   IUseCase,
@@ -15,7 +16,6 @@ import {
 } from '../../../domain/interfaces/responses/invoice';
 import { IInvoiceDomainService } from '../../../domain/services';
 import { FeeChargeValueObject } from '../../../domain/value-objects';
-import { GetInvoiceUserCase } from './';
 
 export class UpdateFeeChargeUseCase<
     Command extends IUpdateFeeChargeCommand = IUpdateFeeChargeCommand,
@@ -48,12 +48,10 @@ export class UpdateFeeChargeUseCase<
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
     this.validateObjectValue(command.charge);
-    const invoice = await this.invoiceGet.execute({
-      invoiceId: command.invoiceId,
-    });
-    if (invoice.success) {
-      invoice.data.fee.charge = command.charge;
-      return invoice.data.fee;
+    const invoice = await this.invoiceAggregateRoot.getFee(command.feeId);
+    if (invoice) {
+      invoice.charge = command.charge;
+      return invoice;
     } else
       throw new AggregateUpdateException(
         "Hay algunos errores en el comando ejecutado por UpdateFeeChargeUserCase"

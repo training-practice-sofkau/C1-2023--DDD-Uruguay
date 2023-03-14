@@ -53,8 +53,8 @@ export class GetCompanyUserCase<
       return company;
     }
   
-    private validateEntity(aggregate: ICompanyDomainEntity): void {
-      const { companyId, name, bankAccount } = aggregate;
+    private validateEntity(company: ICompanyDomainEntity): void {
+      const { companyId, name, bankAccount } = company;
   
       if (companyId instanceof CompanyIdValueObject && companyId.hasErrors())
         this.setErrors(companyId.getErrors());

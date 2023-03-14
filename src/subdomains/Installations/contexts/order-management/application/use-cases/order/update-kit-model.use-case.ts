@@ -1,3 +1,4 @@
+import { GetOrderUserCase } from '../';
 import {
   AggregateUpdateException,
   IUseCase,
@@ -15,7 +16,6 @@ import {
 } from '../../../domain/interfaces/responses/order';
 import { IOrderDomainService } from '../../../domain/services';
 import { KitModelValueObject } from '../../../domain/value-objects';
-import { GetOrderUserCase } from './';
 
 export class UpdateKitModelUseCase<
     Command extends IUpdateKitModelCommand = IUpdateKitModelCommand,
@@ -48,10 +48,10 @@ export class UpdateKitModelUseCase<
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
     this.validateObjectValue(command.model);
-    const order = await this.orderGet.execute({ orderId: command.orderId });
-    if (order.success) {
-      order.data.kit.model = command.model;
-      return order.data.kit;
+    const order = await this.orderAggregateRoot.getKit(command.kitId);
+    if (order) {
+      order.model = command.model;
+      return order;
     } else
       throw new AggregateUpdateException(
         "Hay algunos errores en el comando ejecutado por UpdateKitModelUserCase"

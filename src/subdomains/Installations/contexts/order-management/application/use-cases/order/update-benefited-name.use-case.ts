@@ -1,3 +1,4 @@
+import { GetOrderUserCase } from '../';
 import {
   AggregateUpdateException,
   IUseCase,
@@ -15,7 +16,6 @@ import {
 } from '../../../domain/interfaces/responses/order';
 import { IOrderDomainService } from '../../../domain/services';
 import { BenefitedNameValueObject } from '../../../domain/value-objects';
-import { GetOrderUserCase } from './';
 
 export class UpdateBenefitedNameUseCase<
     Command extends IUpdateBenefitedNameCommand = IUpdateBenefitedNameCommand,
@@ -48,10 +48,10 @@ export class UpdateBenefitedNameUseCase<
     command: Command
   ): Promise<FeeDomainEntityBase | null> {
     this.validateObjectValue(command.name);
-    const order = await this.orderGet.execute({ orderId: command.orderId });
-    if (order.success) {
-      order.data.benefited.name = command.name;
-      return order.data.benefited;
+    const order = await this.orderAggregateRoot.getBenefited(command.benefitedId);
+    if (order) {
+      order.name = command.name;
+      return order;
     } else
       throw new AggregateUpdateException(
         "Hay algunos errores en el comando ejecutado por UpdateBenefitedNameUserCase"
