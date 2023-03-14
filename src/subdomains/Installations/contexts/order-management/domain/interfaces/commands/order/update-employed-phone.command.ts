@@ -2,5 +2,5 @@ import { EmployedPhoneValueObject } from '../../../value-objects/order';
 
 export interface IUpdateEmployedPhoneCommand {
   employedId: string;
-  phone: EmployedPhoneValueObject;
+  phone: string | EmployedPhoneValueObject;
 }

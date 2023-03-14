@@ -2,5 +2,5 @@ import { CompanyNameValueObject } from '../../../value-objects/invoice';
 
 export interface IUpdateCompanyNameCommand {
   companyId: string;
-  name: CompanyNameValueObject;
+  name: string | CompanyNameValueObject;
 }
