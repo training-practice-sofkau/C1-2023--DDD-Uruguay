@@ -1,5 +1,5 @@
 export interface ICreateInvoiceCommand{
-    dateEmitted?: Date;
+    dateEmitted?: number;
     ticketID?: string;
     customerID?: string;
     invoiceAmount?: number;

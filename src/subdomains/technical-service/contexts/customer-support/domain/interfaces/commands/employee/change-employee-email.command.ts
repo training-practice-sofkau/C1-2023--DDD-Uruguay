@@ -1,5 +1,4 @@
-export interface IChangeEmployeeMailCommand {
- 
+export interface IChangeEmployeeMailCommand { 
     employeeID?: string; 
     employeeNewEmail?: string;
 }
