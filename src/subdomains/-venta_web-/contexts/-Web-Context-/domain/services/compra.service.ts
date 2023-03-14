@@ -1,9 +1,7 @@
-import { ClienteDomainEntity } from "../entities/common-entities/cliente.domain-entity";
+
 import { CompraDomainEntity } from "../entities/compra/compra.domain-entity";
-import { CursoDomainEntity } from "../entities/compra/curso.domain-entity";
-import { ICreateClienteMethod } from "../interfaces/commands/compra/createCliente.command";
 import { ICreateCompraMethod } from "../interfaces/commands/compra/createCompra.command";
-import { ICreateCursoMethod } from "../interfaces/commands/compra/createCurso.command";
+
 
 
 export interface ICompraService <T extends CompraDomainEntity =  CompraDomainEntity>{
