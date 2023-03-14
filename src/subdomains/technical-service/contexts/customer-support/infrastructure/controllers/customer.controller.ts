@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 
 import { CustomerService } from '../persistence/services';
 
@@ -37,5 +37,15 @@ export class CustomerController {
         );
         return await useCase.execute(command);
     }
+
+    // Get HTTP petition to return Customer Details
+   /* @Get()
+    async getDetails(command: GetCustomerDetailsCommand) {
+        const useCase = new GetCustomerDetailsUseCase(
+            this.customerService,
+            this.gotCustomerDetailsEventPublisherBase,
+        );
+        return await useCase.execute(command);
+    }*/
 
 }
