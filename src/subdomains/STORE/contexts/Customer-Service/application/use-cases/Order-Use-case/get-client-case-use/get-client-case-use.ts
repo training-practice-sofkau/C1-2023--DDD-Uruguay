@@ -1,11 +1,11 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { IGetClient } from "../../../../domain/interfaces";
 import { ClientObtainedResponse } from '../../../../domain/interfaces/responses/Order-Response/client-obtained-response';
 import { ClientDomainService } from "../../../../domain/services";
 import { ClientObtainedEventPublisher } from '../../../../domain/events/publishers/Sale/Client-obtained-event-publisher';
 import { ClientDomainBase } from '../../../../domain/entities/Order-domain/client-domain-entity';
 import { ClientNameValue,  PhoneValue } from "../../../../domain/value-objects";
+import { IGetClient } from "../../../../domain/interfaces/commands";
 
 export class GetClientCaseUse<
     Command extends IGetClient = IGetClient,

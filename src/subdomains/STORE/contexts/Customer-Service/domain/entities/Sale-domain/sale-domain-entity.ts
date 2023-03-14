@@ -8,16 +8,14 @@ import { v4 as uuidv4 } from 'uuid';
 export class SaleDomainEntity implements ISaleEntity{
     Bill?: BillDomain;
     Seller?: SellerDomain;
-    IDSale?: IdSaleValueObject;
-    IDOrder?: IdOrdertValueObject;
+    IDSale?: string |   IdSaleValueObject;
+    IDOrder?: string |  IdOrdertValueObject;
 
 
-
+    
     constructor (_data?: ISaleEntity){
 
-        if(_data.IDSale) this.IDSale = _data.IDSale
-        
-        else this.IDSale = uuidv4()      
+           
 
         if (_data?.Seller) this.Seller = _data.Seller;
 

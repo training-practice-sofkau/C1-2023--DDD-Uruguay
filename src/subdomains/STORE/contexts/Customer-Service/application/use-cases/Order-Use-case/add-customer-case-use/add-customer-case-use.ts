@@ -1,12 +1,13 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { ClientAddResponse, IAddClient } from "../../../../domain/interfaces";
 import { ClientDomainService } from "../../../../domain/services";
 import { ClientAddEventPublisher } from '../../../../domain/events/publishers/order/added-customer-event-Publisher';
 import { ClientDomainBase, IClientEntity } from "../../../../domain/entities";
 import { IdclientValue } from '../../../../domain/value-objects/Sale/Bill/idclient-value/idclient-value';
 import { ClientNameValue } from "../../../../domain/value-objects";
 import { PhoneValue } from '../../../../domain/value-objects/Order/Client/phone-value/phone-value';
+import { IAddClient } from "../../../../domain/interfaces/commands";
+import { ClientAddResponse } from "../../../../domain/interfaces/responses/Order-Response";
 
 export class AddCustomerCaseUse<
     Command extends IAddClient = IAddClient,

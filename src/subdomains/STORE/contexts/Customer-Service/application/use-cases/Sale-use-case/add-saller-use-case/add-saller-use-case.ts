@@ -1,6 +1,5 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { ClientAddResponse, IAddClient, IAddSaller } from "../../../../domain/interfaces";
 import { ClientDomainService, SaleDomainService } from "../../../../domain/services";
 import { ClientAddEventPublisher } from '../../../../domain/events/publishers/order/added-customer-event-Publisher';
 import { ClientDomainBase, IClientEntity, SellerDomain } from "../../../../domain/entities";
@@ -10,6 +9,7 @@ import { PhoneValue } from '../../../../domain/value-objects/Order/Client/phone-
 import { AddedSellerEventPublisher } from '../../../../domain/events/publishers/Sale/added-seller-event-publisher';
 import { SaleAgregate } from "../../../../domain/aggregates/sale.agregate";
 import { NameSellerValue } from '../../../../domain/value-objects/Sale/Seller/name-value/name-value';
+import { IAddSaller } from "../../../../domain/interfaces/commands";
 
 export class AddSallerUseCase<
     Command extends IAddSaller = IAddSaller,
@@ -70,10 +70,10 @@ export class AddSallerUseCase<
         } = valueObject
       
 
-        if (IdSeller.hasErrors())
+        if ( IdSeller instanceof IdsellerValue &&  IdSeller.hasErrors())
             this.setErrors(IdSeller.getErrors());    
 
-        if (Name.hasErrors())
+        if ( Name instanceof NameSellerValue && Name.hasErrors())
             this.setErrors(Name.getErrors());
 
         if (this.hasErrors() === true)

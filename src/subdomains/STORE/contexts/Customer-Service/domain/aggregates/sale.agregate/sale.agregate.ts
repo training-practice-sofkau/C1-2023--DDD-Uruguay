@@ -1,10 +1,10 @@
 import { AggregateRootException } from "src/libs";
-import { SellerDomain, BillDomain, MangaDomainBase, SaleDomainEntity, ClientDomainBase } from "../../entities";
-import { AddedSaleEventPublisher, AddedSellerEventPublisher, ClientObtainedEventPublisher, BillModifiedEventPublisher, SellerModifiedEventPublisher, SalesObtainedEventPublisher, SellerNameModifiedEventPublisher, MangaObtainedEventPublisher, PaymentMethodEventPublisher, TotalModifiedEventPublisher } from "../../events";
-import { BillObtainedEventPublisher } from "../../events/publishers/Sale/Bill/bill-obtained.publish-event";
-import { SellerObtainedEventPublisher } from "../../events/publishers/Sale/Seller/seller-obtained.publish-event";
-import { IUpdateNameSeller, UpdatePaymentMethod, IUpdateTotal, IGetMangaData, IRegisterSale, IGetClientSale, IAddSaller, IUpdateBill, IGetSalesList } from "../../interfaces";
+import { BillDomain, SellerDomain, MangaDomainBase, SaleDomainEntity, ClientDomainBase } from "../../entities";
+import { ClientObtainedEventPublisher, MangaObtainedEventPublisher } from "../../events/publishers/order";
+import { AddedSaleEventPublisher, AddedSellerEventPublisher, BillModifiedEventPublisher, SellerModifiedEventPublisher, SalesObtainedEventPublisher, SellerNameModifiedEventPublisher, PaymentMethodEventPublisher, TotalModifiedEventPublisher, SellerObtainedEventPublisher, BillObtainedEventPublisher } from "../../events/publishers/Sale";
+import { IUpdateTotal, IGetMangaData, IGetClientSale, IUpdateNameSeller, IUpdateBill } from "../../interfaces/commands";
 import { BillDomainService, SellerDomainService, SaleDomainService } from "../../services";
+
 
 export class SaleAgregate
   implements BillDomainService, SellerDomainService, SaleDomainService
@@ -122,7 +122,7 @@ export class SaleAgregate
     );
   }
 
-  async UpdateTotal(data: IUpdateTotal): Promise<BillDomain> {
+  async UpdateTotal(data: BillDomain): Promise<BillDomain> {
     if (this.billservice && this.TotalModifiedEventPublisher) {
       const result = await this.billservice.UpdateTotal(data);
       this.TotalModifiedEventPublisher.response = result;
@@ -134,7 +134,7 @@ export class SaleAgregate
     );
   }
 
-  async getMangaData(idManga: IGetMangaData): Promise<MangaDomainBase> {
+  async getMangaData(idManga: string): Promise<MangaDomainBase> {
     if (this.billservice && this.MangaObtainedEventPublisher) {
       const result = await this.billservice.getMangaData(idManga);
       this.MangaObtainedEventPublisher.response = result;
@@ -158,7 +158,7 @@ export class SaleAgregate
     );
   }
 
-  async GetClient(ClientId: IGetClientSale): Promise<ClientDomainBase> {
+  async GetClient(ClientId: string): Promise<ClientDomainBase> {
     if (this.billservice && this.ClientObtainedEventPublisher) {
       const result = await this.saleservice.GetClient(ClientId);
       this.ClientObtainedEventPublisher.response = result;
@@ -194,7 +194,7 @@ export class SaleAgregate
     );
   }
 
-  async UpdateSeller(data: IUpdateNameSeller): Promise<SellerDomain> {
+  async UpdateSeller(data: SellerDomain): Promise<SellerDomain> {
     if (this.billservice && this.SellerModifiedEventPublisher) {
       const result = await this.saleservice.UpdateSeller(data);
       this.SellerModifiedEventPublisher.response = result;
@@ -212,15 +212,5 @@ export class SaleAgregate
    * @param {BillDomain} data - The data to be updated.
    * @returns The BillDomain object
    */
-  async UpdateBill(data: IUpdateBill): Promise<BillDomain> {
-    if (this.billservice && this.BillModifiedEventPublisher) {
-      const result = await this.saleservice.UpdateBill(data);
-      this.BillModifiedEventPublisher.response = result;
-      this.BillModifiedEventPublisher.publish();
-      return this.BillModifiedEventPublisher.response;
-    }
-    throw new AggregateRootException(
-      'SaleAgregate "saleservice" y/o "BillModifiedEventPublisher" no estan definidos',
-    );
-  }
+
 }

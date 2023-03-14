@@ -4,7 +4,7 @@ import { ValueObjectBase } from "src/libs/sofka/bases/object-value.base";
 
 import { IsUuid } from "src/libs/validations/is-uuid.validations";
 
-export class IdmangaValue extends ValueObjectBase<string>{
+export class IdmangaValuee extends ValueObjectBase<string>{
   
  /**
   * The constructor function takes an optional string parameter and if it's not provided, it generates

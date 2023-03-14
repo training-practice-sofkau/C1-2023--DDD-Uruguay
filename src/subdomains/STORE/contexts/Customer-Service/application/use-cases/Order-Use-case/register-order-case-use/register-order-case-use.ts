@@ -1,12 +1,13 @@
-import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { OrderAgregate } from "../../../../domain/aggregates/order.agregate";
-import { ClientDomainBase, IOrderentity, OrderDomainEntityBase } from "../../../../domain/entities";
-import { ClientObtainedEventPublisher, MangaObtainedEventPublisher, OrderAddEventPublisher } from "../../../../domain/events";
-import { IRegisterOrder, RegisterdOrderResponse } from "../../../../domain/interfaces";
-import { ClientDomainService, IorderDomainService, MangaDomainService } from "../../../../domain/services";
-import { IdClientValueObject, IdmangaValue, IdOrdertValueObject } from "../../../../domain/value-objects";
-import { GetClientCaseUse } from "../get-client-case-use/get-client-case-use";
-import { GetMangaCaseUse } from '../get-manga-case-use/get-manga-case-use';
+import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
+import { OrderAgregate } from "../../../../domain/aggregates";
+import { OrderDomainEntityBase } from "../../../../domain/entities";
+import { OrderAddEventPublisher } from "../../../../domain/events/publishers/order";
+import { IRegisterOrder } from "../../../../domain/interfaces/commands/Order-commands/register.order-command";
+import { RegisterdOrderResponse } from "../../../../domain/interfaces/responses/Order-Response";
+import { IorderDomainService } from "../../../../domain/services";
+import { IdOrdertValueObject } from "../../../../domain/value-objects";
+import { GetClientCaseUse } from "../get-client-case-use";
+import { GetMangaCaseUse } from "../get-manga-case-use";
 
 export class RegisterOrderCaseUse<
     Command extends IRegisterOrder = IRegisterOrder,
@@ -24,12 +25,7 @@ export class RegisterOrderCaseUse<
     constructor(
         
         private readonly orderService: IorderDomainService,
-        private readonly RegisterOrderEventPublisher: OrderAddEventPublisher,
-        private readonly ClientService: ClientDomainService,
-        private readonly GetClientEventPublisher: ClientObtainedEventPublisher,
-        private readonly MangaService: MangaDomainService,
-        private readonly GetMangaEventPublisher: MangaObtainedEventPublisher,
-    
+        private readonly RegisterOrderEventPublisher: OrderAddEventPublisher,      
     ) {
         super();
         this.OrderAgregate = new OrderAgregate({
@@ -64,7 +60,7 @@ export class RegisterOrderCaseUse<
             orderId
         } = valueObject
 
-        if (orderId.hasErrors())
+        if (orderId instanceof  IdOrdertValueObject && orderId.hasErrors())
             this.setErrors(orderId.getErrors());
          
         if (this.hasErrors() === true)
@@ -92,7 +88,7 @@ export class RegisterOrderCaseUse<
         ); }
 
         return new OrderDomainEntityBase({
-            client: (await responseClient).data ,
+            client:  (await responseClient).data ,
             Manga: (await responseManga).data,
             orderId: orderId
         })

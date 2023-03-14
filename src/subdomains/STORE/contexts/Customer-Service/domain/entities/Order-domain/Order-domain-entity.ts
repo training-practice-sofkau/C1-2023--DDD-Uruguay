@@ -6,13 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 export class OrderDomainEntityBase implements IOrderentity {
 
-    client?: ClientDomainBase;
+    client?:  ClientDomainBase;
     Manga?: MangaDomainBase;
-    orderId?:  IdOrdertValueObject
+    orderId?: string |  IdOrdertValueObject
     
     constructor (_data?: IOrderentity){
 
-        if(_data.orderId) this.orderId = _data.orderId
+        if(_data?.orderId) this.orderId = _data.orderId
         
         else this.orderId = uuidv4()      
 

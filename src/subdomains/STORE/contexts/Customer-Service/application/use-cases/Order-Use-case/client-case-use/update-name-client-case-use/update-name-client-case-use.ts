@@ -1,8 +1,10 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
 import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates/order.agregate";
 import { ClientDomainBase, IClientEntity } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
-import { ClientObtainedEventPublisher, NameModifiedEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events";
-import { UpdateNameClient, UpradedNameResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces";
+import { NameModifiedEventPublisher, ClientObtainedEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events/publishers/order";
+import { UpdateNameClient } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands";
+import { UpradedNameResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/responses/Order-Response";
+
 import { ClientDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
 import { ClientNameValue, IdclientValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
 
@@ -66,7 +68,7 @@ export class UpdateNameClientCaseUse<
         } = valueObject
       
       
-        if ( ClientID.hasErrors())
+        if (ClientID instanceof IdclientValue && ClientID.hasErrors())
         this.setErrors(ClientID.getErrors());
 
         if (Name instanceof ClientNameValue && Name.hasErrors())

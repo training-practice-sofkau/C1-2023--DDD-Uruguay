@@ -1,7 +1,6 @@
 import { OrderDomainEntityBase } from "../entities/Order-domain/Order-domain-entity";
 import { ClientDomainBase } from '../entities/Order-domain/client-domain-entity';
 import { MangaDomainBase } from "../entities/Order-domain/manga-domain-entity";
-import { IRegisterOrder } from '../interfaces/commands/Order-commands/register.order-command';
 import { IGetClient } from "../interfaces/commands/Order-commands/get-client-command";
 import { IUpdateOrder } from "../interfaces/commands/Order-commands/update-order-command";
 import { IDeleteOrder } from '../interfaces/commands/Order-commands/delete-command';
@@ -15,10 +14,8 @@ export interface IorderDomainService
  < T extends OrderDomainEntityBase = OrderDomainEntityBase >  {
     RegisterOrder(data: T): Promise <T>;
     GetClient(data: string): Promise <ClientDomainBase>;
-    UpdateOrder(data: IUpdateOrder ): Promise <T>
-    Delete(data: IDeleteOrder): Promise <T>
+    Delete(data: string): Promise <T>
     GetManga(data: string): Promise <MangaDomainBase>;
     AddClient(data: ClientDomainBase): Promise <ClientDomainBase>;
-    UpdateMangaStock(data: IUpdateMangaStock ): Promise <MangaDomainBase>;
-    UpdateClient(data: IUpdateClient): Promise <ClientDomainBase>;
+   UpdateMangaStock(data: MangaDomainBase ): Promise <MangaDomainBase>;
  }

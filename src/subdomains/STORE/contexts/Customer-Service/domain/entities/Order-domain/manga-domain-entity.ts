@@ -3,17 +3,17 @@ import { IMangaEntity } from "../interfaces/Order/manga.interface";
 import { v4 as uuidv4 } from 'uuid';
 
 export class MangaDomainBase implements IMangaEntity {
-    Mangaid?: IdmangaValue;
-    Name?: NameMangaValue;
-    state?: MangaSateValue;
-    Price?: PriceValue;
-    Stock?: StockValue;
+    Mangaid?: string |IdmangaValue;
+    Name?: string |  NameMangaValue;
+    state?: string | MangaSateValue;
+    Price?: number | PriceValue;
+    Stock?: number |StockValue;
 
 
 
     constructor (_data?: IMangaEntity){
 
-        if(_data.Mangaid) this.Mangaid = _data.Mangaid
+        if(_data?.Mangaid) this.Mangaid = _data.Mangaid
         
         else this.Mangaid = uuidv4()      
 

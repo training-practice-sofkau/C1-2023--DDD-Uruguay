@@ -1,11 +1,11 @@
+import { StateModifiedEventPublisher } from './../../../../../domain/events/publishers/order/manga/modified-state-event-publisher';
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates/order.agregate";
-import { ClientDomainBase, IClientEntity, IMangaEntity, MangaDomainBase } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
-import { ClientObtainedEventPublisher, MangaModifiedEventPublisher, NameMangaModifiedEventPublisher, NameModifiedEventPublisher, PrinceModifiedEventPublisher, StateModifiedEventPublisher } from "src/subdomains/Store/contexts/Customer-Service/domain/events";
-import { UpdateNameClient, UpdateNameManga, UpdatePhoneClient, UpdatePriceManga, UpdateStateManga, UpradedNameMangaResponse, UpradedNameResponse, UpradedPhoneResponse, UpradedPriceResponse, UpradedStateResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces";
-import { ClientDomainService, MangaDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
-import { ClientNameValue, IdclientValue, IdmangaValue, MangaSateValue, NameMangaValue, PhoneValue, PriceValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
-import { PhoneModifiedEventPublisher } from '../../../../../domain/events/publishers/order/client/modified-Phone-event-publisher';
+import { OrderAgregate } from "src/subdomains/Store/contexts/Customer-Service/domain/aggregates";
+import { MangaDomainBase, IMangaEntity } from "src/subdomains/Store/contexts/Customer-Service/domain/entities";
+import { UpdateStateManga } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/commands";
+import { UpradedStateResponse } from "src/subdomains/Store/contexts/Customer-Service/domain/interfaces/responses/Order-Response";
+import { MangaDomainService } from "src/subdomains/Store/contexts/Customer-Service/domain/services";
+import { IdmangaValue, MangaSateValue } from "src/subdomains/Store/contexts/Customer-Service/domain/value-objects";
 
 export class UpdateStateUseCase<
     Command extends UpdateStateManga = UpdateStateManga,
@@ -64,10 +64,10 @@ export class UpdateStateUseCase<
         } = valueObject
       
       
-        if ( Mangaid.hasErrors())
+        if (Mangaid instanceof IdmangaValue && Mangaid.hasErrors())
         this.setErrors(Mangaid.getErrors());
 
-        if (state.hasErrors())
+        if (state instanceof  MangaSateValue && state.hasErrors())
             this.setErrors(state.getErrors());
 
         if (this.hasErrors() === true)
