@@ -21,7 +21,6 @@ export class UpdateNameClientCaseUse<
     constructor(
         private readonly ClientService: ClientDomainService,
         private readonly ModifiedClientEventPublisher: NameModifiedEventPublisher,
-        private readonly GetClientEventPublisher: ClientObtainedEventPublisher,
     ) {
         super();
         this.OrderAgregate = new OrderAgregate({
