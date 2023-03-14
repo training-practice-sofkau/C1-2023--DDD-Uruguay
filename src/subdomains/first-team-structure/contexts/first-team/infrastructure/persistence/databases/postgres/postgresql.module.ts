@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { TypeOrmPostgresConfigService } from './configs/type-orm-postgres-config.service';
 import { CoachPostgreEntity, MatchPostgreEntity, PlayerPostgreEntity, RivalPostgreEntity, StadiumPostgreEntity, TeamPostgreEntity, TrainerPostgreEntity, TrainingEquipmentPostgreEntity, TrainingFieldPostgreEntity, TrainingPostgreEntity, WorkoutPostgreEntity } from './entities';
+import { CoachRepository, MatchRepository, PlayerRepository, RivalRepository, StadiumRepository, TeamRepository, TrainerRepository, TrainingEquipmentRepository, TrainingFieldRepository, TrainingRepository, WorkoutRepository } from './repositories';
 import { CoachPostgreService, MatchPostgreService, PlayerPostgreService, RivalPostgreService, StadiumPostgreService, TeamPostgreService, TrainerPostgreService, TrainingEquipmentPostgreService, TrainingFieldPostgreService, TrainingPostgreService, WorkoutPostgreService } from './services';
 
 @Module({
@@ -17,6 +18,7 @@ import { CoachPostgreService, MatchPostgreService, PlayerPostgreService, RivalPo
   controllers: [],
   providers: [TypeOrmPostgresConfigService, RivalPostgreService, StadiumPostgreService, MatchPostgreService, TeamPostgreService,
   PlayerPostgreService, CoachPostgreService, TrainingPostgreService, TrainingFieldPostgreService, TrainingEquipmentPostgreService,
-TrainerPostgreService, WorkoutPostgreService],
+TrainerPostgreService, WorkoutPostgreService, RivalRepository, StadiumRepository, MatchRepository, TeamRepository, PlayerRepository, CoachRepository,
+TrainingRepository, TrainingFieldRepository, TrainingEquipmentRepository, TrainerRepository, WorkoutRepository],
 })
 export class PostgreSQLModule {}
