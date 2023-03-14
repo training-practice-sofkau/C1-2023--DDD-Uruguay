@@ -3,6 +3,7 @@ import { IWarrantyDomainEntity } from "../../../../../domain/entities/interfaces
 import { InvoiceDomainEntityBase, CustomerDomainEntityBase } from "../../../../../domain/entities/invoice";
 import { IInvoiceDomainService } from "../../../../../domain/services";
 import { WarrantyRepository, CustomerRepository, InvoiceRepository } from '../repositories/';
+import { CustomerMySqlEntity } from '../entities/customer.entity';
 
 @Injectable()
 export class InvoiceMySqlService implements IInvoiceDomainService{
@@ -68,7 +69,7 @@ export class InvoiceMySqlService implements IInvoiceDomainService{
      */
     async CreateCustomer(customerData: CustomerDomainEntityBase): Promise<CustomerDomainEntityBase> {
 
-        return await this.customerRepository.create(customerData);
+        return await this.customerRepository.create(customerData as CustomerMySqlEntity);
 
     }
     

@@ -5,17 +5,17 @@ import { DeviceTypeValueObject } from '../../../../../domain/value-objects/devic
 import { IssueValueObject } from '../../../../../domain/value-objects/device/issue.value-object';
 
 
-@Entity()
+@Entity('device')
 export class DeviceMySqlEntity extends DeviceDomainEntityBase{
 
     @PrimaryGeneratedColumn()
-    deviceID?: string | UUIDValueObject;
+    deviceID?: string; // | UUIDValueObject;
 
     @Column()
-    deviceType?: string | DeviceTypeValueObject;
+    deviceType?: string; // | DeviceTypeValueObject;
 
     @Column()
-    issues?: string[] | IssueValueObject[];
+    issues?: string; // | IssueValueObject[];
 
 
 }

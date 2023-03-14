@@ -3,6 +3,7 @@ import { CustomerDomainEntityBase } from "../../../../../domain/entities/invoice
 import { ICustomerDomainService } from '../../../../../domain/services/invoice/customer.domain-service';
 import { CustomerRepository } from '../repositories/customer.repository';
 import { ICustomerDomainEntity } from '../../../../../domain/entities/interfaces/invoice/customer.domain-entity.interface';
+import { CustomerMySqlEntity } from '../entities/customer.entity';
 
 @Injectable()
 export class CustomerMySqlService implements ICustomerDomainService {
@@ -21,7 +22,7 @@ export class CustomerMySqlService implements ICustomerDomainService {
      */
     async ChangeCustomerPhone(data: CustomerDomainEntityBase): Promise<boolean> {
           
-        if(this.customerRepository.update(data)) return await true;
+        if(this.customerRepository.update(data as CustomerMySqlEntity)) return await true;
 
         return false;
     }
@@ -36,7 +37,7 @@ export class CustomerMySqlService implements ICustomerDomainService {
      */
     async ChangeCustomerEmail(data: CustomerDomainEntityBase): Promise<boolean>  {
 
-        if(this.customerRepository.update(data)) return await true;
+        if(this.customerRepository.update(data as CustomerMySqlEntity)) return await true;
 
         return false;
     }

@@ -54,7 +54,11 @@ import {
             WarrantyMySqlEntity
         ]),
     ],
+    controllers:[
+        
+    ],
     providers:[
+        TypeOrmMySqlConfigService,
         CustomerMySqlService,
         DeviceMySqlService,
         EmployeeMySqlService,

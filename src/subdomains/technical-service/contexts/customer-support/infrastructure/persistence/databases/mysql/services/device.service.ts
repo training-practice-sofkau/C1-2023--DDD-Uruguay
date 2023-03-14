@@ -3,6 +3,7 @@ import { IDeviceDomainEntity } from '../../../../../domain/entities/interfaces';
 import { DeviceDomainEntityBase } from '../../../../../domain/entities/support-ticket';
 import { IDeviceDomainService } from '../../../../../domain/services/support-ticket/device.domain-service';
 import { DeviceRepository } from '../repositories/device.repository';
+import { DeviceMySqlEntity } from '../entities/device.entity';
 
 @Injectable()
 export class DeviceMySqlService implements IDeviceDomainService{
@@ -20,7 +21,7 @@ export class DeviceMySqlService implements IDeviceDomainService{
      */
     AddDevice(deviceData: DeviceDomainEntityBase): Promise<IDeviceDomainEntity> {
 
-        return this.deviceRepository.create(deviceData);    
+        return this.deviceRepository.create(deviceData as DeviceMySqlEntity);    
 
     }
     
