@@ -1,9 +1,9 @@
-import { IsBoolean, IsString } from 'class-validator';
+import { IsBoolean,IsUUID } from 'class-validator';
 import { IModificarStateCesionCommands } from '../../../../../domain/interfaces/commands/cesion/modificar-state.commands.interface';
 
 export class ModificarStateContrato implements IModificarStateCesionCommands {
 
-    @IsString()
+    @IsUUID()
     cesionid: string;
     
     @IsBoolean()

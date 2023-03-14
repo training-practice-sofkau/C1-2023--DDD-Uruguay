@@ -1,10 +1,10 @@
 
 import { IBuscarTraspasoCommands } from "src/subdomains/area-deportiva/contexts/rrhh/domain/interfaces/commands/secretaria";
-import { IsString } from 'class-validator';
+import {  IsUUID } from 'class-validator';
 
-export class Buscarcontrato implements IBuscarTraspasoCommands {
+export class BuscarcontratoCommand implements IBuscarTraspasoCommands {
     
-    @IsString()
+    @IsUUID()
     traspasoId: string;
     
 }

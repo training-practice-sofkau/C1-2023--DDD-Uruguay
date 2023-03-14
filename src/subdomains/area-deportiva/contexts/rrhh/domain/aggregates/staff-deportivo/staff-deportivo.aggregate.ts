@@ -13,8 +13,6 @@ import { FechaTramiteModificadaEventPublisher } from '../../events/publishers/st
 import { EmpleadoBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/empleado-buscado.event-publisher';
 import { TramiteBuscadoEventPublisher } from '../../events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
 import { NegociacionDomainEntity } from '../../entities';
-import { EquipoNuevoModificadoEventPublisher } from '../../events/publishers/negociacion/equipo-nuevo-modificado.event-publisher';
-import { EquipoSalidaModificadoEventPublisher } from '../../events/publishers/negociacion/equipo-salida-modificado.event-publisher';
 import { StateModificadoEventPublisher } from '../../events/publishers/cesion/state-modificado.event-publisher';
 import { CrearStaffDeportivoHelper } from '../helpers/crear-staff-deportivo-de-staff-deportivo/crear-staff-deportivo.helper';
 import { CrearTramiteHelper } from '../helpers/crear-tramite-de-staff-deportivo/crear-tramite.helper';
@@ -31,7 +29,7 @@ import { ModificarEquipoNuevoDeNegociacionHelper } from '../helpers/modificar-eq
 import { ModificarEquipoSalidaDeNegociacionHelper } from '../helpers/modificar-equipo-salida-de-negociacion/modificar-equipo-salida.helper';
 import { ModificarStateDeNegociacionHelper } from '../helpers/modificar-state-de-negociacion/modificar-state-de-negociacion.helper';
 import { NombreModificadoEventPublisher, DocumentoModificadoEventPublisher, TipoEmpleadoModificadoEventPublisher, SalarioModificadoEventPublisher } from '../../events/publishers';
-import { TipoDeNegociacionModificadoEventPublisher } from '../../events/publishers/negociacion';
+import { EquipoNuevoNegociacionModificadoEventPublisher, EquipoSalidaNegociacionModificadoEventPublisher, TipoDeNegociacionModificadoEventPublisher } from '../../events/publishers/negociacion';
 
 export class StaffDeportivoAggregate implements IStaffDeportivoDomainService  , ITramiteDomainService , IEmpleadoDomainService,INegociacionDomainService{
     //Service
@@ -62,8 +60,8 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService  , 
     private readonly tamiteBuscadoEvent?: TramiteBuscadoEventPublisher;
 
     //negociacion
-    private readonly negociacionEquipoNuevoModificadoEvent?: EquipoNuevoModificadoEventPublisher;
-    private readonly negociacionEquipoSalidaModificadoEvent?: EquipoSalidaModificadoEventPublisher;
+    private readonly negociacionEquipoNuevoModificadoEvent?: EquipoNuevoNegociacionModificadoEventPublisher;
+    private readonly negociacionEquipoSalidaModificadoEvent?: EquipoSalidaNegociacionModificadoEventPublisher;
     private readonly negociacionStateModificadoEvent?: StateModificadoEventPublisher;
     private readonly negociacionTipoNegociacionModificadoEvent?: TipoDeNegociacionModificadoEventPublisher;
 
@@ -121,8 +119,8 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService  , 
             tamiteBuscadoEvent?: TramiteBuscadoEventPublisher;
 
             //negociacion
-            negociacionEquipoNuevoModificadoEvent?: EquipoNuevoModificadoEventPublisher;
-            negociacionEquipoSalidaModificadoEvent?: EquipoSalidaModificadoEventPublisher;
+            negociacionEquipoNuevoModificadoEvent?: EquipoNuevoNegociacionModificadoEventPublisher;
+            negociacionEquipoSalidaModificadoEvent?: EquipoSalidaNegociacionModificadoEventPublisher;
             negociacionStateModificadoEvent?: StateModificadoEventPublisher;
             negociacionTipoNegociacionModificadoEvent?: TipoDeNegociacionModificadoEventPublisher;
         }

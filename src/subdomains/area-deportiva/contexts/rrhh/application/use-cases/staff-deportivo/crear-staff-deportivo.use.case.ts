@@ -21,7 +21,7 @@ export class CrearStaffDeportivoUseCase
         
         private readonly aggregateRoot:StaffDeportivoAggregate;
 
-        constructor(
+            constructor(
             private readonly staffDeportivoService: IStaffDeportivoDomainService,
             private readonly staffDeportivoCreadoEvent : StaffDeportivoCreadoEventPublisher,
             private readonly tamiteBuscadoEvent : TramiteBuscadoEventPublisher,
