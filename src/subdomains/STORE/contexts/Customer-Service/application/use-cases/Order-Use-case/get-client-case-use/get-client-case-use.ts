@@ -38,7 +38,7 @@ export class GetClientCaseUse<
     }
 
     private async executeCommand(
-        command: string
+        command: Command
     ): Promise< ClientDomainBase | null> {
         
         return this.OrderAgregate.GetClient(command.ClientID)
