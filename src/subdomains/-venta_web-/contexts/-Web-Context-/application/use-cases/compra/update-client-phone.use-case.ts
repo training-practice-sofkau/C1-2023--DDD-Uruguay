@@ -1,5 +1,5 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { ClienteDomainEntity, CompraAggregate, IClienteDomainEntityInterface, IClientephoneActualizadoResponse, ICompraService, IUpdatePhoneMethod, PhoneValueObject, UpdatePhoneEventPublisher } from "../../../domain";
+import { ClienteDomainEntity, CompraAggregate, IClienteDomainEntityInterface, IClienteService, IClientephoneActualizadoResponse, ICompraService, IUpdatePhoneMethod, PhoneValueObject, UpdatePhoneEventPublisher } from "../../../domain";
 
 export class UpdateClientPhoneUseCase<
 
@@ -14,10 +14,11 @@ export class UpdateClientPhoneUseCase<
     private readonly compraAggregate: CompraAggregate
 
     //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
-    constructor(private readonly compraService: ICompraService,
-        private readonly clienteCreadoEventPublisher: UpdatePhoneEventPublisher) {
+    constructor(
+        private readonly clienteService: IClienteService,
+        private readonly updatePhoneEventPublisher: UpdatePhoneEventPublisher) {
         super();
-        this.compraAggregate = new CompraAggregate({ compraService, clienteCreadoEventPublisher })
+        this.compraAggregate = new CompraAggregate({ updatePhoneEventPublisher, clienteService})
     }
 
     /*

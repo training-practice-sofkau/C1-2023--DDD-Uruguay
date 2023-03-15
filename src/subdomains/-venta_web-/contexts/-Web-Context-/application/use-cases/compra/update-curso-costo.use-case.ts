@@ -1,6 +1,6 @@
 
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { CompraAggregate, CursoDomainEntity, ICompraService, ICursoDomainEntityInterface, IUpdateCostoMethod, UpdateCostoCursoEventPublisher } from "../../../domain";
+import { CompraAggregate, CursoDomainEntity, ICompraService, ICursoDomainEntityInterface, ICursoService, IUpdateCostoMethod, UpdateCostoCursoEventPublisher } from "../../../domain";
 import { ICostoCursoActualizadoResponse } from "../../../domain/interfaces/responses";
 import { CostoValueObject } from "../../../domain/value-objects/common-value-objects/costo/costo.value-object";
 
@@ -18,10 +18,11 @@ implements IUseCase<Command, Response>{ //IMPLEMENTO LA INTERFAZ PARA EJECUTAR E
 private readonly compraAggregate: CompraAggregate
 
 //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
-constructor(private readonly compraService: ICompraService,
+constructor(
+    private readonly cursoService: ICursoService,
     private readonly updateCostoCursoEventPublisher: UpdateCostoCursoEventPublisher) {
     super();
-    this.compraAggregate = new CompraAggregate({ compraService, updateCostoCursoEventPublisher })
+    this.compraAggregate = new CompraAggregate({ cursoService, updateCostoCursoEventPublisher })
 }
 
 /*

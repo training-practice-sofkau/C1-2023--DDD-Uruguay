@@ -1,7 +1,7 @@
 import { ICreateClienteMethod } from "../../../domain";
 import { IsString } from 'class-validator';
 
-export class ICreateClienteCommand implements ICreateClienteMethod{
+export class CreateClienteCommand implements ICreateClienteMethod{
 
     @IsString()
     idCliente?: string;
