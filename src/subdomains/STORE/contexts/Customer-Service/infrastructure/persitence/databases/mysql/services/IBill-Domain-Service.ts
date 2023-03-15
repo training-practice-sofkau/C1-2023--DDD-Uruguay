@@ -19,5 +19,6 @@ export class BillMySqlService implements BillDomainService<BillEntityDB> {
     }
      getMangaData(data: string): Promise<MangaEntityDb> {
         return  this.MangaRepository.findById(data)
+        
     }
 }
