@@ -1,5 +1,5 @@
 import { ValueObjectErrorHandler } from "src/libs/sofka/bases/value-object-error-handler.base";
-import { ICreateClienteMethod } from "../../../domain/interfaces/commands/compra/createCliente.command";
+import { ICreateClienteMethod } from "../../../domain/interfaces/commands/cliente/createCliente.command";
 import { IClienteCreadoResponse } from "../../../domain/interfaces/responses/membership";
 import { IUseCase } from "src/libs/sofka/interface/use-case.interface";
 import { CompraAggregate } from "../../../domain/aggregates";

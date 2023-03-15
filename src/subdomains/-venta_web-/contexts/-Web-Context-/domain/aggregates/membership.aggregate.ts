@@ -1,9 +1,9 @@
-import { IUpdatePhoneMethod } from "../interfaces/commands/compra/cliente/updatePhone.command";
+import { IUpdatePhoneMethod } from "../interfaces/commands/cliente/updatePhone.command";
 import { IUpdateCostoMethod } from "../interfaces/commands/compra/curso/updateCosto.command";
 import { IUpdateNombreMethod } from "../interfaces/commands/membership/plan/updateNombre.command";
 import { ClienteDomainEntity, PlanDomainEntity } from "../entities";
 import { MembershipDomainEntity } from "../entities/membership/membership.domain-entity";
-import { ICreateClienteMethod } from "../interfaces/commands/compra/createCliente.command";
+import { ICreateClienteMethod } from "../interfaces/commands/cliente/createCliente.command";
 import { ICreateMembershipMethod } from "../interfaces/commands/membership/createMembership.command";
 import { ICreatePlanMethod } from "../interfaces/commands/membership/createPlan.command";
 import { IClienteService } from "../services/cliente.service";
@@ -138,7 +138,7 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
           );
     }
 
-    async updateNombre(data: IUpdateNombreMethod): Promise<string> {
+    async updateNombre(data: IUpdateNombreMethod): Promise<PlanDomainEntity> {
         if (this.planService && this.updateNombrePlanEventPublisher) {
             const result = await this.planService.updateNombre(data);
             this.updateNombrePlanEventPublisher.response = result;
@@ -150,7 +150,7 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
           );
     }
 
-    async updateCosto(data: IUpdateCostoMethod): Promise<number> {
+    async updateCosto(data: IUpdateCostoMethod): Promise<PlanDomainEntity> {
         if (this.planService && this.updateCostoPlanEventPublisher) {
             const result = await this.planService.updateCosto(data);
             this.updateCostoPlanEventPublisher.response = result;

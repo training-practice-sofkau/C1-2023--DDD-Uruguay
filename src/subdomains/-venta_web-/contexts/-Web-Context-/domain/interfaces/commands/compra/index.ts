@@ -1,5 +1,5 @@
-export * from './cliente';
-export * from './createCliente.command';
+export * from '../cliente';
+export * from '../cliente/createCliente.command';
 export * from './createCompra.command';
 export * from './createCurso.command';
 export * from './cupon';
