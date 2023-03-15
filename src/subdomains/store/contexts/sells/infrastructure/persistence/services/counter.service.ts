@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CounterMySqlEntity } from '../databases/mysql/entities/counter.entity';
+import { CounterMySqlService } from "../databases/mysql/services/counter.service";
 
 @Injectable()
-export class CounterService extends CounterMySqlEntity { }
+export class CounterService extends CounterMySqlService { }

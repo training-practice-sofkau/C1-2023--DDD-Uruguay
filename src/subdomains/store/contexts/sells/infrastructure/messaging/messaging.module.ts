@@ -1,5 +1,16 @@
 import { Module } from "@nestjs/common";
 import { ClientsModule, Transport } from "@nestjs/microservices";
+import { CreatedCounterPublisher } from "./publisher/counter/created-counter.message-publisher";
+import { CreatedPosterPublisher } from "./publisher/counter/created-poster.message-publisher";
+import { CreatedProductPublisher } from "./publisher/counter/created-product.message-publisher";
+import { GettedPosterPublisher } from "./publisher/counter/getted-poster.message-publisher";
+import { GettedProductPublisher } from "./publisher/counter/getted-product.message-publisher";
+import { UpdatedImagePublisher } from "./publisher/counter/poster/updated-image.message-publisher";
+import { UpdatedPricePublisher } from "./publisher/counter/poster/updated-price.message-publisher";
+import { UpdatedTypePublisher } from "./publisher/counter/poster/updated-type.message-publisher";
+import { UpdatedExpirationPublisher } from "./publisher/counter/product/updated-expiration.message-publisher";
+import { UpdatedStockPublisher } from "./publisher/counter/product/updated-stock.message-publisher";
+import { CounterController } from "./subscriber/counter-created.subscriber";
 
 /**
  * name: el nombre del cliente.
@@ -36,8 +47,38 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
             },
         ]),
     ],
-    controllers: [],
-    providers: [],
-    exports: []
+    controllers: [CounterController],
+    providers: [
+        CreatedCounterPublisher,
+        CreatedPosterPublisher,
+        CreatedProductPublisher,
+        GettedPosterPublisher,
+        GettedProductPublisher,
+
+        UpdatedExpirationPublisher,
+        UpdatedPricePublisher,
+        UpdatedStockPublisher,
+        UpdatedTypePublisher,
+
+        UpdatedImagePublisher,
+        UpdatedPricePublisher,
+        UpdatedTypePublisher
+    ],
+    exports: [
+        CreatedCounterPublisher,
+        CreatedPosterPublisher,
+        CreatedProductPublisher,
+        GettedPosterPublisher,
+        GettedProductPublisher,
+
+        UpdatedExpirationPublisher,
+        UpdatedPricePublisher,
+        UpdatedStockPublisher,
+        UpdatedTypePublisher,
+
+        UpdatedImagePublisher,
+        UpdatedPricePublisher,
+        UpdatedTypePublisher
+    ]
 })
 export class MessagingModule { }

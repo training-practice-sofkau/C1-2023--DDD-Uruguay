@@ -1,5 +1,6 @@
-import { Flavour, ImgType, PosterDomainEntity } from "src";
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, OneToMany } from "typeorm"
+
+import { Flavour, ImgType, PosterDomainEntity } from "src/subdomains/store/contexts/sells";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
 import { CounterMySqlEntity } from './counter.entity';
 
 

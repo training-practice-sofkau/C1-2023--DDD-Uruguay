@@ -36,7 +36,7 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
                 CounterMySqlEntity
             ],
             synchronize: true,
-            logging: true
+            //logging: true
         }
     }
     
