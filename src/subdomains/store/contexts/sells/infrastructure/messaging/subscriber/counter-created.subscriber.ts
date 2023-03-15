@@ -30,4 +30,25 @@ export class CounterController{
         console.log('Context: ', context)
         console.log('--------------------------------------')
     }
+
+    @EventPattern('store.product-created')
+    productCreated(@Payload() data: any, @Ctx() context: KafkaContext){
+
+        console.log('--------------------------------------')
+        console.log('Data: ', data)
+        console.log('--------------------------------------')
+        console.log('Context: ', context)
+        console.log('--------------------------------------')
+    }
+
+    @EventPattern('store.poster-created')
+    posterCreated(@Payload() data: any, @Ctx() context: KafkaContext){
+
+        console.log('--------------------------------------')
+        console.log('Data: ', data)
+        console.log('--------------------------------------')
+        console.log('Context: ', context)
+        console.log('--------------------------------------')
+    }
+    
 }
