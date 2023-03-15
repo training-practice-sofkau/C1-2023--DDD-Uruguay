@@ -3,6 +3,8 @@ import { ClientsModule } from '@nestjs/microservices';
 import { Transport } from '@nestjs/microservices/enums';
 import { MembershipController } from '../controllers/membership.controller';
 import { CompraController } from '../controllers/compra.controller';
+import { CreateClientePublisher } from './publisher/cliente/cliente-creado.publisher';
+import { CreateCompraPublisher, CreateCursoPublisher, CreateMembershipPublisher, CreatePlanPublisher, ObtenerClientePublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from './publisher';
 
 
 
@@ -43,25 +45,34 @@ import { CompraController } from '../controllers/compra.controller';
     ],
     controllers: [MembershipController, CompraController],
     providers: [
-        //CompraCreadaPublisher,
-       // ClienteCreadoPublisher,
-       // UpdatePhonePublisher,
-       // ClienteConseguidoPublisher,
-        //CursoCreadoPublisher,
-        //UpdateCostoCursoPublisher,
-        //CursoConseguidoPublisher
+       
+        CreateCompraPublisher,
+        CreateClientePublisher,
+        UpdatePhonePublisher,
+        ObtenerClientePublisher,
+        CreateCursoPublisher,
+        UpdateCostoPublisher,
+        ObtenerCursoPublisher,
+        
+        CreateMembershipPublisher,
+        CreatePlanPublisher,
+
     ],
 
     exports: [
-        /*
-        CompraCreadaEventPublisher,
+     
+        CreateCompraPublisher,
         CreateClientePublisher,
-        UpdatePhoneEventPublisher,
-        ClienteConseguidoEventPublisher,
-        CursoCreadoEventPublisher,
-        UpdateCostoCursoEventPublisher,
-        CursoConseguidoEventPublisher
-    */
+        UpdatePhonePublisher,
+        ObtenerClientePublisher,
+        CreateCursoPublisher,
+        UpdateCostoPublisher,
+        ObtenerCursoPublisher,
+
+        CreateMembershipPublisher,
+        CreatePlanPublisher,
+
+
    ]
 })
 export class MessagingModule { }

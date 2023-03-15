@@ -28,6 +28,8 @@ import { UpdateClientPhoneUseCase } from '../../application/use-cases/membership
 import { ICreateMembershipCommand } from '../utils/commands/membership/createMembership.command';
 import { CreateMembershipUseCase } from '../../application/use-cases/membership/create-membership.use-case';
 import { MembershipCreadaEventPublisher } from '../../domain/events/publishers/membership/membresia-creada.event-publisher';
+import { CreateMembershipPublisher, CreatePlanPublisher } from '../messaging/publisher/membership';
+import { CreateClientePublisher, ObtenerClientePublisher, UpdatePhonePublisher } from '../messaging/publisher';
 
 @Controller('membership')
 export class MembershipController {
@@ -35,15 +37,15 @@ export class MembershipController {
 
     constructor(
         private readonly membershipService: IMembershipService,
-        private readonly membershipCreadaEventPublisher : MembershipCreadaEventPublisher,
+        private readonly membershipCreadaPublisher : CreateMembershipPublisher,
 
         private readonly clienteService: IClienteService,
-        private readonly clienteCreadoEventPublisher: ClienteCreadoEventPublisher,
-        private readonly updatePhoneEventPublisher: UpdatePhoneEventPublisher,
-        private readonly clienteConseguidoEventPublisher: ClienteConseguidoEventPublisher,
+        private readonly clienteCreadoPublisher: CreateClientePublisher,
+        private readonly updatePhonePublisher: UpdatePhonePublisher ,
+        private readonly clienteConseguidoPublisher: ObtenerClientePublisher ,
 
         private readonly planService: IPlanService,
-        private readonly planCreadoEventPublisher: PlanCreadoEventPublisher
+        private readonly planCreadoPublisher: CreatePlanPublisher
 
         
     ) {}
@@ -55,7 +57,7 @@ export class MembershipController {
     async crearCliente(@Body() command: CreateClienteCommand) {
         const useCase = new CreateClienteUseCase(
             this.clienteService,
-            this.clienteCreadoEventPublisher,
+            this.clienteCreadoPublisher,
         );
         return await useCase.execute(command);
     }
@@ -64,7 +66,7 @@ export class MembershipController {
     async crearPlan(@Body() command: ICreatePlanCommand ) {
         const useCase = new CreatePlanUseCase(
             this.planService,
-            this.planCreadoEventPublisher,
+            this.planCreadoPublisher,
         );
         return await useCase.execute(command);
     }
@@ -73,7 +75,7 @@ export class MembershipController {
     async crearMembership(@Body() command: ICreateMembershipCommand ) {
         const useCase = new CreateMembershipUseCase(
             this.membershipService,
-            this.membershipCreadaEventPublisher,
+            this.membershipCreadaPublisher,
         );
         return await useCase.execute(command);
     }
@@ -84,7 +86,7 @@ export class MembershipController {
     async updatePhoneCliente(@Body() command: IUpdatePhoneCommand ) {
         const useCase = new UpdateClientPhoneUseCase(
             this.clienteService,
-            this.updatePhoneEventPublisher,
+            this.updatePhonePublisher,
         );
         return await useCase.execute(command);
     }
@@ -95,10 +97,14 @@ export class MembershipController {
     async obtenerCliente(@Body() command: IObtenerClienteCommand ) {
         const useCase = new  ObtenerClienteUseCase(
             this.clienteService,
-            this.clienteConseguidoEventPublisher,
+            this.clienteConseguidoPublisher,
         );
         return await useCase.execute(command);
     }
     
-    
+    //UpdateNombrePlanPublisher
+    //ObtenerPlanPublisher
+    //UpdateCostoPlanPublisher
+    //UpdateNombrePlanPublisher
+
 }
