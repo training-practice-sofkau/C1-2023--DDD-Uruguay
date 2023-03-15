@@ -1,7 +1,6 @@
 import { Controller } from "@nestjs/common";
 import { Ctx, EventPattern, KafkaContext, Payload } from "@nestjs/microservices";
-import { EventRepository } from "../../persistence/";
-import { EventEntity } from "../../persistence/entities/event.entity";
+import { EventMySqlEntity, EventRepository } from "../../persistence/";
 
 
 @Controller()
@@ -15,12 +14,12 @@ export class RoleEventsController{
     @EventPattern('customer-support.role-created')
     roleCreated(@Payload() data: any, @Ctx() context: KafkaContext){
 
-        this.registerEvent('customer-support.role-created', data); 
+        this.registerEvent(context.getTopic(), data);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
         console.log('--------------------------------------')
-        console.log('Context: ', context)
+        console.log('Context: ', context.getTopic())
         console.log('--------------------------------------')
 
     }   
@@ -29,7 +28,7 @@ export class RoleEventsController{
     roleDescriptionChanged(@Payload() data: any, @Ctx() context: KafkaContext){
 
 
-       this.registerEvent('customer-support.role-description-changed', data); 
+        this.registerEvent(context.getTopic(), data);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -50,11 +49,11 @@ export class RoleEventsController{
      * @memberof RoleEventsController
      */
      private registerEvent(sender: string, data: any) {
-        const event = new EventEntity();
+        const event = new EventMySqlEntity();
 
         event.data = data;
         event.type = sender;
-        event.createdAt = Date.now();
+        event.createdAt = Date.now() as unknown as string;
 
         this.eventRepository.create(event);
     }

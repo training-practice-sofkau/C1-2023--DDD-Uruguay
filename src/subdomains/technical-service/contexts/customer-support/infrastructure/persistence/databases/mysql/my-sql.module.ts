@@ -56,11 +56,7 @@ import {
             SupportTicketMySqlEntity,
             WarrantyMySqlEntity,
             EventMySqlEntity
-
         ]),
-    ],
-    controllers:[
-        
     ],
     providers:[
         TypeOrmMySqlConfigService,

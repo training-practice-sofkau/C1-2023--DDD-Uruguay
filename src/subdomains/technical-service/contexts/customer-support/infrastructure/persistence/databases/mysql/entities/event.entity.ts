@@ -13,5 +13,5 @@ export class EventMySqlEntity {
     data: string;
 
     @Column()
-    createdAt: number;
+    createdAt: string;
 }

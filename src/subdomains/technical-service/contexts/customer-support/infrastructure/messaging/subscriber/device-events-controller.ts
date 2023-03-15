@@ -1,7 +1,7 @@
 import { Controller } from "@nestjs/common";
 import { Ctx, EventPattern, KafkaContext, Payload } from "@nestjs/microservices";
-import { EventRepository } from "../../persistence";
-import { EventEntity } from "../../persistence/entities/event.entity";
+import { EventMySqlEntity, EventRepository } from "../../persistence";
+
 
 @Controller()
 export class DeviceEventsController{
@@ -13,7 +13,7 @@ export class DeviceEventsController{
     @EventPattern('customer-support.device-added')
     deviceAdded(@Payload() data: any, @Ctx() context: KafkaContext){
 
-        this.registerEvent('customer-support.device-added', data);
+        this.registerEvent(context.getTopic(), data);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -32,11 +32,11 @@ export class DeviceEventsController{
      * @memberof RoleEventsController
      */
     private async registerEvent(sender: string, data: any) {
-        const event = new EventEntity();
+        const event = new EventMySqlEntity();
 
         event.data = data;
         event.type = sender;
-        event.createdAt = Date.now();
+        event.createdAt = Date.now() as unknown as string;
 
         await this.eventRepository.create(event);
     }

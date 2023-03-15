@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { MySqlModule } from "./databases/mysql";
 
 
+
 import { 
     InvoiceService, 
     DeviceService, 
@@ -11,8 +12,7 @@ import {
     RoleService,
     SupportTicketService,
     WarrantyService,
-    EventService
-    
+    EventService    
 } from './services/';
 
 @Module({

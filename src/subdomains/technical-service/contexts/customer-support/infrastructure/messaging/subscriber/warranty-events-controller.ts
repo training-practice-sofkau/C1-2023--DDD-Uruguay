@@ -1,7 +1,7 @@
 import { Controller } from "@nestjs/common";
 import { Ctx, EventPattern, KafkaContext, Payload } from "@nestjs/microservices";
 import { EventRepository } from "../../persistence";
-import { EventEntity } from "../../persistence/entities/event.entity";
+import { EventMySqlEntity } from '../../persistence/databases/mysql/entities/event.entity';
 
 @Controller()
 export class WarrantyEventsController {
@@ -13,7 +13,7 @@ export class WarrantyEventsController {
     @EventPattern('customer-support.warranty-end-date-changed')
     warrantyEndDateChanged(@Payload() data: any, @Ctx() context: KafkaContext) {
 
-        this.registerEvent('customer-support.warranty-end-date-changed', data);
+        this.registerEvent(context.getTopic(), data);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -26,7 +26,7 @@ export class WarrantyEventsController {
     @EventPattern('customer-support.warranty-status-changed')
     warrantyStatusChanged(@Payload() data: any, @Ctx() context: KafkaContext) {
 
-        this.registerEvent('customer-support.warranty-status-changed', data);
+        this.registerEvent(context.getTopic(), data);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -44,11 +44,11 @@ export class WarrantyEventsController {
             * @memberof RoleEventsController
             */
     private async registerEvent(sender: string, data: any) {
-        const event = new EventEntity();
+        let event = new EventMySqlEntity();
 
         event.data = data;
         event.type = sender;
-        event.createdAt = Date.now();
+        event.createdAt = Date.now() as unknown as string;
 
         await this.eventRepository.create(event);
     }

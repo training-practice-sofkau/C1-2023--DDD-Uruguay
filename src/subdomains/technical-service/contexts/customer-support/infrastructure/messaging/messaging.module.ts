@@ -1,5 +1,8 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { ClientsModule, Transport } from "@nestjs/microservices";
+import { EventRepository } from '../persistence/databases/mysql/repositories/event.repository';
+import { PersistenceModule } from '../persistence/persistence.module';
+import { MySqlModule } from '../persistence/databases/mysql/my-sql.module';
 
 
 import {
@@ -35,7 +38,8 @@ import {
 } from "./subscriber";
 
 @Module({
-  imports: [
+  imports: [   
+    MySqlModule, 
     ClientsModule.register([
       {
         name: 'TECHNICAL-SERVICE_CONTEXT',
@@ -45,9 +49,8 @@ import {
             brokers: ['localhost:9092'],
           }
         }
-      },
-    ]),
-    
+      },      
+    ]),    
   ],
   controllers: [
     CustomerEventsController,
