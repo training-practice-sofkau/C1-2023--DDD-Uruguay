@@ -13,21 +13,6 @@ export class PlanRepository implements IRepository<PlanMySqlEntity>{
     constructor(@InjectRepository(PlanMySqlEntity) private readonly repository: Repository<PlanMySqlEntity>) { }
 
 
-    async findAll(): Promise<PlanMySqlEntity[]> {
-        return await this.repository.find();
-    }
-
-
-    async findById(idPlan: string): Promise<PlanMySqlEntity> {
-
-        const plan = await this.repository.findOneBy({idPlan})
-
-        if (!plan) throw new BadRequestException(`El cliente con el id: ${idPlan} no se encuentra`)
-
-        return plan;
-    }
-
-
     async create(entity: PlanMySqlEntity): Promise<PlanMySqlEntity> {
         return await this.repository.save(entity)
     }
@@ -41,8 +26,24 @@ export class PlanRepository implements IRepository<PlanMySqlEntity>{
 
             return this.repository.save(entidadUpdated)
         }
-        throw new BadRequestException(`El cliente con el id: ${idPlan} no se encuentra`)
+        throw new BadRequestException(`El plan con el id: ${idPlan} no se encuentra`)
     }
+
+    async findAll(): Promise<PlanMySqlEntity[]> {
+        return await this.repository.find();
+    }
+
+    async findById(idPlan: string): Promise<PlanMySqlEntity> {
+
+        const plan = await this.repository.findOneBy({idPlan})
+
+        if (!plan) throw new BadRequestException(`El cliente con el id: ${idPlan} no se encuentra`)
+
+        return plan;
+    }
+
+
+    
 
     /*
     async delete(clientId: string): Promise<boolean> {

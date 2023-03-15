@@ -2,10 +2,10 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "ty
 
 
 import { MembershipMySqlEntity } from "./membership.entity";
-import { ClienteDomainEntity } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
+import { ClienteDomainEntity, PlanDomainEntity } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 
 @Entity()
-export class PlanMySqlEntity extends ClienteDomainEntity {
+export class PlanMySqlEntity extends PlanDomainEntity {
     
 
     @PrimaryGeneratedColumn('uuid')

@@ -1,6 +1,7 @@
 import { EventPublisherBase } from "src/libs/sofka/bases/event-publisher.base";
+import { PlanDomainEntity } from "../../../../entities/membership/plan.domain-entity";
 
-export abstract class UpdateCostoPlanEventPublisher<Response = number> extends EventPublisherBase<Response> {
+export abstract class UpdateCostoPlanEventPublisher<Response = PlanDomainEntity> extends EventPublisherBase<Response> {
 
     publish<Result = any>(): Promise<Result> {
         return this.emit(

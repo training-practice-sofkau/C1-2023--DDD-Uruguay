@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 import { Transport } from '@nestjs/microservices/enums';
-import { CreatedClientPublisher } from './publisher/created-client.publisher';
-import { CreateOrderPublisher } from './publisher/created-order.publisher';
-import { CreatedClientController } from './subscribers/globalEvent.subscriber';
+import { MembershipController } from '../controllers/membership.controller';
+import { CompraController } from '../controllers/compra.controller';
+import { CreateClientePublisher } from './publisher/cliente/cliente-creado.publisher';
+import { CreateCompraPublisher, CreateCursoPublisher, CreateMembershipPublisher, CreatePlanPublisher, ObtenerClientePublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from './publisher';
+
+
 
 /**
  * name: el nombre del cliente.
@@ -29,7 +32,7 @@ import { CreatedClientController } from './subscribers/globalEvent.subscriber';
     imports: [
         ClientsModule.register([
             {
-                name: 'CONSULTORY_CONTEXT',
+                name: 'VENTAS_WEB_CONTEXT',
                 transport: Transport.KAFKA,
                 options: {
                     client: {
@@ -40,8 +43,36 @@ import { CreatedClientController } from './subscribers/globalEvent.subscriber';
             },
         ]),
     ],
-    controllers: [CreatedClientController],
-    providers: [CreatedClientPublisher, CreateOrderPublisher],
-    exports: [CreatedClientPublisher, CreateOrderPublisher]
+    controllers: [MembershipController, CompraController],
+    providers: [
+       
+        CreateCompraPublisher,
+        CreateClientePublisher,
+        UpdatePhonePublisher,
+        ObtenerClientePublisher,
+        CreateCursoPublisher,
+        UpdateCostoPublisher,
+        ObtenerCursoPublisher,
+        
+        CreateMembershipPublisher,
+        CreatePlanPublisher,
+
+    ],
+
+    exports: [
+     
+        CreateCompraPublisher,
+        CreateClientePublisher,
+        UpdatePhonePublisher,
+        ObtenerClientePublisher,
+        CreateCursoPublisher,
+        UpdateCostoPublisher,
+        ObtenerCursoPublisher,
+
+        CreateMembershipPublisher,
+        CreatePlanPublisher,
+
+
+   ]
 })
 export class MessagingModule { }

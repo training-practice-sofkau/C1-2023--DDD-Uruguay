@@ -2,13 +2,13 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { IEventPublisher } from "src/libs";
 import {  ClienteConseguidoEventPublisher, CuponConseguidoEventPublisher, UpdatePhoneEventPublisher } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
-import { ClienteMySqlEntity, CuponMySqlEntity } from "../../../../persistence";
+import { ClienteMySqlEntity, CuponMySqlEntity } from "../../../persistence";
 import { lastValueFrom } from "rxjs";
 
 
 @Injectable()
 export class ObtenerClientePublisher extends ClienteConseguidoEventPublisher {
-    constructor(@Inject('CONSULTORY_CONTEXT') private readonly proxy: ClientProxy) {
+    constructor(@Inject('VENTAS_WEB_CONTEXT') private readonly proxy: ClientProxy) {
         super(proxy as unknown as IEventPublisher);
     }
 

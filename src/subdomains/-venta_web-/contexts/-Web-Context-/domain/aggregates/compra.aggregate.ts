@@ -1,7 +1,7 @@
-import { IUpdatePhoneMethod } from "../interfaces/commands/compra/cliente/updatePhone.command";
+import { IUpdatePhoneMethod } from "../interfaces/commands/cliente/updatePhone.command";
 import { ClienteDomainEntity, CursoDomainEntity } from "../entities";
 import { CompraDomainEntity } from "../entities/compra/compra.domain-entity";
-import { ICreateClienteMethod } from "../interfaces/commands/compra/createCliente.command";
+import { ICreateClienteMethod } from "../interfaces/commands/cliente/createCliente.command";
 import { ICreateCompraMethod } from "../interfaces/commands/compra/createCompra.command";
 import { ICreateCursoMethod } from "../interfaces/commands/compra/createCurso.command";
 import { IUpdatePorcentajeMethod } from "../interfaces/commands/compra/cupon/updatePorcentaje.command";

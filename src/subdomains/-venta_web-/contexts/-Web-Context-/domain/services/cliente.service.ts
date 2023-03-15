@@ -1,6 +1,6 @@
 import { ClienteDomainEntity } from "../entities";
 import { ICreateClienteMethod } from "../interfaces";
-import { IUpdatePhoneMethod } from "../interfaces/commands/compra/cliente/updatePhone.command";
+import { IUpdatePhoneMethod } from "../interfaces/commands/cliente/updatePhone.command";
 
 export interface IClienteService <T extends ClienteDomainEntity =  ClienteDomainEntity>{
 

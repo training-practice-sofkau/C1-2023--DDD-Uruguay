@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { IEventPublisher } from "src/libs";
 import {  CuponConseguidoEventPublisher, UpdatePhoneEventPublisher } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
-import { ClienteMySqlEntity, CuponMySqlEntity } from "../../../../persistence";
+import { ClienteMySqlEntity, CuponMySqlEntity } from "../../../persistence";
 import { lastValueFrom } from "rxjs";
 
 

@@ -1,16 +1,16 @@
 import { Injectable } from "@nestjs/common";
-
 import { ClienteRepository } from "../repositories";
 import { ClienteDomainEntity, CursoDomainEntity, IClienteService, ICompraService, ICreateClienteMethod, ICreateCursoMethod, ICursoService, IUpdateCostoMethod, IUpdatePhoneMethod } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 import { CursoMySqlEntity } from "../entities/curso.entity";
 
 
 
-
 @Injectable()
 export class CursoMySqlService implements ICursoService<CursoMySqlEntity> {
 
-    constructor(private readonly clienteRepository: ClienteRepository) {}
+    constructor(private readonly clienteRepository: ClienteRepository) {
+        
+    }
 
 
 

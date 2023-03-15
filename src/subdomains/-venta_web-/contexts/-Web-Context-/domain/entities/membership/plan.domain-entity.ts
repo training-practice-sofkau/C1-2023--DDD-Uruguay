@@ -7,11 +7,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 export class PlanDomainEntity implements IPlanDomainEntityInterface{
 
-    idPlan: string | UuidValueObject;
-    nombrePlan: string | FullnameValueObject;
-    dateInicioPlan: number | DateValueObject;
-    dateFinPlan: number | DateValueObject;
-    costoPlan: number | CostoValueObject;
+    idPlan?: string | UuidValueObject;
+    nombrePlan?: string | FullnameValueObject;
+    dateInicioPlan?: number | DateValueObject;
+    dateFinPlan?: number | DateValueObject;
+    costoPlan?: number | CostoValueObject;
 
 
     constructor( _data? : IPlanDomainEntityInterface ){

@@ -1,5 +1,5 @@
 import { IUseCase, ValueObjectErrorHandler } from "src/libs";
-import { IObtenerClienteMethod } from "../../../domain/interfaces/commands/compra/cliente/ObtenerCliente.command";
+import { IObtenerClienteMethod } from "../../../domain/interfaces/commands/cliente/ObtenerCliente.command";
 import { IClienteConseguidoResponse } from "../../../domain/interfaces/responses/clienteConseguido.response";
 import { ClienteDomainEntity, IMembershipService, MembershipAggregate } from "../../../domain";
 import { ClienteConseguidoEventPublisher } from "../../../domain/events/publishers/compra/cliente/cliente-conseguido.event-publisher";

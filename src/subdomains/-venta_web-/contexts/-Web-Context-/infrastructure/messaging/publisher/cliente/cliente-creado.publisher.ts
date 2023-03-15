@@ -8,7 +8,7 @@ import { lastValueFrom } from "rxjs";
 
 @Injectable()
 export class CreateClientePublisher extends ClienteCreadoEventPublisher {
-    constructor(@Inject('CONSULTORY_CONTEXT') private readonly proxy: ClientProxy) {
+    constructor(@Inject('VENTAS_WEB_CONTEXT') private readonly proxy: ClientProxy) {
         super(proxy as unknown as IEventPublisher);
     }
 
@@ -20,3 +20,4 @@ export class CreateClientePublisher extends ClienteCreadoEventPublisher {
         return lastValueFrom<Result>(this.proxy.emit(pattern, data));
     }
 }
+
