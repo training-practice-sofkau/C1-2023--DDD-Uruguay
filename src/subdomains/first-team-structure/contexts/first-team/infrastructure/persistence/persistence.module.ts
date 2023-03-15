@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MatchController } from '../controllers/match.controller';
 import { CoachRepository, MatchRepository, PlayerRepository, PostgreSQLModule, RivalRepository, StadiumRepository, TeamRepository, TrainerRepository, TrainingEquipmentRepository, TrainingFieldRepository, TrainingRepository, WorkoutRepository } from "./databases";
+import { EventService } from './services/event.service';
 import { MatchService } from "./services/match/match.service";
 import { RivalService } from "./services/match/rival.service";
 import { StadiumService } from "./services/match/stadium.service";
@@ -18,9 +19,9 @@ import { WorkoutService } from "./services/training/workout.service";
     controllers: [],
     providers: [RivalService, StadiumService, MatchService, TeamService,
     PlayerService, CoachService, TrainingService, TrainingFieldService, TrainingEquipmentService,
-  TrainerService, WorkoutService,],
+  TrainerService, WorkoutService, EventService],
   exports: [RivalService, StadiumService, MatchService, TeamService,
     PlayerService, CoachService, TrainingService, TrainingFieldService, TrainingEquipmentService,
-  TrainerService, WorkoutService,]
+  TrainerService, WorkoutService, EventService]
   })
 export class PersistenceModule {}
