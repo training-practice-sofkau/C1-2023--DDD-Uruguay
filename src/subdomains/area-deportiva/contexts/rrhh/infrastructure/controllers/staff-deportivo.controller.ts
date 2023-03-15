@@ -6,6 +6,9 @@ import { CrearStaffDeportivoCommand } from '../utils/commands/staffDeportivo/cre
 import { EmpleadoBuscadoEventPublisher, TramiteBuscadoEventPublisher } from '../../domain/events/publishers';
 import { EmpleadoService } from '../persistence/services/empleado.service';
 import { TramiteService } from '../persistence/services/tramite.service';
+import { CrearStaffDeportivoPublisher } from '../messaging/publishers/staffDeportivo/crear-staff-deportivo.publisher';
+import { BuscarTramitePublisher } from '../messaging/publishers/staffDeportivo/tramite/buscar-tramite.publisher';
+import { BuscarEmpleadoPublisher } from '../messaging';
 
 @Controller('staffDeportivo')
 export class StaffDeportivoController {
@@ -14,9 +17,9 @@ export class StaffDeportivoController {
         private readonly empleadoService: EmpleadoService,
         private readonly tramiteService: TramiteService,
 
-        private readonly staffDeportivoCreadoEventPublisher: StaffDeportivoCreadoEventPublisher,
-        private readonly tramiteBuscadoEvent : TramiteBuscadoEventPublisher,
-        private readonly empleadoBuscadoEvent : EmpleadoBuscadoEventPublisher,
+        private readonly staffDeportivoCreadoEventPublisher: CrearStaffDeportivoPublisher,
+        private readonly tramiteBuscadoEvent : BuscarTramitePublisher,
+        private readonly empleadoBuscadoEvent : BuscarEmpleadoPublisher,
     ) {}
 
     @Post('/crear')
