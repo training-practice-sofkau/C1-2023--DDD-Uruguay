@@ -2,13 +2,13 @@ import { ClientProxy } from '@nestjs/microservices';
 import { IEventPublisher } from 'src/libs/sofka/interface/event-publisher.interface';
 import { Injectable, Inject } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
-import { TramiteAgregadoEventPublisher } from '../../../../../domain/events/publishers/staff-deporitvo/tramite-agregado.event-publisher';
-import { TramiteEntity } from '../../../../persistence/entities/tramite.entity';
+import { NegociacionAgregadaEventPublisher } from '../../../../../domain/events/publishers/tramite/negociacion-agregada.event-publisher';
+import { NegociacionEntity } from '../../../../persistence/entities/negociacionentity';
 
 
 
 @Injectable()
-export class  CrearTramitePublisher extends TramiteAgregadoEventPublisher {
+export class  CrearNegociacionPublisher extends NegociacionAgregadaEventPublisher {
     constructor(@Inject('RRHH_CONTEXT') private readonly proxy: ClientProxy) {
         super(proxy as unknown as IEventPublisher);
     }
@@ -17,7 +17,7 @@ export class  CrearTramitePublisher extends TramiteAgregadoEventPublisher {
     //   return lastValueFrom<Result>(this.proxy.send(pattern, data));
     // }
 
-    emit<Result = any, Input = TramiteEntity>(
+    emit<Result = any, Input = NegociacionEntity>(
         pattern: any,
         data: Input,
     ): Promise<Result> {

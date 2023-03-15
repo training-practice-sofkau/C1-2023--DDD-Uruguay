@@ -1,5 +1,4 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { EmpleadoBuscadoEventPublisher } from '../../domain/events/publishers';
 import { TraspasoService } from '../persistence/services/traspaso.service';
 import { CrearTraspasoUseCase } from '../../application/use-cases/secretaria/crear-traspaso.use-case';
 import { NegociarTraspasoPublisher } from '../messaging/publishers/secretaria/traspaso/negociar-traspaso-publisher';
@@ -14,12 +13,12 @@ export class TraspasoController {
         private readonly traspasoService: TraspasoService,
 
         private readonly traspasoBuscadoEvent : BuscarTraspasoPublisher,
-        
+
         private readonly traspasoNegociadoEventPublisher: NegociarTraspasoPublisher,
     ) {}
 
     @Post('/crear')
-    async crearStaffDeportivo(@Body() command: NegociarTraspasoCommand) {
+    async crearTraspaso(@Body() command: NegociarTraspasoCommand) {
         const useCase = new CrearTraspasoUseCase(
             this.traspasoService,
             this.traspasoNegociadoEventPublisher,
@@ -27,7 +26,7 @@ export class TraspasoController {
         return await useCase.execute(command);
     }
 
-    @Post('/modificar-state')
+    @Post('/buscar')
     async buscarTraspaso(@Body() command: BuscarTraspasoCommand) {
         const useCase = new BuscarTraspasoUseCase(
             this.traspasoService,

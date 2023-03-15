@@ -2,7 +2,7 @@ import { IsBoolean, IsString ,IsNumber, IsUUID} from 'class-validator';
 import { INegociarCesionCommands } from 'src/subdomains/area-deportiva/contexts/rrhh/domain/interfaces/commands/secretaria';
 
 
-export class NegociarCesion implements INegociarCesionCommands {
+export class NegociarCesionCommand implements INegociarCesionCommands {
 
     @IsUUID()
     cesionId?: string;
