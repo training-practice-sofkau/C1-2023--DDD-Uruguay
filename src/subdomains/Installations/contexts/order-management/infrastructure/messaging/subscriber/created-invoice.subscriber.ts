@@ -26,7 +26,7 @@ export class CreatedInvoiceController{
      * @param {KafkaContext} context
      * @memberof CreatedInvoiceController
      */
-    @EventPattern('order-management.created-invoice')
+    @EventPattern('order-management.created_invoice')
     createdInvoice(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')

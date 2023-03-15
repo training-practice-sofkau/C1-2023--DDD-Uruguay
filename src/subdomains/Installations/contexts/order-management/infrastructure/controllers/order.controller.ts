@@ -15,6 +15,11 @@ import {
 } from '../messaging/publisher';
 import { OrderService } from '../persistence/services';
 import {
+  BenefitedService,
+  EmployedService,
+  KitService,
+} from '../persistence/services/order';
+import {
   CreateOrderCommand,
   GetOrderCommand,
 } from '../utils/commands';
@@ -24,6 +29,9 @@ import {
 export class OrderController {
     constructor(
         private readonly orderService: OrderService,
+        private readonly benefitedService: BenefitedService,
+        private readonly employedService: EmployedService,
+        private readonly kitService: KitService,
         private readonly createdOrderEventPublisher: CreatedOrderPublisher,
         private readonly gettedOrderEventPublisher: GettedOrderPublisher
     ) {}

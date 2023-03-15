@@ -32,13 +32,13 @@ export class CreateInvoiceCommand implements ICreateInvoiceCommand {
 
     @ApiProperty()
     @IsNumber()
-    createdAt?: number | Date;
+    createdAt?: number;
 
     @ApiProperty()
     @IsNumber()
-    updatedAt?: number | Date;
+    updatedAt?: number;
 
     @ApiProperty()
     @IsNumber()
-    deletedAt?: number | Date;
+    deletedAt?: number;
 }

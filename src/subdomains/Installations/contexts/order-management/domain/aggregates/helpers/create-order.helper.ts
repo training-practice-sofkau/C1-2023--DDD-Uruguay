@@ -7,8 +7,8 @@ export const CreateOrder = async (
   orderService: IOrderDomainService,
   createdOrderEventPublisher: CreatedOrderEventPublisherBase
 ): Promise<OrderDomainEntityBase | null> => {
-  const result = await orderService.createOrder(order);
-  createdOrderEventPublisher.response = result;
+  //const result = await orderService.createOrder(order);
+  createdOrderEventPublisher.response = order;
   createdOrderEventPublisher.publish();
-  return result;
+  return order;
 };

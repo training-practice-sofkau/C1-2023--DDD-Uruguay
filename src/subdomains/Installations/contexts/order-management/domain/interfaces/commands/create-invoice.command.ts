@@ -8,7 +8,7 @@ export interface ICreateInvoiceCommand {
   status?: boolean;
   company: ICompanyDomainEntity;
   fee: IFeeDomainEntity;
-  createdAt?: number | Date;
-  updatedAt?: number | Date;
-  deletedAt?: number | Date;
+  createdAt?: number;
+  updatedAt?: number;
+  deletedAt?: number;
 }

@@ -6,8 +6,14 @@ import {
   Payload,
 } from '@nestjs/microservices';
 
+import { OrderEntity } from '../../persistence';
+import { EventEntity } from '../../persistence/entities/event.entity';
+import { OrderService } from '../../persistence/services';
+
 @Controller()
 export class CreatedOrderController{
+
+    constructor(private readonly orderService: OrderService){}
 
     /**
      * EventPattern se utiliza para definir un patrón de evento de Kafka
@@ -26,13 +32,17 @@ export class CreatedOrderController{
      * @param {KafkaContext} context
      * @memberof CreatedOrderController
      */
-    @EventPattern('order-management.created-order')
-    createdOrder(@Payload() data: any, @Ctx() context: KafkaContext){
+    @EventPattern('order_management.created_order')
+    createdOrder(@Payload() data: EventEntity, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
-        console.log('Data: ', data)
+        console.log('Data: ', data.data)
         console.log('--------------------------------------')
         console.log('Context: ', context)
         console.log('--------------------------------------')
+
+        const object: OrderEntity = JSON.parse(JSON.stringify(data.data));
+        this.orderService.createOrder(object);
+
     }
 }

@@ -1,19 +1,20 @@
 import {
   IUseCase,
   ValueObjectErrorHandler,
-  ValueObjectException,
 } from '../../../../../../libs/sofka';
 import { OrderAggregate } from '../../domain/aggregates';
-import { OrderDomainEntityBase } from '../../domain/entities';
-import { IOrderDomainEntity } from '../../domain/entities/interfaces';
+import {
+  EmployedDomainEntityBase,
+  KitDomainEntityBase,
+  OrderDomainEntityBase,
+} from '../../domain/entities';
+import {
+  BenefitedDomainEntityBase,
+} from '../../domain/entities/order/benefited.domain-entity';
 import { CreatedOrderEventPublisherBase } from '../../domain/events';
 import { ICreateOrderCommand } from '../../domain/interfaces/commands';
 import { ICreateOrderResponse } from '../../domain/interfaces/responses';
 import { IOrderDomainService } from '../../domain/services';
-import {
-  OrderIdValueObject,
-  OrderStatusValueObject,
-} from '../../domain/value-objects';
 
 export class CreateOrderUseCase<
       Command extends ICreateOrderCommand = ICreateOrderCommand,
@@ -44,62 +45,22 @@ export class CreateOrderUseCase<
     private async executeCommand(
       command: Command
     ): Promise<OrderDomainEntityBase | null> {
-      const ValueObject = this.createValueObject(command);
-      this.validateValueObject(ValueObject);
-      const entity = this.createEntityOrderDomain(ValueObject);
-      return this.executeOrderAggregateRoot(entity);
-    }
-  
-    private createValueObject(command: Command): IOrderDomainEntity {
-      const orderId = new OrderIdValueObject(command.orderId);
-      const status = new OrderStatusValueObject(command.status);
-      const kit = command.kit;
-      const benefited = command.benefited;
-      const employed = command.employed;
-  
-      return {
-        orderId,
-        status,
-        kit,
-        benefited,
-        employed
-      };
-    }
-  
-    private validateValueObject(valueObject: IOrderDomainEntity): void {
-      const { orderId, status } = valueObject;
-  
-      if (orderId instanceof OrderIdValueObject && orderId.hasErrors())
-        this.setErrors(orderId.getErrors());
-
-      if (status instanceof OrderStatusValueObject && status.hasErrors())
-        this.setErrors(status.getErrors());
-  
-      if (this.hasErrors() === true)
-        throw new ValueObjectException(
-          "Hay algunos errores en el comando ejecutado por createOrderUserCase",
-          this.getErrors()
-        );
-    }
-  
-    private createEntityOrderDomain(
-      valueObject: IOrderDomainEntity
-    ): OrderDomainEntityBase {
-      const { orderId, status, kit, benefited, employed } = valueObject;
-  
-      return new OrderDomainEntityBase({
-        orderId: orderId.valueOf(),
-        status: status.valueOf(),
-        kit: kit.valueOf(),
-        benefited: benefited.valueOf(),
-        employed: employed.valueOf()
-      });
-    }
-  
-    private executeOrderAggregateRoot(
-      entity: OrderDomainEntityBase
-    ): Promise<OrderDomainEntityBase | null> {
-      return this.orderAggregateRoot.createOrder(entity);
+      if (!(command.kit && command.employed && command.benefited)){
+        let benefited = new BenefitedDomainEntityBase();
+        let kit = new KitDomainEntityBase();
+        let employed = new EmployedDomainEntityBase();
+        let data = {benefited: benefited, kit: kit, employed: employed};
+        let entity = new OrderDomainEntityBase(data);
+        //this.orderAggregateRoot.createBenefited(benefited);
+        //this.orderAggregateRoot.createKit(kit);
+        //this.orderAggregateRoot.createEmployed(employed);
+        return this.orderAggregateRoot.createOrder(entity);
+      }
+      return null;
+      //const ValueObject = this.createValueObject(command);
+      //this.validateValueObject(ValueObject);
+      //const entity = this.createEntityOrderDomain(ValueObject);
+      //return this.executeOrderAggregateRoot(entity);
     }
   }
   

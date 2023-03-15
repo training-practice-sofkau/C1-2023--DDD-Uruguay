@@ -25,25 +25,25 @@ export class CreateOrderCommand implements ICreateOrderCommand {
 
     @ApiProperty()
     @IsString()
-    kit: ICreateKitCommand;
+    kit?: ICreateKitCommand;
 
     @ApiProperty()
     @IsObject()
-    employed: ICreateBenefitedCommand;
+    employed?: ICreateBenefitedCommand;
 
     @ApiProperty()
     @IsObject()
-    benefited: ICreateEmployedCommand;
+    benefited?: ICreateEmployedCommand;
 
     @ApiProperty()
     @IsNumber()
-    createdAt?: number | Date;
+    createdAt?: number;
 
     @ApiProperty()
     @IsNumber()
-    updatedAt?: number | Date;
+    updatedAt?: number;
 
     @ApiProperty()
     @IsNumber()
-    deletedAt?: number | Date;
+    deletedAt?: number;
 }

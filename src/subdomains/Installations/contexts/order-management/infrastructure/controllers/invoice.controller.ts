@@ -15,6 +15,10 @@ import {
 } from '../messaging/publisher';
 import { InvoiceService } from '../persistence/services';
 import {
+  CompanyService,
+  FeeService,
+} from '../persistence/services/invoice';
+import {
   CreateInvoiceCommand,
   GetInvoiceCommand,
 } from '../utils/commands';
@@ -24,6 +28,8 @@ import {
   export class InvoiceController {
       constructor(
           private readonly invoiceService: InvoiceService,
+          private readonly companyService: CompanyService,
+          private readonly feeService: FeeService,
           private readonly createdInvoiceEventPublisher: CreatedInvoicePublisher,
           private readonly gettedInvoiceEventPublisher: GettedInvoicePublisher
       ) {}

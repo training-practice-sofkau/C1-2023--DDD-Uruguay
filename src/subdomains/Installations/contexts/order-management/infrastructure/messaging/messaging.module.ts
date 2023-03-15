@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 import { Transport } from '@nestjs/microservices/enums';
 
+import { PersistenceModule } from '../persistence';
 import {
   CreatedInvoicePublisher,
   CreatedOrderPublisher,
@@ -46,6 +47,7 @@ import {
                 },
             },
         ]),
+        PersistenceModule
     ],
     controllers: [CreatedInvoiceController, CreatedOrderController],
     providers: [CreatedInvoicePublisher, CreatedOrderPublisher, GettedInvoicePublisher, GettedOrderPublisher],
