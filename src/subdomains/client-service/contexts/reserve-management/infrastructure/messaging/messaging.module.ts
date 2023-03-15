@@ -15,7 +15,23 @@ import {
     PaymentMethodUpdatedMessagePublisher,
     StateUpdatedMessagePublisher,
     CustomerObtainedMessagePublisher,
-    RoomObtainedMessagePublisher
+    RoomObtainedMessagePublisher,
+    AccessLevelUpdatedMessagePublisher,
+    CheckInCreatedMessagePublisher,
+    EmailUpdatedMessagePublisher,
+    GuestAddedMessagePublisher,
+    GuestObtainedMessagePublisher,
+    PhoneUpdatedMessagePublisher,
+    RoomKeyAddedMessagePublisher,
+    RoomKeyObtainedMessagePublisher,
+    CheckOutCreatedMessagePublisher,
+    ConsumptionAddedMessagePublisher,
+    ConsumptionObtainedMessagePublisher,
+    CostUpdatedMessagePublisher,
+    ExtraUpdatedMessagePublisher,
+    InvoiceAddedMessagePublisher,
+    InvoiceObtainedMessagePublisher,
+    MiniBarUpdatedMessagePublisher
 } from "./publisher";
 
 /**
@@ -69,6 +85,24 @@ import {
         StateUpdatedMessagePublisher,
         CustomerObtainedMessagePublisher,
         RoomObtainedMessagePublisher,
+
+        CheckInCreatedMessagePublisher,
+        GuestAddedMessagePublisher,
+        RoomKeyAddedMessagePublisher,
+        EmailUpdatedMessagePublisher,
+        PhoneUpdatedMessagePublisher,
+        AccessLevelUpdatedMessagePublisher,
+        GuestObtainedMessagePublisher,
+        RoomKeyObtainedMessagePublisher,
+
+        CheckOutCreatedMessagePublisher,
+        ConsumptionAddedMessagePublisher,
+        InvoiceAddedMessagePublisher,
+        ExtraUpdatedMessagePublisher,
+        MiniBarUpdatedMessagePublisher,
+        CostUpdatedMessagePublisher,
+        ConsumptionObtainedMessagePublisher,
+        InvoiceObtainedMessagePublisher,
     ],
     exports: [
         ReserveCreatedMessagePublisher,
@@ -81,6 +115,24 @@ import {
         StateUpdatedMessagePublisher,
         CustomerObtainedMessagePublisher,
         RoomObtainedMessagePublisher,
+
+        CheckInCreatedMessagePublisher,
+        GuestAddedMessagePublisher,
+        RoomKeyAddedMessagePublisher,
+        EmailUpdatedMessagePublisher,
+        PhoneUpdatedMessagePublisher,
+        AccessLevelUpdatedMessagePublisher,
+        GuestObtainedMessagePublisher,
+        RoomKeyObtainedMessagePublisher,
+
+        CheckOutCreatedMessagePublisher,
+        ConsumptionAddedMessagePublisher,
+        InvoiceAddedMessagePublisher,
+        ExtraUpdatedMessagePublisher,
+        MiniBarUpdatedMessagePublisher,
+        CostUpdatedMessagePublisher,
+        ConsumptionObtainedMessagePublisher,
+        InvoiceObtainedMessagePublisher,
     ]
 })
 export class MessagingModule { }
