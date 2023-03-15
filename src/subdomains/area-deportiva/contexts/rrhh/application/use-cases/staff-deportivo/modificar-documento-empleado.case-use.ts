@@ -1,6 +1,13 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { StaffDeportivoAggregate, IStaffDeportivoDomainService,DocumentoValueObject, EmpleadoDomainEntity, IEmpleadoDomainEntity, IdValueObject, DocumentoModificadoEventPublisher, IModificarDocumentoCommands, IDocumentoModificadoResponse } from "../../../domain";
+
 import { EmpleadoBuscadoEventPublisher } from "../../../domain/events/publishers/staff-deporitvo/empleado-buscado.event-publisher";
+import { StaffDeportivoAggregate } from "../../../domain/aggregates";
+import { EmpleadoDomainEntity, IEmpleadoDomainEntity } from "../../../domain/entities";
+import { DocumentoModificadoEventPublisher } from "../../../domain/events/publishers";
+import { IModificarDocumentoCommands } from "../../../domain/interfaces/commands/empleado";
+import { IDocumentoModificadoResponse } from "../../../domain/interfaces/responses/empleado";
+import { IStaffDeportivoDomainService } from "../../../domain/services";
+import { IdValueObject, DocumentoValueObject } from "../../../domain/value-objects";
 
 export class ModificarDocumentoEmpleadoUseCase 
     extends ValueObjectErrorHandler
@@ -93,6 +100,6 @@ export class ModificarDocumentoEmpleadoUseCase
     private exectueOrderAggregateRoot(
         entity: EmpleadoDomainEntity,
     ): Promise<EmpleadoDomainEntity | null> {
-        return this.aggregateRoot.modificarDocumento(entity)
+        return this.aggregateRoot.modificarDocumento(entity.empleadoId.valueOf(),entity)
     }
 }

@@ -11,7 +11,8 @@ import { SecretariaDomainEntity } from '../../../domain/entities/secretaria/secr
 import { BuscarContatoUseCase } from './buscar-contrato.use-case';
 import { BuscarCesionUseCase } from './buscar-cesion.use-case';
 import { BuscarTraspasoUseCase } from './buscar-traspaso.use-case';
-import { IdValueObject } from "../../../domain";
+import { IdValueObject } from "../../../domain/value-objects";
+
 
 export class CrearSecretariaUseCase extends ValueObjectErrorHandler
 implements IUseCase<ICrearSecretariaCommands, ISecretariaCreadaResponse> {

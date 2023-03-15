@@ -1,16 +1,16 @@
-import { CesionDomainEntity } from '../../entities/cesion/cesion.domain-entity';
-import { IModificarCostoCommands,IModificarStateCommands } from '../../interfaces';
-import { IModificarEquipoCommands } from '../../interfaces/commands/shared/modificar-equipo-nuevo.commands.interface';
-import { IModificarFechaCommands } from '../../interfaces/commands/shared/modificar-fecha.commands';
+import { CesionDomainEntity } from "../../entities";
 
 export interface ICesionDomainService<T extends CesionDomainEntity = CesionDomainEntity> {
 
-    CesionModificarCosto(costo: IModificarCostoCommands):Promise<T>;
-    CesionModificarFechaSalida(fechaSalida: IModificarFechaCommands):Promise<T>;
-    CesionModificarFechaRetorno(fechaRetorno: IModificarFechaCommands):Promise<T>;
-    CesionModificarEquipoNuevo(equipoNuevoId: IModificarEquipoCommands):Promise<T>;
-    CesionModificarEquipoSalida(equipoSalidaId: IModificarEquipoCommands):Promise<T>;
-    CesionModificarState(state: IModificarStateCommands):Promise<T>;
+    NegociarCesion(cesion: T ):Promise< T >;
+    CesionModificarCosto(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarFechaSalida(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarFechaRetorno(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarEquipoNuevo(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarEquipoSalida(cesionId: string,entity: T ):Promise<T>;
+    CesionModificarState(cesionId: string,entity: T ):Promise< T >;
+    
+    BuscarCesion(cesionId: string ):Promise<T>;
     
     
 }

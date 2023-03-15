@@ -1,5 +1,5 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import {  FechaValueObject, StaffDeportivoAggregate } from "../../../domain";
+
 import { ITramiteDomainService } from '../../../domain/services/staff-Deportivo/tramite.domain-service';
 import { TramiteAgregadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/tramite-agregado.event-publisher';
 import { ICrearTramiteCommands } from '../../../domain/interfaces/commands/staff-deportivo/crear-tramite.commands';
@@ -12,6 +12,8 @@ import { TerminosACumplirValueObject } from '../../../domain/value-objects/termi
 import { StateValueObject } from '../../../domain/value-objects/state/state.value-object';
 import { INegociacionDomainEntityInterface } from '../../../domain/entities/interfaces/negociacion/negociacion.domain-entity.interface';
 import { TipoNegociacionValueObject } from '../../../domain/value-objects/tipo-negociacion/tipo-negociacion.value-object';
+import { StaffDeportivoAggregate } from "../../../domain/aggregates";
+import { FechaValueObject } from "../../../domain/value-objects";
 
 export class AgregarTramiteUseCase extends ValueObjectErrorHandler
     implements IUseCase<ICrearTramiteCommands, ITramiteCreadoResponse> {
@@ -58,7 +60,7 @@ export class AgregarTramiteUseCase extends ValueObjectErrorHandler
         //atributo de negociacion
         const negociacionId = new IdValueObject(command.negociacionId);
         const equipoSalidaId = new IdValueObject(command.equipoSalidaId);
-        const equipoEntradaId = new IdValueObject(command.equipoEntradaId);
+        const equipoNuevoId = new IdValueObject(command.equipoEntradaId);
         const tipoNegociacion = new TipoNegociacionValueObject(command.tipoNegociacion);
         const terminoACumplir = new TerminosACumplirValueObject(command.terminoACumplir);
         const state = new StateValueObject(command.state) ;
@@ -66,7 +68,7 @@ export class AgregarTramiteUseCase extends ValueObjectErrorHandler
         const negociacion : INegociacionDomainEntityInterface = {
             negociacionId,
             equipoSalidaId,
-            equipoEntradaId,
+            equipoNuevoId,
             tipoNegociacion,
             terminoACumplir,
             state,
@@ -97,8 +99,8 @@ export class AgregarTramiteUseCase extends ValueObjectErrorHandler
         if (negociacion.negociacionId instanceof IdValueObject && negociacion.negociacionId.hasErrors())
             this.setErrors(negociacion.negociacionId.getErrors());
 
-        if (negociacion.equipoEntradaId instanceof IdValueObject && negociacion.equipoEntradaId.hasErrors())
-        this.setErrors(negociacion.equipoEntradaId.getErrors());
+        if (negociacion.equipoNuevoId instanceof IdValueObject && negociacion.equipoNuevoId.hasErrors())
+        this.setErrors(negociacion.equipoNuevoId.getErrors());
 
         if (negociacion.equipoSalidaId instanceof IdValueObject && negociacion.equipoSalidaId.hasErrors())
         this.setErrors(negociacion.equipoSalidaId.getErrors());
@@ -137,7 +139,7 @@ export class AgregarTramiteUseCase extends ValueObjectErrorHandler
             negociacion : new NegociacionDomainEntity({
                 negociacionId: negociacion.negociacionId,
                 equipoSalidaId: negociacion.equipoSalidaId,
-                equipoEntradaId: negociacion.equipoEntradaId,
+                equipoNuevoId: negociacion.equipoNuevoId,
                 tipoNegociacion: negociacion.tipoNegociacion,
                 terminoACumplir: negociacion.terminoACumplir,
                 state: negociacion.state,

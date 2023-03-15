@@ -15,21 +15,21 @@ export class ContratoDomainEntity implements IContratoDomainInterface {
 
     constructor(_contrato?: IContratoDomainInterface) {
 
-        if (_contrato.contratoId)
+        if (_contrato?.contratoId)
             this.contratoId = _contrato.contratoId;
         else
             this.contratoId = uuidv4();
 
-        if (_contrato.empleadoId)
+        if (_contrato?.empleadoId)
             this.empleadoId = _contrato.empleadoId;
 
-        if (_contrato.fechaFinalizacion)
+        if (_contrato?.fechaFinalizacion)
             this.fechaFinalizacion = _contrato.fechaFinalizacion;
 
-        if (_contrato.costo)
+        if (_contrato?.costo)
             this.costo = _contrato.costo;
 
-        if (_contrato.state)
+        if (_contrato?.state)
             this.state = _contrato.state;
 
     }

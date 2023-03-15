@@ -18,24 +18,24 @@ export class SecretariaDomainEntity implements ISecretariaDomainInterface{
 
     constructor(_secretaria?: ISecretariaDomainInterface) {
 
-        if (_secretaria.secretariaId)
+        if (_secretaria?.secretariaId)
             this.secretariaId = _secretaria.secretariaId;
         else
             this.secretariaId = uuidv4();
 
-        if (_secretaria.empleadoId)
+        if (_secretaria?.empleadoId)
             this.empleadoId = _secretaria.empleadoId;
 
-        if (_secretaria.staffDeportivoId)
+        if (_secretaria?.staffDeportivoId)
             this.staffDeportivoId = _secretaria.staffDeportivoId;
 
-        if (_secretaria.contrato)
+        if (_secretaria?.contrato)
             this.contrato = _secretaria.contrato;
             
-        if (_secretaria.traspaso)
+        if (_secretaria?.traspaso)
             this.traspaso = _secretaria.traspaso;
 
-        if (_secretaria.cesion)
+        if (_secretaria?.cesion)
             this.cesion = _secretaria.cesion;
     }
 }

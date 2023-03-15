@@ -20,7 +20,7 @@ constructor(
 
     //Ejecutar el comando , usando otra funcion para crear lo que necesita el comando 
     async execute(command?: IBuscarCesionCommands): Promise<ICesionBuscadaResponse> {
-        const data = await this.aggregateRoot.BuscarCesion(command);
+        const data = await this.aggregateRoot.BuscarCesion(command.cesionId);
 
         return { success: data ? true : false, data }
     }

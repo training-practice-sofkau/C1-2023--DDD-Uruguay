@@ -1,5 +1,11 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { IModificarEquipoSalidaCommands, IEquipoSalidaModificadoResponse, StaffDeportivoAggregate, IStaffDeportivoDomainService, IModificarEquipoNuevoCommands, IEquipoNuevoModificadoResponse, NegociacionDomainEntity, INegociacionDomainEntityInterface, IdValueObject, EquipoSalidaModificadoEventPublisher } from "../../../domain";
+import { StaffDeportivoAggregate } from "../../../domain/aggregates";
+import { NegociacionDomainEntity, INegociacionDomainEntityInterface } from "../../../domain/entities";
+import { EquipoSalidaModificadoEventPublisher } from "../../../domain/events/publishers/negociacion";
+import { IModificarEquipoSalidaCommands } from "../../../domain/interfaces/commands/cesion";
+import { IEquipoSalidaModificadoResponse } from "../../../domain/interfaces/responses/cesion";
+import { IStaffDeportivoDomainService } from "../../../domain/services";
+import { IdValueObject } from "../../../domain/value-objects";
 
 export class ModificarEquipoSalidaUseCase   extends ValueObjectErrorHandler
 implements IUseCase<IModificarEquipoSalidaCommands, IEquipoSalidaModificadoResponse> {
@@ -94,6 +100,6 @@ implements IUseCase<IModificarEquipoSalidaCommands, IEquipoSalidaModificadoRespo
     private exectueStaffDeportivoAggregateRoot(
         entity: NegociacionDomainEntity,
     ): Promise<NegociacionDomainEntity | null> {
-        return  this.aggregateRoot.NegociacionModificarEquipoSalida(entity);
+        return  this.aggregateRoot.NegociacionModificarEquipoSalida(entity.negociacionId.valueOf(),entity);
     }
 }

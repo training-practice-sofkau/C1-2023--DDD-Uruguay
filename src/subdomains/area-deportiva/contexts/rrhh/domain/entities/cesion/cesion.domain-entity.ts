@@ -16,24 +16,24 @@ export class CesionDomainEntity implements ICesionDomainInterface {
 
     constructor(_cesion?: ICesionDomainInterface) {
 
-        if (_cesion.cesionId)
+        if (_cesion?.cesionId)
             this.cesionId = _cesion.cesionId;
         else
             this.cesionId = uuidv4();
 
-        if (_cesion.empleadoId)
+        if (_cesion?.empleadoId)
             this.empleadoId = _cesion.empleadoId;
 
-        if (_cesion.equipoNuevoId)
+        if (_cesion?.equipoNuevoId)
             this.equipoNuevoId = _cesion.equipoNuevoId;
 
-        if (_cesion.fechaSalida)
+        if (_cesion?.fechaSalida)
             this.fechaSalida = _cesion.fechaSalida;
 
-        if (_cesion.costo)
+        if (_cesion?.costo)
             this.costo = _cesion.costo;
 
-        if (_cesion.state)
+        if (_cesion?.state)
             this.state = _cesion.state;
 
     }

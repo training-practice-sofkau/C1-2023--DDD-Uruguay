@@ -1,10 +1,13 @@
 import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from "src/libs";
-import { SecretariaAggregate, ContratoDomainEntity, FechaValueObject, IdValueObject, CostoValueObject, StateValueObject, ITraspasoDomainInterface } from "../../../domain";
+
 import { INegociarTraspasoCommands } from '../../../domain/interfaces/commands/secretaria/negociar-traspaso.commands.interface';
 import { ITraspasoNegociadoResponse } from '../../../domain/interfaces/responses/secretaria/traspaso-negociado.response.interface';
 import { ITraspasoDomainService } from '../../../domain/services/secretaria/traspaso.domain-service';
 import { TraspasoNegociadoEventPublisher } from '../../../domain/events/publishers/secretaria/traspaso-negociado.event-publisher';
 import { TraspasoDomainEntity } from '../../../domain/entities/traspaso/traspaso.domain-entity';
+import { SecretariaAggregate } from "../../../domain/aggregates";
+import { ContratoDomainEntity, ITraspasoDomainInterface } from "../../../domain/entities";
+import { FechaValueObject, IdValueObject, CostoValueObject, StateValueObject } from "../../../domain/value-objects";
 
 export class CrearTraspasoUseCase extends ValueObjectErrorHandler
 implements IUseCase<INegociarTraspasoCommands, ITraspasoNegociadoResponse> {

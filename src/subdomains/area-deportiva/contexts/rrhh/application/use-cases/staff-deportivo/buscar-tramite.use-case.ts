@@ -3,8 +3,9 @@ import { TramiteDomainEntity } from '../../../domain/entities/tramite/tramite.en
 import { TramiteBuscadoEventPublisher } from '../../../domain/events/publishers/staff-deporitvo/tramite-buscado.event-publisher';
 import { IStaffDeportivoDomainService } from '../../../domain/services/staff-Deportivo/staff-deportivo.domain-service';
 import { ItramiteBuscadoResponse } from '../../../domain/interfaces/responses/staff-deportivo/tamite-agregado.response';
-import { StaffDeportivoAggregate } from "../../../domain";
+
 import { IBuscarTramiteCommands } from '../../../domain/interfaces/commands/staff-deportivo/buscar-tramite.commands';
+import { StaffDeportivoAggregate } from "../../../domain/aggregates";
 
 export class BuscarTramiteUseCase extends ValueObjectErrorHandler
     implements IUseCase<IBuscarTramiteCommands, ItramiteBuscadoResponse> {
@@ -21,7 +22,7 @@ export class BuscarTramiteUseCase extends ValueObjectErrorHandler
 
     //Ejecutar el comando , usando otra funcion para crear lo que necesita el comando 
     async execute(command?: IBuscarTramiteCommands): Promise<ItramiteBuscadoResponse> {
-        const data = await this.exectueOrderAggregateRoot(command);
+        const data = await this.exectueOrderAggregateRoot(command.tramiteId);
 
         return { success: data ? true : false, data }
     }
@@ -29,9 +30,9 @@ export class BuscarTramiteUseCase extends ValueObjectErrorHandler
 
     //Manda a llamar al al servicio y asi usar sus metodos 
     private exectueOrderAggregateRoot(
-        entity: TramiteDomainEntity,
+        tramiteId:string,
     ): Promise<TramiteDomainEntity | null> {
-        return this.aggregateRoot.BuscarTramite(entity)
+        return this.aggregateRoot.BuscarTramite(tramiteId)
     }
 }
 

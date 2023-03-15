@@ -18,24 +18,24 @@ export class NegociacionDomainEntity implements INegociacionDomainEntityInterfac
     
     constructor(_negociacion?: INegociacionDomainEntityInterface) {
 
-        if (_negociacion.negociacionId)
+        if (_negociacion?.negociacionId)
             this.negociacionId = _negociacion.negociacionId;
         else
             this.negociacionId = uuidv4();
 
-        if (_negociacion.equipoSalidaId)
+        if (_negociacion?.equipoSalidaId)
             this.equipoSalidaId = _negociacion.equipoSalidaId;
 
-        if (_negociacion.equipoEntradaId)
-            this.equipoEntradaId = _negociacion.equipoEntradaId;
+        if (_negociacion?.equipoNuevoId)
+            this.equipoEntradaId = _negociacion.equipoNuevoId;
 
-        if (_negociacion.tipoNegociacion)
+        if (_negociacion?.tipoNegociacion)
             this.tipoNegociacion = _negociacion.tipoNegociacion;
             
-        if (_negociacion.terminoACumplir)
+        if (_negociacion?.terminoACumplir)
             this.terminoACumplir = _negociacion.terminoACumplir;
 
-        if (_negociacion.state)
+        if (_negociacion?.state)
             this.state = _negociacion.state;
     }
 }
