@@ -16,7 +16,7 @@ export class PlanDomainEntity implements IPlanDomainEntityInterface{
 
     constructor( _data? : IPlanDomainEntityInterface ){
         
-        if(_data.idPlan) this.idPlan = _data.idPlan
+        if(_data?.idPlan) this.idPlan = _data.idPlan
         
         else this.idPlan = uuidv4();
 

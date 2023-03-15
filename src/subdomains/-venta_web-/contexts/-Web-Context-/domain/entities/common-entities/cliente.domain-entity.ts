@@ -15,7 +15,7 @@ export class ClienteDomainEntity implements IClienteDomainEntityInterface {
 
     constructor( _data? : IClienteDomainEntityInterface ){
         
-        if(_data.idCliente) this.idCliente = _data.idCliente
+        if(_data?.idCliente) this.idCliente = _data.idCliente
         
         else this.idCliente = uuidv4();
 

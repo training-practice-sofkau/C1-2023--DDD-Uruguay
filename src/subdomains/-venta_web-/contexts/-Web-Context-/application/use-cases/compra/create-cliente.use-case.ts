@@ -11,6 +11,7 @@ import { PhoneValueObject } from "../../../domain/value-objects/cliente/phone/ph
 import { FullnameValueObject } from "../../../domain/value-objects/common-value-objects/fullname";
 import { IClienteDomainEntityInterface } from "../../../domain/entities/interfaces/i-cliente.domain-entity.interface";
 import { ValueObjectException } from "src/libs/sofka/exceptions/object-value.exception";
+import { IClienteService } from "../../../domain/services/cliente.service";
 
 
 export class CreateClienteUseCase<
@@ -26,10 +27,11 @@ export class CreateClienteUseCase<
     private readonly compraAggregate: CompraAggregate
 
     //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
-    constructor(private readonly compraService: ICompraService,
+    constructor(
+        private readonly clienteService : IClienteService,
         private readonly clienteCreadoEventPublisher: ClienteCreadoEventPublisher) {
         super();
-        this.compraAggregate = new CompraAggregate({ compraService, clienteCreadoEventPublisher })
+        this.compraAggregate = new CompraAggregate({ clienteCreadoEventPublisher, clienteService })
     }
 
 

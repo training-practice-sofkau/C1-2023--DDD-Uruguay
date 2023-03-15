@@ -1,7 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
 
-import { ClienteDomainEntity } from "src/subdomains";
+
 import { CompraMySqlEntity } from "./compra.entity";
+import { MembershipMySqlEntity } from "./membership.entity";
+import { forwardRef } from "@nestjs/common";
+import { ClienteDomainEntity } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 
 @Entity()
 export class ClienteMySqlEntity extends ClienteDomainEntity {
@@ -19,7 +22,15 @@ export class ClienteMySqlEntity extends ClienteDomainEntity {
     emailCliente: string;
 
     //RELACIONES
-
+   
+   
     @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.cliente )
-    compra: CompraMySqlEntity;
+    Compra: CompraMySqlEntity;
+    
+    
+    
+    @OneToOne( ()=> MembershipMySqlEntity, (membership)=> membership.cliente  )
+    membership: MembershipMySqlEntity;
+    
+    
 }

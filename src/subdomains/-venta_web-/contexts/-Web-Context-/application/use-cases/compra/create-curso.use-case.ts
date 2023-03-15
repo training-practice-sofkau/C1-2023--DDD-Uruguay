@@ -2,7 +2,7 @@ import { ValueObjectErrorHandler } from "src/libs/sofka/bases/value-object-error
 import { ICreateCursoMethod } from "../../../domain/interfaces/commands/compra";
 import { IcursoCreadoResponse } from "../../../domain/interfaces/responses/compra/cursoCreado.response";
 import { IUseCase, ValueObjectException } from "src/libs";
-import { CompraAggregate, CursoCreadoEventPublisher, CursoDomainEntity, ICompraService, ICursoDomainEntityInterface } from "../../../domain";
+import { CompraAggregate, CursoCreadoEventPublisher, CursoDomainEntity, ICompraService, ICursoDomainEntityInterface, ICursoService } from "../../../domain";
 import { FullnameValueObject } from "../../../domain/value-objects/common-value-objects/fullname";
 import { CostoValueObject } from "../../../domain/value-objects/common-value-objects/costo/costo.value-object";
 
@@ -19,10 +19,12 @@ implements IUseCase<Command, Response>{ //IMPLEMENTO LA INTERFAZ PARA EJECUTAR E
 private readonly compraAggregate: CompraAggregate
 
 //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
-constructor(private readonly compraService: ICompraService,
-    private readonly cursoCreadoEventPublisher: CursoCreadoEventPublisher) {
+constructor(
+    private readonly cursoService: ICursoService,
+    private readonly cursoCreadoEventPublisher: CursoCreadoEventPublisher,    
+    ) {
     super();
-    this.compraAggregate = new CompraAggregate({ compraService, cursoCreadoEventPublisher })
+    this.compraAggregate = new CompraAggregate({ cursoService, cursoCreadoEventPublisher })
 }
 
 /*

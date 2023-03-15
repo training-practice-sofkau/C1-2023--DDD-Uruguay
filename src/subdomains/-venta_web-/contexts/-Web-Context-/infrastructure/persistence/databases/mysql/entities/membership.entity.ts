@@ -1,18 +1,29 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
 
-import { ClienteDomainEntity } from "src/subdomains";
+
+import { ClienteMySqlEntity } from "./cliente.entity";
+import { PlanMySqlEntity } from "./plan.entity";
+import { MembershipDomainEntity } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 
 @Entity()
-export class ClienteMySqlEntity extends ClienteDomainEntity {
+export class MembershipMySqlEntity extends MembershipDomainEntity {
+
     @PrimaryGeneratedColumn('uuid')
-    clientId: string;
+    idMembership: string;
 
-    @Column()
-    fullName: string;
 
-    @Column()
-    phone: string;
+    //RELACIONES
+    
+    @JoinColumn()
+    @OneToOne( forwardRef => ClienteMySqlEntity, (cliente)=> cliente.membership, {cascade:["insert", "update"]}  )
+    cliente: ClienteMySqlEntity;
+    
 
-    @OneToOne( ()=> OrderMySqlEntity, (order)=> order.client )
-    order: OrderMySqlEntity;
+    @JoinColumn()
+    @OneToOne( ()=> PlanMySqlEntity, (plan)=> plan.membership, {cascade:["insert", "update"]}  )
+    plan: PlanMySqlEntity;
+
+
+    
+
 }

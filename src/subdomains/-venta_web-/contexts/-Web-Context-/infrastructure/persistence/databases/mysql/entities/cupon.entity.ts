@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
 
-import { ClienteDomainEntity, CuponDomainEntity } from "src/subdomains";
+
 import { CompraMySqlEntity } from "./compra.entity";
+import { CuponDomainEntity } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 
 @Entity()
 export class CuponMySqlEntity extends CuponDomainEntity {
@@ -17,6 +18,7 @@ export class CuponMySqlEntity extends CuponDomainEntity {
 
     //RELACIONES
 
-    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.cupon )
+    @JoinColumn()
+    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.cupon, {cascade:["insert", "update"]} )
     compra: CompraMySqlEntity;
 }

@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmMySqlConfigService } from './configs/type-orm.mysql.service';
-import { ClientMySqlEntity } from './entities/cliente.entity';
-import { InovoiceMySqlEntity } from './entities/invoice.entity';
-import { OrderMySqlEntity } from './entities/order.entity';
-import { ClientMySqlService } from './services/client.service';
-import { ClientRepository } from './repositories/client.repository';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+
+
+import { ClienteMySqlService, CompraMySqlService, CursoMySqlService } from "./services";
+import { ClienteRepository, CompraRepository, CuponRepository, CursoRepository, MembershipRepository, PlanRepository } from "./repositories";
+import { TypeOrmMySqlConfigService } from "./configs";
+import { ClienteMySqlEntity, CursoMySqlEntity, PlanMySqlEntity, CuponMySqlEntity, CompraMySqlEntity, MembershipMySqlEntity } from "./entities";
+
 
 @Module({
     imports: [
@@ -14,20 +15,52 @@ import { ClientRepository } from './repositories/client.repository';
         }),
 
         TypeOrmModule.forFeature([
-            ClientMySqlEntity,
-            InovoiceMySqlEntity,
-            OrderMySqlEntity,
+            ClienteMySqlEntity,
+            CursoMySqlEntity,
+            PlanMySqlEntity,
+            CuponMySqlEntity,
+            CompraMySqlEntity,
+            MembershipMySqlEntity
         ])
     ],
     providers: [
-        ClientMySqlService,
+        ClienteMySqlService,
+        ClienteRepository,
 
-        ClientRepository,
+        CursoMySqlService,
+        CursoRepository,
+
+        CompraMySqlService,
+        CompraRepository,
+
+       //CuponMySqlService,
+        CuponRepository,
+
+        //MembershipMySqlService,
+        MembershipRepository,
+
+        //PlanMySqlService,
+        PlanRepository,
+
     ],
     exports: [
-        ClientMySqlService,
+        ClienteMySqlService,
+        ClienteRepository,
 
-        ClientRepository,
+        CursoMySqlService,
+        CursoRepository,
+
+        CompraMySqlService,
+        CompraRepository,
+
+       //CuponMySqlService,
+        CuponRepository,
+
+        //MembershipMySqlService,
+        MembershipRepository,
+
+        //PlanMySqlService,
+        PlanRepository,
     ]
 })
 export class MySqlModule { }

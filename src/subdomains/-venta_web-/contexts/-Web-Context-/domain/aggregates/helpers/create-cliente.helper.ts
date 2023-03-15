@@ -1,12 +1,12 @@
 import { AggregateRootException } from "src/libs";
 import { ClienteDomainEntity } from "../../entities";
 import { ClienteCreadoEventPublisher } from "../../events";
-import { ICompraService } from "../../services";
+import { IClienteService, ICompraService } from "../../services";
 import { ICreateClienteMethod } from "../../interfaces";
 
 export const CreateClienteHelper = async (
     entity: ClienteDomainEntity,
-    service?: ICompraService,
+    service?: IClienteService,
     event?: ClienteCreadoEventPublisher): Promise<ClienteDomainEntity> => {
 
     if (!service)

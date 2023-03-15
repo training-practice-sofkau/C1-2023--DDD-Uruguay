@@ -1,9 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
-
-import { ClienteDomainEntity, CompraDomainEntity, CuponDomainEntity } from "src/subdomains";
 import { ClienteMySqlEntity } from "./cliente.entity";
 import { CursoMySqlEntity } from "./curso.entity";
 import { CuponMySqlEntity } from "./cupon.entity";
+import { CompraDomainEntity } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 
 @Entity()
 export class CompraMySqlEntity extends CompraDomainEntity {
@@ -11,23 +10,19 @@ export class CompraMySqlEntity extends CompraDomainEntity {
     @PrimaryGeneratedColumn('uuid')
     idCompra: string;
 
-    @JoinColumn()
-    clienteCompra: ClienteMySqlEntity;
-
-    @JoinColumn()
-    cursoCompra: CursoMySqlEntity;
-
-    @JoinColumn()
-    cuponCompra: CuponMySqlEntity;
 
     //RELACIONES
 
-    @OneToOne( ()=> ClienteMySqlEntity, (cliente)=> cliente.compra )
+    @JoinColumn()
+    @OneToOne( ()=> ClienteMySqlEntity, (cliente)=> cliente.Compra, {cascade:["insert", "update"]} )
     cliente: ClienteMySqlEntity;
-
-    @OneToOne( ()=> CursoMySqlEntity, (curso)=> curso.compra )
+    
+    @JoinColumn()
+    @OneToOne( ()=> CursoMySqlEntity, (curso)=> curso.compra , {cascade:["insert", "update"]} )
     curso: CursoMySqlEntity;
 
-    @OneToOne( ()=> CuponMySqlEntity, (cupon)=> cupon.compra )
+    @JoinColumn()
+    @OneToOne( ()=> CuponMySqlEntity, (cupon)=> cupon.compra , {cascade:["insert", "update"]})
     cupon: CuponMySqlEntity;
 }
+

@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm"
 
-import { ClienteDomainEntity, CursoDomainEntity } from "src/subdomains";
+
 import { CompraMySqlEntity } from "./compra.entity";
+import { CursoDomainEntity } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 
 @Entity()
 export class CursoMySqlEntity extends CursoDomainEntity {
@@ -18,6 +19,8 @@ export class CursoMySqlEntity extends CursoDomainEntity {
     @Column()
     costoCurso: number;
 
-    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.curso )
+    //RELACIONES
+    @JoinColumn()
+    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.curso, {cascade:["insert", "update"]})
     compra: CompraMySqlEntity;
 }

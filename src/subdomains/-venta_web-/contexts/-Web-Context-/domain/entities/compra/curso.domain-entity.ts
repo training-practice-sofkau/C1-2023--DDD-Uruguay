@@ -13,7 +13,7 @@ export class CursoDomainEntity implements ICursoDomainEntityInterface{
 
     constructor( _data? : ICursoDomainEntityInterface ){
         
-        if(_data.idCurso) this.idCurso = _data.idCurso
+        if(_data?.idCurso) this.idCurso = _data.idCurso
         
         else this.idCurso = uuidv4();
 
