@@ -1,6 +1,6 @@
 import { IsBoolean, IsString ,IsNumber, IsUUID} from 'class-validator';
+import { INegociarCesionCommands } from 'src/subdomains/area-deportiva/contexts/rrhh/domain/interfaces/commands/secretaria';
 
-import { INegociarCesionCommands } from '../../../../../../../../../../dist/subdomains/area-deportiva/contexts/rrhh/domain/interfaces/commands/secretaria/negociar-cesion.commands.interface';
 
 export class NegociarCesion implements INegociarCesionCommands {
 

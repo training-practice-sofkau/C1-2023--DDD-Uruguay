@@ -8,7 +8,7 @@ import { StateContratoModificadoEventPublisher } from '../../../../../domain/eve
 
 
 @Injectable()
-export class  ModificarCostoContratoPublisher extends StateContratoModificadoEventPublisher {
+export class  ModificarStateContratoPublisher extends StateContratoModificadoEventPublisher {
     constructor(@Inject('RRHH_CONTEXT') private readonly proxy: ClientProxy) {
         super(proxy as unknown as IEventPublisher);
     }

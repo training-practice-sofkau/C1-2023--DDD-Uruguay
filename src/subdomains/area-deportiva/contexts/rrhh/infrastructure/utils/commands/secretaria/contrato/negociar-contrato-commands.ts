@@ -1,12 +1,13 @@
 import { IsBoolean, IsString ,IsNumber, IsUUID} from 'class-validator';
-import { INegociarContratoCommands } from '../../../../../../../../../../dist/subdomains/area-deportiva/contexts/rrhh/domain/interfaces/commands/secretaria/negociar-contrato.commands.interface';
+import { INegociarContratoCommands } from 'src/subdomains/area-deportiva/contexts/rrhh/domain/interfaces/commands/secretaria';
 
 export class Negociarcontrato implements INegociarContratoCommands {
+    
     @IsUUID()
     empleadoId?: string;
     
     @IsUUID()
-    contratoId: string;
+    contratoId?: string;
 
     @IsNumber()
     costo?: number;

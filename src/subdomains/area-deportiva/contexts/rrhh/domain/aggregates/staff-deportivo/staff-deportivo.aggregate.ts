@@ -57,7 +57,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService  , 
     //tramite
     private readonly tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
     private readonly fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher;
-    private readonly tamiteBuscadoEvent?: TramiteBuscadoEventPublisher;
+    private readonly tramiteBuscadoEvent?: TramiteBuscadoEventPublisher;
 
     //negociacion
     private readonly negociacionEquipoNuevoModificadoEvent?: EquipoNuevoNegociacionModificadoEventPublisher;
@@ -87,7 +87,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService  , 
             documentoModificadoEvent,
             tipoEmpleadoModificadoEvent,
             //tramite
-            tamiteBuscadoEvent,
+            tramiteBuscadoEvent,
             tamiteAgregadoEvent,
             fechaTamiteModificadoEvent,
             
@@ -116,7 +116,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService  , 
            //tramite
             tamiteAgregadoEvent?: TramiteAgregadoEventPublisher;
             fechaTamiteModificadoEvent?: FechaTramiteModificadaEventPublisher;
-            tamiteBuscadoEvent?: TramiteBuscadoEventPublisher;
+            tramiteBuscadoEvent?: TramiteBuscadoEventPublisher;
 
             //negociacion
             negociacionEquipoNuevoModificadoEvent?: EquipoNuevoNegociacionModificadoEventPublisher;
@@ -200,7 +200,7 @@ export class StaffDeportivoAggregate implements IStaffDeportivoDomainService  , 
 
     
      BuscarTramite(tramiteId: string):Promise<TramiteDomainEntity>{
-        return BuscarTramiteHelper(tramiteId,this.tramiteService,this.tamiteBuscadoEvent)
+        return BuscarTramiteHelper(tramiteId,this.tramiteService,this.tramiteBuscadoEvent)
 
     }
 

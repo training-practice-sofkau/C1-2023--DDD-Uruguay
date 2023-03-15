@@ -4,13 +4,18 @@ import { StaffDeportivoCreadoEventPublisher } from '../../domain/events/publishe
 import { CrearStaffDeportivoUseCase } from '../../application/use-cases/staff-deportivo/crear-staff-deportivo.use.case';
 import { CrearStaffDeportivoCommand } from '../utils/commands/staffDeportivo/crear-staff-deportivo.commands';
 import { EmpleadoBuscadoEventPublisher, TramiteBuscadoEventPublisher } from '../../domain/events/publishers';
+import { EmpleadoService } from '../persistence/services/empleado.service';
+import { TramiteService } from '../persistence/services/tramite.service';
 
 @Controller('staffDeportivo')
 export class StaffDeportivoController {
     constructor(
         private readonly staffDeportivoService: StaffDeportivoService,
+        private readonly empleadoService: EmpleadoService,
+        private readonly tramiteService: TramiteService,
+
         private readonly staffDeportivoCreadoEventPublisher: StaffDeportivoCreadoEventPublisher,
-        private readonly tamiteBuscadoEvent : TramiteBuscadoEventPublisher,
+        private readonly tramiteBuscadoEvent : TramiteBuscadoEventPublisher,
         private readonly empleadoBuscadoEvent : EmpleadoBuscadoEventPublisher,
     ) {}
 
@@ -18,8 +23,10 @@ export class StaffDeportivoController {
     async crearStaffDeportivo(@Body() command: CrearStaffDeportivoCommand) {
         const useCase = new CrearStaffDeportivoUseCase(
             this.staffDeportivoService,
+            this.empleadoService,
+            this.tramiteService,
             this.staffDeportivoCreadoEventPublisher,
-            this.tamiteBuscadoEvent,
+            this.tramiteBuscadoEvent,
             this.empleadoBuscadoEvent
         );
         return await useCase.execute(command);

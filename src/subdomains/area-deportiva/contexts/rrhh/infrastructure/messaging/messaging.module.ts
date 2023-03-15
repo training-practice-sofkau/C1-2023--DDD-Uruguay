@@ -1,4 +1,13 @@
 import { Module } from '@nestjs/common';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { AgregarEmpleadoPublisher } from './publishers/staffDeportivo/empleado/agregar-empleado.publisher';
+import { NombreModificadoEventPublisher } from '../../domain/events/publishers/empleado/nombre-modificado.event-publisher';
+import { TipoEmpleadoModificadoEventPublisher } from '../../domain/events/publishers/empleado/tipo-empleado-modificado';
+import { BuscarEmpleadoPublisher } from './publishers/staffDeportivo/empleado/buscar-empleado.publisher';
+import { ModificarTipoEmpleadoPublisher } from './publishers/staffDeportivo/empleado/modificar-tipo-empleado.publisher';
+import { ModificarSalarioEmpleadoPublisher } from './publishers/staffDeportivo/empleado/modificar-salario-empleado.publisher';
+import { ModificarNombreEmpleadoPublisher } from './publishers/staffDeportivo/empleado/modificar-nombre-empleado.publisher';
+import { ModificarDocumentoEmpleadoPublisher } from './publishers/staffDeportivo/empleado/modificar-documento-empleado.publisher';
 
 /**
  * name: el nombre del cliente.
@@ -24,7 +33,7 @@ import { Module } from '@nestjs/common';
     imports: [
         ClientsModule.register([
             {
-                name: 'CONSULTORY_CONTEXT',
+                name: 'RRHH_CONTEXT',
                 transport: Transport.KAFKA,
                 options: {
                     client: {
@@ -35,8 +44,23 @@ import { Module } from '@nestjs/common';
             },
         ]),
     ],
-    controllers: [CreatedClientController],
-    providers: [CreatedClientPublisher, CreateOrderPublisher],
-    exports: [CreatedClientPublisher, CreateOrderPublisher]
+    controllers: [],
+    providers: [
+        AgregarEmpleadoPublisher,
+        BuscarEmpleadoPublisher,
+        ModificarTipoEmpleadoPublisher,
+        ModificarSalarioEmpleadoPublisher,
+        ModificarNombreEmpleadoPublisher,
+        ModificarDocumentoEmpleadoPublisher,
+
+    ],
+    exports: [
+        AgregarEmpleadoPublisher,
+        BuscarEmpleadoPublisher,
+        ModificarTipoEmpleadoPublisher,
+        ModificarSalarioEmpleadoPublisher,
+        ModificarNombreEmpleadoPublisher,
+        ModificarDocumentoEmpleadoPublisher,
+        ]
 })
 export class MessagingModule { }

@@ -2,14 +2,13 @@ import { ClientProxy } from '@nestjs/microservices';
 import { IEventPublisher } from 'src/libs/sofka/interface/event-publisher.interface';
 import { Injectable, Inject } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
-import { ContratoEntity } from '../../../../persistence/entities/contrato.entity';
-import { StateContratoModificadoEventPublisher } from '../../../../../domain/events/publishers/contrato/state-modificado.event-publisher';
-import { ContratoNegociadoEventPublisher } from '../../../../../domain/events/publishers/secretaria/contrato-negociado.event-publisher';
+import { TraspasoNegociadoEventPublisher } from '../../../../../domain/events/publishers/secretaria/traspaso-negociado.event-publisher';
+import { TraspasoEntity } from '../../../../persistence/entities/traspaso.entity';
 
 
 
 @Injectable()
-export class  NegociarContratoPublisher extends ContratoNegociadoEventPublisher {
+export class  NegociarTraspasoPublisher extends TraspasoNegociadoEventPublisher {
     constructor(@Inject('RRHH_CONTEXT') private readonly proxy: ClientProxy) {
         super(proxy as unknown as IEventPublisher);
     }
@@ -18,7 +17,7 @@ export class  NegociarContratoPublisher extends ContratoNegociadoEventPublisher 
     //   return lastValueFrom<Result>(this.proxy.send(pattern, data));
     // }
 
-    emit<Result = any, Input = ContratoEntity>(
+    emit<Result = any, Input = TraspasoEntity>(
         pattern: any,
         data: Input,
     ): Promise<Result> {

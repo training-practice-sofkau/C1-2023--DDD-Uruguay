@@ -1,7 +1,7 @@
 import { IsString, IsUUID } from 'class-validator';
 import { ICrearSecretariaCommands } from "../../../../domain/interfaces/commands/secretaria";
 
-export class CrearSecretaria implements ICrearSecretariaCommands {
+export class CrearSecretariaCommand implements ICrearSecretariaCommands {
 
     @IsUUID()
     secretariaId?:string ;

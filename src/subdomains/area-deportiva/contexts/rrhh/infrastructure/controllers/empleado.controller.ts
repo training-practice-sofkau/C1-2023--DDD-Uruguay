@@ -13,25 +13,32 @@ import { ModificarDocumentoEmpleadoCommand } from '../utils/commands/staffDeport
 import { ModificarSalarioEmpleadoCommand } from '../utils/commands/staffDeportivo/empleado/modificar-salario-empleado.commands';
 import { ModificarNombreEmpleadoUseCase } from '../../application/use-cases/staff-deportivo/modificar-nombre-empleado.case-use';
 import { ModificarDocumentoEmpleadoUseCase, ModificarSalarioEmpleadoUseCase, ModificarTipoEmpleadoUseCase } from '../../application';
+import { AgregarEmpleadoPublisher } from '../messaging/publishers/staffDeportivo/empleado/agregar-empleado.publisher';
+import { BuscarEmpleadoPublisher, ModificarSalarioEmpleadoPublisher } from '../messaging';
+import { ModificarNombreEmpleadoPublisher } from '../messaging/publishers/staffDeportivo/empleado/modificar-nombre-empleado.publisher';
+import { ModificarDocumentoEmpleadoPublisher } from '../messaging/publishers/staffDeportivo/empleado/modificar-documento-empleado.publisher';
+import { ModificarTipoEmpleadoPublisher } from '../messaging/publishers/staffDeportivo/empleado/modificar-tipo-empleado.publisher';
 
 @Controller('empleado')
 export class EmpleadoController {
     
     constructor(
         private readonly empleadoService: EmpleadoService,
-        private readonly emppleadoAgregadoEventPublisher: EmpleadoAgregadoEventPublisher,
-        private readonly empleadoBuscadoEven: EmpleadoBuscadoEventPublisher,
-        private readonly nombremodificadoEvent: NombreModificadoEventPublisher,
-        private readonly documentoModificadoEvent: DocumentoModificadoEventPublisher,
-        private readonly tipoEmpleadoModificadoEvent: TipoEmpleadoModificadoEventPublisher,
-        private readonly salarioModificadoEvent: SalarioModificadoEventPublisher,
+
+        private readonly empleadoAgregadoEventPublisher: AgregarEmpleadoPublisher,
+
+        private readonly empleadoBuscadoEven: BuscarEmpleadoPublisher,
+        private readonly nombreModificadoEvent: ModificarNombreEmpleadoPublisher,
+        private readonly documentoModificadoEvent: ModificarDocumentoEmpleadoPublisher,
+        private readonly tipoEmpleadoModificadoEvent: ModificarTipoEmpleadoPublisher,
+        private readonly salarioModificadoEvent: ModificarSalarioEmpleadoPublisher,
     ) {}
 
     @Post('/agregar')
     async agregarEmpleado(@Body() command: AgregarEmpleadoCommand) {
         const useCase = new CrearEmpleadoUseCase(
             this.empleadoService,
-            this.emppleadoAgregadoEventPublisher,
+            this.empleadoAgregadoEventPublisher,
         );
         return await useCase.execute(command);
     }
@@ -40,7 +47,7 @@ export class EmpleadoController {
     async modificarNombreEmpleado(@Body() command: ModificarNombreEmpleadoCommand) {
         const useCase = new ModificarNombreEmpleadoUseCase(
             this.empleadoService,
-            this.nombremodificadoEvent,
+            this.nombreModificadoEvent,
         );
         return await useCase.execute(command);
     }

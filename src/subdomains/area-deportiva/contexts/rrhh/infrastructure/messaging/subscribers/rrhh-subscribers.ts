@@ -35,7 +35,7 @@ export class CreatedClientController{
         console.log('--------------------------------------')
     }
 
-    @EventPattern('rrhh.empleado-creado')
+    @EventPattern('rrhh.empleado-agregado')
     empleadoCreado(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
