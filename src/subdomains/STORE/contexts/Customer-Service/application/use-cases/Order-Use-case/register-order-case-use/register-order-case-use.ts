@@ -75,8 +75,7 @@ export class RegisterOrderCaseUse<
         command: Command,
     ): Promise<OrderDomainEntityBase> {
         
-        console.log(command.clientID)
-        const responseClient = this.GetClientCaseUse.executeCommand( command.clientID)
+        const responseClient = this.GetClientCaseUse.execute({ClientID: command.clientID})
 
         const responseManga = this.GetMangaCaseUse.execute({MangaID: command.MangaID})
       
@@ -89,7 +88,7 @@ export class RegisterOrderCaseUse<
         ); }
 
         return new OrderDomainEntityBase({
-            client:  (await responseClient) ,
+            client:  (await responseClient).data ,
             Manga: (await responseManga).data,
             orderId: orderId
         })
