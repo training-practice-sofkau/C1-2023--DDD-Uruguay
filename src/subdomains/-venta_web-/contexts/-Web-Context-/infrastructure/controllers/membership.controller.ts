@@ -20,14 +20,11 @@ import { ClienteConseguidoEventPublisher } from '../../domain/events/publishers/
 import { CreateClienteUseCase } from '../../application/use-cases/membership/create-cliente.use-case';
 import { IMembershipService } from '../../domain/services/membership.service';
 import { ICreatePlanCommand } from '../utils/commands/membership/createPlan.command';
-import { ObtenerPlanUseCase } from '../../application/use-cases/membership/obtener-plan.use-case';
 import { CreatePlanUseCase } from '../../application/use-cases/membership/create-plan.use-case';
 import { IPlanService } from '../../domain/services/plan.service';
-import { PlanCreadoEventPublisher } from '../../domain/events/publishers/membership/plan-creado.event-publisher';
 import { UpdateClientPhoneUseCase } from '../../application/use-cases/membership/update-client-phone.use-case';
 import { ICreateMembershipCommand } from '../utils/commands/membership/createMembership.command';
 import { CreateMembershipUseCase } from '../../application/use-cases/membership/create-membership.use-case';
-import { MembershipCreadaEventPublisher } from '../../domain/events/publishers/membership/membresia-creada.event-publisher';
 import { CreateMembershipPublisher, CreatePlanPublisher } from '../messaging/publisher/membership';
 import { CreateClientePublisher, ObtenerClientePublisher, UpdatePhonePublisher } from '../messaging/publisher';
 
