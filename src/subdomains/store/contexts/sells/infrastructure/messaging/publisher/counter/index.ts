@@ -1,7 +1,7 @@
 
 
 
-export * from './poster';
-export * from './product';
+//export * from './poster';
+//export * from './product';
 
 

@@ -11,12 +11,12 @@ export class PosterDomainEntity implements IPosterDomainEntity {
     image: string | ImageValueObject;
 
     constructor(data?: IPosterDomainEntity) {
-        if (data.posterId) this.posterId = data.posterId
+        if (data?.posterId) this.posterId = data.posterId
         else this.posterId = uuid()
-        if (data.flavour) this.flavour = data.flavour
-        if (data.image) this.image = data.image
-        if (data.price) this.price = data.price
-        if (data.stock) this.stock = data.stock
-        if (data.type) this.type = data.type
+        if (data?.flavour) this.flavour = data.flavour
+        if (data?.image) this.image = data.image
+        if (data?.price) this.price = data.price
+        if (data?.stock) this.stock = data.stock
+        if (data?.type) this.type = data.type
     }
 }

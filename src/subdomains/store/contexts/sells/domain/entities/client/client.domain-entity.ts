@@ -3,9 +3,9 @@ import { IClientDomainEntity } from "../interfaces"
 import { v4 as uuid } from 'uuid';
 
 export class ClientDomainEntity implements IClientDomainEntity {
-    clientId: string | IdValueObject
-    phone: number | PhoneValueObject
-    name: string | NameValueObject
+    clientId?: string | IdValueObject
+    phone?: number | PhoneValueObject
+    name?: string | NameValueObject
 
     constructor(data?: IClientDomainEntity) {
         if (data.clientId) this.clientId = data.clientId

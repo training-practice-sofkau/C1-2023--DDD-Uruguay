@@ -4,4 +4,4 @@ export * from './interfaces';
 export * from './poster';
 export * from './product';
 export * from './seller';
-export * from './ticket';
+//export * from './ticket';
