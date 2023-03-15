@@ -20,5 +20,9 @@ import { CoachPostgreService, MatchPostgreService, PlayerPostgreService, RivalPo
   PlayerPostgreService, CoachPostgreService, TrainingPostgreService, TrainingFieldPostgreService, TrainingEquipmentPostgreService,
 TrainerPostgreService, WorkoutPostgreService, RivalRepository, StadiumRepository, MatchRepository, TeamRepository, PlayerRepository, CoachRepository,
 TrainingRepository, TrainingFieldRepository, TrainingEquipmentRepository, TrainerRepository, WorkoutRepository],
+exports: [TypeOrmPostgresConfigService, RivalPostgreService, StadiumPostgreService, MatchPostgreService, TeamPostgreService,
+  PlayerPostgreService, CoachPostgreService, TrainingPostgreService, TrainingFieldPostgreService, TrainingEquipmentPostgreService,
+TrainerPostgreService, WorkoutPostgreService, RivalRepository, StadiumRepository, MatchRepository, TeamRepository, PlayerRepository, CoachRepository,
+TrainingRepository, TrainingFieldRepository, TrainingEquipmentRepository, TrainerRepository, WorkoutRepository]
 })
 export class PostgreSQLModule {}
