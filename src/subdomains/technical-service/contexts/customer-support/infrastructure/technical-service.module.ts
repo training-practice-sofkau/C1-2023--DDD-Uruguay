@@ -27,7 +27,6 @@ import {
         RoleController,
         SupportTicketController, 
         WarrantyController
-
     ],
     providers:[],
     exports:[]

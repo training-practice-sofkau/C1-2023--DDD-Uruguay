@@ -83,6 +83,7 @@ import {
         SupportTicketRepository,
         WarrantyRepository,
         EventRepository
+
     ],
     exports:[
         CustomerMySqlService,

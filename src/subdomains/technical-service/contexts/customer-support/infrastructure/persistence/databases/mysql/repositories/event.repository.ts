@@ -1,8 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EventMySqlEntity } from '../entities/event.entity';
-import { IRepository } from './base';
 import { Repository } from 'typeorm';
+
+
+import { IRepository } from './base';
+import { EventMySqlEntity } from '../entities/event.entity';
+
+
+
 
 @Injectable()
 export class EventRepository implements IRepository<EventMySqlEntity>{

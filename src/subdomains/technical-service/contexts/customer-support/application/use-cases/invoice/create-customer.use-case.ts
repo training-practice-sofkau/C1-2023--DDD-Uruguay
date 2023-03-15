@@ -49,6 +49,7 @@ export class CreateCustomerUseCase<
      */
     executeCommand(command: Command): Promise<CustomerDomainEntityBase | null> {
         const VO = this.createValueObject(command);
+       
         this.validateValueObject(VO);
 
         const entity = this.createCustomerEntity(VO)
