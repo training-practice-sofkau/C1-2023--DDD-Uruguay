@@ -20,9 +20,10 @@ export class ClientRepository
     }
 
      async   create(entity: ClientEntityDB): Promise<ClientEntityDB> {
-     const client = this.repository.create(entity)
 
-      return this.repository.save(client)    }
+      return this.repository.save(entity)  
+      
+        }
 
 
    async  update(ClientID: string, newClient: ClientEntityDB): Promise<ClientEntityDB> {

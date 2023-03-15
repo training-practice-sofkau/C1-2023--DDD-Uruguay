@@ -320,7 +320,7 @@ Publisher events go in this place
   async UpdateClientPhone(
     idclient: ClientDomainBase,
   ): Promise<ClientDomainBase> {
-    if (this.orderService && this.PhoneModifiedEventPublisher) {
+    if (this.ClientService && this.PhoneModifiedEventPublisher) {
       const result = await this.ClientService.UpdateClientPhone(idclient);
 
       this.PhoneModifiedEventPublisher.response = result;
@@ -330,7 +330,7 @@ Publisher events go in this place
       return this.PhoneModifiedEventPublisher.response;
     }
     throw new AggregateRootException(
-      'OrderAgregate "ClientService" y/o "NameModifiedEventPublisher" no estan definidos',
+      'ClientService "ClientService" y/o "PhoneModifiedEventPublisher" no estan definidos',
     );
   }
 }

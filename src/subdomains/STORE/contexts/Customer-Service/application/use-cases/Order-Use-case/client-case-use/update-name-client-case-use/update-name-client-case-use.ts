@@ -48,10 +48,11 @@ export class UpdateNameClientCaseUse<
         command: Command
     ): IClientEntity {
 
-        const  Name = new ClientNameValue(command.newName)
-        const ClientID = new IdclientValue(command.ClientID)
+        const  Name = new ClientNameValue(command.newName).value
+        const ClientID = new IdclientValue(command.ClientID).value
 
         return {
+        
           Name,
           ClientID
         }

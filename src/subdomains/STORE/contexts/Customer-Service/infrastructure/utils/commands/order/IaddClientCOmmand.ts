@@ -1,11 +1,11 @@
-import { IsString, IsUUID } from "class-validator";
+import { IsString, IsUUID, IsNumber } from "class-validator";
 import { IAddClient } from "../../../../domain/interfaces/commands/Order-commands";
 
 export class IaddClientCOmmand implements IAddClient {
     @IsUUID()
-    ClientID: string;
+    ClientID?: string;
     @IsString()
-    Name: string;
-    @IsString()
-    Phone: number;
+    Name?: string;
+    @IsNumber()
+    Phone?: number;
 }

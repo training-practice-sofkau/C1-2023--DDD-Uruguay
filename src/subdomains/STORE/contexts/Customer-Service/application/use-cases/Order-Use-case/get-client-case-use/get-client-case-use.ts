@@ -30,18 +30,21 @@ export class GetClientCaseUse<
             GetClientEventPublisher,
         })
     }
-
-    async execute(command?: Command): Promise<Response> {
-        const data = await this.executeCommand(command);
-
-        return { success: data ? true : false, data } as unknown as Response
+    execute(command?: Command): Promise<Response> {
+        throw new Error("Method not implemented.");
     }
 
-    private async executeCommand(
-        command: Command
+    // async execute(command?: Command): Promise<Response> {
+    //     const data = await this.executeCommand(command);
+
+    //     return { success: data ? true : false, data } as unknown as Response
+    // }
+
+     async executeCommand(
+        command: string
     ): Promise< ClientDomainBase | null> {
         
-        return this.OrderAgregate.GetClient(command.ClientID)
+        return this.OrderAgregate.GetClient(command)
 
     }
       

@@ -8,6 +8,7 @@ import { OrderRepository } from '../repositories/Order-Repository';
 import { MangaRepository } from '../repositories/Manga-repository';
 import { MangaEntityDb } from '../entities/Manga-entity-db';
 import { Injectable } from '@nestjs/common';
+import { IaddClientCOmmand } from '../../../../utils/commands/order/IaddClientCOmmand';
 
 @Injectable()
 export class OrdertMySqlService implements IorderDomainService<OrderEntityDb> {
@@ -32,7 +33,7 @@ export class OrdertMySqlService implements IorderDomainService<OrderEntityDb> {
     GetManga(data: string): Promise<MangaEntityDb> {
         return this.MangaRepository.findById(data)
     }
-    AddClient(data: ClientEntityDB): Promise<ClientEntityDB> {
+    AddClient(data: ClientEntityDB ): Promise<ClientEntityDB> {
         return this.ClientRepository.create(data)
     }
 
