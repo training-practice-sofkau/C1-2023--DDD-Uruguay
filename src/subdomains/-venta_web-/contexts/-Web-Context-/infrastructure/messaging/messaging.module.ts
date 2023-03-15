@@ -6,8 +6,6 @@ import { CompraController } from '../controllers/compra.controller';
 
 
 
-
-
 /**
  * name: el nombre del cliente.
  * Este es un identificador único que se utiliza para referenciar este cliente

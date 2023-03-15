@@ -20,3 +20,4 @@ export class CreateClientePublisher extends ClienteCreadoEventPublisher {
         return lastValueFrom<Result>(this.proxy.emit(pattern, data));
     }
 }
+

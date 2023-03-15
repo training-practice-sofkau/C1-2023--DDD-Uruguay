@@ -1,40 +1,34 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateClienteCommand } from '../utils/commands/createCliente.command';
 import { CreateClienteUseCase, CreateCompraUseCase, CreateCursoUseCase, ObtenerClienteUseCase, ObtenerCursoUseCase, UpdateClientPhoneUseCase, UpdateCursoCostoUseCase } from '../../application/use-cases/compra';
-import { ClienteCreadoEventPublisher } from '../../domain/events/publishers/compra/cliente-creado.event-publisher';
 import { ICompraService } from '../../domain/services/compra.service';
 import { ICreateCompraCommand } from '../utils/commands/compra/createCompra.command';
-import { CompraCreadaEventPublisher } from '../../domain/events/publishers/compra/compra-creada.event-publisher';
 import { IClienteService } from '../../domain/services/cliente.service';
 import { ICursoService } from '../../domain/services/curso.service';
-import { CursoCreadoEventPublisher } from '../../domain/events/publishers/compra/curso-creado.event-publisher';
 import { ICreateCursoCommand } from '../utils/commands/compra/createCurso.command';
 import { IUpdatePhoneCommand } from '../utils/commands/updatePhone.command';
-import { UpdatePhoneEventPublisher } from '../../domain/events/publishers/compra/cliente/update-phone.event-publisher';
 import { IUpdateCostoCommand } from '../utils/commands/compra/curso/updateCosto.command';
-import { UpdateCostoCursoEventPublisher } from '../../domain/events/publishers/compra/curso/update-costo.event-publisher';
-import { CursoConseguidoEventPublisher } from '../../domain/events/publishers/compra/curso/curso-conseguido.event-publisher';
 import { IObtenerCursoCommand } from '../utils/commands/compra/curso/obtenerCurso.command';
 import { IObtenerClienteCommand } from '../utils/commands/ObtenerCliente.command';
-import { ClienteConseguidoEventPublisher } from '../../domain/events/publishers/compra/cliente/cliente-conseguido.event-publisher';
+import { CreateClientePublisher, CreateCompraPublisher, CreateCursoPublisher, ObtenerClientePublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from '../messaging/publisher';
 
-@Controller('compra')
+@Controller('compra') 
 export class CompraController {
 
 
     constructor(
         private readonly compraService: ICompraService,
-        private readonly compraCreadaEventPublisher : CompraCreadaEventPublisher,
+        private readonly compraCreadaPublisher : CreateCompraPublisher,
 
         private readonly clienteService: IClienteService,
-        private readonly clienteCreadoEventPublisher: ClienteCreadoEventPublisher,
-        private readonly updatePhoneEventPublisher: UpdatePhoneEventPublisher,
-        private readonly clienteConseguidoEventPublisher: ClienteConseguidoEventPublisher,
+        private readonly clienteCreadoPublisher: CreateClientePublisher,
+        private readonly updatePhonePublisher: UpdatePhonePublisher,
+        private readonly clienteConseguidoPublisher: ObtenerClientePublisher,
 
         private readonly cursoService: ICursoService,
-        private readonly cursoCreadoEventPublisher: CursoCreadoEventPublisher,
-        private readonly updateCostoCursoEventPublisher: UpdateCostoCursoEventPublisher,
-        private readonly cursoConseguidoEventPublisher: CursoConseguidoEventPublisher
+        private readonly cursoCreadoPublisher: CreateCursoPublisher,
+        private readonly updateCostoCursoPublisher: UpdateCostoPublisher,
+        private readonly cursoConseguidoPublisher: ObtenerCursoPublisher
 
         
     ) {}
@@ -46,7 +40,7 @@ export class CompraController {
     async crearCompra(@Body() command: ICreateCompraCommand ) {
         const useCase = new CreateCompraUseCase(
             this.compraService,
-            this.compraCreadaEventPublisher,
+            this.compraCreadaPublisher,
         );
         return await useCase.execute(command);
     }
@@ -55,7 +49,7 @@ export class CompraController {
     async crearCliente(@Body() command: CreateClienteCommand) {
         const useCase = new CreateClienteUseCase(
             this.clienteService,
-            this.clienteCreadoEventPublisher,
+            this.clienteCreadoPublisher,
         );
         return await useCase.execute(command);
     }
@@ -64,7 +58,7 @@ export class CompraController {
     async crearCurso(@Body() command: ICreateCursoCommand ) {
         const useCase = new CreateCursoUseCase(
             this.cursoService,
-            this.cursoCreadoEventPublisher,
+            this.cursoCreadoPublisher,
         );
         return await useCase.execute(command);
     }
@@ -75,7 +69,7 @@ export class CompraController {
     async updatePhoneCliente(@Body() command: IUpdatePhoneCommand ) {
         const useCase = new UpdateClientPhoneUseCase(
             this.clienteService,
-            this.updatePhoneEventPublisher,
+            this.updatePhonePublisher,
         );
         return await useCase.execute(command);
     }
@@ -85,7 +79,7 @@ export class CompraController {
     async updateCostoCurso(@Body() command: IUpdateCostoCommand ) {
         const useCase = new UpdateCursoCostoUseCase(
             this.cursoService,
-            this.updateCostoCursoEventPublisher,
+            this.updateCostoCursoPublisher,
         );
         return await useCase.execute(command);
     }
@@ -96,7 +90,7 @@ export class CompraController {
     async obtenerCurso(@Body() command: IObtenerCursoCommand ) {
         const useCase = new ObtenerCursoUseCase(
             this.cursoService,
-            this.cursoConseguidoEventPublisher,
+            this.cursoConseguidoPublisher,
         );
         return await useCase.execute(command);
     }
@@ -106,7 +100,7 @@ export class CompraController {
     async obtenerCliente(@Body() command: IObtenerClienteCommand ) {
         const useCase = new  ObtenerClienteUseCase(
             this.clienteService,
-            this.clienteConseguidoEventPublisher,
+            this.clienteConseguidoPublisher,
         );
         return await useCase.execute(command);
     }
