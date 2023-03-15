@@ -2,7 +2,7 @@ import { Controller } from "@nestjs/common";
 import { Ctx, EventPattern, KafkaContext, Payload } from "@nestjs/microservices";
 
 @Controller()
-export class CounterController{
+export class CounterController {
 
     /**
      * EventPattern se utiliza para definir un patrón de evento de Kafka
@@ -22,7 +22,7 @@ export class CounterController{
      * @memberof CounterController
      */
     @EventPattern('store.counter-created')
-    counterCreated(@Payload() data: any, @Ctx() context: KafkaContext){
+    counterCreated(@Payload() data: any, @Ctx() context: KafkaContext) {
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -32,7 +32,7 @@ export class CounterController{
     }
 
     @EventPattern('store.product-created')
-    productCreated(@Payload() data: any, @Ctx() context: KafkaContext){
+    productCreated(@Payload() data: any, @Ctx() context: KafkaContext) {
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -42,7 +42,7 @@ export class CounterController{
     }
 
     @EventPattern('store.poster-created')
-    posterCreated(@Payload() data: any, @Ctx() context: KafkaContext){
+    posterCreated(@Payload() data: any, @Ctx() context: KafkaContext) {
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -50,5 +50,24 @@ export class CounterController{
         console.log('Context: ', context)
         console.log('--------------------------------------')
     }
-    
+
+    @EventPattern('store.getted-poster')
+    gettedPoster(@Payload() data: any, @Ctx() context: KafkaContext) {
+
+        console.log('--------------------------------------')
+        console.log('Data: ', data)
+        console.log('--------------------------------------')
+        console.log('Context: ', context)
+        console.log('--------------------------------------')
+    }
+
+    @EventPattern('store.getted-product')
+    gettedProduct(@Payload() data: any, @Ctx() context: KafkaContext) {
+
+        console.log('--------------------------------------')
+        console.log('Data: ', data)
+        console.log('--------------------------------------')
+        console.log('Context: ', context)
+        console.log('--------------------------------------')
+    }
 }
