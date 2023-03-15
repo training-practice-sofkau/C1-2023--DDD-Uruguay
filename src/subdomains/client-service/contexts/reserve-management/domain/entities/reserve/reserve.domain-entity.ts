@@ -15,7 +15,7 @@ export class ReserveDomainEntity implements IReserveDomainEntity{
     deletedAt?: number | Date;
 
     constructor(_data?: IReserveDomainEntity) {
-        if(_data.reserveId) this.reserveId = _data.reserveId;
+        if(_data?.reserveId) this.reserveId = _data.reserveId;
         else this.reserveId = uuidv4();
 
         if(_data?.startDate) this.startDate = _data.startDate;

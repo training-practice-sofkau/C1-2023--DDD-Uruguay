@@ -22,7 +22,7 @@ export class CheckOutDomainEntity implements ICheckOutDomainEntity{
     deletedAt?: number | Date;
 
     constructor(_data?: ICheckOutDomainEntity) {
-        if(_data.checkOutId) this.checkOutId = _data.checkOutId;
+        if(_data?.checkOutId) this.checkOutId = _data.checkOutId;
         else this.checkOutId = uuidv4();
 
         if(_data?.recepsionistName) this.recepsionistName = _data.recepsionistName;

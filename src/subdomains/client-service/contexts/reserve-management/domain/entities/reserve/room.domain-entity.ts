@@ -23,7 +23,7 @@ export class RoomDomainEntity implements IRoomDomainEntity{
     deletedAt?: number | Date;
 
     constructor(_data?: IRoomDomainEntity) {
-        if(_data.roomId) this.roomId = _data.roomId;
+        if(_data?.roomId) this.roomId = _data.roomId;
         else this.roomId = uuidv4();
 
         if(_data?.location) this.location = _data.location;

@@ -11,15 +11,15 @@ import {
 export class CustomerDomainEntity implements ICustomerDomainEntity{
 
     customerId?: string | IdValueObject;
-    fullName?: string | FullNameValueObject;
-    document?: number | DocumentValueObject;
+    fullName: string | FullNameValueObject;
+    document: number | DocumentValueObject;
     paymentMethod?: string | PaymentMethodValueObject;
     createdAt?: number | Date;
     updatedAt?: number | Date;
     deletedAt?: number | Date;
 
     constructor(_data?: ICustomerDomainEntity) {
-        if(_data.customerId) this.customerId = _data.customerId;
+        if(_data?.customerId) this.customerId = _data.customerId;
         else this.customerId = uuidv4();
 
         if(_data?.fullName) this.fullName = _data.fullName;

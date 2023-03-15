@@ -7,9 +7,6 @@ import {
 import {
     CheckInCreatedEventPublisher,
     GuestAddedEventPublisher,
-    GuestEmailUpdatedEventPublisher,
-    GuestPhoneUpdatedEventPublisher,
-    RoomKeyAccessLevelUpdatedEventPublisher,
     RoomKeyAddedEventPublisher,
     AccessLevelUpdatedEventPublisher,
     EmailUpdatedEventPublisher,
@@ -18,12 +15,8 @@ import {
     RoomKeyObtainedEventPublisher
 } from "../events";
 import {
-    ICreateCheckIn,
     IAddGuest,
     IAddRoomKey,
-    IUpdateGuestEmail,
-    IUpdateGuestPhone,
-    IUpdateRoomKeyAccessLevel,
     IUpdateAccessLevel,
     IUpdatePhone,
     IUpdateEmail
@@ -36,13 +29,10 @@ import {
 import { 
     CreateCheckIn,
     AddGuest,
-    UdateGuestEmail,
     AddRoomKey,
     UpdateAccessLevel,
     UpdateEmail,
-    UpdateGuestPhone,
     UpdatePhone,
-    UpdateRoomKeyAccessLevel,
     GetRoomKey,
     GetGuest,
 } from "./helpers";
@@ -58,9 +48,6 @@ export class CheckInAggregate implements
 
     private readonly checkInCreatedEventPublisher?: CheckInCreatedEventPublisher;
     private readonly guestAddedEventPublisher?: GuestAddedEventPublisher;
-    private readonly guestEmailUpdatedEventPublisher?: GuestEmailUpdatedEventPublisher;
-    private readonly guestPhoneUpdatedEventPublisher?: GuestPhoneUpdatedEventPublisher;
-    private readonly roomKeyAccessLevelUpdatedEventPublisher?: RoomKeyAccessLevelUpdatedEventPublisher;
     private readonly roomKeyAddedEventPublisher?: RoomKeyAddedEventPublisher;
     private readonly accessLevelUpdatedEventPublisher?: AccessLevelUpdatedEventPublisher;
     private readonly emailUpdatedEventPublisher?: EmailUpdatedEventPublisher;
@@ -76,9 +63,6 @@ export class CheckInAggregate implements
 
             checkInCreatedEventPublisher,
             guestAddedEventPublisher,
-            guestEmailUpdatedEventPublisher,
-            guestPhoneUpdatedEventPublisher,
-            roomKeyAccessLevelUpdatedEventPublisher,
             roomKeyAddedEventPublisher,
             phoneUpdatedEventPublisher,
             emailUpdatedEventPublisher,
@@ -92,9 +76,6 @@ export class CheckInAggregate implements
 
             checkInCreatedEventPublisher?: CheckInCreatedEventPublisher,
             guestAddedEventPublisher?: GuestAddedEventPublisher,
-            guestEmailUpdatedEventPublisher?: GuestEmailUpdatedEventPublisher,
-            guestPhoneUpdatedEventPublisher?: GuestPhoneUpdatedEventPublisher,
-            roomKeyAccessLevelUpdatedEventPublisher?: RoomKeyAccessLevelUpdatedEventPublisher,
             roomKeyAddedEventPublisher?: RoomKeyAddedEventPublisher,
             accessLevelUpdatedEventPublisher?: AccessLevelUpdatedEventPublisher,
             emailUpdatedEventPublisher?: EmailUpdatedEventPublisher,
@@ -109,9 +90,6 @@ export class CheckInAggregate implements
 
         this.checkInCreatedEventPublisher = checkInCreatedEventPublisher
         this.guestAddedEventPublisher = guestAddedEventPublisher
-        this.guestEmailUpdatedEventPublisher = guestEmailUpdatedEventPublisher
-        this.guestPhoneUpdatedEventPublisher = guestPhoneUpdatedEventPublisher
-        this.roomKeyAccessLevelUpdatedEventPublisher = roomKeyAccessLevelUpdatedEventPublisher
         this.roomKeyAddedEventPublisher = roomKeyAddedEventPublisher
         this.emailUpdatedEventPublisher = emailUpdatedEventPublisher
         this.phoneUpdatedEventPublisher = phoneUpdatedEventPublisher
@@ -121,7 +99,7 @@ export class CheckInAggregate implements
     }
 
 
-    async createCheckIn(checkIn: ICreateCheckIn): Promise<CheckInDomainEntity> {
+    async createCheckIn(checkIn: CheckInDomainEntity): Promise<CheckInDomainEntity> {
         if (!this.checkInService)
             throw new AggregateRootException('checkInService no esta definido')
         if (!this.checkInCreatedEventPublisher)
@@ -147,35 +125,6 @@ export class CheckInAggregate implements
 
         return await AddRoomKey(room, this.checkInService, this.roomKeyAddedEventPublisher)
     }
-
-    async udateGuestEmail(data: IUpdateGuestEmail): Promise<string> {
-        if (!this.checkInService)
-            throw new AggregateRootException('checkInService no esta definido')
-        if (!this.guestEmailUpdatedEventPublisher)
-            throw new AggregateRootException('guestEmailUpdatedEventPublisher no esta definido')
-
-        return await UdateGuestEmail(data, this.checkInService, this.guestEmailUpdatedEventPublisher)
-    }
-
-    async updateGuestPhone(data: IUpdateGuestPhone): Promise<string> {
-        if (!this.checkInService)
-            throw new AggregateRootException('checkInService no esta definido')
-        if (!this.guestPhoneUpdatedEventPublisher)
-            throw new AggregateRootException('guestPhoneUpdatedEventPublisher no esta definido')
-
-        return await UpdateGuestPhone(data, this.checkInService, this.guestPhoneUpdatedEventPublisher)
-    }
-
-    async updateRoomKeyAccessLevel(data: IUpdateRoomKeyAccessLevel): Promise<string> {
-        if (!this.checkInService)
-            throw new AggregateRootException('checkInService no esta definido')
-        if (!this.roomKeyAccessLevelUpdatedEventPublisher)
-            throw new AggregateRootException('roomKeyAccessLevelUpdatedEventPublisher no esta definido')
-
-        return await UpdateRoomKeyAccessLevel(data, this.checkInService, this.roomKeyAccessLevelUpdatedEventPublisher)
-    }
-
-
 
     async updatePhone(data: IUpdatePhone): Promise<GuestDomainEntity> {
         if (!this.guestService)

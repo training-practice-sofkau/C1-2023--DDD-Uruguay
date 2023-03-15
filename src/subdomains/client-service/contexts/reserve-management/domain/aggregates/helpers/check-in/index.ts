@@ -5,7 +5,4 @@ export * from './get-guest';
 export * from './get-room-key';
 export * from './update-access-level';
 export * from './update-email';
-export * from './update-guest-email';
-export * from './update-guest-phone';
 export * from './update-phone';
-export * from './update-room-key-access-level';

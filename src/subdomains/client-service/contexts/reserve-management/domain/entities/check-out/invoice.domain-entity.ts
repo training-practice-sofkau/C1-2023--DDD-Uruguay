@@ -9,7 +9,7 @@ export class InvoiceDomainEntity implements IInvoiceDomainEntity{
     cost: number | CostValueObject;
 
     constructor(_data?: IInvoiceDomainEntity) {
-        if(_data.invoiceId) this.invoiceId = _data.invoiceId;
+        if(_data?.invoiceId) this.invoiceId = _data.invoiceId;
         else this.invoiceId = uuidv4();
 
         if(_data?.date) this.date = _data.date;

@@ -104,8 +104,8 @@ export class CreateCheckInUseCase<
         })
     }
 
-    private exectueCheckInAggregate(checkIn: ICheckInDomainEntity): Promise<CheckInDomainEntity | null> {
-        return this.checkInAggregate.createCheckIn(checkIn as ICreateCheckIn)
+    private exectueCheckInAggregate(checkIn: CheckInDomainEntity): Promise<CheckInDomainEntity | null> {
+        return this.checkInAggregate.createCheckIn(checkIn)
     }
 }
 

@@ -104,7 +104,7 @@ export class CreateCheckOutUseCase<
         })
     }
 
-    private exectueCheckOutAggregate(checkOut: ICheckOutDomainEntity): Promise<CheckOutDomainEntity | null> {
-        return this.checkOutAggregate.createCheckOut(checkOut as ICreateCheckOut)
+    private exectueCheckOutAggregate(checkOut: CheckOutDomainEntity): Promise<CheckOutDomainEntity | null> {
+        return this.checkOutAggregate.createCheckOut(checkOut)
     }
 }

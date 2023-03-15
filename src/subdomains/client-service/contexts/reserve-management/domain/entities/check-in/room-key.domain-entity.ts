@@ -13,7 +13,7 @@ export class RoomKeyDomainEntity implements IRoomKeyDomainEntity {
     accessLevel: string | AccessLevelValueObject;
 
     constructor(_data?: IRoomKeyDomainEntity) {
-        if (_data.roomKeyId) this.roomKeyId = _data.roomKeyId;
+        if (_data?.roomKeyId) this.roomKeyId = _data.roomKeyId;
         else this.roomKeyId = uuidv4();
 
         if (_data?.roomNumber) this.roomNumber = _data.roomNumber;

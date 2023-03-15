@@ -15,23 +15,19 @@ import {
     IUpdateStartDate
 } from "../interfaces";
 
-export interface IReserveDomainService {
+export interface IReserveDomainService<T extends ReserveDomainEntity = ReserveDomainEntity> {
 
-    createReserve(reserve: ICreateReserve): Promise<ReserveDomainEntity>;
+    createReserve(reserve: T): Promise<T>;
 
     addRoom(room: IAddRoom): Promise<RoomDomainEntity>;
 
-    addCustomer(customer: IAddCustomer): Promise<CustomerDomainEntity>;
+    addCustomer(customer: CustomerDomainEntity): Promise<CustomerDomainEntity>;
 
     updateStartDate(data: IUpdateStartDate): Promise<ReserveDomainEntity>;
 
     updateEndDate(data: IUpdateEndDate): Promise<ReserveDomainEntity>;
 
     updateNumberOfGuests(data: IUpdateNumberOfGuests): Promise<ReserveDomainEntity>;
-
-    updateCustomerPaymentMethod(data: IUpdateCustomerPaymentMethod): Promise<string>;
-
-    updateRoomState(data: IUpdateRoomState): Promise<boolean>
 
     getCustomer(data: string): Promise<CustomerDomainEntity>;
 
