@@ -1,6 +1,8 @@
 import { ValueObjectBase } from '@sofka';
 import { IsEmpty, IsNumber } from '@validations';
 
+
+
 export class AmountObjectValue extends ValueObjectBase<number> {
   validateData(): void {
     this.validateStructure();

@@ -1,4 +1,4 @@
-import { IEventPublisher } from "../interface";
+import { IEventPublisher } from '@sofka';
 
 export abstract class EventPublisherBase<Response> implements IEventPublisher {
   private _response: Response | Response[] | null;

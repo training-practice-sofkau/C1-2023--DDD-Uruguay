@@ -1,9 +1,10 @@
-import { AggregateRootException } from '@sofka';
+
 
 import { ClientDomainEntitybase, OrderDomainEntityBase } from '../entities';
 import { RegisteredOrderEventPublisherBase, RegisteredClientEventPublisherBase } from '../events';
 import { IOrderDomainService, IClientDomainService } from '../services';
 import { CreateOrder, CreateClient } from './helpers';
+import { AggregateRootException } from '../../../../../../libs/sofka/exceptions/aggregate-root.exception';
 
 export class OrderAggregate
     implements

@@ -19,10 +19,34 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@sofka": [
-        "./src/libs/sofka/"
+        "./src/common/libs/sofka/"
       ],
       "@validations": [
-        "./src/libs/validations"
+        "./src/common/validations"
+      ],
+      // "@context/*": [
+      //   "./src/common/contexts/*/index"
+      // ],
+      "@context/logs/domain": [
+        "./src/common/contexts/logs/domain"
+      ],
+      "@context/logs/application": [
+        "./src/common/contexts/logs/application"
+      ],
+      "@context/logs/infrastructure": [
+        "./src/common/contexts/logs/infrastructure"
+      ],
+      "@context/security/domain": [
+        "./src/common/contexts/security/domain"
+      ],
+      "@context/security/domain/*": [
+        "./src/common/contexts/security/domain/*"
+      ],
+      "@context/security/application": [
+        "./src/common/contexts/security/application"
+      ],
+      "@context/security/infrastructure": [
+        "./src/common/contexts/security/infrastructure"
       ],
     }
   }

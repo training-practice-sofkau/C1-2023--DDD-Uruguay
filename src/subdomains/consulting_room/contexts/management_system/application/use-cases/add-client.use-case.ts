@@ -1,9 +1,10 @@
-import { ValueObjectErrorHandler, IUseCase, ValueObjectException } from '@sofka';
+
 
 import { IClientDomainService } from '../../domain/services';
 import { RegisteredClientEventPublisherBase } from '../../domain/events';
 import { ClientDomainEntitybase } from '../../domain/entities';
 import { IClientDomainEntity } from '../../domain/entities/interfaces';
+import { ValueObjectErrorHandler } from '../../../../../../libs/sofka/bases/value-object-error-handler.base';
 import {
     FullNameValueObject,
     PhoneObjectValue
@@ -13,6 +14,7 @@ import {
     IAddClientResponse,
     OrderAggregate
 } from '../../domain';
+import { IUseCase, ValueObjectException } from 'src/libs';
 
 export class AddClientUseCase<
     Command extends IAddClientCommand = IAddClientCommand,
